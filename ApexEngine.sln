@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CsEngine", "CsEngine\CsEngine.csproj", "{DE1BFC80-78C3-4583-9D74-E29F423152A0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApexEngine", "CsEngine\ApexEngine.csproj", "{DE1BFC80-78C3-4583-9D74-E29F423152A0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

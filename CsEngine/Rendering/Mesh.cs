@@ -6,7 +6,7 @@ using System.Collections;
 using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
-namespace CsEngine.Rendering
+namespace ApexEngine.Rendering
 {
     public class Mesh
     {

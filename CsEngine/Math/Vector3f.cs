@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CsEngine.Math
+namespace ApexEngine.Math
 {
     public class Vector3f
     {
+        public static Vector3f UNIT_X = new Vector3f(1.0f, 0.0f, 0.0f);
+        public static Vector3f UNIT_Y = new Vector3f(0.0f, 1.0f, 0.0f);
+        public static Vector3f UNIT_Z = new Vector3f(0.0f, 0.0f, 1.0f);
+        public static Vector3f UNIT_XYZ = new Vector3f(1.0f, 1.0f, 1.0f);
         public float x, y, z;
+        private Matrix4f tmpRot = new Matrix4f();
         public Vector3f()
         {
             Set(0.0f);
@@ -105,6 +110,20 @@ namespace CsEngine.Math
             this.z *= scalar;
             return this;
         }
+        public Vector3f Multiply(Matrix4f mat)
+        {
+	        Vector3f res = new Vector3f();
+	        res.Set(x * mat.values[Matrix4f.m00] + y * mat.values[Matrix4f.m01] + z * mat.values[Matrix4f.m02] + mat.values[Matrix4f.m03],
+			        x * mat.values[Matrix4f.m10] + y * mat.values[Matrix4f.m11] + z * mat.values[Matrix4f.m12] + mat.values[Matrix4f.m13],
+			        x * mat.values[Matrix4f.m20] + y * mat.values[Matrix4f.m21] + z * mat.values[Matrix4f.m22] + mat.values[Matrix4f.m23]);
+	        return res;
+        }
+        public Vector3f MultiplyStore(Matrix4f mat)
+        {
+            return Set(x * mat.values[Matrix4f.m00] + y * mat.values[Matrix4f.m01] + z * mat.values[Matrix4f.m02] + mat.values[Matrix4f.m03],
+                    x * mat.values[Matrix4f.m10] + y * mat.values[Matrix4f.m11] + z * mat.values[Matrix4f.m12] + mat.values[Matrix4f.m13],
+                    x * mat.values[Matrix4f.m20] + y * mat.values[Matrix4f.m21] + z * mat.values[Matrix4f.m22] + mat.values[Matrix4f.m23]);
+        }
         public Vector3f Divide(Vector3f other)
         {
             Vector3f res = new Vector3f();
@@ -137,7 +156,7 @@ namespace CsEngine.Math
         }
         public Vector3f Cross(Vector3f other)
         {
-            Vector3f res = new Vector3f();
+            Vector3f res = new Vector3f(this);
             float x1 = (res.y * other.z) - (res.z * other.y);
             float y1 = (res.z * other.x) - (res.x * other.z);
             float z1 = (res.x * other.y) - (res.y * other.x);
@@ -150,6 +169,18 @@ namespace CsEngine.Math
             float y1 = (this.z * other.x) - (this.x * other.z);
             float z1 = (this.x * other.y) - (this.y * other.x);
             return Set(x1, y1, z1);
+        }
+        public Vector3f Rotate(Vector3f axis, float angle)
+        {
+            Vector3f res = new Vector3f(this);
+            tmpRot.SetToRotation(axis, angle);
+            res.MultiplyStore(tmpRot);
+            return res;
+        }
+        public Vector3f RotateStore(Vector3f axis, float angle)
+        {
+            tmpRot.SetToRotation(axis, angle);
+            return MultiplyStore(tmpRot);
         }
         public Vector3f Normalize()
         {
@@ -180,6 +211,10 @@ namespace CsEngine.Math
         public float Dot(Vector3f other)
         {
 	        return this.x * other.x + this.y * other.y + this.z * other.z; 
+        }
+        public override string ToString()
+        {
+            return "[" + x + ", " + y + ", " + z + "]";
         }
     }
 }

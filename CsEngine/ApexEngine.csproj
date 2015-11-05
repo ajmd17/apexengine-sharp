@@ -8,7 +8,7 @@
     <ProjectGuid>{DE1BFC80-78C3-4583-9D74-E29F423152A0}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CsEngine</RootNamespace>
+    <RootNamespace>ApexEngine</RootNamespace>
     <AssemblyName>CsEngine</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
@@ -41,6 +41,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -48,6 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Input\Input.cs" />
+    <Compile Include="Input\KeyboardEvent.cs" />
     <Compile Include="Math\MathUtil.cs" />
     <Compile Include="Math\Matrix4f.cs" />
     <Compile Include="Math\MatrixUtil.cs" />
@@ -58,11 +61,19 @@
     <Compile Include="Math\Vector3f.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rendering\Camera.cs" />
+    <Compile Include="Rendering\Cameras\DefaultCamera.cs" />
+    <Compile Include="Rendering\Cameras\PerspectiveCamera.cs" />
+    <Compile Include="Rendering\Material.cs" />
     <Compile Include="Rendering\Mesh.cs" />
     <Compile Include="Rendering\MeshUtil.cs" />
+    <Compile Include="Rendering\RenderManager.cs" />
     <Compile Include="Rendering\Shader.cs" />
     <Compile Include="Rendering\Vertex.cs" />
     <Compile Include="Rendering\VertexAttributes.cs" />
+    <Compile Include="Scene\GameObject.cs" />
+    <Compile Include="Scene\Geometry.cs" />
+    <Compile Include="Scene\Node.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

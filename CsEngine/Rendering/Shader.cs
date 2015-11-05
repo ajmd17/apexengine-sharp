@@ -5,7 +5,8 @@ using System.Text;
 using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
-namespace CsEngine.Rendering
+using ApexEngine.Math;
+namespace ApexEngine.Rendering
 {
     public class Shader
     {
@@ -17,6 +18,7 @@ namespace CsEngine.Rendering
         const string A_BITANGENT = "a_bitangent";
         const string A_BONEWEIGHT = "a_boneweight";
         const string A_BONEINDEX = "a_boneindex";
+        protected Matrix4f worldMatrix, viewMatrix, projectionMatrix;
         protected int id = 0;
         public Shader(string vs_code, string fs_code)
         {
@@ -62,31 +64,49 @@ namespace CsEngine.Rendering
         public void Render(Mesh mesh)
         {
             SetDefaultValues();
-            //SetUniform("u_world", worldMatrix);
-            //SetUniform("u_view", viewMatrix);
-            //SetUniform("u_proj", projectionMatrix);
+            SetUniform("u_world", worldMatrix);
+            SetUniform("u_view", viewMatrix);
+            SetUniform("u_proj", projectionMatrix);
             mesh.Render();
         }
         static void SetDefaultValues()
         {
-            GL.Enable(EnableCap.CullFace);
+            GL.Disable(EnableCap.CullFace);
             GL.CullFace(CullFaceMode.Back);
             GL.Enable(EnableCap.DepthTest);
             GL.DepthMask(true);
         }
-        void AddVertexProgram(string vs)
+        public void SetTransforms(Matrix4f world, Matrix4f view, Matrix4f proj)
+        {
+            worldMatrix = world;
+            viewMatrix = view;
+            projectionMatrix = proj;
+        }
+        public Matrix4f GetWorldMatrix()
+        {
+            return worldMatrix;
+        }
+        public Matrix4f GetViewMatrix()
+        {
+            return viewMatrix;
+        }
+        public Matrix4f GetProjectionMatrix()
+        {
+            return projectionMatrix;
+        }
+        public void AddVertexProgram(string vs)
         {
             AddProgram(vs, ShaderType.VertexShader);
         }
-        void AddFragmentProgram(string fs)
+        public void AddFragmentProgram(string fs)
         {
             AddProgram(fs, ShaderType.FragmentShader);
         }
-        void AddGeometryProgram(string gs)
+        public void AddGeometryProgram(string gs)
         {
             AddProgram(gs, ShaderType.GeometryShader);
         }
-        void AddProgram(string code, ShaderType type)
+        public void AddProgram(string code, ShaderType type)
         {
             int shader = GL.CreateShader(type);
             if (shader == 0)
@@ -96,6 +116,48 @@ namespace CsEngine.Rendering
             GL.ShaderSource(shader, code);
             GL.CompileShader(shader);
             GL.AttachShader(id, shader);
+        }
+        public void SetUniform(string name, int i)
+        {
+            int loc = GL.GetUniformLocation(id, name);
+            GL.Uniform1(loc, i);
+        }
+        public void SetUniform(string name, float f)
+        {
+            int loc = GL.GetUniformLocation(id, name);
+            GL.Uniform1(loc, f);
+        }
+        public void SetUniform(string name, float x, float y)
+        {
+            int loc = GL.GetUniformLocation(id, name);
+            GL.Uniform2(loc, x, y);
+        }
+        public void SetUniform(string name, float x, float y, float z)
+        {
+            int loc = GL.GetUniformLocation(id, name);
+            GL.Uniform3(loc, x, y, z);
+        }
+        public void SetUniform(string name, float x, float y, float z, float w)
+        {
+            int loc = GL.GetUniformLocation(id, name);
+            GL.Uniform4(loc, x, y, z, w);
+        }
+        public void SetUniform(string name, Vector2f vec)
+        {
+            SetUniform(name, vec.x, vec.y);
+        }
+        public void SetUniform(string name, Vector3f vec)
+        {
+            SetUniform(name, vec.x, vec.y, vec.z);
+        }
+        public void SetUniform(string name, Vector4f vec)
+        {
+            SetUniform(name, vec.x, vec.y, vec.z, vec.w);
+        }
+        public void SetUniform(string name, Matrix4f mat)
+        {
+            int loc = GL.GetUniformLocation(id, name);
+            GL.UniformMatrix4(loc, 1, true, mat.values);
         }
     }
 }

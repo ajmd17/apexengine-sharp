@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using CsEngine.Math;
-namespace CsEngine.Rendering
+using ApexEngine.Math;
+namespace ApexEngine.Rendering
 {
     public class Vertex
     {
@@ -48,6 +48,14 @@ namespace CsEngine.Rendering
                 this.boneWeights[i] = other.boneWeights[i];
             }
         }
+        public void SetPosition(Vector3f pos) { position = pos; }
+        public void SetTexCoord0(Vector2f tc0) { texCoord0 = tc0; }
+        public void SetTexCoord1(Vector2f tc1) { texCoord0 = tc1; }
+        public void SetNormal(Vector3f norm) { normal = norm; }
+        public void SetTangent(Vector3f tang) { tangent = tang; }
+        public void SetBitangent(Vector3f bitang) { bitangent = bitang; }
+        public void SetBoneWeight(int i, float val) { boneWeights[i] = val; }
+        public void SetBoneIndex(int i, int val) { boneIndices[i] = val; }
         public Vector3f GetPosition() { return position; }
         public Vector2f GetTexCoord0() { return texCoord0; }
         public Vector2f GetTexCoord1() { return texCoord1; }

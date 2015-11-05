@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CsEngine.Math
+namespace ApexEngine.Math
 {
     public class Vector2f
     {
+        public static Vector2f UNIT_X = new Vector2f(1.0f, 0.0f);
+        public static Vector2f UNIT_Y = new Vector2f(0.0f, 1.0f);
+        public static Vector2f UNIT_XY = new Vector2f(1.0f, 1.0f);
         public float x, y;
         public Vector2f()
         {

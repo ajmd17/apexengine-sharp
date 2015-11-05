@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CsEngine.Math
+namespace ApexEngine.Math
 {
     public class Transform
     {
         protected Vector3f translation;
         protected Quaternion rotation;
         protected Vector3f scale;
-        protected Matrix4f matrix;
+        protected Matrix4f matrix, transMat = new Matrix4f(), 
+                                   rotMat = new Matrix4f(), 
+                                   scaleMat = new Matrix4f(),
+                                   rotScale = new Matrix4f();
         public Transform()
         {
             translation = new Vector3f(0, 0, 0);
@@ -25,40 +28,40 @@ namespace CsEngine.Math
         }
         protected void UpdateMatrix()
         {
-            Matrix4f transMat = MatrixUtil.SetToTranslation(translation);
-            Matrix4f rotMat = MatrixUtil.SetToRotation(rotation);
-            Matrix4f scaleMat = MatrixUtil.SetToScaling(scale);
-            Matrix4f rotScale = rotMat.Multiply(scaleMat);
+            transMat.SetToTranslation(translation);
+            rotMat.SetToRotation(rotation);
+            scaleMat.SetToScaling(scale);
+            rotScale = rotMat.Multiply(scaleMat);
             this.matrix = rotScale.Multiply(transMat);
         }
         public Matrix4f GetMatrix()
         {
             return matrix;
         }
-        void SetTranslation(Vector3f v)
+        public void SetTranslation(Vector3f v)
         {
             translation.Set(v);
             UpdateMatrix();
         }
-        Vector3f GetTranslation()
+        public Vector3f GetTranslation()
         {
             return translation;
         }
-        void SetRotation(Quaternion q)
+        public void SetRotation(Quaternion q)
         {
             rotation.Set(q);
             UpdateMatrix();
         }
-        Quaternion GetRotation()
+        public Quaternion GetRotation()
         {
             return rotation;
         }
-        void SetScale(Vector3f v)
+        public void SetScale(Vector3f v)
         {
             scale.Set(v);
             UpdateMatrix();
         }
-        Vector3f GetScale()
+        public Vector3f GetScale()
         {
             return scale;
         }

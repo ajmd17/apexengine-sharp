@@ -7,51 +7,89 @@ using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
-using CsEngine.Math;
-using CsEngine.Rendering;
-namespace CsEngine
+using ApexEngine.Math;
+using ApexEngine.Rendering;
+using ApexEngine.Scene;
+using ApexEngine.Input;
+namespace ApexEngine
 {
     class Program
     {
         static void Main(string[] args)
         {
             
-            using (var game = new GameWindow())
+            using (var game = new GameWindow(1080, 720))
             {
+                Node rootNode = new Node();
                 Mesh m = new Mesh();
                 Shader s = null;
+                Rendering.Cameras.DefaultCamera mycam = new Rendering.Cameras.DefaultCamera(45f);
                 game.Load += (sender, e) =>
                 {
-                    s = new Shader("attribute vec3 a_position;\nvoid main() {\ngl_Position = vec4(a_position, 1.0);\n}",
+                    rootNode.SetName("root");
+                    s = new Shader("attribute vec3 a_position;\nuniform mat4 u_world;\nuniform mat4 u_view;\nuniform mat4 u_proj;\nvoid main() {\ngl_Position = u_proj * u_view*  u_world * vec4(a_position, 1.0);\n}",
                         "void main() {\n gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);\n}");
 
                     // setup settings, load textures, sounds
                     List<Vertex> vertices = new List<Vertex>();
-                    vertices.Add(new Vertex(new Vector3f(-1.0f, -1.0f, 0.0f), new Vector2f(0.0f, 0.0f)));
+                    vertices.Add(new Vertex(new Vector3f(-1.0f, -1.0f, 0.0f)));
                     vertices.Add(new Vertex(new Vector3f(1.0f, -1.0f, 0.0f)));
                     vertices.Add(new Vertex(new Vector3f(1.0f, 1.0f, 0.0f)));
-                    m.SetVertices(vertices);
+                    for (int x = -3; x < 3; x++)
+                    {
+                        for (int z = -3; z < 3; z++)
+                        {
+
+                            Geometry g = new Geometry();
+                            m.SetVertices(vertices);
+                            g.SetMesh(m);
+                            g.SetShader(s);
+                            rootNode.AddChild(g);
+                            g.SetLocalTranslation(new Vector3f((float)System.Math.Sin(x)*5, 0.0f, (float)System.Math.Sin(z)*5+8));
+                        }
+                    }
                     game.VSync = VSyncMode.Off;
+
+                    Matrix4f ma = new Matrix4f();
+                    ma.SetToProjection(45, 512, 512, 0.1f, 150.0f);
+                    Console.WriteLine(ma);
                 };
 
                 game.Resize += (sender, e) =>
                 {
                     GL.Viewport(0, 0, game.Width, game.Height);
+                    RenderManager.WINDOW_X = game.X;
+                    RenderManager.WINDOW_Y = game.Y;
+                    RenderManager.SCREEN_HEIGHT = game.Height;
+                    RenderManager.SCREEN_WIDTH = game.Width;
                 };
-
+                float rot = 5f;
                 game.UpdateFrame += (sender, e) =>
                 {
+                    rot += 0.01f;
+                   // mycam.translation.z += 0.01f;
+                  //  mycam.Rotate(new Vector3f(0, 1, 0), rot);
                     // add game logic, input handling
+                 //   mycam.Rotate(new Vector3f(1, 0, 0), (float)System.Math.Sin(rot)*0.1f);
+                    mycam.Update();
+                    rootNode.Update();
                     if (game.Keyboard[Key.Escape])
                     {
                         game.Exit();
                     }
                 };
-
+                game.KeyDown += (sender, e) =>
+                {
+                      Input.Input.KeyDown(e.Key);
+                };
+                game.KeyUp += (sender, e) =>
+                {
+                    Input.Input.KeyUp(e.Key);
+                };
                 game.RenderFrame += (sender, e) =>
                 {
                     GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-
+                    RenderManager.Render(mycam);
                     // render graphics
                     /*GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
@@ -69,7 +107,8 @@ namespace CsEngine
                     GL.Vertex2(1.0f, 1.0f);
 
                     GL.End();*/
-                    s.Render(m);
+                    //s.Use();
+                    //s.Render(m);
 
                     game.SwapBuffers();
                 };

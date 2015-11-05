@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CsEngine.Math
+namespace ApexEngine.Math
 {
     public static class MatrixUtil
     {
@@ -47,13 +47,13 @@ namespace CsEngine.Math
 
             Matrix4f res = new Matrix4f();
 
-            res.values[Matrix4f.m00] = 1 - 2 * (yy + zz);
-            res.values[Matrix4f.m10] = 2 * (xy - zw);
-            res.values[Matrix4f.m20] = 2 * (xz + yw);
-            res.values[Matrix4f.m30] = 0;
-            res.values[Matrix4f.m01] = 2 * (xy + zw);
-            res.values[Matrix4f.m11] = 1 - 2 * (xx + zz);
-            res.values[Matrix4f.m21] = 2 * (yz - xw);
+            res.values[Matrix4f.m00] = 1f - 2f * (yy + zz);
+            res.values[Matrix4f.m10] = 2f * (xy - zw);
+            res.values[Matrix4f.m20] = 2f * (xz + yw);
+            res.values[Matrix4f.m30] = 0f;
+            res.values[Matrix4f.m01] = 2f * (xy + zw);
+            res.values[Matrix4f.m11] = 1f - 2f * (xx + zz);
+            res.values[Matrix4f.m21] = 2f * (yz - xw);
             res.values[Matrix4f.m31] = 0;
             res.values[Matrix4f.m02] = 2 * (xz - yw);
             res.values[Matrix4f.m12] = 2 * (yz + xw);

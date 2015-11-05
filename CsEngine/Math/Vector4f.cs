@@ -3,10 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CsEngine.Math
+namespace ApexEngine.Math
 {
     public class Vector4f
     {
+        public static Vector4f UNIT_XW = new Vector4f(1.0f, 0.0f, 0.0f, 1.0f);
+        public static Vector4f UNIT_YW = new Vector4f(0.0f, 1.0f, 0.0f, 1.0f);
+        public static Vector4f UNIT_ZW = new Vector4f(0.0f, 0.0f, 1.0f, 1.0f);
+        public static Vector4f UNIT_X = new Vector4f(1.0f, 0.0f, 0.0f, 0.0f);
+        public static Vector4f UNIT_Y = new Vector4f(0.0f, 1.0f, 0.0f, 0.0f);
+        public static Vector4f UNIT_Z = new Vector4f(0.0f, 0.0f, 1.0f, 0.0f);
+        public static Vector4f UNIT_W = new Vector4f(0.0f, 0.0f, 0.0f, 1.0f);
+        public static Vector4f UNIT_XYZW = new Vector4f(1.0f, 1.0f, 1.0f, 1.0f);
         public float x, y, z, w;
         public Vector4f()
         {
