@@ -49,11 +49,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\AssetLoader..cs" />
+    <Compile Include="Assets\ModelLoaders\ObjModelLoader.cs" />
     <Compile Include="Input\Input.cs" />
     <Compile Include="Input\KeyboardEvent.cs" />
+    <Compile Include="Input\MouseEvent.cs" />
     <Compile Include="Math\MathUtil.cs" />
     <Compile Include="Math\Matrix4f.cs" />
-    <Compile Include="Math\MatrixUtil.cs" />
     <Compile Include="Math\Quaternion.cs" />
     <Compile Include="Math\Transform.cs" />
     <Compile Include="Math\Vector4f.cs" />

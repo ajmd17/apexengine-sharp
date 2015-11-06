@@ -9,10 +9,16 @@ namespace ApexEngine.Input
     public class Input
     {
         private static List<KeyboardEvent> keyEvts = new List<KeyboardEvent>();
+        private static List<MouseEvent> mouseEvts = new List<MouseEvent>();
         public static List<OpenTK.Input.Key> keysdown = new List<OpenTK.Input.Key>();
+        public static List<OpenTK.Input.MouseButton> mousebtnsdown = new List<MouseButton>();
         public static void AddKeyboardEvent(KeyboardEvent e)
         {
             keyEvts.Add(e);
+        }
+        public static void AddMouseEvent(MouseEvent e)
+        {
+            mouseEvts.Add(e);
         }
         public static int GetMouseX()
         {
@@ -21,6 +27,42 @@ namespace ApexEngine.Input
         public static int GetMouseY()
         {
             return RenderManager.WINDOW_Y - System.Windows.Forms.Cursor.Position.Y + (RenderManager.SCREEN_HEIGHT / 2);//Mouse.GetState().Y;
+        }
+        public static void MouseButtonDown(OpenTK.Input.MouseButton btn)
+        {
+            if (!mousebtnsdown.Contains(btn))
+            {
+                for (int i = 0; i < mouseEvts.Count; i++)
+                {
+                    if (!mouseEvts[i].mouseUpEvt && mouseEvts[i].btn == btn)
+                    {
+                        mouseEvts[i].evt();
+                    }
+                }
+                mousebtnsdown.Add(btn);
+            }
+        }
+        public static bool IsMouseButtonDown(OpenTK.Input.MouseButton btn)
+        {
+            return mousebtnsdown.Contains(btn);
+        }
+        public static void MouseButtonUp(OpenTK.Input.MouseButton btn)
+        {
+            if (mousebtnsdown.Contains(btn))
+            {
+                for (int i = 0; i < mouseEvts.Count; i++)
+                {
+                    if (mouseEvts[i].mouseUpEvt && mouseEvts[i].btn == btn)
+                    {
+                        mouseEvts[i].evt();
+                    }
+                }
+                mousebtnsdown.Remove(btn);
+            }
+        }
+        public static bool IsMouseButtonUp(OpenTK.Input.MouseButton btn)
+        {
+            return !IsMouseButtonDown(btn);
         }
         public static void KeyDown(OpenTK.Input.Key key)
         {
@@ -54,7 +96,13 @@ namespace ApexEngine.Input
         public static void SetMousePosition(int mx, int my)
         {
             System.Windows.Forms.Cursor.Position = new System.Drawing.Point(RenderManager.WINDOW_X + mx , RenderManager.WINDOW_Y + my );
-         //   OpenTK.Input.Mouse.SetPosition(RenderManager.WINDOW_X + mx, RenderManager.WINDOW_Y + my);
+        }
+        public static void SetMouseVisible(bool isVisible)
+        {
+            if (!isVisible)
+                System.Windows.Forms.Cursor.Hide();
+            else
+                System.Windows.Forms.Cursor.Show();
         }
     }
 }

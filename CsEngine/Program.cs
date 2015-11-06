@@ -11,6 +11,7 @@ using ApexEngine.Math;
 using ApexEngine.Rendering;
 using ApexEngine.Scene;
 using ApexEngine.Input;
+using ApexEngine.Assets;
 namespace ApexEngine
 {
     class Program
@@ -30,8 +31,11 @@ namespace ApexEngine
                     s = new Shader("attribute vec3 a_position;\nuniform mat4 u_world;\nuniform mat4 u_view;\nuniform mat4 u_proj;\nvoid main() {\ngl_Position = u_proj * u_view*  u_world * vec4(a_position, 1.0);\n}",
                         "void main() {\n gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);\n}");
 
+                    Node loadedObj = (Node)(new Assets.ModelLoaders.ObjModelLoader().Load("C:\\Users\\User\\Desktop\\monkey.obj"));
+                    ((Geometry)(loadedObj.GetChild(0))).SetShader(s);
+                    rootNode.AddChild(loadedObj);
                     // setup settings, load textures, sounds
-                    List<Vertex> vertices = new List<Vertex>();
+                  /*  List<Vertex> vertices = new List<Vertex>();
                     vertices.Add(new Vertex(new Vector3f(-1.0f, -1.0f, 0.0f)));
                     vertices.Add(new Vertex(new Vector3f(1.0f, -1.0f, 0.0f)));
                     vertices.Add(new Vertex(new Vector3f(1.0f, 1.0f, 0.0f)));
@@ -47,12 +51,10 @@ namespace ApexEngine
                             rootNode.AddChild(g);
                             g.SetLocalTranslation(new Vector3f((float)System.Math.Sin(x)*5, 0.0f, (float)System.Math.Sin(z)*5+8));
                         }
-                    }
+                    }*/
                     game.VSync = VSyncMode.Off;
 
-                    Matrix4f ma = new Matrix4f();
-                    ma.SetToProjection(45, 512, 512, 0.1f, 150.0f);
-                    Console.WriteLine(ma);
+
                 };
 
                 game.Resize += (sender, e) =>
@@ -85,6 +87,14 @@ namespace ApexEngine
                 game.KeyUp += (sender, e) =>
                 {
                     Input.Input.KeyUp(e.Key);
+                };
+                game.MouseDown += (sender, e) =>
+                {
+                    Input.Input.MouseButtonDown(e.Button);
+                };
+                game.MouseUp += (sender, e) =>
+                {
+                    Input.Input.MouseButtonUp(e.Button);
                 };
                 game.RenderFrame += (sender, e) =>
                 {

@@ -25,6 +25,7 @@ namespace ApexEngine.Scene
                 shader.Render(mesh);
                 shader.End();
             }
+
         }
         public override void UpdateParents()
         {

@@ -41,7 +41,6 @@ namespace ApexEngine.Rendering
         }
         public void End()
         {
-
         }
         public static void Clear()
         {
@@ -71,6 +70,8 @@ namespace ApexEngine.Rendering
         }
         static void SetDefaultValues()
         {
+            GL.PointSize(4.0f);
+            GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill);
             GL.Disable(EnableCap.CullFace);
             GL.CullFace(CullFaceMode.Back);
             GL.Enable(EnableCap.DepthTest);

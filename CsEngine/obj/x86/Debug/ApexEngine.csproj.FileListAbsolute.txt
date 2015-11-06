@@ -5,3 +5,4 @@ C:\Users\User\documents\visual studio 2010\Projects\CsEngine\CsEngine\bin\Debug\
 C:\Users\User\documents\visual studio 2010\Projects\CsEngine\CsEngine\bin\Debug\OpenTK.dll
 C:\Users\User\documents\visual studio 2010\Projects\CsEngine\CsEngine\bin\Debug\OpenTK.pdb
 C:\Users\User\documents\visual studio 2010\Projects\CsEngine\CsEngine\bin\Debug\OpenTK.xml
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\CsEngine\obj\x86\Debug\ApexEngine.csprojResolveAssemblyReference.cache
