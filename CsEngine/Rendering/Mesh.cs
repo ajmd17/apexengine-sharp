@@ -86,20 +86,20 @@ namespace ApexEngine.Rendering
                 GL.EnableVertexAttribArray(0);
                 GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, vertexSize * sizeof(float), GetAttributes().GetPositionOffset());
             }
-            if (GetAttributes().HasAttribute(VertexAttributes.NORMALS))
-            {
-                GL.EnableVertexAttribArray(1);
-                GL.VertexAttribPointer(1, 3, VertexAttribPointerType.Float, false, vertexSize * sizeof(float), GetAttributes().GetNormalOffset());
-            }
             if (GetAttributes().HasAttribute(VertexAttributes.TEXCOORDS0))
             {
-                GL.EnableVertexAttribArray(2);
-                GL.VertexAttribPointer(2, 2, VertexAttribPointerType.Float, false, vertexSize * sizeof(float), GetAttributes().GetTexCoord0Offset());
+                GL.EnableVertexAttribArray(1);
+                GL.VertexAttribPointer(1, 2, VertexAttribPointerType.Float, false, vertexSize * sizeof(float), GetAttributes().GetTexCoord0Offset());
             }
             if (GetAttributes().HasAttribute(VertexAttributes.TEXCOORDS1))
             {
+                GL.EnableVertexAttribArray(2);
+                GL.VertexAttribPointer(2, 2, VertexAttribPointerType.Float, false, vertexSize * sizeof(float), GetAttributes().GetTexCoord1Offset());
+            }
+            if (GetAttributes().HasAttribute(VertexAttributes.NORMALS))
+            {
                 GL.EnableVertexAttribArray(3);
-                GL.VertexAttribPointer(3, 2, VertexAttribPointerType.Float, false, vertexSize * sizeof(float), GetAttributes().GetTexCoord1Offset());
+                GL.VertexAttribPointer(3, 3, VertexAttribPointerType.Float, false, vertexSize * sizeof(float), GetAttributes().GetNormalOffset());
             }
             if (GetAttributes().HasAttribute(VertexAttributes.TANGENTS))
             {

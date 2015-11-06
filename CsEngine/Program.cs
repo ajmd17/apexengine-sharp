@@ -28,13 +28,16 @@ namespace ApexEngine
                 game.Load += (sender, e) =>
                 {
                     rootNode.SetName("root");
-                    s = new Shader("attribute vec3 a_position;\nuniform mat4 u_world;\nuniform mat4 u_view;\nuniform mat4 u_proj;\nvoid main() {\ngl_Position = u_proj * u_view*  u_world * vec4(a_position, 1.0);\n}",
-                        "void main() {\n gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);\n}");
+                    s = new Shader("attribute vec3 a_position;\nattribute vec3 a_normal;\nvarying vec3 v_normal;\nuniform mat4 u_world;\nuniform mat4 u_view;\nuniform mat4 u_proj;\nvoid main() {\nv_normal = a_normal;\ngl_Position = u_proj * u_view*  u_world * vec4(a_position, 1.0);\n}",
+                        "varying vec3 v_normal;\nvoid main() {\n gl_FragColor = vec4(v_normal, 1.0);\n}");
+                    
+                    
 
-                    Node loadedObj = (Node)(new Assets.ModelLoaders.ObjModelLoader().Load("C:\\Users\\User\\Desktop\\monkey.obj"));
+                    Node loadedObj = (Node)(new Assets.ModelLoaders.ObjModelLoader().Load("C:\\Users\\User\\Desktop\\cube.obj"));
                     ((Geometry)(loadedObj.GetChild(0))).SetShader(s);
+                //    Console.WriteLine(((Geometry)(loadedObj.GetChild(0))).GetMesh().vertices[0].GetNormal());
                     rootNode.AddChild(loadedObj);
-                    // setup settings, load textures, sounds
+                    ApexEngine.Assets.ApxExporter.ApxExporter.ExportModel(loadedObj, "C:\\Users\\User\\Desktop\\cube.apx");
                   /*  List<Vertex> vertices = new List<Vertex>();
                     vertices.Add(new Vertex(new Vector3f(-1.0f, -1.0f, 0.0f)));
                     vertices.Add(new Vertex(new Vector3f(1.0f, -1.0f, 0.0f)));
@@ -98,28 +101,10 @@ namespace ApexEngine
                 };
                 game.RenderFrame += (sender, e) =>
                 {
+                    GL.ClearColor(0.39f, 0.58f, 0.93f, 1.0f);
                     GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
                     RenderManager.Render(mycam);
-                    // render graphics
-                    /*GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-
-                    GL.MatrixMode(MatrixMode.Projection);
-                    GL.LoadIdentity();
-                    GL.Ortho(-1.0, 1.0, -1.0, 1.0, 0.0, 4.0);
-
-                    GL.Begin(PrimitiveType.Triangles);
-
-                    GL.Color3(Color.MidnightBlue);
-                    GL.Vertex2(-1.0f, 1.0f);
-                    GL.Color3(Color.SpringGreen);
-                    GL.Vertex2(0.0f, -1.0f);
-                    GL.Color3(Color.Ivory);
-                    GL.Vertex2(1.0f, 1.0f);
-
-                    GL.End();*/
-                    //s.Use();
-                    //s.Render(m);
-
+                  
                     game.SwapBuffers();
                 };
 

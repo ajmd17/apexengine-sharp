@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\ApxExporter\ApxExporter.cs" />
     <Compile Include="Assets\AssetLoader..cs" />
     <Compile Include="Assets\ModelLoaders\ObjModelLoader.cs" />
     <Compile Include="Input\Input.cs" />

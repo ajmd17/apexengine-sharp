@@ -55,8 +55,8 @@ namespace ApexEngine.Rendering
             GL.BindAttribLocation(id, 3, A_NORMAL);
             GL.BindAttribLocation(id, 4, A_TANGENT);
             GL.BindAttribLocation(id, 5, A_BITANGENT);
-            GL.BindAttribLocation(id, 6, A_BONEINDEX);
-            GL.BindAttribLocation(id, 7, A_BONEWEIGHT);
+            GL.BindAttribLocation(id, 6, A_BONEWEIGHT);
+            GL.BindAttribLocation(id, 7, A_BONEINDEX);
             GL.LinkProgram(id);
             GL.ValidateProgram(id);
         }
