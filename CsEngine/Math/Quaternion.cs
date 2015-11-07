@@ -61,6 +61,106 @@ namespace ApexEngine.Math
 	        this.w = w1;
 	        return this;
         }
+        public Vector3f Multiply(Vector3f vec)
+        {
+            Vector3f res = new Vector3f();
+
+            float vx = vec.x, vy = vec.y, vz = vec.z;
+            res.x = w * w * vx + 2 * y * w * vz - 2 * z * w * vy + x * x
+                    * vx + 2 * y * x * vy + 2 * z * x * vz - z * z * vx - y
+                    * y * vx;
+            res.y = 2 * x * y * vx + y * y * vy + 2 * z * y * vz + 2 * w
+                    * z * vx - z * z * vy + w * w * vy - 2 * x * w * vz - x
+                    * x * vy;
+            res.z = 2 * x * z * vx + 2 * y * z * vy + z * z * vz - 2 * w
+                    * y * vx - y * y * vz + 2 * w * x * vy - x * x * vz + w
+                    * w * vz;
+
+            return res;
+        }
+
+        public Vector3f MultiplyStore(Vector3f vec)
+        {
+            float tempX, tempY;
+            tempX = w * w * vec.x + 2 * y * w * vec.z - 2 * z * w * vec.y + x * x * vec.x
+                    + 2 * y * x * vec.y + 2 * z * x * vec.z - z * z * vec.x - y * y * vec.x;
+            tempY = 2 * x * y * vec.x + y * y * vec.y + 2 * z * y * vec.z + 2 * w * z
+                    * vec.x - z * z * vec.y + w * w * vec.y - 2 * x * w * vec.z - x * x
+                    * vec.y;
+            vec.z = 2 * x * z * vec.x + 2 * y * z * vec.y + z * z * vec.z - 2 * w * y * vec.x
+                    - y * y * vec.z + 2 * w * x * vec.y - x * x * vec.z + w * w * vec.z;
+            vec.x = tempX;
+            vec.y = tempY;
+            return vec;
+        }
+        public Quaternion Slerp(Quaternion to, float amt)
+        {
+            // quaternion to return
+            Quaternion qm = new Quaternion();
+            // Calculate angle between them.
+            float cosHalfTheta = w * to.w + x * to.x + y * to.y + z * to.z;
+            // if qa=qb or qa=-qb then theta = 0 and we can return qa
+            if ((float)System.Math.Abs(cosHalfTheta) >= 1.0f)
+            {
+                qm.w = w;
+                qm.x = x;
+                qm.y = y;
+                qm.z = z;
+                return qm;
+            }
+            // Calculate temporary values.
+            float halfTheta = (float)System.Math.Acos(cosHalfTheta);
+            float sinHalfTheta = (float)System.Math.Sqrt(1.0 - cosHalfTheta * cosHalfTheta);
+            // if theta = 180 degrees then result is not fully defined
+            // we could rotate around any axis normal to qa or qb
+            if ((float)System.Math.Abs(sinHalfTheta) < 0.001f)
+            { // fabs is floating point absolute
+                qm.w = (w * 0.5f + to.w * 0.5f);
+                qm.x = (x * 0.5f + to.x * 0.5f);
+                qm.y = (y * 0.5f + to.y * 0.5f);
+                qm.z = (z * 0.5f + to.z * 0.5f);
+                return qm;
+            }
+            float ratioA = (float)System.Math.Sin((1 - amt) * halfTheta) / sinHalfTheta;
+            float ratioB = (float)System.Math.Sin(amt * halfTheta) / sinHalfTheta;
+            //calculate Quaternion.
+            qm.w = (w * ratioA + to.w * ratioB);
+            qm.x = (x * ratioA + to.x * ratioB);
+            qm.y = (y * ratioA + to.y * ratioB);
+            qm.z = (z * ratioA + to.z * ratioB);
+            return qm;
+        }
+        public Quaternion SlerpStore(Quaternion to, float amt)
+        {
+            // Calculate angle between them.
+            float cosHalfTheta = w * to.w + x * to.x + y * to.y + z * to.z;
+            // if qa=qb or qa=-qb then theta = 0 and we can return qa
+            if ((float)System.Math.Abs(cosHalfTheta) >= 1.0f)
+            {
+                return this;
+            }
+            // Calculate temporary values.
+            float halfTheta = (float)System.Math.Acos(cosHalfTheta);
+            float sinHalfTheta = (float)System.Math.Sqrt(1.0 - cosHalfTheta * cosHalfTheta);
+            // if theta = 180 degrees then result is not fully defined
+            // we could rotate around any axis normal to qa or qb
+            if ((float)System.Math.Abs(sinHalfTheta) < 0.001f)
+            { // fabs is floating point absolute
+                this.w = (w * 0.5f + to.w * 0.5f);
+                this.x = (x * 0.5f + to.x * 0.5f);
+                this.y = (y * 0.5f + to.y * 0.5f);
+                this.z = (z * 0.5f + to.z * 0.5f);
+                return this;
+            }
+            float ratioA = (float)System.Math.Sin((1 - amt) * halfTheta) / sinHalfTheta;
+            float ratioB = (float)System.Math.Sin(amt * halfTheta) / sinHalfTheta;
+            //calculate Quaternion.
+            this.w = (w * ratioA + to.w * ratioB);
+            this.x = (x * ratioA + to.x * ratioB);
+            this.y = (y * ratioA + to.y * ratioB);
+            this.z = (z * ratioA + to.z * ratioB);
+            return this;
+        }
         public float Normalize()
         {
 	        return w * w + x * x + y * y + z * z;
@@ -91,8 +191,8 @@ namespace ApexEngine.Math
         }
         public int GetGimbalPole()
         {
-	        float t = y * x + z * w;
-	        return t > 0.499f ? 1 : (t < -0.499f ? -1 : 0);
+	        float amt = y * x + z * w;
+	        return amt > 0.499f ? 1 : (amt < -0.499f ? -1 : 0);
         }
         public float GetRollRad()
         {
@@ -152,10 +252,10 @@ namespace ApexEngine.Math
 									        float yx, float yy, float yz, 
 									        float zx, float zy, float zz)
         {
-	        float t = xx + yy + zz;
-	        if (t >= 0.0f)
+	        float amt = xx + yy + zz;
+	        if (amt >= 0.0f)
 	        {
-		        float s = (float)System.Math.Sqrt(t + 1);
+		        float s = (float)System.Math.Sqrt(amt + 1);
 		        this.w = 0.5f * s;
 		        this.x = (zy - yz) * (0.5f / s);
 		        this.y = (xz - zx) * (0.5f / s);

@@ -49,7 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\ApxExporter\ApxExporter.cs" />
+    <Compile Include="Assets\Apx\ApxExporter.cs" />
+    <Compile Include="Assets\Apx\ApxModelLoader.cs" />
     <Compile Include="Assets\AssetLoader..cs" />
     <Compile Include="Assets\ModelLoaders\ObjModelLoader.cs" />
     <Compile Include="Input\Input.cs" />
@@ -64,6 +65,11 @@
     <Compile Include="Math\Vector3f.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rendering\Animation\Animation.cs" />
+    <Compile Include="Rendering\Animation\AnimationTrack.cs" />
+    <Compile Include="Rendering\Animation\Bone.cs" />
+    <Compile Include="Rendering\Animation\Keyframe.cs" />
+    <Compile Include="Rendering\Animation\Skeleton.cs" />
     <Compile Include="Rendering\Camera.cs" />
     <Compile Include="Rendering\Cameras\DefaultCamera.cs" />
     <Compile Include="Rendering\Cameras\PerspectiveCamera.cs" />
@@ -74,6 +80,7 @@
     <Compile Include="Rendering\Shader.cs" />
     <Compile Include="Rendering\Vertex.cs" />
     <Compile Include="Rendering\VertexAttributes.cs" />
+    <Compile Include="Scene\Components\Controller.cs" />
     <Compile Include="Scene\GameObject.cs" />
     <Compile Include="Scene\Geometry.cs" />
     <Compile Include="Scene\Node.cs" />

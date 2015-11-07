@@ -36,9 +36,15 @@ namespace ApexEngine
                     Node loadedObj = (Node)(new Assets.ModelLoaders.ObjModelLoader().Load("C:\\Users\\User\\Desktop\\cube.obj"));
                     ((Geometry)(loadedObj.GetChild(0))).SetShader(s);
                 //    Console.WriteLine(((Geometry)(loadedObj.GetChild(0))).GetMesh().vertices[0].GetNormal());
-                    rootNode.AddChild(loadedObj);
-                    ApexEngine.Assets.ApxExporter.ApxExporter.ExportModel(loadedObj, "C:\\Users\\User\\Desktop\\cube.apx");
-                  /*  List<Vertex> vertices = new List<Vertex>();
+                    //rootNode.AddChild(loadedObj);
+                    ApexEngine.Assets.Apx.ApxExporter.ExportModel(loadedObj, "C:\\Users\\User\\Desktop\\cube.apx");
+                    Node n2 = (Node)(new ApexEngine.Assets.Apx.ApxModelLoader().Load("C:\\Users\\User\\Desktop\\cube.apx"));
+                    ((Geometry)(n2.GetChild(0))).SetShader(s);
+                    rootNode.AddChild(n2);
+
+                    Console.WriteLine((new Vector3f(0f).LerpStore(new Vector3f(5f), 0.5f)));
+                   // Console.WriteLine(n2.GetChild(0).GetName());
+                    /*  List<Vertex> vertices = new List<Vertex>();
                     vertices.Add(new Vertex(new Vector3f(-1.0f, -1.0f, 0.0f)));
                     vertices.Add(new Vertex(new Vector3f(1.0f, -1.0f, 0.0f)));
                     vertices.Add(new Vertex(new Vector3f(1.0f, 1.0f, 0.0f)));

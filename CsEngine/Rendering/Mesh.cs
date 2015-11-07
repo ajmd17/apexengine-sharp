@@ -11,6 +11,7 @@ namespace ApexEngine.Rendering
     public class Mesh
     {
         protected int vbo, ibo, size;
+        protected Animation.Skeleton skeleton = null;
         public int vertexSize;
         public VertexAttributes attribs = new VertexAttributes();
         public List<Vertex> vertices = new List<Vertex>();
@@ -19,6 +20,14 @@ namespace ApexEngine.Rendering
         {
             vbo = 0;
             ibo = 0;
+        }
+        public Animation.Skeleton GetSkeleton()
+        {
+            return skeleton;
+        }
+        public void SetSkeleton(Animation.Skeleton skeleton)
+        {
+            this.skeleton = skeleton;
         }
         public VertexAttributes GetAttributes()
         {

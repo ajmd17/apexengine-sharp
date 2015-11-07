@@ -7,6 +7,7 @@ namespace ApexEngine.Math
 {
     public class Vector3f
     {
+        public static Vector3f ZERO = new Vector3f(0.0f, 0.0f, 0.0f);
         public static Vector3f UNIT_X = new Vector3f(1.0f, 0.0f, 0.0f);
         public static Vector3f UNIT_Y = new Vector3f(0.0f, 1.0f, 0.0f);
         public static Vector3f UNIT_Z = new Vector3f(0.0f, 0.0f, 1.0f);
@@ -152,6 +153,15 @@ namespace ApexEngine.Math
             this.x /= scalar;
             this.y /= scalar;
             this.z /= scalar;
+            return this;
+        }
+        public Vector3f Lerp(Vector3f to, float amt)
+        {
+            return Add((to.Subtract(this)).Multiply(amt));
+        }
+        public Vector3f LerpStore(Vector3f to, float amt)
+        {
+            AddStore((to.Subtract(this)).Multiply(amt));
             return this;
         }
         public Vector3f Cross(Vector3f other)

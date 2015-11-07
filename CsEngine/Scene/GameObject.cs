@@ -8,6 +8,7 @@ namespace ApexEngine.Scene
     public abstract class GameObject
     {
         private bool updateNeeded = true;
+        protected List<Components.Controller> controls = new List<Components.Controller>();
         protected Vector3f localTranslation;
         protected Vector3f localScale;
         protected Quaternion localRotation;
@@ -41,7 +42,7 @@ namespace ApexEngine.Scene
         {
             return this.name;
         }
-        public void SetParent(Node newParent)
+        public virtual void SetParent(Node newParent)
         {
             this.parent = newParent;
             SetUpdateNeeded();
@@ -154,8 +155,12 @@ namespace ApexEngine.Scene
                 UpdateParents();
                 updateNeeded = false;
             }
+            for (int i = 0; i < controls.Count; i++)
+            {
+                controls[i].Update();
+            }
         }
-        protected void UpdateTransform()
+        public virtual void UpdateTransform()
         {
             Vector3f worldTrans = GetUpdatedWorldTranslation();
             Quaternion worldRot = GetUpdatedWorldRotation();
