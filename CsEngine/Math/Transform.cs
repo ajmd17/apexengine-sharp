@@ -10,10 +10,11 @@ namespace ApexEngine.Math
         protected Vector3f translation;
         protected Quaternion rotation;
         protected Vector3f scale;
-        protected Matrix4f matrix, transMat = new Matrix4f(), 
+        protected Matrix4f matrix = new Matrix4f(), transMat = new Matrix4f(), 
                                    rotMat = new Matrix4f(), 
                                    scaleMat = new Matrix4f(),
                                    rotScale = new Matrix4f();
+        private bool matrixUpdateNeeded = false;
         public Transform()
         {
             translation = new Vector3f(0, 0, 0);
@@ -31,17 +32,24 @@ namespace ApexEngine.Math
             transMat.SetToTranslation(translation);
             rotMat.SetToRotation(rotation);
             scaleMat.SetToScaling(scale);
-            rotScale = rotMat.Multiply(scaleMat);
-            this.matrix = rotScale.Multiply(transMat);
+            rotScale.Set(rotMat);
+            rotScale.MultiplyStore(scaleMat);
+            rotScale.MultiplyStore(transMat);
+            this.matrix = rotScale;
         }
         public Matrix4f GetMatrix()
         {
+            if (matrixUpdateNeeded)
+            {
+                UpdateMatrix();
+                matrixUpdateNeeded = false;
+            }
             return matrix;
         }
         public void SetTranslation(Vector3f v)
         {
             translation.Set(v);
-            UpdateMatrix();
+            matrixUpdateNeeded = true;
         }
         public Vector3f GetTranslation()
         {
@@ -50,7 +58,7 @@ namespace ApexEngine.Math
         public void SetRotation(Quaternion q)
         {
             rotation.Set(q);
-            UpdateMatrix();
+            matrixUpdateNeeded = true;
         }
         public Quaternion GetRotation()
         {
@@ -59,7 +67,7 @@ namespace ApexEngine.Math
         public void SetScale(Vector3f v)
         {
             scale.Set(v);
-            UpdateMatrix();
+            matrixUpdateNeeded = true;
         }
         public Vector3f GetScale()
         {

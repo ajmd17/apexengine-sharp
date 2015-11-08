@@ -9,6 +9,13 @@ namespace ApexEngine.Rendering.Animation
     {
         private Bone bone;
         public List<Keyframe> frames = new List<Keyframe>();
+        private Vector3f tmpVec = new Vector3f();
+        private Quaternion tmpRot = new Quaternion();
+        private Keyframe tmpFrame = new Keyframe(0, new Vector3f(), new Quaternion());
+        public AnimationTrack(Bone bone)
+        {
+            SetBone(bone);
+        }
         public void SetBone(Bone bone)
         {
             this.bone = bone;
@@ -17,9 +24,17 @@ namespace ApexEngine.Rendering.Animation
         {
             return bone;
         }
+        public float GetTrackLength()
+        {
+            return frames[frames.Count - 1].GetTime();
+        }
+        public void AddKeyframe(Keyframe frame)
+        {
+            frames.Add(frame);
+        }
         public Keyframe GetPoseAt(float time)
         {
-            /* int first = 0, second = -1;
+             int first = 0, second = -1;
 
              Keyframe currentKeyframe = null;
              Keyframe nextKeyframe = null;
@@ -34,21 +49,22 @@ namespace ApexEngine.Rendering.Animation
              }
              currentKeyframe = frames[first];
 
-             Vector3f trans = new Vector3f(currentKeyframe.GetTranslation());
-             Quaternion rot = currentKeyframe.GetRotation();
+             tmpVec.Set(currentKeyframe.GetTranslation());
+             tmpRot.Set(currentKeyframe.GetRotation());
              if (second > first)
              {
                  nextKeyframe = frames[second];
 
                  float fraction = (time - currentKeyframe.GetTime()) / (nextKeyframe.GetTime() - currentKeyframe.GetTime());
-                 trans.LerpStore(nextKeyframe.GetTranslation(), fraction);
+                 tmpVec.LerpStore(nextKeyframe.GetTranslation(), fraction);
                  Quaternion nextrot = nextKeyframe.GetRotation();
-                 rot.SlerpStore(nextrot, fraction);
+                 tmpRot.SlerpStore(nextrot, fraction);
              }
-             Keyframe res = new Keyframe(time, trans, rot);
-
-             return res;*/
-            return null;
+            //   Keyframe res = new Keyframe(time, tmpVec, tmpRot);
+            tmpFrame.SetTime(time);
+            tmpFrame.SetTranslation(tmpVec);
+            tmpFrame.SetRotation(tmpRot);
+             return tmpFrame;
         }
     }
 }

@@ -22,9 +22,8 @@ namespace ApexEngine.Rendering.Cameras
         public override void UpdateMatrix()
         {
             rotation.SetToLookAt(direction, up);
-          //  viewMatrix.SetToLookAt(direction, up);
             viewMatrix.SetToLookAt(translation, translation.Add(direction), up);
-            projMatrix.SetToProjection(45, RenderManager.SCREEN_WIDTH, RenderManager.SCREEN_HEIGHT, 0.5f, 100f);
+            projMatrix.SetToProjection(67, RenderManager.SCREEN_WIDTH, RenderManager.SCREEN_HEIGHT, 0.5f, 100f);
             yaw = rotation.GetYaw();
             roll = rotation.GetRoll();
             pitch = rotation.GetPitch();

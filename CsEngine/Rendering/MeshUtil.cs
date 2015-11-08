@@ -67,7 +67,7 @@ namespace ApexEngine.Rendering
 	        {
 		        offset += prevSize * 4;
 		        mesh.GetAttributes().SetBoneIndexOffset(offset);
-		        prevSize = 3;
+		        prevSize = 4;
 		        vertSize += prevSize;
 	        }
 	        mesh.vertexSize = vertSize;

@@ -28,5 +28,9 @@ namespace ApexEngine.Math
             }
             return val;
         }
+        public static float Lerp(float from, float to, float amt)
+        {
+            return from + amt * (to - from);
+        }
     }
 }

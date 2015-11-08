@@ -16,8 +16,8 @@ namespace ApexEngine.Rendering
         const string A_NORMAL = "a_normal";
         const string A_TANGENT = "a_tangent";
         const string A_BITANGENT = "a_bitangent";
-        const string A_BONEWEIGHT = "a_boneweight";
-        const string A_BONEINDEX = "a_boneindex";
+        const string A_BONEWEIGHT = "a_boneweights";
+        const string A_BONEINDEX = "a_boneindices";
         protected Matrix4f worldMatrix, viewMatrix, projectionMatrix;
         protected int id = 0;
         public Shader(string vs_code, string fs_code)
@@ -62,20 +62,24 @@ namespace ApexEngine.Rendering
         }
         public void Render(Mesh mesh)
         {
+            mesh.Render();
+        }
+        public virtual void Update(Camera cam, Mesh mesh)
+        {
             SetDefaultValues();
             SetUniform("u_world", worldMatrix);
             SetUniform("u_view", viewMatrix);
             SetUniform("u_proj", projectionMatrix);
-            mesh.Render();
         }
         static void SetDefaultValues()
         {
             GL.PointSize(4.0f);
             GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill);
-            GL.Disable(EnableCap.CullFace);
+            GL.Enable(EnableCap.CullFace);
             GL.CullFace(CullFaceMode.Back);
             GL.Enable(EnableCap.DepthTest);
             GL.DepthMask(true);
+            GL.Enable(EnableCap.DepthClamp);
         }
         public void SetTransforms(Matrix4f world, Matrix4f view, Matrix4f proj)
         {

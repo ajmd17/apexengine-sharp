@@ -17,6 +17,8 @@ namespace ApexEngine.Scene
         protected bool attachedToRoot = false;
         protected string name = "";
         protected Node parent;
+        private Vector3f wtrans = new Vector3f(), wscl = new Vector3f();
+        private Quaternion wrot = new Quaternion();
         public GameObject()
         {
             localTranslation = new Vector3f(0, 0, 0);
@@ -33,6 +35,43 @@ namespace ApexEngine.Scene
             localRotation = new Quaternion(0, 0, 0, 1);
             worldTransform = new Transform();
             parent = null;
+        }
+        public void AddController(Components.Controller ctrl)
+        {
+            if (!controls.Contains(ctrl))
+            {
+                controls.Add(ctrl);
+                ctrl.Init();
+            }
+        }
+        public void RemoveController(Components.Controller ctrl)
+        {
+            if (controls.Contains(ctrl))
+            {
+                controls.Remove(ctrl);
+            }
+        }
+        public bool HasController(Type ctrlType)
+        {
+            for (int i = 0; i < controls.Count; i++)
+            {
+                if (controls[i].GetType() == ctrlType)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public Components.Controller GetController(Type ctrlType)
+        {
+            for (int i = 0; i < controls.Count; i++)
+            {
+                if (controls[i].GetType() == ctrlType)
+                {
+                    return controls[i];
+                }
+            }
+            return null;
         }
         public void SetName(string name)
         {
@@ -55,41 +94,41 @@ namespace ApexEngine.Scene
         {
             return parent;
         }
-        public Vector3f GetLocalTranslation()
+        public virtual Vector3f GetLocalTranslation()
         {
             return localTranslation;
         }
-        public Vector3f GetWorldTranslation()
+        public virtual Vector3f GetWorldTranslation()
         {
             return worldTransform.GetTranslation();
         }
-        public void SetLocalTranslation(Vector3f vec)
+        public virtual void SetLocalTranslation(Vector3f vec)
         {
             localTranslation.Set(vec);
             SetUpdateNeeded();
         }
-        public Vector3f GetLocalScale()
+        public virtual Vector3f GetLocalScale()
         {
             return localScale;
         }
-        public Vector3f GetWorldScale()
+        public virtual Vector3f GetWorldScale()
         {
             return worldTransform.GetScale();
         }
-        public void SetLocalScale(Vector3f vec)
+        public virtual void SetLocalScale(Vector3f vec)
         {
             localScale.Set(vec);
             SetUpdateNeeded();
         }
-        public Quaternion GetLocalRotation()
+        public virtual Quaternion GetLocalRotation()
         {
             return localRotation;
         }
-        public Quaternion GetWorldRotation()
+        public virtual Quaternion GetWorldRotation()
         {
             return worldTransform.GetRotation();
         }
-        public void SetLocalRotation(Quaternion quat)
+        public virtual void SetLocalRotation(Quaternion quat)
         {
             localRotation.Set(quat);
             SetUpdateNeeded();
@@ -105,9 +144,9 @@ namespace ApexEngine.Scene
         }
         protected Vector3f GetUpdatedWorldTranslation()
         {
-	        Vector3f wTrans = new Vector3f();
-	        UpdateWorldTranslation(wTrans);
-	        return wTrans;
+            wtrans.Set(0, 0, 0);
+	        UpdateWorldTranslation(wtrans);
+	        return wtrans;
         }
         protected void UpdateWorldScale(Vector3f outw)
         {
@@ -120,9 +159,9 @@ namespace ApexEngine.Scene
         }
         protected Vector3f GetUpdatedWorldScale()
         {
-            Vector3f wScl = new Vector3f(1, 1, 1);
-            UpdateWorldScale(wScl);
-            return wScl;
+            wscl.Set(1, 1, 1);
+            UpdateWorldScale(wscl);
+            return wscl;
         }
         protected void UpdateWorldRotation(Quaternion outw)
         {
@@ -135,9 +174,9 @@ namespace ApexEngine.Scene
         }
         protected Quaternion GetUpdatedWorldRotation()
         {
-            Quaternion wRot = new Quaternion(0, 0, 0, 1);
-            UpdateWorldRotation(wRot);
-            return wRot;
+            wrot.SetToIdentity();
+            UpdateWorldRotation(wrot);
+            return wrot;
         }
         public Matrix4f GetWorldMatrix()
         {

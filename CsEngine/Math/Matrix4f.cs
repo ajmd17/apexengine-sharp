@@ -351,5 +351,34 @@ namespace ApexEngine.Math
             this.MultiplyStore(lookAt);
             return this;
         }
+        public Matrix4f SetToOrtho(float left, float right, float bottom, float top, float near, float far)
+        {
+            float x_orth = 2 / (right - left);
+            float y_orth = 2 / (top - bottom);
+            float z_orth = -2 / (far - near);
+
+            float tx = -(right + left) / (right - left);
+            float ty = -(top + bottom) / (top - bottom);
+            float tz = -(far + near) / (far - near);
+
+            values[m00] = x_orth;
+            values[m10] = 0;
+            values[m20] = 0;
+            values[m30] = 0;
+            values[m01] = 0;
+            values[m11] = y_orth;
+            values[m21] = 0;
+            values[m31] = 0;
+            values[m02] = 0;
+            values[m12] = 0;
+            values[m22] = z_orth;
+            values[m32] = 0;
+            values[m03] = tx;
+            values[m13] = ty;
+            values[m23] = tz;
+            values[m33] = 1;
+
+            return this;
+        }
     }
 }

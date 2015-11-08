@@ -294,6 +294,14 @@ namespace ApexEngine.Math
 				        mat.values[Matrix4f.m02], mat.values[Matrix4f.m12], mat.values[Matrix4f.m22]);
 	        return this;
         }
+        public Quaternion SetToIdentity()
+        {
+            this.x = 0.0f;
+            this.y = 0.0f;
+            this.z = 0.0f;
+            this.w = 1.0f;
+            return this;
+        }
         public Quaternion SetToLookAt(Vector3f dir, Vector3f up)
         {
 	        Vector3f tempZ = new Vector3f();
@@ -311,6 +319,10 @@ namespace ApexEngine.Math
             		        tempY.x, tempY.y,tempY.z,
             		        tempZ.x, tempZ.y, tempZ.z);
 	        return this;
+        }
+        public override string ToString()
+        {
+            return "[" + x + ", " + y + ", " + z + ", " + w + "]";
         }
     }
 }

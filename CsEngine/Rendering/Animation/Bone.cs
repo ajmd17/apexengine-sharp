@@ -14,7 +14,7 @@ namespace ApexEngine.Rendering.Animation
         private Vector3f axis = new Vector3f();
         private float angle = 0f;
         private Vector3f localTrans = new Vector3f();
-        // private Keyframe currentPose;
+        private Keyframe currentPose;
         protected Quaternion modelRot = new Quaternion();
         protected Matrix4f mat = new Matrix4f();
         private Quaternion bindRot = new Quaternion();
@@ -27,14 +27,11 @@ namespace ApexEngine.Rendering.Animation
         private Vector3f tmpMpos = new Vector3f();
         private Matrix4f rotMatrix = new Matrix4f();
         private Quaternion poseRot = new Quaternion();
-        private Quaternion boneLocalRot = new Quaternion();
-        private Vector3f boneLocalPos = new Vector3f();
-        /*
-
-        private Keyframe GetCurrentPose()
+        private Quaternion tmpRot = new Quaternion();
+        public Keyframe GetCurrentPose()
         {
             return currentPose;
-        }*/
+        }
         public Bone(string name)
         {
             this.name = name;
@@ -130,8 +127,8 @@ namespace ApexEngine.Rendering.Animation
         }
         public void SetToBindingPose()
         {
-            this.boneLocalRot = new Quaternion();
-            this.boneLocalPos = this.GetBindTranslation();
+            this.localRotation = new Quaternion();
+            this.localTranslation = this.GetBindTranslation();
             this.poseRot = this.GetBindRotation();
             UpdateTransform();
         }
@@ -140,36 +137,66 @@ namespace ApexEngine.Rendering.Animation
             this.invBindPos = this.modelPos.Multiply(-1f);
             this.invBindRot = this.modelRot.Inverse();
 
-            this.boneLocalRot = new Quaternion();
-            this.boneLocalPos = new Vector3f();
+            this.localRotation = new Quaternion();
+            this.localTranslation = new Vector3f();
+        }
+        public void ClearPose()
+        {
+            poseRot.SetToIdentity();
+           // UpdateTransform();
+        }
+        public void ApplyPose(Keyframe pose)
+        {
+            currentPose = pose;
+            SetLocalTranslation(pose.GetTranslation());
+            poseRot = pose.GetRotation();
+            UpdateTransform();
+        }
+        public override void Update()
+        {
+            // do nothing
         }
         public Matrix4f GetBoneMatrix()
         {
             return boneMatrix;
         }
-        public Quaternion GetWorldRotation()
+        public override Quaternion GetWorldRotation()
         {
-            return modelRot.Multiply(boneLocalRot);
+            return modelRot.Multiply(localRotation);
         }
-        public void SetLocalRotation(Quaternion localRot)
+        public override void SetLocalRotation(Quaternion localRot)
         {
-            boneLocalRot.Set(localRot);
+            localRotation.Set(localRot);
+            UpdateTransform();
+        }
+        public void SetLocalRotation(Vector3f axis, float deg)
+        {
+            localRotation.SetFromAxis(axis, deg);
             UpdateTransform();
         }
         public override void UpdateTransform()
         {
             tmpMpos.Set(modelPos);
-            rotMatrix.SetToTranslation(tmpMpos.Multiply(-1f));
-            tmpMatrix.SetToRotation((modelRot.Multiply(poseRot).Multiply(boneLocalRot)).Multiply(invBindRot));
+            tmpMpos.MultiplyStore(-1f);
+            rotMatrix.SetToTranslation(tmpMpos);
+
+            tmpRot.Set(modelRot);
+            tmpRot.MultiplyStore(poseRot);
+            tmpRot.MultiplyStore(localRotation);
+            tmpRot.MultiplyStore(invBindRot);
+
+            tmpMatrix.SetToRotation(tmpRot);
             rotMatrix.MultiplyStore(tmpMatrix);
+            tmpMpos.MultiplyStore(-1f);
             tmpMatrix.SetToTranslation(tmpMpos);
             rotMatrix.MultiplyStore(tmpMatrix);
-            tmpMatrix.SetToTranslation(boneLocalPos);
-            mat = rotMatrix.Multiply(tmpMatrix);
+            tmpMatrix.SetToTranslation(localTranslation);
+            rotMatrix.MultiplyStore(tmpMatrix);
+            boneMatrix.Set(rotMatrix);
             if (parentBone != null)
-                boneMatrix = mat.Multiply(parentBone.boneMatrix);
-            else
-                boneMatrix = mat;
+            {
+                boneMatrix.MultiplyStore(parentBone.boneMatrix);
+            }
             for (int i = 0; i < children.Count; i++)
             {
                 if (children[i] is Bone)
@@ -183,9 +210,7 @@ namespace ApexEngine.Rendering.Animation
         {
             base.SetParent(par);
             if (par is Bone)
-            {
                 this.parentBone = (Bone)par;
-            }
         }
     }
 }

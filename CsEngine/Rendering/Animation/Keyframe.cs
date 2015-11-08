@@ -10,6 +10,8 @@ namespace ApexEngine.Rendering.Animation
         private float time;
         private Vector3f translation = new Vector3f(Vector3f.ZERO);
         private Quaternion rotation = new Quaternion();
+        private Quaternion tmpRot = new Quaternion();
+        private Vector3f tmpVec = new Vector3f();
         public Keyframe(float time, Vector3f translation, Quaternion rotation)
         {
             this.time = time;
@@ -48,13 +50,11 @@ namespace ApexEngine.Rendering.Animation
         }
         public Keyframe Blend(Keyframe to, float amt)
         {
-            Vector3f trans = new Vector3f();
-            trans.Set(GetTranslation());
-            trans.LerpStore(to.GetTranslation(), amt);
-            Quaternion q4 = new Quaternion();
-            q4.Set(GetRotation());
-            q4.SlerpStore(to.GetRotation(), amt);
-            Keyframe c = new Keyframe(GetTime(), trans, q4);
+            tmpVec.Set(GetTranslation());
+            tmpVec.LerpStore(to.GetTranslation(), amt);
+            tmpRot.Set(GetRotation());
+            tmpRot.SlerpStore(to.GetRotation(), amt);
+            Keyframe c = new Keyframe(MathUtil.Lerp(GetTime(), to.GetTime(), amt), tmpVec, tmpRot);
             return c;
         }
     }

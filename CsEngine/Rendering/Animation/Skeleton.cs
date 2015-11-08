@@ -40,6 +40,10 @@ namespace ApexEngine.Rendering.Animation
         {
             return bones.Count;
         }
+        public void AddBone(Bone bone)
+        {
+            bones.Add(bone);
+        }
         public Bone GetBone(string name)
         {
             for (int i = 0; i < bones.Count; i++)

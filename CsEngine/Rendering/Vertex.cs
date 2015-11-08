@@ -13,8 +13,9 @@ namespace ApexEngine.Rendering
         public Vector2f texCoord1;
         public Vector3f tangent;
         public Vector3f bitangent;
-        public float[] boneWeights = new float[4];
-        public int[] boneIndices = new int[4];
+        public float[] boneWeights = new float[] { 0.0f, 0.0f, 0.0f, 0.0f };
+        public int[] boneIndices = new int[] { 0, 0, 0, 0 };
+        private int boneISize = 0, boneWSize = 0;
         public Vertex()
         {
 
@@ -64,5 +65,19 @@ namespace ApexEngine.Rendering
         public Vector3f GetBitangent() { return bitangent; }
         public float GetBoneWeight(int i) { return boneWeights[i]; }
         public int GetBoneIndex(int i) { return boneIndices[i]; }
+        public void AddBoneWeight(float weight)
+        {
+            if (boneWSize < 4)
+            {
+                boneWeights[boneWSize++] = weight;
+            }
+        }
+        public void AddBoneIndex(int idx)
+        {
+            if (boneISize < 4)
+            {
+                boneIndices[boneISize++] = idx;
+            }
+        }
     }
 }

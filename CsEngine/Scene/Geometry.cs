@@ -21,9 +21,10 @@ namespace ApexEngine.Scene
             {
                 shader.Use();
                 shader.SetTransforms(GetWorldMatrix(), cam.GetViewMatrix(), cam.GetProjectionMatrix());
-             //   shader.BindMaterial(material);
+                shader.Update(cam, mesh);
                 shader.Render(mesh);
                 shader.End();
+                Shader.Clear();
             }
 
         }
