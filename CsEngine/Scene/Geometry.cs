@@ -26,7 +26,6 @@ namespace ApexEngine.Scene
                 shader.End();
                 Shader.Clear();
             }
-
         }
         public override void UpdateParents()
         {
@@ -55,6 +54,10 @@ namespace ApexEngine.Scene
         public void SetShader(Shader shader)
         {
             this.shader = shader;
+        }
+        public void SetShader(Type shaderType, ShaderProperties properties)
+        {
+            SetShader(ShaderManager.GetShader(shaderType, properties));
         }
     }
 }

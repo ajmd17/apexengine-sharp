@@ -18,14 +18,20 @@ namespace ApexEngine.Rendering
         const string A_BITANGENT = "a_bitangent";
         const string A_BONEWEIGHT = "a_boneweights";
         const string A_BONEINDEX = "a_boneindices";
+        protected ShaderProperties properties;
         protected Matrix4f worldMatrix, viewMatrix, projectionMatrix;
         protected int id = 0;
-        public Shader(string vs_code, string fs_code)
+        public Shader(ShaderProperties properties, string vs_code, string fs_code)
         {
+            this.properties = properties;
             Create();
-            AddVertexProgram(vs_code);
-            AddFragmentProgram(fs_code);
+            AddVertexProgram(Util.ShaderUtil.FormatShaderProperties(vs_code, properties));
+            AddFragmentProgram(Util.ShaderUtil.FormatShaderProperties(fs_code, properties));
             CompileShader();
+        }
+        public ShaderProperties GetProperties()
+        {
+            return properties;
         }
         public void Create()
         {
@@ -121,6 +127,7 @@ namespace ApexEngine.Rendering
             GL.ShaderSource(shader, code);
             GL.CompileShader(shader);
             GL.AttachShader(id, shader);
+            Console.WriteLine("Added program:\n" + code);
         }
         public void SetUniform(string name, int i)
         {

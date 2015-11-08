@@ -9,8 +9,10 @@ namespace ApexEngine.Rendering.Animation
     {
         List<string> strValues = new List<string>();
         bool isSkinningInit = false;
-        public AnimatedShader(string vs_code, string fs_code) 
-            : base(vs_code, fs_code)
+        private static Assets.ShaderTextLoader textLoader = new Assets.ShaderTextLoader();
+        public AnimatedShader(ShaderProperties properties) 
+            : base(properties, (string)textLoader.Load(AppDomain.CurrentDomain.BaseDirectory + "\\shaders\\anim.vert"), 
+                  (string)textLoader.Load(AppDomain.CurrentDomain.BaseDirectory + "\\shaders\\anim.frag"))
         {
 
         }

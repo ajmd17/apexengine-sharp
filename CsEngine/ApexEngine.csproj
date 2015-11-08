@@ -55,6 +55,7 @@
     <Compile Include="Assets\ModelLoaders\ObjModelLoader.cs" />
     <Compile Include="Assets\OgreXml\OgreXmlModelLoader.cs" />
     <Compile Include="Assets\OgreXml\OgreXmlSkeletonLoader.cs" />
+    <Compile Include="Assets\ShaderTextLoader.cs" />
     <Compile Include="Assets\TextLoader.cs" />
     <Compile Include="Assets\Util\BoneAssign.cs" />
     <Compile Include="Input\Input.cs" />
@@ -84,6 +85,9 @@
     <Compile Include="Rendering\MeshUtil.cs" />
     <Compile Include="Rendering\RenderManager.cs" />
     <Compile Include="Rendering\Shader.cs" />
+    <Compile Include="Rendering\ShaderManager.cs" />
+    <Compile Include="Rendering\ShaderProperties.cs" />
+    <Compile Include="Rendering\Util\ShaderUtil.cs" />
     <Compile Include="Rendering\Vertex.cs" />
     <Compile Include="Rendering\VertexAttributes.cs" />
     <Compile Include="Scene\Components\Controller.cs" />

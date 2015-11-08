@@ -29,11 +29,12 @@ namespace ApexEngine
                 game.Load += (sender, e) =>
                 {
                     rootNode.SetName("root");
-                    s = new Shader("attribute vec3 a_position;\nattribute vec3 a_normal;\nvarying vec3 v_normal;\nuniform mat4 u_world;\nuniform mat4 u_view;\nuniform mat4 u_proj;\nvoid main() {\nv_normal = a_normal;\ngl_Position = u_proj * u_view*  u_world * vec4(a_position, 1.0);\n}",
+                    s = new Shader(new ShaderProperties(), "attribute vec3 a_position;\nattribute vec3 a_normal;\nvarying vec3 v_normal;\nuniform mat4 u_world;\nuniform mat4 u_view;\nuniform mat4 u_proj;\nvoid main() {\nv_normal = a_normal;\ngl_Position = u_proj * u_view*  u_world * vec4(a_position, 1.0);\n}",
                         "varying vec3 v_normal;\nvoid main() {\n gl_FragColor = vec4(1.0, 0.0, 1.0, 1.0);\n}");
 
-                    TextLoader txt= new TextLoader();
-                    Rendering.Animation.AnimatedShader animShader = new Rendering.Animation.AnimatedShader((string)txt.Load(AppDomain.CurrentDomain.BaseDirectory + "\\shaders\\anim.vert"), (string)txt.Load(AppDomain.CurrentDomain.BaseDirectory + "\\shaders\\anim.frag"));
+                    //TextLoader txt= new TextLoader();
+                    // Rendering.Animation.AnimatedShader animShader = new Rendering.Animation.AnimatedShader();
+                    Rendering.Animation.AnimatedShader animShader = (Rendering.Animation.AnimatedShader)ShaderManager.GetShader(typeof(Rendering.Animation.AnimatedShader) );
 
                     Node loadedObj = (Node)(new Assets.ModelLoaders.ObjModelLoader().Load("C:\\Users\\User\\Desktop\\monkey.obj"));
                     ((Geometry)(loadedObj.GetChild(0))).SetShader(s);
