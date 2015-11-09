@@ -87,6 +87,8 @@
     <Compile Include="Rendering\Shader.cs" />
     <Compile Include="Rendering\ShaderManager.cs" />
     <Compile Include="Rendering\ShaderProperties.cs" />
+    <Compile Include="Rendering\Shaders\DefaultShader.cs" />
+    <Compile Include="Rendering\Texture.cs" />
     <Compile Include="Rendering\Util\ShaderUtil.cs" />
     <Compile Include="Rendering\Vertex.cs" />
     <Compile Include="Rendering\VertexAttributes.cs" />

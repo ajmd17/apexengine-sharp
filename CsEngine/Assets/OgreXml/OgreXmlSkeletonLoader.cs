@@ -95,7 +95,7 @@ namespace ApexEngine.Assets.OgreXml
                         else if (peek == "rotation") // it is a bone bind pose
                         {
                             bindAxis = vec;
-                            skeleton.GetBone(boneIdx).SetBindAxisAngle(bindAxis.Normalize(), bindAngle); 
+                            skeleton.GetBone(boneIdx).SetBindAxisAngle(bindAxis.Normalize(), bindAngle);
                         }
                     }
                     else if (xmlReader.Name == "keyframe")
@@ -115,10 +115,11 @@ namespace ApexEngine.Assets.OgreXml
                         Bone b = skeleton.GetBone(keyframeBoneName);
                         if (b != null)
                         {
+                            Keyframe keyf = null;
                             skeleton.GetAnimations()[skeleton.GetAnimations().Count - 1]
                                 .GetTrack(skeleton.GetAnimations()[skeleton.GetAnimations().Count - 1]
                                 .GetTracks().Count - 1)
-                                .AddKeyframe(new Keyframe(keyframeBoneTime, keyframeBoneTrans, keyframeBoneAxis, keyframeBoneAngle));
+                                .AddKeyframe(keyf = new Keyframe(keyframeBoneTime, keyframeBoneTrans, keyframeBoneAxis, keyframeBoneAngle));
                         }
                         keyframeBoneAngle = 0f;
                         keyframeBoneAxis = new Vector3f(Vector3f.ZERO);

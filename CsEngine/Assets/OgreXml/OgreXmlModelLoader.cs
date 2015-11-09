@@ -23,7 +23,6 @@ namespace ApexEngine.Assets.OgreXml
         public List<int> faces = new List<int>();
         public Boolean useSubmeshes = false;
         public Dictionary<int, BoneAssign[]> boneAssigns = new Dictionary<int, BoneAssign[]>();
-        List<BoneAssign> boneAssigns2 = new List<BoneAssign>();
         public List<Submesh> subMeshes = new List<Submesh>();
         public Skeleton skeleton = new Skeleton();
         private Submesh CurrentSubmesh()
@@ -63,11 +62,13 @@ namespace ApexEngine.Assets.OgreXml
         {
             for (int i = 0; i < faces.Count; i++)
             {
-                Vertex v = new Vertex(positions[faces[i]]);
+                Vertex v = new Vertex(positions[faces[i]],
+                                      texCoords.Count > 0 ? texCoords[faces[i]] : null,
+                                      normals.Count > 0 ? normals[faces[i]] : null);
 
-                 if (boneAssigns.ContainsKey(faces[i]))
+                if (boneAssigns.ContainsKey(faces[i]))
                 {
-                  BoneAssign[] vertBoneAssigns = boneAssigns[faces[i]];
+                    BoneAssign[] vertBoneAssigns = boneAssigns[faces[i]];
                      for (int j = 0; j < vertBoneAssigns.Length; j++)
                      {
                         if (vertBoneAssigns[j] != null)
@@ -139,7 +140,6 @@ namespace ApexEngine.Assets.OgreXml
                         float boneWeight = float.Parse(xmlReader.GetAttribute("weight"));
                         int boneIndex = int.Parse(xmlReader.GetAttribute("boneindex"));
                         AddToBoneAssigns(vidx, new BoneAssign(vidx, boneWeight, boneIndex));
-                       // boneAssigns2.Add(new BoneAssign(vidx, boneWeight, boneIndex));
                     }
                     else if (xmlReader.Name == "submesh")
                     {
@@ -170,6 +170,8 @@ namespace ApexEngine.Assets.OgreXml
                         subMeshes.Remove(s);
                 }
             }
+
+
             if (skeleton.GetNumBones() > 0)
             {
                 for (int i = 0; i < skeleton.GetNumBones(); i++)

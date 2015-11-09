@@ -1,14 +1,14 @@
 #version 150
 attribute vec3 a_position;
+attribute vec3 a_normal;
+attribute vec2 a_texcoord0;
 attribute vec4 a_boneweights;
 attribute vec4 a_boneindices;
-uniform mat4 u_world;
-uniform mat4 u_view;
-uniform mat4 u_proj;
-varying vec4 redCol;
 uniform mat4 Bone[53];
-uniform mat4 testMat;
+varying vec2 v_texCoord0;
+varying vec3 v_normal;
 varying vec3 v_position;
+varying vec4 v_boneweights;
 void main()
 {
 	mat4 NormalMatrix;
@@ -23,9 +23,12 @@ void main()
 	skinning += weight.z * Bone[index2];
 	int index3 = int(index.w);
 	skinning += weight.w * Bone[index3];
-	NormalMatrix = transpose(inverse(u_world*skinning));
+	NormalMatrix = transpose(inverse(Apex_WorldMatrix*skinning));
+	
+	v_boneweights = a_boneweights;
 	v_position = (vec4(a_position, 1.0)).xyz;
+	v_normal = a_normal;
+	v_texCoord0 = a_texcoord0;
 
-	redCol = vec4(v_position, 1.0);
-	gl_Position = u_proj * u_view * u_world * skinning * vec4(v_position, 1.0);
+	gl_Position = Apex_ProjectionMatrix * Apex_ViewMatrix * Apex_WorldMatrix * skinning * vec4(v_position, 1.0);
 }

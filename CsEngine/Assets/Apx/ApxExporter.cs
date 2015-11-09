@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using ApexEngine.Rendering;
+using ApexEngine.Rendering.Animation;
 using ApexEngine.Scene;
 using ApexEngine.Math;
+using ApexEngine.Assets.Util;
 namespace ApexEngine.Assets.Apx
 {
     public class ApxExporter
@@ -66,14 +68,18 @@ namespace ApexEngine.Assets.Apx
 	    public const string TOKEN_TRANSLATION = "translation";
 	    public const string TOKEN_ROTATION = "rotation";
 	    public const string TOKEN_CONTROL = "control";
+        private static List<Skeleton> skeletons = new List<Skeleton>();
         public static void ExportModel(GameObject gameObject, string path)
         {
+            skeletons.Clear();
+
             XmlWriterSettings settings = new XmlWriterSettings();
             settings.Indent = true;
             XmlWriter writer = XmlWriter.Create(path, settings);
 
             writer.WriteStartElement(TOKEN_MODEL);
             SaveObject(gameObject, writer);
+            SaveSkeletons(writer);
             writer.WriteEndElement();
             writer.Close();
         }
@@ -126,6 +132,7 @@ namespace ApexEngine.Assets.Apx
             List<Vector3f> normals = new List<Vector3f>();
             List<Vector2f> texcoords0 = new List<Vector2f>();
             List<Vector2f> texcoords1 = new List<Vector2f>();
+            List<BoneAssign> boneAssigns = new List<BoneAssign>();
 
             List<int> facesP = new List<int>();
             List<int> facesN = new List<int>();
@@ -157,6 +164,15 @@ namespace ApexEngine.Assets.Apx
                 if (mesh.GetAttributes().HasAttribute(VertexAttributes.TEXCOORDS1))
                 {
                     facesT1.Add(texcoords1.IndexOf(v.GetTexCoord1()));
+                }
+                for (int j = 0; j < 4; j++)
+                {
+                    if (tmpVerts[i].GetBoneWeight(j) > 0f)
+                    {
+                        boneAssigns.Add(new BoneAssign(i, 
+                                        tmpVerts[i].GetBoneWeight(j),
+                                        (int)tmpVerts[i].GetBoneIndex(j)));
+                    }
                 }
             }
 
@@ -229,8 +245,125 @@ namespace ApexEngine.Assets.Apx
             }
 
             writer.WriteEndElement(); // faces
-            
+
+
+            if (boneAssigns.Count > 0)
+            {
+                writer.WriteStartElement(TOKEN_BONE_ASSIGNS);
+                for (int i = 0; i < boneAssigns.Count; i++)
+                {
+                    writer.WriteStartElement(TOKEN_BONE_ASSIGN);
+                    writer.WriteAttributeString(TOKEN_VERTEXINDEX, boneAssigns[i].GetVertexIndex().ToString());
+                    writer.WriteAttributeString(TOKEN_BONEINDEX, boneAssigns[i].GetBoneIndex().ToString());
+                    writer.WriteAttributeString(TOKEN_BONEWEIGHT, boneAssigns[i].GetBoneWeight().ToString());
+                    writer.WriteEndElement(); // bone assign
+                }
+                writer.WriteEndElement(); // bone assigns
+            }
+            if (mesh.GetSkeleton() != null)
+            {
+                if (!skeletons.Contains(mesh.GetSkeleton()))
+                    skeletons.Add(mesh.GetSkeleton());
+                writer.WriteStartElement(TOKEN_SKELETON_ASSIGN);
+                writer.WriteAttributeString(TOKEN_ID, skeletons.IndexOf(mesh.GetSkeleton()).ToString());
+                writer.WriteEndElement(); // skeleton assign
+            }
+
+
             writer.WriteEndElement(); // end mesh
+        }
+        private static void SaveSkeletons(XmlWriter writer)
+        {
+            foreach (Skeleton s in skeletons)
+            {
+                if (s.GetNumBones() > 0)
+                {
+                    SaveSkeleton(s, writer);
+                }
+            }
+        }
+        private static void SaveSkeleton(Skeleton s, XmlWriter writer)
+        {
+            writer.WriteStartElement(TOKEN_SKELETON);
+            foreach (Bone b in s.GetBones())
+            {
+                SaveBone(b, writer);
+            }
+            if (s.GetAnimations().Count > 0)
+            {
+                SaveAnimations(s, writer);
+            }
+            writer.WriteEndElement();
+        }
+        private static void SaveAnimations(Skeleton s, XmlWriter writer)
+        {
+            writer.WriteStartElement(TOKEN_ANIMATIONS);
+            foreach (Animation anim in s.GetAnimations())
+            {
+                SaveAnimation(anim, writer);
+            }
+            writer.WriteEndElement();
+        }
+        private static void SaveAnimation(Animation anim, XmlWriter writer)
+        {
+            writer.WriteStartElement(TOKEN_ANIMATION);
+
+            writer.WriteAttributeString(TOKEN_NAME, anim.GetName());
+            for (int i = 0; i < anim.GetTracks().Count; i++)
+            {
+                writer.WriteStartElement(TOKEN_ANIMATION_TRACK);
+                writer.WriteAttributeString(TOKEN_BONE, anim.GetTrack(i).GetBone().GetName());
+                for (int j = 0; j < anim.GetTrack(i).frames.Count; j++)
+                {
+                    SaveKeyframe(anim.GetTrack(i).frames[j], writer);
+                }
+                writer.WriteEndElement();
+            }
+            writer.WriteEndElement();
+        }
+        private static void SaveKeyframe(Keyframe frame, XmlWriter writer)
+        {
+            writer.WriteStartElement(TOKEN_KEYFRAME);
+
+            writer.WriteAttributeString(TOKEN_TIME, frame.GetTime().ToString());
+
+            writer.WriteStartElement(TOKEN_KEYFRAME_TRANSLATION);
+            writer.WriteAttributeString("x", frame.GetTranslation().x.ToString());
+            writer.WriteAttributeString("y", frame.GetTranslation().y.ToString());
+            writer.WriteAttributeString("z", frame.GetTranslation().z.ToString());
+            writer.WriteEndElement();
+
+            writer.WriteStartElement(TOKEN_KEYFRAME_ROTATION);
+            writer.WriteAttributeString("x", frame.GetRotation().x.ToString());
+            writer.WriteAttributeString("y", frame.GetRotation().y.ToString());
+            writer.WriteAttributeString("z", frame.GetRotation().z.ToString());
+            writer.WriteAttributeString("w", frame.GetRotation().w.ToString());
+            writer.WriteEndElement();
+
+            writer.WriteEndElement();
+        }
+        private static void SaveBone(Bone b, XmlWriter writer)
+        {
+            writer.WriteStartElement(TOKEN_BONE);
+
+            writer.WriteAttributeString(TOKEN_NAME, b.GetName());
+            if (b.GetParent() != null)
+                writer.WriteAttributeString(TOKEN_PARENT, b.GetParent().GetName());
+
+            writer.WriteStartElement(TOKEN_BONE_BINDPOSITION);
+            writer.WriteAttributeString("x", b.GetBindTranslation().x.ToString());
+            writer.WriteAttributeString("y", b.GetBindTranslation().y.ToString());
+            writer.WriteAttributeString("z", b.GetBindTranslation().z.ToString());
+            writer.WriteEndElement();
+
+            writer.WriteStartElement(TOKEN_BONE_BINDROTATION);
+            writer.WriteAttributeString("x", b.GetBindRotation().x.ToString());
+            writer.WriteAttributeString("y", b.GetBindRotation().y.ToString());
+            writer.WriteAttributeString("z", b.GetBindRotation().z.ToString());
+            writer.WriteAttributeString("w", b.GetBindRotation().w.ToString());
+            writer.WriteEndElement();
+
+            writer.WriteEndElement();
         }
     }
 }

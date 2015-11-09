@@ -21,12 +21,21 @@ namespace ApexEngine.Rendering
         protected ShaderProperties properties;
         protected Matrix4f worldMatrix, viewMatrix, projectionMatrix;
         protected int id = 0;
+        public static string GetApexVertexHeader()
+        {
+            string res = "";
+            res += "uniform mat4 Apex_WorldMatrix;\nuniform mat4 Apex_ViewMatrix;\nuniform mat4 Apex_ProjectionMatrix;\n";
+            res += "mat4 FinalTransform() {\n" +
+                   "     return Apex_ProjectionMatrix * Apex_ViewMatrix * Apex_WorldMatrix;\n" +
+                   "}\n";
+            return res;
+        }
         public Shader(ShaderProperties properties, string vs_code, string fs_code)
         {
             this.properties = properties;
             Create();
-            AddVertexProgram(Util.ShaderUtil.FormatShaderProperties(vs_code, properties));
-            AddFragmentProgram(Util.ShaderUtil.FormatShaderProperties(fs_code, properties));
+            AddVertexProgram(Util.ShaderUtil.FormatShaderVersion(GetApexVertexHeader() + Util.ShaderUtil.FormatShaderProperties(vs_code, properties)));
+            AddFragmentProgram(Util.ShaderUtil.FormatShaderVersion(Util.ShaderUtil.FormatShaderProperties(fs_code, properties)));
             CompileShader();
         }
         public ShaderProperties GetProperties()
@@ -73,19 +82,17 @@ namespace ApexEngine.Rendering
         public virtual void Update(Camera cam, Mesh mesh)
         {
             SetDefaultValues();
-            SetUniform("u_world", worldMatrix);
-            SetUniform("u_view", viewMatrix);
-            SetUniform("u_proj", projectionMatrix);
+            SetUniform("Apex_WorldMatrix", worldMatrix);
+            SetUniform("Apex_ViewMatrix", viewMatrix);
+            SetUniform("Apex_ProjectionMatrix", projectionMatrix);
         }
         static void SetDefaultValues()
         {
-            GL.PointSize(4.0f);
             GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill);
             GL.Enable(EnableCap.CullFace);
             GL.CullFace(CullFaceMode.Back);
             GL.Enable(EnableCap.DepthTest);
             GL.DepthMask(true);
-            GL.Enable(EnableCap.DepthClamp);
         }
         public void SetTransforms(Matrix4f world, Matrix4f view, Matrix4f proj)
         {
@@ -127,7 +134,7 @@ namespace ApexEngine.Rendering
             GL.ShaderSource(shader, code);
             GL.CompileShader(shader);
             GL.AttachShader(id, shader);
-            Console.WriteLine("Added program:\n" + code);
+          //  Console.WriteLine("Added program:\n" + code);
         }
         public void SetUniform(string name, int i)
         {

@@ -41,6 +41,24 @@ namespace ApexEngine.Rendering.Util
             }
             return "";
         }
+        public static string FormatShaderVersion(string origCode)
+        {
+            string res = "";
+            string verString = "";
+            string[] lines = origCode.Split('\n');
+            for (int i = 0; i < lines.Length; i++)
+            {
+                string line = lines[i];
+                if (line.Trim().StartsWith("#version"))
+                {
+                    verString = line.Trim();
+                    line = "";
+                }
+                if (lines[i] != "")
+                    res += line + "\n";
+            }
+            return verString + "\n" + res;
+        }
         public static string FormatShaderIncludes(string shaderPath, string origCode)
         {
             string res = "";

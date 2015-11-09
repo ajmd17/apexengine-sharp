@@ -124,12 +124,22 @@ namespace ApexEngine.Rendering.Animation
         public void SetBindAxisAngle(Vector3f axis, float angleRad)
         {
             SetBindRotation(new Quaternion().SetFromAxisRadNorm(axis, angleRad));
+            bindAxis = axis;
+            bindAngle = angle;
+        }
+        public Vector3f GetBindAxis()
+        {
+            return bindAxis;
+        }
+        public float GetBindAngle()
+        {
+            return bindAngle;
         }
         public void SetToBindingPose()
         {
             this.localRotation = new Quaternion();
-            this.localTranslation = this.GetBindTranslation();
-            this.poseRot = this.GetBindRotation();
+            this.localTranslation.Set(GetBindTranslation());
+            this.poseRot.Set(GetBindRotation());
             UpdateTransform();
         }
         public void StoreBindingPose()
@@ -143,7 +153,7 @@ namespace ApexEngine.Rendering.Animation
         public void ClearPose()
         {
             poseRot.SetToIdentity();
-           // UpdateTransform();
+            UpdateTransform();
         }
         public void ApplyPose(Keyframe pose)
         {
