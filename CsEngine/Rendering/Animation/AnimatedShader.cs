@@ -11,8 +11,8 @@ namespace ApexEngine.Rendering.Animation
         bool isSkinningInit = false;
         private static Assets.ShaderTextLoader textLoader = new Assets.ShaderTextLoader();
         public AnimatedShader(ShaderProperties properties) 
-            : base(properties, (string)textLoader.Load(AppDomain.CurrentDomain.BaseDirectory + "\\shaders\\anim.vert"), 
-                  (string)textLoader.Load(AppDomain.CurrentDomain.BaseDirectory + "\\shaders\\anim.frag"))
+            : base(properties, (string)textLoader.Load(Assets.AssetManager.GetAppPath() + "\\shaders\\anim.vert"), 
+                  (string)textLoader.Load(Assets.AssetManager.GetAppPath() + "\\shaders\\anim.frag"))
         {
 
         }

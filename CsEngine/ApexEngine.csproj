@@ -52,11 +52,13 @@
     <Compile Include="Assets\Apx\ApxExporter.cs" />
     <Compile Include="Assets\Apx\ApxModelLoader.cs" />
     <Compile Include="Assets\AssetLoader..cs" />
-    <Compile Include="Assets\ModelLoaders\ObjModelLoader.cs" />
+    <Compile Include="Assets\AssetManager.cs" />
+    <Compile Include="Assets\Obj\ObjModelLoader.cs" />
     <Compile Include="Assets\OgreXml\OgreXmlModelLoader.cs" />
     <Compile Include="Assets\OgreXml\OgreXmlSkeletonLoader.cs" />
     <Compile Include="Assets\ShaderTextLoader.cs" />
     <Compile Include="Assets\TextLoader.cs" />
+    <Compile Include="Assets\TextureLoader.cs" />
     <Compile Include="Assets\Util\BoneAssign.cs" />
     <Compile Include="Input\Input.cs" />
     <Compile Include="Input\KeyboardEvent.cs" />

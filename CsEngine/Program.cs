@@ -24,22 +24,22 @@ namespace ApexEngine
                 game.Title = "Apex3D";
                 Node rootNode = new Node();
                 Mesh m = new Mesh();
-                Shader s = null;
                 Rendering.Cameras.DefaultCamera mycam = new Rendering.Cameras.DefaultCamera(45f);
                 game.Load += (sender, e) =>
                 {
+                    AssetManager.InitDefaultLoaders();
                     rootNode.SetName("root");
 
                     //TextLoader txt= new TextLoader();
                     // Rendering.Animation.AnimatedShader animShader = new Rendering.Animation.AnimatedShader();
                     Rendering.Animation.AnimatedShader animShader = (Rendering.Animation.AnimatedShader)ShaderManager.GetShader(typeof(Rendering.Animation.AnimatedShader));
 
-                    Node loadedObj = (Node)(new Assets.ModelLoaders.ObjModelLoader().Load("C:\\Users\\User\\Desktop\\monkey.obj"));
+                    Node loadedObj = (Node)(AssetManager.Load("C:\\Users\\User\\Desktop\\monkey.obj"));
 
                    
                     rootNode.AddChild(loadedObj);
 
-                    Node n = (Node)(new ApexEngine.Assets.OgreXml.OgreXmlModelLoader().Load("C:\\Users\\User\\Documents\\Game Engine\\TestLib\\res\\models\\game\\player1\\player1-shoes01.mesh.xml"));
+                    Node n = (Node)(AssetManager.Load("C:\\Users\\User\\Documents\\Game Engine\\TestLib\\res\\models\\game\\player1\\player1-shoes01.mesh.xml"));
                     for (int i = 0; i < n.GetChildren().Count; i++)
                     {
                         if (n.GetChild(i) is Geometry)
@@ -51,20 +51,21 @@ namespace ApexEngine
                     Geometry gg = (Geometry)n.GetChild(0);
                    // gg.GetMesh().GetSkeleton().GetBone("pelvis").SetLocalRotation(new Math.Quaternion().SetFromAxis(Vector3f.UNIT_XYZ, 40));
                      Console.WriteLine(gg.GetMesh().GetSkeleton().GetBone(0).GetBindRotation());
-                    rootNode.AddChild(n);
+                 //   rootNode.AddChild(n);
 
                      Rendering.Animation.AnimationController anim = ((Rendering.Animation.AnimationController)n.GetController(typeof(Rendering.Animation.AnimationController)));
+
                     
 
 
-                    Assets.Apx.ApxExporter.ExportModel(n, "C:\\Users\\User\\Documents\\Apex3D\\test_guy.apx");
-                    Node apx = (Node)new ApexEngine.Assets.Apx.ApxModelLoader().Load("C:\\Users\\User\\Documents\\Apex3D\\test_guy.apx");
-                    rootNode.AddChild(apx);
-                 //   gg.GetMesh().GetSkeleton().AddAnimation(((Geometry)apx.GetChild(0)).GetMesh().GetSkeleton().GetAnimation(0));
-                    anim.PlayAnimation(0, 2.0f);
+                  GameObject apx = AssetManager.LoadModel("C:\\Users\\User\\Documents\\Apex3D\\test_guy.apx");
+                   rootNode.AddChild(apx);
+                    apx.SetLocalTranslation(new Vector3f(0, 5, 5));
+                     Assets.Apx.ApxExporter.ExportModel(apx, "C:\\Users\\User\\Documents\\Apex3D\\test_guy_2.apx");
+                    //   gg.GetMesh().GetSkeleton().AddAnimation(((Geometry)apx.GetChild(0)).GetMesh().GetSkeleton().GetAnimation(0));
+                    // anim.PlayAnimation(0, 2.0f);
                     Rendering.Animation.AnimationController anim2 = ((Rendering.Animation.AnimationController)apx.GetController(typeof(Rendering.Animation.AnimationController)));
-                    anim2.PlayAnimation(0, 1.0f);
-                   
+                    anim2.PlayAnimation(1, 1.0f);
                      //((Geometry)apx.GetChild(0)).GetMesh().GetSkeleton().GetBone("pelvis").SetLocalRotation(new Math.Quaternion().SetFromAxis(Vector3f.UNIT_X, 40));
                     //   Console.WriteLine(anim.GetCurrentAnimation().GetName());
                     // ApexEngine.Assets.Apx.ApxExporter.ExportModel(loadedObj, "C:\\Users\\User\\Desktop\\cube.apx");

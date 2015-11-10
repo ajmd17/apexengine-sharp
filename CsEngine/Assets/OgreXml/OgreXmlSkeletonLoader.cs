@@ -9,6 +9,11 @@ namespace ApexEngine.Assets.OgreXml
 {
     public class OgreXmlSkeletonLoader : AssetLoader
     {
+        private static OgreXmlSkeletonLoader instance = new OgreXmlSkeletonLoader();
+        public static OgreXmlSkeletonLoader GetInstance()
+        {
+            return instance;
+        }
         string keyframeBoneName = "";
         float keyframeBoneTime = 0f, keyframeBoneAngle = 0f;
         Vector3f keyframeBoneTrans = new Vector3f(Vector3f.ZERO), keyframeBoneAxis = new Vector3f(Vector3f.ZERO);
@@ -17,6 +22,18 @@ namespace ApexEngine.Assets.OgreXml
         private float bindAngle = 0f;
         private Vector3f bindAxis = new Vector3f(Vector3f.ZERO);
         int boneIdx = 0;
+        public override void ResetLoader()
+        {
+            bindAxis = new Vector3f(Vector3f.ZERO);
+            bindAngle = 0f;
+            lastElement = "";
+            skeleton = new Skeleton();
+            keyframeBoneTrans = new Vector3f(Vector3f.ZERO);
+            keyframeBoneAxis = new Vector3f(Vector3f.ZERO);
+            keyframeBoneTime = 0f;
+            keyframeBoneAngle = 0f;
+            keyframeBoneName = "";
+        }
         public override object Load(string filePath)
         {
             XmlReader xmlReader = XmlReader.Create(filePath);

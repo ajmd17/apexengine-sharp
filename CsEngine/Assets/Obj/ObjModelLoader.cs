@@ -6,7 +6,7 @@ using System.IO;
 using ApexEngine.Rendering;
 using ApexEngine.Scene;
 using ApexEngine.Math;
-namespace ApexEngine.Assets.ModelLoaders
+namespace ApexEngine.Assets.Obj
 {
     public class ObjIndex
     {
@@ -24,16 +24,33 @@ namespace ApexEngine.Assets.ModelLoaders
     }
     public class ObjModelLoader : AssetLoader
     {
+        private static ObjModelLoader instance = new ObjModelLoader();
+        public static ObjModelLoader GetInstance()
+        {
+            return instance;
+        }
         protected List<List<ObjIndex>> objIndices = new List<List<ObjIndex>>();
         protected List<Vector3f> positions = new List<Vector3f>();
         protected List<Vector3f> normals = new List<Vector3f>();
         protected List<Vector2f> texCoords = new List<Vector2f>();
         protected bool hasTexCoords = false, hasNormals = false;
+        public override void ResetLoader()
+        {
+            objIndices.Clear();
+            hasTexCoords = false;
+            hasNormals = false;
+            texCoords.Clear();
+            positions.Clear();
+            normals.Clear();
+        }
         private List<ObjIndex> CurrentList()
         {
             if (objIndices.Count == 0)
                 NewMesh();
             return objIndices[objIndices.Count - 1];
+        }
+        public ObjModelLoader() : base ("obj")
+        {
         }
         private void NewMesh()
         {

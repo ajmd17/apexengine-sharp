@@ -17,14 +17,33 @@ namespace ApexEngine.Assets.OgreXml
     }
     public class OgreXmlModelLoader : AssetLoader
     {
+        private static OgreXmlModelLoader instance = new OgreXmlModelLoader();
+        public static OgreXmlModelLoader GetInstance()
+        {
+            return instance;
+        }
         public List<Vector3f> positions = new List<Vector3f>();
         public List<Vector3f> normals = new List<Vector3f>();
         public List<Vector2f> texCoords = new List<Vector2f>();
         public List<int> faces = new List<int>();
-        public Boolean useSubmeshes = false;
+        public bool useSubmeshes = false;
         public Dictionary<int, BoneAssign[]> boneAssigns = new Dictionary<int, BoneAssign[]>();
         public List<Submesh> subMeshes = new List<Submesh>();
         public Skeleton skeleton = new Skeleton();
+        public OgreXmlModelLoader() : base ("mesh.xml")
+        {
+        }
+        public override void ResetLoader()
+        {
+            positions.Clear();
+            normals.Clear();
+            texCoords.Clear();
+            faces.Clear();
+            useSubmeshes = false;
+            boneAssigns.Clear();
+            subMeshes.Clear();
+            skeleton = new Skeleton();
+        }
         private Submesh CurrentSubmesh()
         {
             return subMeshes[subMeshes.Count - 1];
@@ -132,7 +151,7 @@ namespace ApexEngine.Assets.OgreXml
                     {
                         string parentPath = System.IO.Directory.GetParent(filePath).ToString();
                         string skeletonPath = parentPath + "\\" + xmlReader.GetAttribute(0) + ".xml";
-                        skeleton = (Skeleton)new OgreXmlSkeletonLoader().Load(skeletonPath);
+                        skeleton = (Skeleton)OgreXmlSkeletonLoader.GetInstance().Load(skeletonPath);
                     }
                     else if (xmlReader.Name == "vertexboneassignment" || xmlReader.Name == "boneassignment")
                     {

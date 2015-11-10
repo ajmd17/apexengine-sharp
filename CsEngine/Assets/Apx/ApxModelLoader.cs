@@ -12,6 +12,11 @@ namespace ApexEngine.Assets.Apx
 {
     public class ApxModelLoader : AssetLoader
     {
+        private static ApxModelLoader instance = new ApxModelLoader();
+        public static ApxModelLoader GetInstance()
+        {
+            return instance;
+        }
         List<Node> nodes = new List<Node>();
         List<Geometry> geoms = new List<Geometry>();
         List<Mesh> meshes = new List<Mesh>();
@@ -33,6 +38,30 @@ namespace ApexEngine.Assets.Apx
         bool node = false, geom = false;
 
         Node lastNode = null;
+        public ApxModelLoader() : base ("apx")
+        {
+        }
+        public override void ResetLoader()
+        {
+            nodes.Clear();
+            geoms.Clear();
+            meshes.Clear();
+            skeletonAssigns.Clear();
+            skeletons.Clear();
+            bones.Clear();
+            boneAssigns.Clear();
+            animations.Clear();
+            hasAnimations = false;
+            positions.Clear();
+            normals.Clear();
+            texcoords0.Clear();
+            texcoords1.Clear();
+            vertices.Clear();
+            faces.Clear();
+            node = false;
+            geom = false;
+            lastNode = null;
+        }
         private void EndModel()
         {
             Skeleton skeleton = skeletons[skeletons.Count - 1];
