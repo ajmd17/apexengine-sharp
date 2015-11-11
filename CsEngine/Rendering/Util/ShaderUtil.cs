@@ -41,6 +41,75 @@ namespace ApexEngine.Rendering.Util
             }
             return "";
         }
+
+        public static bool CompareShader(ShaderProperties a, ShaderProperties b)
+        {
+            if (a.values.Count != b.values.Count)
+                return false;
+
+
+            string[] keys_a = a.values.Keys.ToArray();
+            string[] keys_b = b.values.Keys.ToArray();
+            object[] vals_a = a.values.Values.ToArray();
+            object[] vals_b = b.values.Values.ToArray();
+
+            for (int i = 0; i< keys_a.Length; i++)
+            {
+                if (!keys_a[i].Equals(keys_b[i]))
+                {
+                    return false;
+                }
+                else
+                {
+                    if (!vals_a[i].Equals(vals_b[i]))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+
+            /*foreach (var pair in a.values)
+            {
+                object value;
+                if (b.values.TryGetValue(pair.Key, out value))
+                {
+                    if (value is bool)
+                    {
+                        if (pair.Value is bool)
+                            return ((bool)value) == ((bool)pair.Value);
+                        else
+                            return false;
+                    }
+                    else if (value is int)
+                    {
+                        if (pair.Value is int)
+                            return ((int)value) == ((int)pair.Value);
+                        else
+                            return false;
+                    }
+                    else if (value is float)
+                    {
+                        if (pair.Value is float)
+                            return ((float)value) == ((float)pair.Value);
+                        else
+                            return false;
+                    }
+                    else if (value is string)
+                    {
+                        if (pair.Value is string)
+                            return ((string)value) == ((string)pair.Value);
+                        else
+                            return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }*/
+            return true;
+        }
         public static string FormatShaderVersion(string origCode)
         {
             string res = "";
@@ -69,12 +138,21 @@ namespace ApexEngine.Rendering.Util
                 if (line.Trim().StartsWith("#include"))
                 {
                     string path = line.Trim().Substring("#include ".Length);
-                    path = path.Replace("\"", "");
+                    if (path.Contains("<") || path.Contains(">")) // internal resource
+                    {
+                        path = path.Replace("<", "");
+                        path = path.Replace(">", "");
+                        line = Properties.Resources.ResourceManager.GetString(path);
+                    }
+                    else // external resource
+                    {
+                        path = path.Replace("\"", "");
 
-                    string parentPath = System.IO.Directory.GetParent(shaderPath).ToString();
-                    string incPath = parentPath + "\\" + path;
+                        string parentPath = System.IO.Directory.GetParent(shaderPath).ToString();
+                        string incPath = parentPath + "\\" + path;
 
-                    line = (string)new Assets.ShaderTextLoader().Load(incPath);
+                        line = (string)Assets.ShaderTextLoader.GetInstance().Load(incPath);
+                    }
                 }
                 if (lines[i] != "")
                     res += line + "\n";

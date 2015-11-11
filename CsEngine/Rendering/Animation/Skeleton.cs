@@ -48,7 +48,7 @@ namespace ApexEngine.Rendering.Animation
         {
             for (int i = 0; i < bones.Count; i++)
             {
-                if (bones[i].GetName() == name)
+                if (bones[i].Name == name)
                 {
                     return bones[i];
                 }

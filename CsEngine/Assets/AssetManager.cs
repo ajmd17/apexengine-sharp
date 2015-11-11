@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace ApexEngine.Assets
@@ -83,6 +85,17 @@ namespace ApexEngine.Assets
         public static string LoadString(string filePath)
         {
             return (string)Load(filePath, TextLoader.GetInstance());
+        }
+        public static string LoadResourceTextFile(string resourcePath)
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+
+            using (Stream stream = assembly.GetManifestResourceStream(resourcePath))
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                string result = reader.ReadToEnd();
+                return result;
+            }
         }
     }
 }

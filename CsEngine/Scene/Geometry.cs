@@ -22,9 +22,11 @@ namespace ApexEngine.Scene
             if (shader == null)
             {
                 if (mesh.GetSkeleton() != null)
-                    SetShader(typeof(Rendering.Animation.AnimatedShader));
+                    SetShader(typeof(Rendering.Shaders.DefaultShader), new ShaderProperties()
+                        .SetProperty("SKINNING", true)
+                        .SetProperty("NUM_BONES", mesh.GetSkeleton().GetNumBones()));
                 else
-                    SetShader(typeof(Rendering.Shaders.DefaultShader));
+                    SetShader(typeof(Rendering.Shaders.DefaultShader), new ShaderProperties());
             }
             if (mesh != null)
             {
@@ -52,13 +54,10 @@ namespace ApexEngine.Scene
                 RenderManager.RemoveGeometry(this);
             }
         }
-        public Mesh GetMesh()
+        public Mesh Mesh
         {
-            return mesh;
-        }
-        public void SetMesh(Mesh mesh)
-        {
-            this.mesh = mesh;
+            get { return mesh; }
+            set { mesh = value; }
         }
         public Shader GetShader()
         {

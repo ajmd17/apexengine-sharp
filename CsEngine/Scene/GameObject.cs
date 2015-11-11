@@ -73,13 +73,10 @@ namespace ApexEngine.Scene
             }
             return null;
         }
-        public void SetName(string name)
+        public string Name
         {
-            this.name = name;
-        }
-        public string GetName()
-        {
-            return this.name;
+            get { return this.name; }
+            set { name = value; }
         }
         public virtual void SetParent(Node newParent)
         {
@@ -98,9 +95,18 @@ namespace ApexEngine.Scene
         {
             return localTranslation;
         }
+        public virtual Vector3f LocalTranslation
+        {
+            get { return localTranslation; }
+            set { localTranslation.Set(value); SetUpdateNeeded(); }
+        }
         public virtual Vector3f GetWorldTranslation()
         {
             return worldTransform.GetTranslation();
+        }
+        public virtual Vector3f WorldTranslation
+        {
+            get { return worldTransform.GetTranslation(); }
         }
         public virtual void SetLocalTranslation(Vector3f vec)
         {
@@ -115,18 +121,36 @@ namespace ApexEngine.Scene
         {
             return worldTransform.GetScale();
         }
+        public virtual Vector3f WorldScale
+        {
+            get { return worldTransform.GetScale(); }
+        }
         public virtual void SetLocalScale(Vector3f vec)
         {
             localScale.Set(vec);
             SetUpdateNeeded();
         }
+        public virtual Vector3f LocalScale
+        {
+            get { return localScale; }
+            set { localScale.Set(value); SetUpdateNeeded(); }
+        }
         public virtual Quaternion GetLocalRotation()
         {
             return localRotation;
         }
+        public virtual Quaternion LocalRotation
+        {
+            get { return localRotation; }
+            set { localRotation.Set(value); SetUpdateNeeded(); }
+        }
         public virtual Quaternion GetWorldRotation()
         {
             return worldTransform.GetRotation();
+        }
+        public virtual Quaternion WorldRotation
+        {
+            get { return worldTransform.GetRotation(); }
         }
         public virtual void SetLocalRotation(Quaternion quat)
         {
@@ -224,7 +248,7 @@ namespace ApexEngine.Scene
             else
             {
                 Node par = parent;
-                while (par.GetName() != "root")
+                while (par.Name != "root")
                 {
                     Node pp = par.GetParent();
                     if (pp != null)

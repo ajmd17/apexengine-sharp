@@ -18,32 +18,13 @@ namespace ApexEngine.Rendering
             {
                 if (shaders[i].GetType() == shaderType)
                 {
-                    if (CompareShader(shaders[i].GetProperties(), properties))
+                    if (Util.ShaderUtil.CompareShader(shaders[i].GetProperties(), properties))
                         return shaders[i];
                 }
             }
             Shader shader = (Shader)Activator.CreateInstance(shaderType, properties);
             shaders.Add(shader);
             return shader;
-        }
-        public static bool CompareShader(ShaderProperties a, ShaderProperties b)
-        {
-            if (a.values.Count != b.values.Count)
-                return false;
-            foreach (var pair in a.values)
-            {
-                object value;
-                if (b.values.TryGetValue(pair.Key, out value))
-                {
-                    if (value != pair.Value)
-                        return false;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            return true;
         }
     }
 }

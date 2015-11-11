@@ -5,41 +5,41 @@ using System.Text;
 using ApexEngine.Math;
 namespace ApexEngine.Rendering.Animation
 {
-    public class AnimatedShader : Shader
+    public abstract class AnimatedShader : Shader
     {
-        List<string> strValues = new List<string>();
-        bool isSkinningInit = false;
-        private static Assets.ShaderTextLoader textLoader = new Assets.ShaderTextLoader();
-        public AnimatedShader(ShaderProperties properties) 
-            : base(properties, (string)textLoader.Load(Assets.AssetManager.GetAppPath() + "\\shaders\\anim.vert"), 
-                  (string)textLoader.Load(Assets.AssetManager.GetAppPath() + "\\shaders\\anim.frag"))
+        private List<string> boneNames = new List<string>();
+        private bool isSkinningInit = false;
+        public AnimatedShader(ShaderProperties properties, string vs_code, string fs_code) 
+            : base(properties, vs_code, fs_code)
         {
-
         }
         private void InitSkinning(Mesh mesh)
         {
-            for (int i = 0; i < mesh.GetSkeleton().GetNumBones(); i++)
+            for (int i = 0; i < properties.GetInt("NUM_BONES"); i++)
             {
-                strValues.Add("Bone[" + i + "]");
+                boneNames.Add("Bone[" + i + "]");
             }
         }
         private void UpdateSkinning(Mesh mesh)
         {
-            for (int i = 0; i < mesh.GetSkeleton().GetNumBones(); i++)
+            for (int i = 0; i < boneNames.Count; i++)
             {
                  Matrix4f boneMat = mesh.GetSkeleton().GetBone(i).GetBoneMatrix();
-                 SetUniform(strValues[i], boneMat);
+                 SetUniform(boneNames[i], boneMat);
             }
         }
         public override void Update(Camera cam, Mesh mesh)
         {
             base.Update(cam, mesh);
-            if (!isSkinningInit)
+            if (mesh.GetSkeleton() != null)
             {
-                InitSkinning(mesh);
-                isSkinningInit = true;
+                if (!isSkinningInit)
+                {
+                    InitSkinning(mesh);
+                    isSkinningInit = true;
+                }
+                UpdateSkinning(mesh);
             }
-            UpdateSkinning(mesh);
         }
     }
 }

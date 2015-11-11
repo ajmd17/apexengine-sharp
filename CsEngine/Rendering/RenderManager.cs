@@ -9,6 +9,12 @@ namespace ApexEngine.Rendering
     {
         public static int SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_X, WINDOW_Y;
         protected static List<Geometry> geometries = new List<Geometry>();
+        private static float elapsedTime = 0f;
+        public static float ElapsedTime
+        {
+            get { return elapsedTime; }
+            set { elapsedTime = value; }
+        }
         public static void AddGeometry(Geometry geom)
         {
             if (!geometries.Contains(geom))

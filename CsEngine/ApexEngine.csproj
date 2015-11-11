@@ -9,13 +9,13 @@
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ApexEngine</RootNamespace>
-    <AssemblyName>CsEngine</AssemblyName>
+    <AssemblyName>ApexEngine</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -32,6 +32,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>ApexEngine.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="OpenTK, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
@@ -60,6 +63,7 @@
     <Compile Include="Assets\TextLoader.cs" />
     <Compile Include="Assets\TextureLoader.cs" />
     <Compile Include="Assets\Util\BoneAssign.cs" />
+    <Compile Include="Game.cs" />
     <Compile Include="Input\Input.cs" />
     <Compile Include="Input\KeyboardEvent.cs" />
     <Compile Include="Input\MouseEvent.cs" />
@@ -72,6 +76,11 @@
     <Compile Include="Math\Vector3f.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Rendering\Animation\AnimatedShader.cs" />
     <Compile Include="Rendering\Animation\Animation.cs" />
     <Compile Include="Rendering\Animation\AnimationController.cs" />
@@ -82,6 +91,10 @@
     <Compile Include="Rendering\Camera.cs" />
     <Compile Include="Rendering\Cameras\DefaultCamera.cs" />
     <Compile Include="Rendering\Cameras\PerspectiveCamera.cs" />
+    <Compile Include="Rendering\Environment\AmbientLight.cs" />
+    <Compile Include="Rendering\Environment\DirectionalLight.cs" />
+    <Compile Include="Rendering\Environment\Environment.cs" />
+    <Compile Include="Rendering\Environment\LightSource.cs" />
     <Compile Include="Rendering\Material.cs" />
     <Compile Include="Rendering\Mesh.cs" />
     <Compile Include="Rendering\MeshUtil.cs" />
@@ -98,6 +111,26 @@
     <Compile Include="Scene\GameObject.cs" />
     <Compile Include="Scene\Geometry.cs" />
     <Compile Include="Scene\Node.cs" />
+    <Compile Include="TestGame.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\apex3d.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\material.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\lighting.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\skinning.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

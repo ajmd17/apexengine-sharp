@@ -71,7 +71,6 @@ namespace ApexEngine.Rendering
         {
             GL.GenBuffers(1, out vbo);
             GL.GenBuffers(1, out ibo);
-            System.Console.WriteLine("Create Mesh: " + vbo + ", " + ibo);
         }
         void UpdateMesh()
         {

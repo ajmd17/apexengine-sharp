@@ -18,6 +18,7 @@ namespace ApexEngine.Rendering
         const string A_BITANGENT = "a_bitangent";
         const string A_BONEWEIGHT = "a_boneweights";
         const string A_BONEINDEX = "a_boneindices";
+        protected Material currentMaterial = null;
         protected ShaderProperties properties;
         protected Matrix4f worldMatrix, viewMatrix, projectionMatrix;
         protected int id = 0;
@@ -56,6 +57,7 @@ namespace ApexEngine.Rendering
         }
         public void End()
         {
+            currentMaterial = null;
         }
         public static void Clear()
         {
@@ -75,6 +77,11 @@ namespace ApexEngine.Rendering
             GL.LinkProgram(id);
             GL.ValidateProgram(id);
         }
+        public void ApplyMaterial(Material material)
+        {
+            currentMaterial = material;
+            this.SetUniform("Material_Shininess", 25f); // material.Shininess
+        }
         public void Render(Mesh mesh)
         {
             mesh.Render();
@@ -85,6 +92,9 @@ namespace ApexEngine.Rendering
             SetUniform("Apex_WorldMatrix", worldMatrix);
             SetUniform("Apex_ViewMatrix", viewMatrix);
             SetUniform("Apex_ProjectionMatrix", projectionMatrix);
+            SetUniform("Apex_CameraPosition", cam.Translation);
+            SetUniform("Apex_CameraDirection", cam.Direction);
+            SetUniform("Apex_ElapsedTime", RenderManager.ElapsedTime);
         }
         static void SetDefaultValues()
         {
@@ -134,7 +144,6 @@ namespace ApexEngine.Rendering
             GL.ShaderSource(shader, code);
             GL.CompileShader(shader);
             GL.AttachShader(id, shader);
-          //  Console.WriteLine("Added program:\n" + code);
         }
         public void SetUniform(string name, int i)
         {

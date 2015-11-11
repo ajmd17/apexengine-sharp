@@ -14,6 +14,21 @@ namespace ApexEngine.Math
         public static Vector3f UNIT_XYZ = new Vector3f(1.0f, 1.0f, 1.0f);
         public float x, y, z;
         private Matrix4f tmpRot = new Matrix4f();
+        public float X
+        {
+            get { return x; }
+            set { x = value; }
+        }
+        public float Y
+        {
+            get { return y; }
+            set { y = value; }
+        }
+        public float Z
+        {
+            get { return z; }
+            set { z = value; }
+        }
         public Vector3f()
         {
             Set(0.0f);

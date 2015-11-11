@@ -66,11 +66,11 @@ namespace ApexEngine.Assets.OgreXml
                         string child = xmlReader.GetAttribute("bone");
                         Bone parentBone = null;
                         for (int i = 0; i < skeleton.GetNumBones(); i++)
-                            if (skeleton.GetBone(i).GetName() == parent)
+                            if (skeleton.GetBone(i).Name == parent)
                                 parentBone = skeleton.GetBone(i);
                         for (int i = 0; i < skeleton.GetNumBones(); i++)
                         {
-                            if (skeleton.GetBone(i).GetName() == child)
+                            if (skeleton.GetBone(i).Name == child)
                             {
                                 Bone b = skeleton.GetBone(i);
                                 parentBone.AddChild(b);

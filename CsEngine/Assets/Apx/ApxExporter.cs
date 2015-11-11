@@ -69,18 +69,20 @@ namespace ApexEngine.Assets.Apx
 	    public const string TOKEN_ROTATION = "rotation";
 	    public const string TOKEN_CONTROL = "control";
         private static List<Skeleton> skeletons = new List<Skeleton>();
-        public static void ExportModel(GameObject gameObject, string path)
+        public static void ExportModel(string path, params GameObject[] gameObjects)
         {
             skeletons.Clear();
 
             XmlWriterSettings settings = new XmlWriterSettings();
             settings.Indent = true;
             XmlWriter writer = XmlWriter.Create(path, settings);
-
+            writer.WriteStartDocument();
             writer.WriteStartElement(TOKEN_MODEL);
-            SaveObject(gameObject, writer);
+            foreach (GameObject go in gameObjects)
+                 SaveObject(go, writer);
             SaveSkeletons(writer);
             writer.WriteEndElement();
+            writer.WriteEndDocument();
             writer.Close();
         }
         private static void SaveObject(GameObject gameObject, XmlWriter writer)
@@ -97,13 +99,16 @@ namespace ApexEngine.Assets.Apx
         private static void SaveNode(Node node, XmlWriter writer)
         {
             writer.WriteStartElement(TOKEN_NODE);
-            writer.WriteAttributeString(TOKEN_NAME, node.GetName());
+            if (node.Name != "root")
+                writer.WriteAttributeString(TOKEN_NAME, node.Name);
+            else
+                writer.WriteAttributeString(TOKEN_NAME, "root_model");
             writer.WriteStartElement(TOKEN_TRANSLATION);
             writer.WriteAttributeString("x", node.GetLocalTranslation().x.ToString());
             writer.WriteAttributeString("y", node.GetLocalTranslation().y.ToString());
             writer.WriteAttributeString("z", node.GetLocalTranslation().z.ToString());
             writer.WriteEndElement();
-            for (int i = 0; i < node.GetChildren().Count; i++)
+            for (int i = 0; i < node.Children.Count; i++)
             {
                 SaveObject(node.GetChild(i), writer);
             }
@@ -112,15 +117,18 @@ namespace ApexEngine.Assets.Apx
         private static void SaveGeometry(Geometry geom, XmlWriter writer)
         {
             writer.WriteStartElement(TOKEN_GEOMETRY);
-            writer.WriteAttributeString(TOKEN_NAME, geom.GetName());
+            if (geom.Name != "root")
+                writer.WriteAttributeString(TOKEN_NAME, geom.Name);
+            else
+                writer.WriteAttributeString(TOKEN_NAME, "root_model");
             writer.WriteStartElement(TOKEN_TRANSLATION);
             writer.WriteAttributeString("x", geom.GetLocalTranslation().x.ToString());
             writer.WriteAttributeString("y", geom.GetLocalTranslation().y.ToString());
             writer.WriteAttributeString("z", geom.GetLocalTranslation().z.ToString());
             writer.WriteEndElement();
-            if (geom.GetMesh() != null)
+            if (geom.Mesh != null)
             {
-                SaveMesh(geom.GetMesh(), writer);
+                SaveMesh(geom.Mesh, writer);
             }
             writer.WriteEndElement();
         }
@@ -312,7 +320,7 @@ namespace ApexEngine.Assets.Apx
             for (int i = 0; i < anim.GetTracks().Count; i++)
             {
                 writer.WriteStartElement(TOKEN_ANIMATION_TRACK);
-                writer.WriteAttributeString(TOKEN_BONE, anim.GetTrack(i).GetBone().GetName());
+                writer.WriteAttributeString(TOKEN_BONE, anim.GetTrack(i).GetBone().Name);
                 for (int j = 0; j < anim.GetTrack(i).frames.Count; j++)
                 {
                     SaveKeyframe(anim.GetTrack(i).frames[j], writer);
@@ -346,9 +354,9 @@ namespace ApexEngine.Assets.Apx
         {
             writer.WriteStartElement(TOKEN_BONE);
 
-            writer.WriteAttributeString(TOKEN_NAME, b.GetName());
+            writer.WriteAttributeString(TOKEN_NAME, b.Name);
             if (b.GetParent() != null)
-                writer.WriteAttributeString(TOKEN_PARENT, b.GetParent().GetName());
+                writer.WriteAttributeString(TOKEN_PARENT, b.GetParent().Name);
 
             writer.WriteStartElement(TOKEN_BONE_BINDPOSITION);
             writer.WriteAttributeString("x", b.GetBindTranslation().x.ToString());

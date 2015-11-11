@@ -1,0 +1,14 @@
+struct DirectionalLight {
+	vec3 direction;
+	vec4 color;
+	float intensity;
+};
+
+uniform DirectionalLight Apex_DirectionalLight;
+
+vec4 calcDirectionalLight(vec3 normals) {
+	vec3 n = normalize(normals);
+	vec3 l = normalize(Apex_DirectionalLight.direction);
+	float NdotL = dot(n, l);
+	return (vec4(max(NdotL, 0.0))*Apex_DirectionalLight.color);
+}

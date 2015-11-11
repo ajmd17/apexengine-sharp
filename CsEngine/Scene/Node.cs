@@ -17,9 +17,9 @@ namespace ApexEngine.Scene
         {
 
         }
-        public List<GameObject> GetChildren()
+        public List<GameObject> Children
         {
-            return children;
+            get { return children; }
         }
         public void AddChild(GameObject child)
         {
@@ -39,7 +39,7 @@ namespace ApexEngine.Scene
         {
             for (int i = 0; i < children.Count; i++)
             {
-                if (children[i].GetName() == name)
+                if (children[i].Name == name)
                 {
                     return children[i];
                 }

@@ -1,0 +1,14 @@
+struct DirectionalLight {
+	vec3 direction;
+	vec4 color;
+	float intensity;
+};
+
+DirectionalLight directionalLight;
+
+vec4 calcDirectionalLight(vec3 normals) {
+	vec3 n = normalize(normals);
+	vec3 l = normalize(directionalLight.direction);
+	float NdotL = dot(n, l);
+	return (vec4(max(NdotL, 0.0))*directionalLight.color);
+}

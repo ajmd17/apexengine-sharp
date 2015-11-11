@@ -64,22 +64,22 @@ namespace ApexEngine.Assets.Apx
         }
         private void EndModel()
         {
-            Skeleton skeleton = skeletons[skeletons.Count - 1];
-            if (skeleton.GetNumBones() > 0)
-            {
-                for (int i = 0; i < skeleton.GetNumBones(); i++)
-                    skeleton.GetBone(i).SetToBindingPose();
-                skeleton.GetBone(0).CalculateBindingRotation();
-                skeleton.GetBone(0).CalculateBindingTranslation();
-                for (int i = 0; i < skeleton.GetNumBones(); i++)
-                {
-                    skeleton.GetBone(i).StoreBindingPose();
-                    skeleton.GetBone(i).ClearPose();
-                }
-                skeleton.GetBone(0).UpdateTransform();
-            }
             if (skeletons.Count > 0)
             {
+                Skeleton skeleton = skeletons[skeletons.Count - 1];
+                if (skeleton.GetNumBones() > 0)
+                {
+                    for (int i = 0; i < skeleton.GetNumBones(); i++)
+                        skeleton.GetBone(i).SetToBindingPose();
+                    skeleton.GetBone(0).CalculateBindingRotation();
+                    skeleton.GetBone(0).CalculateBindingTranslation();
+                    for (int i = 0; i < skeleton.GetNumBones(); i++)
+                    {
+                        skeleton.GetBone(i).StoreBindingPose();
+                        skeleton.GetBone(i).ClearPose();
+                    }
+                    skeleton.GetBone(0).UpdateTransform();
+                }
                 if (hasAnimations)
                 {
                     for (int j = 0; j < animations.Count; j++)
@@ -137,7 +137,7 @@ namespace ApexEngine.Assets.Apx
                 if (geoms.Count > 0)
                 {
                     Geometry parent = geoms[i];
-                    parent.SetMesh(mesh);
+                    parent.Mesh = mesh;
                 }
             }
         }
@@ -165,7 +165,7 @@ namespace ApexEngine.Assets.Apx
                         geom = true;
                         string name = xmlReader.GetAttribute(ApxExporter.TOKEN_NAME);
                         Geometry g = new Geometry();
-                        g.SetName(name);
+                        g.Name = name;
                         if (lastNode != null)
                             lastNode.AddChild(g);
                         geoms.Add(g);
@@ -273,7 +273,7 @@ namespace ApexEngine.Assets.Apx
                         {
                             foreach (Bone b in lastBL)
                             {
-                                if (b.GetName() == parent)
+                                if (b.Name == parent)
                                 {
                                     b.AddChild(bone);
                                 }

@@ -4,7 +4,7 @@ attribute vec3 a_normal;
 attribute vec2 a_texcoord0;
 attribute vec4 a_boneweights;
 attribute vec4 a_boneindices;
-uniform mat4 Bone[53];
+uniform mat4 Bone[$NUM_BONES];
 varying vec2 v_texCoord0;
 varying vec3 v_normal;
 varying vec3 v_position;

@@ -59,22 +59,37 @@ namespace ApexEngine.Assets.Obj
         private ObjIndex ParseObjIndex(string token)
         {
             string[] values = token.Split('/');
-
             ObjIndex res = new ObjIndex();
-            res.vertexIdx = int.Parse(values[0]) - 1;
-            if (values.Length > 1)
+            if (values.Length > 0)
             {
-                if (values[1] != "")
+                res.vertexIdx = int.Parse(values[0]) - 1;
+                if (values.Length > 1)
                 {
-                    hasTexCoords = true;
-                    res.texCoordIdx = int.Parse(values[1]) - 1;
-                }
-                if (values.Length > 2)
-                {
-                    hasNormals = true;
-                    res.normalIdx = int.Parse(values[2]) - 1;
+                    if (values[1] != "")
+                    {
+                        hasTexCoords = true;
+                        res.texCoordIdx = int.Parse(values[1]) - 1;
+                    }
+                    if (values.Length > 2)
+                    {
+                        hasNormals = true;
+                        res.normalIdx = int.Parse(values[2]) - 1;
+                    }
                 }
             }
+            return res;
+        }
+        public static string[] RemoveEmptyStrings(string[] data)
+        {
+            List<string> result = new List<string>();
+            for (int i = 0; i < data.Length; i++)
+            {
+                if (data[i] != "")
+                {
+                    result.Add(data[i]);
+                }
+            }
+            string[] res = result.ToArray();
             return res;
         }
         public override object Load(string filePath)
@@ -82,31 +97,41 @@ namespace ApexEngine.Assets.Obj
             Node node = new Node();
             StreamReader reader = File.OpenText(filePath);
             string line;
-            while ((line = reader.ReadLine()) != null)
+            while ((line = reader.ReadLine()) != null )
             {
                 string[] tokens = line.Split(' ');
-                if (tokens[0] == "v")
+                tokens = RemoveEmptyStrings(tokens);
+                if (tokens.Length == 0 || tokens[0] == "#")
                 {
-                    positions.Add(new Vector3f(float.Parse(tokens[1]), float.Parse(tokens[2]), float.Parse(tokens[3])));
                 }
-                else if (tokens[0] == "vn")
-                {
-                    normals.Add(new Vector3f(float.Parse(tokens[1]), float.Parse(tokens[2]), float.Parse(tokens[3])));
-                }
-                else if (tokens[0] == "vt")
-                {
-                    texCoords.Add(new Vector2f(float.Parse(tokens[1]), float.Parse(tokens[2])));
-                }
-                else if (tokens[0] == "f")
-                {
-                    List<ObjIndex> idx = CurrentList();
-                    for (int i = 0; i < tokens.Length - 3; i++)
+                else if (tokens[0] == "v")
                     {
-                        idx.Add(ParseObjIndex(tokens[1]));
-                        idx.Add(ParseObjIndex(tokens[2 + i]));
-                        idx.Add(ParseObjIndex(tokens[3 + i]));
+                        positions.Add(new Vector3f(float.Parse(tokens[1]), float.Parse(tokens[2]), float.Parse(tokens[3])));
                     }
-                }
+                    else if (tokens[0] == "vn")
+                    {
+                        normals.Add(new Vector3f(float.Parse(tokens[1]), float.Parse(tokens[2]), float.Parse(tokens[3])));
+                    }
+                    else if (tokens[0] == "vt")
+                    {
+                        texCoords.Add(new Vector2f(float.Parse(tokens[1]), float.Parse(tokens[2])));
+                    }
+                    else if (tokens[0] == "f")
+                    {
+                        List<ObjIndex> idx = CurrentList();
+                        for (int i = 0; i < tokens.Length - 3; i++)
+                        {
+                            idx.Add(ParseObjIndex(tokens[1]));
+                            idx.Add(ParseObjIndex(tokens[2 + i]));
+                            idx.Add(ParseObjIndex(tokens[3 + i]));
+                        }
+                    }
+                    else if (tokens[0] == "o")
+                    {
+                        string oName = tokens[1];
+                        NewMesh();
+                    }
+                
             }
             for (int i = 0; i < objIndices.Count; i++)
             {
@@ -125,8 +150,8 @@ namespace ApexEngine.Assets.Obj
                 mesh.SetVertices(vertices);
                
                 Geometry geom = new Geometry();
-                geom.SetName("child_" + i);
-                geom.SetMesh(mesh);
+                geom.Name = "child_" + i;
+                geom.Mesh = mesh;
                 node.AddChild(geom);
             }
             return node;

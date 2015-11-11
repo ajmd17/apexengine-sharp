@@ -1,0 +1,17 @@
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\Test\bin\Debug\Test.exe.config
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\Test\bin\Debug\Test.exe
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\Test\bin\Debug\Test.pdb
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\Test\obj\Debug\Test.csprojResolveAssemblyReference.cache
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\Test\obj\Debug\Test.Properties.Resources.resources
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\Test\obj\Debug\Test.csproj.GenerateResource.Cache
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\Test\obj\Debug\Test.exe
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\Test\obj\Debug\Test.pdb
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\Test\obj\Debug\ApexEditor.ApexEngineControl.resources
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\Test\bin\Debug\ApexEngine.exe
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\Test\bin\Debug\OpenTK.dll
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\Test\bin\Debug\OpenTK.GLControl.dll
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\Test\bin\Debug\ApexEngine.pdb
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\Test\bin\Debug\OpenTK.pdb
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\Test\bin\Debug\OpenTK.xml
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\Test\bin\Debug\OpenTK.GLControl.xml
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\Test\obj\Debug\ApexEditor.Form1.resources

@@ -1,0 +1,30 @@
+// Apex 3D Lighting Calculations
+
+struct DirectionalLight {
+	vec3 direction;
+	vec4 color;
+	float intensity;
+};
+
+struct AmbientLight {
+	vec4 color;
+	float intensity;
+};
+
+uniform DirectionalLight Env_DirectionalLight;
+uniform AmbientLight Env_AmbientLight;
+
+float LambertDirectional(vec3 _normal, vec3 _dir) {
+	vec3 n = normalize(_normal);
+	vec3 l = normalize(_dir);
+	float NdotL = dot(n, l);
+	return max(NdotL, 0.0);
+}
+
+float BlinnPhongDirectional(vec3 _normal, vec3 _pos, vec3 _cam, vec3 _dir)
+{
+	vec3 eyeDir = normalize(_cam-_pos);
+  	vec3 vHalfVector = normalize(_dir+eyeDir);
+	vec3 n = normalize(_normal);
+	return pow(max(dot(n, vHalfVector), 0.0), 100.) * 1.5;
+}

@@ -213,7 +213,7 @@ namespace ApexEngine.Assets.OgreXml
                 mesh.SetSkeleton(skeleton);
                 mesh.SetVertices(vertices);
                 Geometry geom = new Geometry();
-                geom.SetMesh(mesh);
+                geom.Mesh = mesh;
                 res.AddChild(geom);
             }
             else
@@ -226,7 +226,7 @@ namespace ApexEngine.Assets.OgreXml
                     mesh.SetSkeleton(skeleton);
                     mesh.SetVertices(sm.vertices);
                     Geometry geom = new Geometry();
-                    geom.SetMesh(mesh);
+                    geom.Mesh = mesh;
                     res.AddChild(geom);
                 }
             }

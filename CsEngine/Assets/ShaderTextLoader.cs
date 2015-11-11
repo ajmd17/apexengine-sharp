@@ -12,7 +12,7 @@ namespace ApexEngine.Assets
         {
             return instance;
         }
-        public ShaderTextLoader() : base ("vert", "frag", "geom", "comp", "tesc", "tese", "glsl", "gl")
+        public ShaderTextLoader() : base ("vert", "frag", "geom", "comp", "tesc", "tese", "glsl", "gl", "glh")
         {
 
         }
