@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApexEngine", "CsEngine\ApexEngine.csproj", "{DE1BFC80-78C3-4583-9D74-E29F423152A0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApexEngine", "ApexEngine\ApexEngine.csproj", "{DE1BFC80-78C3-4583-9D74-E29F423152A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SceneEditor", "Test\SceneEditor.csproj", "{81B73DBD-F5A5-4E95-B71E-9C3ADF328CD5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SceneEditor", "ApexEngine.SceneBuilder\SceneEditor.csproj", "{81B73DBD-F5A5-4E95-B71E-9C3ADF328CD5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApexEngine.Terrain", "ApexEngine.Terrain\ApexEngine.Terrain.csproj", "{98DA8BB8-D4EA-48D5-A014-7DB65979B0EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApexEngine.Demos", "ApexEngine.Demos\ApexEngine.Demos.csproj", "{9FEA11C6-C73E-4F0A-A784-37473B1E059E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +33,22 @@ Global
 		{81B73DBD-F5A5-4E95-B71E-9C3ADF328CD5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{81B73DBD-F5A5-4E95-B71E-9C3ADF328CD5}.Release|x86.ActiveCfg = Release|Any CPU
 		{81B73DBD-F5A5-4E95-B71E-9C3ADF328CD5}.Release|x86.Build.0 = Release|Any CPU
+		{98DA8BB8-D4EA-48D5-A014-7DB65979B0EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98DA8BB8-D4EA-48D5-A014-7DB65979B0EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98DA8BB8-D4EA-48D5-A014-7DB65979B0EA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{98DA8BB8-D4EA-48D5-A014-7DB65979B0EA}.Debug|x86.Build.0 = Debug|Any CPU
+		{98DA8BB8-D4EA-48D5-A014-7DB65979B0EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98DA8BB8-D4EA-48D5-A014-7DB65979B0EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98DA8BB8-D4EA-48D5-A014-7DB65979B0EA}.Release|x86.ActiveCfg = Release|Any CPU
+		{98DA8BB8-D4EA-48D5-A014-7DB65979B0EA}.Release|x86.Build.0 = Release|Any CPU
+		{9FEA11C6-C73E-4F0A-A784-37473B1E059E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FEA11C6-C73E-4F0A-A784-37473B1E059E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FEA11C6-C73E-4F0A-A784-37473B1E059E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9FEA11C6-C73E-4F0A-A784-37473B1E059E}.Debug|x86.Build.0 = Debug|Any CPU
+		{9FEA11C6-C73E-4F0A-A784-37473B1E059E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FEA11C6-C73E-4F0A-A784-37473B1E059E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FEA11C6-C73E-4F0A-A784-37473B1E059E}.Release|x86.ActiveCfg = Release|Any CPU
+		{9FEA11C6-C73E-4F0A-A784-37473B1E059E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

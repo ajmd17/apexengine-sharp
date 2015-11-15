@@ -1,0 +1,71 @@
+// Apex 3D Lighting Calculations
+const float PI = 3.14159265358979323846;
+
+struct DirectionalLight {
+	vec3 direction;
+	vec4 color;
+	float intensity;
+};
+
+struct AmbientLight {
+	vec4 color;
+	float intensity;
+};
+
+uniform DirectionalLight Env_DirectionalLight;
+uniform AmbientLight Env_AmbientLight;
+
+float sqr(float x)
+{
+    return x*x;
+}
+
+float NormalizedTrowbridgeReitz(float costhetaH, float w)
+{
+    float w2 = w*w;
+    return w2 / (PI * sqr( costhetaH*costhetaH * (w2 - 1) + 1 ));
+}
+
+float SchlickFresnel(float f0, float f90, float u)
+{
+    return f0 + (f90-f0) * pow(1-u, 5);
+}
+
+float CookTorranceG(float NdotL, float NdotV, float LdotH, float NdotH)
+{
+    return min(1, 2 * (NdotH / LdotH) * min(NdotL, NdotV));
+}
+
+float LambertDirectional(vec3 _normal, vec3 _dir) {
+	vec3 n = normalize(_normal);
+	vec3 l = normalize(_dir);
+	float NdotL = dot(n, l);
+	return max(NdotL, 0.0);
+}
+
+float BlinnPhongDirectional(vec3 _normal, vec3 _pos, vec3 _cam, vec3 _dir, float _shininess)
+{
+	vec3 eyeDir = normalize(_cam-_pos);
+  	vec3 vHalfVector = normalize(_dir+eyeDir);
+	vec3 n = normalize(_normal);
+	return pow(max(dot(n, vHalfVector), 0.0), _shininess) * 1.5;
+}
+
+float SpecularDirectional(vec3 _normal, vec3 _pos, vec3 _cam, vec3 _dir, float _shininess)
+{
+	vec3 eyeDir = normalize(_cam-_pos);
+  	vec3 vHalfVector = normalize(_dir+eyeDir);
+	vec3 n = normalize(_normal);
+	vec3 l = normalize(_dir);
+	float NdotH = dot(n, vHalfVector);
+	float LdotH = dot(l, vHalfVector);
+	float NdotL = dot(n, l);
+	float NdotV = dot(n, eyeDir);
+	
+	const float F0 = .2;
+	float D = NormalizedTrowbridgeReitz(max(NdotH, 0.0), 0.5-(clamp(_shininess, 1.0, 100.0)*0.005));
+	float F = SchlickFresnel(F0, 1.0, max(0.0, LdotH));
+	float G = CookTorranceG(NdotL, max(0.0, NdotV), max(0.0, LdotH), max(0.0, NdotH));
+	
+	return max(0.0, G*F*D);
+}

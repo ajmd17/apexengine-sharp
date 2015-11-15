@@ -1,7 +1,0 @@
-C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\CsEngine\bin\Release\ApexEngine.dll
-C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\CsEngine\bin\Release\ApexEngine.pdb
-C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\CsEngine\bin\Release\OpenTK.dll
-C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\CsEngine\bin\Release\OpenTK.pdb
-C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\CsEngine\bin\Release\OpenTK.xml
-C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\CsEngine\obj\x86\Release\ApexEngine.dll
-C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\CsEngine\obj\x86\Release\ApexEngine.pdb

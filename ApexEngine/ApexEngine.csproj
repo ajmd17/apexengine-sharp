@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DE1BFC80-78C3-4583-9D74-E29F423152A0}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ApexEngine</RootNamespace>
+    <AssemblyName>ApexEngine</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>ApexEngine.Program</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="OpenTK, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\OpenTK\1.1\Binaries\OpenTK\Release\OpenTK.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assets\Apx\ApxExporter.cs" />
+    <Compile Include="Assets\Apx\ApxModelLoader.cs" />
+    <Compile Include="Assets\AssetLoader..cs" />
+    <Compile Include="Assets\AssetManager.cs" />
+    <Compile Include="Assets\LoadedAsset.cs" />
+    <Compile Include="Assets\Obj\MtlAssetLoader.cs" />
+    <Compile Include="Assets\Obj\ObjModelLoader.cs" />
+    <Compile Include="Assets\OgreXml\OgreXmlModelLoader.cs" />
+    <Compile Include="Assets\OgreXml\OgreXmlSkeletonLoader.cs" />
+    <Compile Include="Assets\ShaderTextLoader.cs" />
+    <Compile Include="Assets\TextLoader.cs" />
+    <Compile Include="Assets\TextureLoader.cs" />
+    <Compile Include="Assets\Util\BoneAssign.cs" />
+    <Compile Include="Game.cs" />
+    <Compile Include="Input\InputManager.cs" />
+    <Compile Include="Input\KeyboardEvent.cs" />
+    <Compile Include="Input\MouseEvent.cs" />
+    <Compile Include="Math\MathUtil.cs" />
+    <Compile Include="Math\Matrix4f.cs" />
+    <Compile Include="Math\Quaternion.cs" />
+    <Compile Include="Math\Transform.cs" />
+    <Compile Include="Math\Vector4f.cs" />
+    <Compile Include="Math\Vector2f.cs" />
+    <Compile Include="Math\Vector3f.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Rendering\Animation\AnimatedShader.cs" />
+    <Compile Include="Rendering\Animation\Animation.cs" />
+    <Compile Include="Rendering\Animation\AnimationController.cs" />
+    <Compile Include="Rendering\Animation\AnimationTrack.cs" />
+    <Compile Include="Rendering\Animation\Bone.cs" />
+    <Compile Include="Rendering\Animation\Keyframe.cs" />
+    <Compile Include="Rendering\Animation\Skeleton.cs" />
+    <Compile Include="Rendering\Camera.cs" />
+    <Compile Include="Rendering\Cameras\DefaultCamera.cs" />
+    <Compile Include="Rendering\Cameras\OrthoCamera.cs" />
+    <Compile Include="Rendering\Cameras\PerspectiveCamera.cs" />
+    <Compile Include="Rendering\Environment\AmbientLight.cs" />
+    <Compile Include="Rendering\Environment\DirectionalLight.cs" />
+    <Compile Include="Rendering\Environment\Environment.cs" />
+    <Compile Include="Rendering\Environment\LightSource.cs" />
+    <Compile Include="Rendering\Framebuffer.cs" />
+    <Compile Include="Rendering\Material.cs" />
+    <Compile Include="Rendering\Mesh.cs" />
+    <Compile Include="Rendering\MeshUtil.cs" />
+    <Compile Include="Rendering\RenderManager.cs" />
+    <Compile Include="Rendering\Shader.cs" />
+    <Compile Include="Rendering\ShaderManager.cs" />
+    <Compile Include="Rendering\ShaderProperties.cs" />
+    <Compile Include="Rendering\Shaders\DefaultShader.cs" />
+    <Compile Include="Rendering\Texture.cs" />
+    <Compile Include="Rendering\Util\ShaderUtil.cs" />
+    <Compile Include="Rendering\Vertex.cs" />
+    <Compile Include="Rendering\VertexAttributes.cs" />
+    <Compile Include="Scene\Components\Controller.cs" />
+    <Compile Include="Scene\Components\EngineComponent.cs" />
+    <Compile Include="Scene\Components\GameComponent.cs" />
+    <Compile Include="Scene\Components\RenderComponent.cs" />
+    <Compile Include="Scene\GameObject.cs" />
+    <Compile Include="Scene\Geometry.cs" />
+    <Compile Include="Scene\Node.cs" />
+    <Compile Include="TestGame.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\apex3d.txt" />
+    <None Include="Resources\sphere16.obj" />
+    <None Include="Resources\sphere32.obj" />
+    <None Include="Resources\sphere8.obj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\material.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\lighting.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\skinning.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
