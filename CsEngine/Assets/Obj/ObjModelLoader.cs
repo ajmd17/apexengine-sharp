@@ -29,6 +29,7 @@ namespace ApexEngine.Assets.Obj
         {
             return instance;
         }
+        protected List<string> names = new List<string>();
         protected List<List<ObjIndex>> objIndices = new List<List<ObjIndex>>();
         protected List<Vector3f> positions = new List<Vector3f>();
         protected List<Vector3f> normals = new List<Vector3f>();
@@ -42,19 +43,21 @@ namespace ApexEngine.Assets.Obj
             texCoords.Clear();
             positions.Clear();
             normals.Clear();
+            names.Clear();
         }
         private List<ObjIndex> CurrentList()
         {
             if (objIndices.Count == 0)
-                NewMesh();
+                NewMesh("child_0");
             return objIndices[objIndices.Count - 1];
         }
         public ObjModelLoader() : base ("obj")
         {
         }
-        private void NewMesh()
+        private void NewMesh(string name)
         {
             objIndices.Add(new List<ObjIndex>());
+            names.Add(name);
         }
         private ObjIndex ParseObjIndex(string token)
         {
@@ -95,6 +98,8 @@ namespace ApexEngine.Assets.Obj
         public override object Load(string filePath)
         {
             Node node = new Node();
+            string modelName = Path.GetFileNameWithoutExtension(filePath);
+            node.Name = modelName;
             StreamReader reader = File.OpenText(filePath);
             string line;
             while ((line = reader.ReadLine()) != null )
@@ -129,7 +134,8 @@ namespace ApexEngine.Assets.Obj
                     else if (tokens[0] == "o")
                     {
                         string oName = tokens[1];
-                        NewMesh();
+                         
+                        NewMesh(oName);
                     }
                 
             }
@@ -150,7 +156,7 @@ namespace ApexEngine.Assets.Obj
                 mesh.SetVertices(vertices);
                
                 Geometry geom = new Geometry();
-                geom.Name = "child_" + i;
+                geom.Name = names[i];
                 geom.Mesh = mesh;
                 node.AddChild(geom);
             }

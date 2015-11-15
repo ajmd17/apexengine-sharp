@@ -39,13 +39,16 @@ namespace ApexEngine.Assets.Apx
 	    public const string TOKEN_CLASS = "class";
 	    public const string TOKEN_TYPE = "type";
 	    public const string TOKEN_TYPE_UNKNOWN = "unknown";
-	    public const string TOKEN_TYPE_string = "string";
+	    public const string TOKEN_TYPE_STRING = "string";
 	    public const string TOKEN_TYPE_BOOLEAN = "boolean";
 	    public const string TOKEN_TYPE_FLOAT = "float";
-	    public const string TOKEN_TYPE_INT = "int";
+        public const string TOKEN_TYPE_VECTOR2 = "vec2";
+        public const string TOKEN_TYPE_VECTOR3 = "vec3";
+        public const string TOKEN_TYPE_VECTOR4 = "vec4";
+        public const string TOKEN_TYPE_INT = "int";
 	    public const string TOKEN_TYPE_COLOR = "color";
 	    public const string TOKEN_TYPE_TEXTURE = "texture";
-	    public const string TOKEN_VALUE = "value";
+        public const string TOKEN_VALUE = "value";
 	    public const string TOKEN_HAS_POSITIONS = "has_positions";
 	    public const string TOKEN_HAS_NORMALS = "has_normals";
 	    public const string TOKEN_HAS_TEXCOORDS = "has_texcoords";
@@ -66,7 +69,8 @@ namespace ApexEngine.Assets.Apx
 	    public const string TOKEN_BONE_BINDROTATION = "bind_rotation";
 	    public const string TOKEN_MODEL = "model";
 	    public const string TOKEN_TRANSLATION = "translation";
-	    public const string TOKEN_ROTATION = "rotation";
+        public const string TOKEN_SCALE = "scale";
+        public const string TOKEN_ROTATION = "rotation";
 	    public const string TOKEN_CONTROL = "control";
         private static List<Skeleton> skeletons = new List<Skeleton>();
         public static void ExportModel(string path, params GameObject[] gameObjects)
@@ -108,6 +112,17 @@ namespace ApexEngine.Assets.Apx
             writer.WriteAttributeString("y", node.GetLocalTranslation().y.ToString());
             writer.WriteAttributeString("z", node.GetLocalTranslation().z.ToString());
             writer.WriteEndElement();
+            writer.WriteStartElement(TOKEN_SCALE);
+            writer.WriteAttributeString("x", node.GetLocalScale().x.ToString());
+            writer.WriteAttributeString("y", node.GetLocalScale().y.ToString());
+            writer.WriteAttributeString("z", node.GetLocalScale().z.ToString());
+            writer.WriteEndElement();
+            writer.WriteStartElement(TOKEN_ROTATION);
+            writer.WriteAttributeString("x", node.GetLocalRotation().x.ToString());
+            writer.WriteAttributeString("y", node.GetLocalRotation().y.ToString());
+            writer.WriteAttributeString("z", node.GetLocalRotation().z.ToString());
+            writer.WriteAttributeString("w", node.GetLocalRotation().w.ToString());
+            writer.WriteEndElement();
             for (int i = 0; i < node.Children.Count; i++)
             {
                 SaveObject(node.GetChild(i), writer);
@@ -125,11 +140,23 @@ namespace ApexEngine.Assets.Apx
             writer.WriteAttributeString("x", geom.GetLocalTranslation().x.ToString());
             writer.WriteAttributeString("y", geom.GetLocalTranslation().y.ToString());
             writer.WriteAttributeString("z", geom.GetLocalTranslation().z.ToString());
+            writer.WriteStartElement(TOKEN_SCALE);
+            writer.WriteAttributeString("x", geom.GetLocalScale().x.ToString());
+            writer.WriteAttributeString("y", geom.GetLocalScale().y.ToString());
+            writer.WriteAttributeString("z", geom.GetLocalScale().z.ToString());
+            writer.WriteEndElement();
+            writer.WriteStartElement(TOKEN_ROTATION);
+            writer.WriteAttributeString("x", geom.GetLocalRotation().x.ToString());
+            writer.WriteAttributeString("y", geom.GetLocalRotation().y.ToString());
+            writer.WriteAttributeString("z", geom.GetLocalRotation().z.ToString());
+            writer.WriteAttributeString("w", geom.GetLocalRotation().z.ToString());
+            writer.WriteEndElement();
             writer.WriteEndElement();
             if (geom.Mesh != null)
             {
                 SaveMesh(geom.Mesh, writer);
             }
+            SaveMaterial(geom.Material, writer);
             writer.WriteEndElement();
         }
         private static void SaveMesh(Mesh mesh, XmlWriter writer)
@@ -183,14 +210,12 @@ namespace ApexEngine.Assets.Apx
                     }
                 }
             }
-
             writer.WriteAttributeString(TOKEN_HAS_POSITIONS, (facesP.Count > 0).ToString());
             writer.WriteAttributeString(TOKEN_HAS_NORMALS, (facesN.Count > 0).ToString());
             writer.WriteAttributeString(TOKEN_HAS_TEXCOORDS, (facesT0.Count > 0).ToString());
 
             writer.WriteStartElement(TOKEN_VERTICES);
             
-
             for (int i = 0; i < positions.Count; i++)
             {
                 writer.WriteStartElement(TOKEN_POSITION);
@@ -199,20 +224,26 @@ namespace ApexEngine.Assets.Apx
                 writer.WriteAttributeString("z", positions[i].z.ToString());
                 writer.WriteEndElement();
             }
-            for (int i = 0; i < normals.Count; i++)
+            if (mesh.GetAttributes().HasAttribute(VertexAttributes.NORMALS))
             {
-                writer.WriteStartElement(TOKEN_NORMAL);
-                writer.WriteAttributeString("x", normals[i].x.ToString());
-                writer.WriteAttributeString("y", normals[i].y.ToString());
-                writer.WriteAttributeString("z", normals[i].z.ToString());
-                writer.WriteEndElement();
+                for (int i = 0; i < normals.Count; i++)
+                {
+                    writer.WriteStartElement(TOKEN_NORMAL);
+                    writer.WriteAttributeString("x", normals[i].x.ToString());
+                    writer.WriteAttributeString("y", normals[i].y.ToString());
+                    writer.WriteAttributeString("z", normals[i].z.ToString());
+                    writer.WriteEndElement();
+                }
             }
-            for (int i = 0; i < texcoords0.Count; i++)
+            if (mesh.GetAttributes().HasAttribute(VertexAttributes.TEXCOORDS0))
             {
-                writer.WriteStartElement(TOKEN_TEXCOORD0);
-                writer.WriteAttributeString("x", texcoords0[i].x.ToString());
-                writer.WriteAttributeString("y", texcoords0[i].y.ToString());
-                writer.WriteEndElement();
+                for (int i = 0; i < texcoords0.Count; i++)
+                {
+                    writer.WriteStartElement(TOKEN_TEXCOORD0);
+                    writer.WriteAttributeString("x", texcoords0[i].x.ToString());
+                    writer.WriteAttributeString("y", texcoords0[i].y.ToString());
+                    writer.WriteEndElement();
+                }
             }
             if (mesh.GetAttributes().HasAttribute(VertexAttributes.TEXCOORDS1))
             {
@@ -279,6 +310,38 @@ namespace ApexEngine.Assets.Apx
 
 
             writer.WriteEndElement(); // end mesh
+        }
+        private static void SaveMaterial(Material material, XmlWriter writer)
+        {
+            writer.WriteStartElement(TOKEN_MATERIAL);
+            for (int i = 0; i < material.Values.Count; i++)
+            {
+                writer.WriteStartElement(TOKEN_MATERIAL_PROPERTY);
+                writer.WriteAttributeString(TOKEN_NAME, material.Values.ElementAt(i).Key);
+                string typeString = TOKEN_TYPE_UNKNOWN;
+                object obj = material.Values.ElementAt(i).Value;
+                if (obj is string)
+                    typeString = TOKEN_TYPE_STRING;
+                else if (obj is int)
+                    typeString = TOKEN_TYPE_INT;
+                else if (obj is float)
+                    typeString = TOKEN_TYPE_FLOAT;
+                else if (obj is bool)
+                    typeString = TOKEN_TYPE_BOOLEAN;
+                else if (obj is Vector2f)
+                    typeString = TOKEN_TYPE_VECTOR2;
+                else if (obj is Vector3f)
+                    typeString = TOKEN_TYPE_VECTOR3;
+                else if (obj is Vector4f)
+                    typeString = TOKEN_TYPE_VECTOR4;
+                else if (obj is Texture)
+                    typeString = TOKEN_TYPE_TEXTURE;
+
+                writer.WriteAttributeString(TOKEN_TYPE, typeString);
+                writer.WriteAttributeString(TOKEN_VALUE, obj.ToString());
+                writer.WriteEndElement();
+            }
+            writer.WriteEndElement(); // end material
         }
         private static void SaveSkeletons(XmlWriter writer)
         {

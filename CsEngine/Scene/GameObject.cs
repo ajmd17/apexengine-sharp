@@ -7,6 +7,7 @@ namespace ApexEngine.Scene
 {
     public abstract class GameObject
     {
+        protected Rendering.RenderManager renderManager = null;
         private bool updateNeeded = true;
         protected List<Components.Controller> controls = new List<Components.Controller>();
         protected Vector3f localTranslation;
@@ -210,8 +211,9 @@ namespace ApexEngine.Scene
         {
             updateNeeded = true;
         }
-        public virtual void Update()
+        public virtual void Update(Rendering.RenderManager renderManager)
         {
+            this.renderManager = renderManager;
             if (updateNeeded)
             {
                 UpdateTransform();
@@ -238,6 +240,10 @@ namespace ApexEngine.Scene
         public virtual void UpdateParents()
         {
             attachedToRoot = CalcAttachedToRoot();
+        }
+        public bool AttachedToRoot
+        {
+            get { return attachedToRoot; }
         }
         protected bool CalcAttachedToRoot()
         {

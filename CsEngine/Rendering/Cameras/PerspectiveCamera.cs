@@ -23,7 +23,7 @@ namespace ApexEngine.Rendering.Cameras
         {
             rotation.SetToLookAt(direction, up);
             viewMatrix.SetToLookAt(translation, translation.Add(direction), up);
-            projMatrix.SetToProjection(67, RenderManager.SCREEN_WIDTH, RenderManager.SCREEN_HEIGHT, 0.5f, 100f);
+            projMatrix.SetToProjection(fov, width, height, 0.5f, 100f);
             yaw = rotation.GetYaw();
             roll = rotation.GetRoll();
             pitch = rotation.GetPitch();

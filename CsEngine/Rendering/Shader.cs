@@ -80,7 +80,12 @@ namespace ApexEngine.Rendering
         public void ApplyMaterial(Material material)
         {
             currentMaterial = material;
-            this.SetUniform("Material_Shininess", 25f); // material.Shininess
+            this.SetUniform("Material_Shininess", material.GetFloat(Material.SHININESS));
+            this.SetUniform("Material_AmbientColor", material.GetVector4f(Material.COLOR_AMBIENT));
+            this.SetUniform("Material_DiffuseColor", material.GetVector4f(Material.COLOR_DIFFUSE));
+            this.SetUniform("Material_SpecularColor", material.GetVector4f(Material.COLOR_SPECULAR));
+            this.SetUniform("Material_SpecularTechnique", material.GetInt(Material.TECHNIQUE_SPECULAR));
+            this.SetUniform("Material_PerPixelLighting", material.GetInt(Material.TECHNIQUE_PER_PIXEL_LIGHTING));
         }
         public void Render(Mesh mesh)
         {
@@ -144,6 +149,7 @@ namespace ApexEngine.Rendering
             GL.ShaderSource(shader, code);
             GL.CompileShader(shader);
             GL.AttachShader(id, shader);
+            Console.WriteLine(code);
         }
         public void SetUniform(string name, int i)
         {

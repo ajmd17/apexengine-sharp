@@ -10,17 +10,43 @@ using OpenTK.Input;
 using ApexEngine.Rendering;
 using ApexEngine.Rendering.Cameras;
 using ApexEngine.Scene;
+using ApexEngine.Scene.Components;
 using ApexEngine.Assets;
+using ApexEngine.Input;
 namespace ApexEngine
 {
     public abstract class Game
     {
+        private InputManager inputManager = new InputManager();
         protected Node rootNode = new Node("root");
-        protected Camera cam = new DefaultCamera(45f);
+        protected Camera cam;
         protected string windowTitle = "Apex3D Game";
+        private RenderManager renderManager = new RenderManager();
+        protected List<GameComponent> components = new List<GameComponent>();
         public Game()
         {
-            
+            cam = new DefaultCamera(inputManager, 55);
+        }
+        public List<GameComponent> GameComponents
+        {
+            get { return components; }
+        }
+        public void AddComponent(GameComponent cmp)
+        {
+            components.Add(cmp);
+            cmp.Init();
+        }
+        public void RemoveComponent(GameComponent cmp)
+        {
+            components.Remove(cmp);
+        }
+        public InputManager InputManager
+        {
+            get { return inputManager; }
+        }
+        public RenderManager RenderManager
+        {
+            get { return RenderManager; }
         }
         public Node RootNode
         {
@@ -34,11 +60,18 @@ namespace ApexEngine
         }
         public void Run()
         {
-            using (var game = new GameWindow(1080, 720))
+            using (var game = new GameWindow(1080, 720, new GraphicsMode(new ColorFormat(8,8,8,8), 24)))
             {
                 game.Title = windowTitle;
                 game.Load += (sender, e) => InitInternal();
-                game.UpdateFrame += (sender, e) => UpdateInternal();
+                game.UpdateFrame += (sender, e) =>
+                {
+                    inputManager.WINDOW_X = game.X;
+                    inputManager.WINDOW_Y = game.Y;
+                    foreach (GameComponent cmp in components)
+                        cmp.Update();
+                    UpdateInternal();
+                }; 
                 game.RenderFrame += (sender, e) =>
                 {
                     RenderInternal();
@@ -47,26 +80,24 @@ namespace ApexEngine
                 game.Resize += (sender, e) =>
                 {
                     GL.Viewport(0, 0, game.Width, game.Height);
-                    RenderManager.WINDOW_X = game.X;
-                    RenderManager.WINDOW_Y = game.Y;
-                    RenderManager.SCREEN_HEIGHT = game.Height;
-                    RenderManager.SCREEN_WIDTH = game.Width;
+                    inputManager.SCREEN_HEIGHT = game.Height;
+                    inputManager.SCREEN_WIDTH = game.Width;
                 };
                 game.KeyDown += (sender, e) =>
                 {
-                    Input.Input.KeyDown(e.Key);
+                    inputManager.KeyDown(e.Key);
                 };
                 game.KeyUp += (sender, e) =>
                 {
-                    Input.Input.KeyUp(e.Key);
+                    inputManager.KeyUp(e.Key);
                 };
                 game.MouseDown += (sender, e) =>
                 {
-                    Input.Input.MouseButtonDown(e.Button);
+                    inputManager.MouseButtonDown(e.Button);
                 };
                 game.MouseUp += (sender, e) =>
                 {
-                    Input.Input.MouseButtonUp(e.Button);
+                    inputManager.MouseButtonUp(e.Button);
                 };
                 game.VSync = VSyncMode.Off;
                 game.Run(60);
@@ -81,14 +112,14 @@ namespace ApexEngine
         {
             RenderManager.ElapsedTime += 0.01f;
             cam.Update();
-            rootNode.Update();
+            rootNode.Update(renderManager);
             Update();
         }
         public void RenderInternal()
         {
             GL.ClearColor(0.39f, 0.58f, 0.93f, 1.0f);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-            RenderManager.Render(cam);
+            renderManager.Render(cam);
             Render();
         }
         public abstract void Init();

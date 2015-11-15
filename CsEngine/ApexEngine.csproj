@@ -56,6 +56,7 @@
     <Compile Include="Assets\Apx\ApxModelLoader.cs" />
     <Compile Include="Assets\AssetLoader..cs" />
     <Compile Include="Assets\AssetManager.cs" />
+    <Compile Include="Assets\LoadedAsset.cs" />
     <Compile Include="Assets\Obj\ObjModelLoader.cs" />
     <Compile Include="Assets\OgreXml\OgreXmlModelLoader.cs" />
     <Compile Include="Assets\OgreXml\OgreXmlSkeletonLoader.cs" />
@@ -64,7 +65,7 @@
     <Compile Include="Assets\TextureLoader.cs" />
     <Compile Include="Assets\Util\BoneAssign.cs" />
     <Compile Include="Game.cs" />
-    <Compile Include="Input\Input.cs" />
+    <Compile Include="Input\InputManager.cs" />
     <Compile Include="Input\KeyboardEvent.cs" />
     <Compile Include="Input\MouseEvent.cs" />
     <Compile Include="Math\MathUtil.cs" />
@@ -90,11 +91,13 @@
     <Compile Include="Rendering\Animation\Skeleton.cs" />
     <Compile Include="Rendering\Camera.cs" />
     <Compile Include="Rendering\Cameras\DefaultCamera.cs" />
+    <Compile Include="Rendering\Cameras\OrthoCamera.cs" />
     <Compile Include="Rendering\Cameras\PerspectiveCamera.cs" />
     <Compile Include="Rendering\Environment\AmbientLight.cs" />
     <Compile Include="Rendering\Environment\DirectionalLight.cs" />
     <Compile Include="Rendering\Environment\Environment.cs" />
     <Compile Include="Rendering\Environment\LightSource.cs" />
+    <Compile Include="Rendering\Framebuffer.cs" />
     <Compile Include="Rendering\Material.cs" />
     <Compile Include="Rendering\Mesh.cs" />
     <Compile Include="Rendering\MeshUtil.cs" />
@@ -108,6 +111,9 @@
     <Compile Include="Rendering\Vertex.cs" />
     <Compile Include="Rendering\VertexAttributes.cs" />
     <Compile Include="Scene\Components\Controller.cs" />
+    <Compile Include="Scene\Components\EngineComponent.cs" />
+    <Compile Include="Scene\Components\GameComponent.cs" />
+    <Compile Include="Scene\Components\RenderComponent.cs" />
     <Compile Include="Scene\GameObject.cs" />
     <Compile Include="Scene\Geometry.cs" />
     <Compile Include="Scene\Node.cs" />
@@ -122,6 +128,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\apex3d.txt" />
+    <None Include="Resources\sphere16.obj" />
+    <None Include="Resources\sphere32.obj" />
+    <None Include="Resources\sphere8.obj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\material.txt" />

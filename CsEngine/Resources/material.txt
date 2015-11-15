@@ -1,6 +1,14 @@
 // Apex 3D material header for shaders
+
+uniform int Material_SpecularTechnique;
+uniform int Material_PerPixelLighting;
+
 uniform float Material_Shininess;
+
 uniform vec4 Material_AmbientColor;
 uniform vec4 Material_DiffuseColor;
 uniform vec4 Material_SpecularColor;
+
 uniform sampler2D Material_DiffuseMap;
+uniform sampler2D Material_NormalMap;
+uniform sampler2D Material_SpecularMap;

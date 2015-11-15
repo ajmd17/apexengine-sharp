@@ -162,7 +162,7 @@ namespace ApexEngine.Rendering.Animation
             poseRot = pose.GetRotation();
             UpdateTransform();
         }
-        public override void Update()
+        public override void Update(RenderManager renderManager)
         {
             // do nothing
         }

@@ -14,7 +14,7 @@ namespace ApexEngine.Rendering.Environment
         protected Vector3f direction = new Vector3f();
         public DirectionalLight()
         {
-            direction.Set(1.0f);
+            direction.Set(-1.0f, 1.0f, -1.0f);
             color.Set(1f, 0.9f, 0.8f, 1.0f);
         }
         public DirectionalLight(Vector3f dir)

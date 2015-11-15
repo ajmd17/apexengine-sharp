@@ -30,6 +30,7 @@ namespace ApexEngine.Scene
         {
             children.Remove(child);
             child.SetParent(null);
+            child.Update(renderManager);
         }
         public GameObject GetChild(int i)
         {
@@ -46,12 +47,12 @@ namespace ApexEngine.Scene
             }
             return null;
         }
-        public override void Update()
+        public override void Update(Rendering.RenderManager renderManager)
         {
-            base.Update();
+            base.Update(renderManager);
             for (int i = 0; i < children.Count; i++)
             {
-                children[i].Update();
+                children[i].Update(renderManager);
             }
         }
         public override void SetUpdateNeeded()

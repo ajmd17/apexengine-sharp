@@ -17,3 +17,4 @@ C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\Test\obj\Debug\Scen
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\Test\obj\Debug\SceneEditor.csprojResolveAssemblyReference.cache
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\Test\obj\Debug\ApexEditor.Editors.Vector3fEditForm.resources
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\Test\obj\Debug\ApexEditor.Editors.QuaternionEditForm.resources
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\Test\obj\Debug\ApexEditor.frmMatEditor.resources

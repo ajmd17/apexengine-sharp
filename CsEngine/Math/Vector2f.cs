@@ -151,7 +151,11 @@ namespace ApexEngine.Math
         }
         public float Dot(Vector2f other)
         {
-	        return this.x * other.x + this.y * other.y; 
+	        return this.x * other.x + this.y * other.y;
+        }
+        public override string ToString()
+        {
+            return "[" + x + ", " + y + "]";
         }
     }
 }

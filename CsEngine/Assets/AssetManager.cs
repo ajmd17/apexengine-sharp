@@ -65,7 +65,11 @@ namespace ApexEngine.Assets
             foreach (string str in loaders.Keys)
             {
                 if (filePath.EndsWith(str, StringComparison.OrdinalIgnoreCase))
-                    return loaders[str].Load(filePath);
+                {
+                    AssetLoader loader = loaders[str];
+                    loader.ResetLoader();
+                    return loader.Load(filePath);
+                }
             }
             throw new KeyNotFoundException("Could not find a registered asset loader for the filetype! File: " + filePath);
         }

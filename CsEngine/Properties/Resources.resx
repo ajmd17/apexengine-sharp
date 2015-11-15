@@ -130,4 +130,13 @@
   <data name="skinning" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\skinning.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="sphere16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sphere16.obj;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sphere32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sphere32.obj;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="sphere8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sphere8.obj;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

@@ -6,29 +6,30 @@ using OpenTK.Input;
 using ApexEngine.Rendering;
 namespace ApexEngine.Input
 {
-    public class Input
+    public class InputManager
     {
-        private static List<KeyboardEvent> keyEvts = new List<KeyboardEvent>();
-        private static List<MouseEvent> mouseEvts = new List<MouseEvent>();
-        public static List<OpenTK.Input.Key> keysdown = new List<OpenTK.Input.Key>();
-        public static List<OpenTK.Input.MouseButton> mousebtnsdown = new List<MouseButton>();
-        public static void AddKeyboardEvent(KeyboardEvent e)
+        public int SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_X, WINDOW_Y;
+        private List<KeyboardEvent> keyEvts = new List<KeyboardEvent>();
+        private List<MouseEvent> mouseEvts = new List<MouseEvent>();
+        public List<OpenTK.Input.Key> keysdown = new List<OpenTK.Input.Key>();
+        public List<OpenTK.Input.MouseButton> mousebtnsdown = new List<MouseButton>();
+        public void AddKeyboardEvent(KeyboardEvent e)
         {
             keyEvts.Add(e);
         }
-        public static void AddMouseEvent(MouseEvent e)
+        public void AddMouseEvent(MouseEvent e)
         {
             mouseEvts.Add(e);
         }
-        public static int GetMouseX()
+        public int GetMouseX()
         {
-            return RenderManager.WINDOW_X - System.Windows.Forms.Cursor.Position.X + (RenderManager.SCREEN_WIDTH/2);//Mouse.GetState().X;
+            return WINDOW_X - System.Windows.Forms.Cursor.Position.X + (SCREEN_WIDTH/2);//Mouse.GetState().X;
         }
-        public static int GetMouseY()
+        public int GetMouseY()
         {
-            return RenderManager.WINDOW_Y - System.Windows.Forms.Cursor.Position.Y + (RenderManager.SCREEN_HEIGHT / 2);//Mouse.GetState().Y;
+            return WINDOW_Y - System.Windows.Forms.Cursor.Position.Y + (SCREEN_HEIGHT / 2);//Mouse.GetState().Y;
         }
-        public static void MouseButtonDown(OpenTK.Input.MouseButton btn)
+        public void MouseButtonDown(OpenTK.Input.MouseButton btn)
         {
             if (!mousebtnsdown.Contains(btn))
             {
@@ -42,11 +43,11 @@ namespace ApexEngine.Input
                 mousebtnsdown.Add(btn);
             }
         }
-        public static bool IsMouseButtonDown(OpenTK.Input.MouseButton btn)
+        public bool IsMouseButtonDown(OpenTK.Input.MouseButton btn)
         {
             return mousebtnsdown.Contains(btn);
         }
-        public static void MouseButtonUp(OpenTK.Input.MouseButton btn)
+        public void MouseButtonUp(OpenTK.Input.MouseButton btn)
         {
             if (mousebtnsdown.Contains(btn))
             {
@@ -60,22 +61,22 @@ namespace ApexEngine.Input
                 mousebtnsdown.Remove(btn);
             }
         }
-        public static bool IsMouseButtonUp(OpenTK.Input.MouseButton btn)
+        public bool IsMouseButtonUp(OpenTK.Input.MouseButton btn)
         {
             return !IsMouseButtonDown(btn);
         }
-        public static void KeyDown(OpenTK.Input.Key key)
+        public void KeyDown(OpenTK.Input.Key key)
         {
             if (!keysdown.Contains(key))
             {
                 keysdown.Add(key);
             }
         }
-        public static bool IsKeyDown(OpenTK.Input.Key key)
+        public bool IsKeyDown(OpenTK.Input.Key key)
         {
             return keysdown.Contains(key);
         }
-        public static void KeyUp(OpenTK.Input.Key key)
+        public void KeyUp(OpenTK.Input.Key key)
         {
             if (keysdown.Contains(key))
             {
@@ -89,15 +90,15 @@ namespace ApexEngine.Input
                 keysdown.Remove(key);
             }
         }
-        public static bool IsKeyUp(OpenTK.Input.Key key)
+        public bool IsKeyUp(OpenTK.Input.Key key)
         {
             return !IsKeyDown(key);
         }
-        public static void SetMousePosition(int mx, int my)
+        public void SetMousePosition(int mx, int my)
         {
-            System.Windows.Forms.Cursor.Position = new System.Drawing.Point(RenderManager.WINDOW_X + mx , RenderManager.WINDOW_Y + my );
+            System.Windows.Forms.Cursor.Position = new System.Drawing.Point(WINDOW_X + mx , WINDOW_Y + my );
         }
-        public static void SetMouseVisible(bool isVisible)
+        public void SetMouseVisible(bool isVisible)
         {
             if (!isVisible)
                 System.Windows.Forms.Cursor.Hide();

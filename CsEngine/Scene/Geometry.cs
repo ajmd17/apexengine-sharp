@@ -17,6 +17,11 @@ namespace ApexEngine.Scene
             tmpTexture = Texture.LoadTexture("C:\\Users\\User\\Pictures\\grass_grass_0105_02_preview.jpg");
             material = new Material();
         }
+        public Material Material
+        {
+            get { return material; }
+            set { material = value; }
+        }
         public void Render(Camera cam)
         {
             if (shader == null)
@@ -31,6 +36,7 @@ namespace ApexEngine.Scene
             if (mesh != null)
             {
                 shader.Use();
+                shader.ApplyMaterial(material);
                 shader.SetTransforms(GetWorldMatrix(), cam.GetViewMatrix(), cam.GetProjectionMatrix());
                 shader.Update(cam, mesh);
                 tmpTexture.Use();
@@ -47,11 +53,11 @@ namespace ApexEngine.Scene
             base.UpdateParents();
             if (attachedToRoot)
             {
-                RenderManager.AddGeometry(this);
+                renderManager.AddGeometry(this);
             }
             else
             {
-                RenderManager.RemoveGeometry(this);
+                renderManager.RemoveGeometry(this);
             }
         }
         public Mesh Mesh

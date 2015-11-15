@@ -345,7 +345,7 @@ namespace ApexEngine.Math
             Vector3f tempVec = new Vector3f();
             tempVec.Set(target);
             tempVec.SubtractStore(pos);
-            tmpMat.SetToTranslation(pos);
+            tmpMat.SetToTranslation(pos.Multiply(-1f));
             lookAt.SetToLookAt(tempVec, up);
             this.Set(tmpMat);
             this.MultiplyStore(lookAt);

@@ -49,7 +49,7 @@ namespace ApexEditor.Editors
                     }
                 }
             }
-            return new Vector3f();
+            return value;
         }
     }
 }

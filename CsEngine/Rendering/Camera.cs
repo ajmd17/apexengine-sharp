@@ -14,6 +14,7 @@ namespace ApexEngine.Rendering
         protected float near = 0.0f, far = 150.0f;
         protected Matrix4f viewMatrix = new Matrix4f(), projMatrix = new Matrix4f();
         private Vector3f tmpVec = new Vector3f();
+        protected bool enabled = true;
         public Camera()
         {
 
@@ -23,17 +24,33 @@ namespace ApexEngine.Rendering
             this.width = width;
             this.height = height;
         }
+        public bool Enabled
+        {
+            get { return enabled; }
+            set { enabled = value; }
+        }
         public Vector3f Translation
         {
             get
             {
-                tmpVec.Set(-translation.x, -translation.y, -translation.z);
-                return tmpVec;
+                //tmpVec.Set(-translation.x, -translation.y, -translation.z);
+                // return tmpVec;
+                return translation;
             }
             set
             {
-                translation.Set(value.Multiply(-1));
+                translation.Set(value);// value.Multiply(-1));
             }
+        }
+        public int Width
+        {
+            get { return width; }
+            set { width = value; }
+        }
+        public int Height
+        {
+            get { return height; }
+            set { height = value; }
         }
         public Vector3f Direction
         {
@@ -44,6 +61,16 @@ namespace ApexEngine.Rendering
         {
             get { return up; }
             set { up.Set(value); }
+        }
+        public float Near
+        {
+            get { return near; }
+            set { near = value; }
+        }
+        public float Far
+        {
+            get { return far; }
+            set { far = value; }
         }
         public void Rotate(Vector3f axis, float angle)
         {
@@ -60,7 +87,11 @@ namespace ApexEngine.Rendering
         }
         public void Update()
         {
-            UpdateCamera();
+            if (enabled)
+            {
+                UpdateCamera();
+
+            }
             UpdateMatrix();
         }
         public Matrix4f GetViewMatrix()

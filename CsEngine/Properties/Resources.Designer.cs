@@ -82,6 +82,7 @@ namespace ApexEngine.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to // Apex 3D Lighting Calculations
+        ///const float PI = 3.14159265358979323846;
         ///
         ///struct DirectionalLight {
         ///	vec3 direction;
@@ -97,14 +98,17 @@ namespace ApexEngine.Properties {
         ///uniform DirectionalLight Env_DirectionalLight;
         ///uniform AmbientLight Env_AmbientLight;
         ///
-        ///float LambertDirectional(vec3 _normal, vec3 _dir) {
-        ///	vec3 n = normalize(_normal);
-        ///	vec3 l = normalize(_dir);
-        ///	float NdotL = dot(n, l);
-        ///	return max(NdotL, 0.0);
+        ///float sqr(float x)
+        ///{
+        ///    return x*x;
         ///}
         ///
-        ///float BlinnPhongDirectional(vec3 _normal, vec3 _pos, vec3 _cam, vec3 _ [rest of string was truncated]&quot;;.
+        ///float NormalizedTrowbridgeReitz(float costhetaH, float w)
+        ///{
+        ///    float w2 = w*w;
+        ///    return w2 / (PI * sqr( costhetaH*costhetaH * (w2 - 1) + 1 ));
+        ///}
+        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string lighting {
             get {
@@ -152,6 +156,36 @@ namespace ApexEngine.Properties {
         internal static string skinning {
             get {
                 return ResourceManager.GetString("skinning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] sphere16 {
+            get {
+                object obj = ResourceManager.GetObject("sphere16", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] sphere32 {
+            get {
+                object obj = ResourceManager.GetObject("sphere32", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] sphere8 {
+            get {
+                object obj = ResourceManager.GetObject("sphere8", resourceCulture);
+                return ((byte[])(obj));
             }
         }
     }

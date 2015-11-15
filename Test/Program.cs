@@ -19,6 +19,8 @@ namespace ApexEditor
                new EditorAttribute(typeof(Editors.Vector3fEditor), typeof(UITypeEditor)));
             TypeDescriptor.AddAttributes(typeof(ApexEngine.Math.Quaternion),
                new EditorAttribute(typeof(Editors.QuaternionEditor), typeof(UITypeEditor)));
+            TypeDescriptor.AddAttributes(typeof(ApexEngine.Rendering.Material),
+               new EditorAttribute(typeof(Editors.MaterialEditor), typeof(UITypeEditor)));
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());

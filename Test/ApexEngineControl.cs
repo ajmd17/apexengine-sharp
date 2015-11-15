@@ -20,15 +20,23 @@ namespace ApexEditor
 {
     public partial class ApexEngineControl : UserControl
     {
+        private int framerate = 10;
         Game game;
-        public Game GetGame()
+        public int Framerate
         {
-            return game;
+            get { return framerate; }
+            set { framerate = value; timer1.Interval = framerate; }
+        }
+        public Game Game
+        {
+            get { return game; }
+            set { game = value; }
         }
         public ApexEngineControl(Game game)
         {
             InitializeComponent();
             this.game = game;
+            timer1.Interval = framerate;
             timer1.Start();
         }
 
@@ -48,16 +56,17 @@ namespace ApexEditor
         {
             game.UpdateInternal();
             glControl1.Invalidate();
-            RenderManager.WINDOW_X = this.ParentForm.Location.X + this.Location.X;
-            RenderManager.WINDOW_Y = this.ParentForm.Location.Y + this.Location.Y;
-            
+            Point p = this.PointToScreen(Location);
+            game.InputManager.WINDOW_X = p.X;
+            game.InputManager.WINDOW_Y = p.Y;
         }
 
         private void glControl1_Resize(object sender, EventArgs e)
         {
+            glControl1.MakeCurrent();
             GL.Viewport(0, 0, this.Width, this.Height);
-            RenderManager.SCREEN_HEIGHT = this.Height;
-            RenderManager.SCREEN_WIDTH = this.Width;
+            game.InputManager.SCREEN_HEIGHT = this.Height;
+            game.InputManager.SCREEN_WIDTH = this.Width;
         }
 
         private void glControl1_Move(object sender, EventArgs e)
@@ -67,17 +76,17 @@ namespace ApexEditor
         private void glControl1_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
-                Input.MouseButtonDown(OpenTK.Input.MouseButton.Right);
+                game.InputManager.MouseButtonDown(OpenTK.Input.MouseButton.Right);
             if (e.Button == MouseButtons.Left)
-                Input.MouseButtonDown(OpenTK.Input.MouseButton.Left);
+                game.InputManager.MouseButtonDown(OpenTK.Input.MouseButton.Left);
         }
 
         private void glControl1_MouseUp(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
-                Input.MouseButtonUp(OpenTK.Input.MouseButton.Right);
+                game.InputManager.MouseButtonUp(OpenTK.Input.MouseButton.Right);
             if (e.Button == MouseButtons.Left)
-                Input.MouseButtonUp(OpenTK.Input.MouseButton.Left);
+                game.InputManager.MouseButtonUp(OpenTK.Input.MouseButton.Left);
         }
 
         private void glControl1_KeyDown(object sender, KeyEventArgs e)

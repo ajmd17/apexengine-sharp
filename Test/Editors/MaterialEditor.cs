@@ -10,9 +10,10 @@ using System.Drawing.Design;
 using System.Windows.Forms.ComponentModel;
 using System.Windows.Forms.Design;
 using ApexEngine.Math;
+using ApexEngine.Rendering;
 namespace ApexEditor.Editors
 {
-    public class QuaternionEditor : System.Drawing.Design.UITypeEditor
+    public class MaterialEditor : System.Drawing.Design.UITypeEditor
     {
         private IWindowsFormsEditorService edSvc = null;
         public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context)
@@ -31,19 +32,17 @@ namespace ApexEditor.Editors
 
                 if (edSvc != null)
                 {
-                    Quaternion quat = (Quaternion)value;
-                    QuaternionEditForm editForm = new QuaternionEditForm(quat.x, quat.y, quat.z, quat.w);
-                    if (editForm.ShowDialog() == DialogResult.OK)
+                    frmMatEditor matEdit = new frmMatEditor();
+                    matEdit.Init();
+                    matEdit.Material = (Material)value;
+                    matEdit.ShowDialog();
+                    if (matEdit.DialogResult == DialogResult.OK)
                     {
-                        return new Quaternion(editForm.x, editForm.y, editForm.z, editForm.w);
-                    }
-                    else
-                    {
-                        return quat;
+                        return matEdit.Material;
                     }
                 }
             }
-            return new Quaternion();
+            return value;
         }
     }
 }

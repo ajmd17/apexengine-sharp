@@ -17,9 +17,47 @@ namespace ApexEngine.Assets.Apx
         {
             return instance;
         }
+        private static Vector2f ParseVector2(string str)
+        {
+            string replace = str.Replace("[", "").Replace("]", "");
+            replace = replace.Substring(replace.Length - 1);
+            string[] tokens = replace.Split(',');
+            float x, y;
+            x = float.Parse(tokens[0].Trim());
+            y = float.Parse(tokens[1].Trim());
+
+            return new Vector2f(x, y);
+        }
+        private static Vector3f ParseVector3(string str)
+        {
+            string replace = str.Replace("[", "").Replace("]", "");
+            replace = replace.Substring(replace.Length - 1);
+            string[] tokens = replace.Split(',');
+            float x, y, z;
+            x = float.Parse(tokens[0].Trim());
+            y = float.Parse(tokens[1].Trim());
+            z = float.Parse(tokens[2].Trim());
+
+            return new Vector3f(x, y, z);
+        }
+        private static Vector4f ParseVector4(string str)
+        {
+            string replace = str.Replace("[", "").Replace("]", "");
+            string[] tokens = replace.Split(',');
+            float x, y, z, w;
+            Console.WriteLine(replace);
+            x = float.Parse(tokens[0].Trim());
+            y = float.Parse(tokens[1].Trim());
+            z = float.Parse(tokens[2].Trim());
+            w = float.Parse(tokens[3].Trim());
+
+            return new Vector4f(x, y, z, w);
+        }
         List<Node> nodes = new List<Node>();
         List<Geometry> geoms = new List<Geometry>();
         List<Mesh> meshes = new List<Mesh>();
+        List<Material> mats = new List<Material>();
+        Dictionary<Geometry, Material> geomMats = new Dictionary<Geometry, Material>();
 
         List<int> skeletonAssigns = new List<int>();
         List<Skeleton> skeletons = new List<Skeleton>();
@@ -58,6 +96,8 @@ namespace ApexEngine.Assets.Apx
             texcoords1.Clear();
             vertices.Clear();
             faces.Clear();
+            geomMats.Clear();
+            mats.Clear();
             node = false;
             geom = false;
             lastNode = null;
@@ -111,11 +151,21 @@ namespace ApexEngine.Assets.Apx
                     stride++;
                 for (int j = 0; j < cFaces.Count; j+=stride)
                 {
-                    Vertex v = new Vertex(cPos[cFaces[j]], tc0[cFaces[j + 2]], cNorm[cFaces[j + 1]]);
+                    Vertex v = new Vertex(cPos[cFaces[j]]);
+                    if (cNorm.Count > 0)
+                    {
+                        mesh.GetAttributes().SetAttribute(VertexAttributes.NORMALS);
+                        v.SetNormal(cNorm[cFaces[j + 1]]);
+                    }
+                    if (tc0.Count > 0)
+                    {
+                        mesh.GetAttributes().SetAttribute(VertexAttributes.TEXCOORDS0);
+                        v.SetTexCoord1(tc0[cFaces[j + 2]]);
+                    }
                     if (tc1.Count > 0)
                     {
                         mesh.GetAttributes().SetAttribute(VertexAttributes.TEXCOORDS1);
-                        v.SetTexCoord1(tc1[cFaces[i + 3]]);
+                        v.SetTexCoord1(tc1[cFaces[j + 3]]);
                     }
                     cVerts.Add(v);
                 }
@@ -137,6 +187,12 @@ namespace ApexEngine.Assets.Apx
                 if (geoms.Count > 0)
                 {
                     Geometry parent = geoms[i];
+                    Material material = null;
+                    if (geomMats.ContainsKey(parent))
+                        material = geomMats[parent];
+                    else
+                        material = new Material();
+                    parent.Material = material;
                     parent.Mesh = mesh;
                 }
             }
@@ -169,6 +225,79 @@ namespace ApexEngine.Assets.Apx
                         if (lastNode != null)
                             lastNode.AddChild(g);
                         geoms.Add(g);
+                    }
+                    else if (xmlReader.Name == ApxExporter.TOKEN_MATERIAL)
+                    {
+                        mats.Add(new Material());
+                    }
+                    else if (xmlReader.Name == ApxExporter.TOKEN_MATERIAL_PROPERTY)
+                    {
+                        Material lastMaterial = mats[mats.Count - 1];
+
+                        string name = xmlReader.GetAttribute(ApxExporter.TOKEN_NAME);
+                        string type = xmlReader.GetAttribute(ApxExporter.TOKEN_TYPE);
+                        string val = xmlReader.GetAttribute(ApxExporter.TOKEN_VALUE);
+
+                        object value = null;
+                        if (type == ApxExporter.TOKEN_TYPE_STRING)
+                            value = val;
+                        else if (type == ApxExporter.TOKEN_TYPE_INT)
+                            value = int.Parse(val);
+                        else if (type == ApxExporter.TOKEN_TYPE_BOOLEAN)
+                            value = bool.Parse(val);
+                        else if (type == ApxExporter.TOKEN_TYPE_FLOAT)
+                            value = float.Parse(val);
+                        else if (type == ApxExporter.TOKEN_TYPE_VECTOR2)
+                            value = ParseVector2(val);
+                        else if (type == ApxExporter.TOKEN_TYPE_VECTOR3)
+                            value = ParseVector3(val);
+                        else if (type == ApxExporter.TOKEN_TYPE_VECTOR4)
+                            value = ParseVector4(val);
+
+                        lastMaterial.SetValue(name, value);
+                    }
+                    else if (xmlReader.Name == ApxExporter.TOKEN_TRANSLATION)
+                    {
+                        float x = float.Parse(xmlReader.GetAttribute("x"));
+                        float y = float.Parse(xmlReader.GetAttribute("y"));
+                        float z = float.Parse(xmlReader.GetAttribute("z"));
+
+                        Vector3f vec = new Vector3f(x, y, z);
+                        GameObject go = null;
+                        if (node)
+                            go = nodes[nodes.Count - 1];
+                        else if (geom)
+                            go = geoms[geoms.Count - 1];
+                        go.SetLocalTranslation(vec);
+                    }
+                    else if (xmlReader.Name == ApxExporter.TOKEN_ROTATION)
+                    {
+                        float x = float.Parse(xmlReader.GetAttribute("x"));
+                        float y = float.Parse(xmlReader.GetAttribute("y"));
+                        float z = float.Parse(xmlReader.GetAttribute("z"));
+                        float w = float.Parse(xmlReader.GetAttribute("w"));
+
+                        Quaternion quat = new Quaternion(x, y, z, w);
+                        GameObject go = null;
+                        if (node)
+                            go = nodes[nodes.Count - 1];
+                        else if (geom)
+                            go = geoms[geoms.Count - 1];
+                        go.SetLocalRotation(quat);
+                    }
+                    else if (xmlReader.Name == ApxExporter.TOKEN_SCALE)
+                    {
+                        float x = float.Parse(xmlReader.GetAttribute("x"));
+                        float y = float.Parse(xmlReader.GetAttribute("y"));
+                        float z = float.Parse(xmlReader.GetAttribute("z"));
+
+                        Vector3f vec = new Vector3f(x, y, z);
+                        GameObject go = null;
+                        if (node)
+                            go = nodes[nodes.Count - 1];
+                        else if (geom)
+                            go = geoms[geoms.Count - 1];
+                        go.SetLocalScale(vec);
                     }
                     else if (xmlReader.Name == ApxExporter.TOKEN_MESH)
                     {
@@ -403,6 +532,17 @@ namespace ApexEngine.Assets.Apx
                     {
                         geom = false;
                     }
+                    else if (xmlReader.Name == ApxExporter.TOKEN_MATERIAL)
+                    {
+                        if (geoms.Count > 0)
+                        {
+                            int lastGeomIndex = geoms.Count - 1;
+                            Geometry parent = geoms[lastGeomIndex];
+                            int lastMatIndex = mats.Count - 1;
+                            Material m = mats[lastMatIndex];
+                            geomMats.Add(parent, m);
+                        }
+                    }
                     else if (xmlReader.Name == ApxExporter.TOKEN_SKELETON)
                     {
                         
@@ -414,7 +554,10 @@ namespace ApexEngine.Assets.Apx
                     }
                 } // end element
             }
-            return nodes[0];
+            Node finalNode = new Node();
+            foreach (Node n in nodes)
+                finalNode.AddChild(n);
+            return finalNode;
         }
     }
 }
