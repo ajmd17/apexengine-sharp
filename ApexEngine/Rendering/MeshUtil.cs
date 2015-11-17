@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using ApexEngine.Math;
 namespace ApexEngine.Rendering
 {
     public static class MeshUtil
@@ -148,6 +148,71 @@ namespace ApexEngine.Rendering
                 finalFloatBuffer[i] = floatBuffer[i];
             }
             return finalFloatBuffer;
+        }
+
+
+        
+        public static void CalculateTangents(List<Vertex> vertices, List<int> indices)
+        {
+            for (int i = 0; i < indices.Count; i += 3)
+            {
+                try
+                {
+                    Vertex v0 = vertices[indices[i]];
+                    Vertex v1 = vertices[indices[i + 1]];
+                    Vertex v2 = vertices[indices[i + 2]];
+
+                    Vector2f uv0 = v0.GetTexCoord0();
+                    Vector2f uv1 = v1.GetTexCoord0();
+                    Vector2f uv2 = v2.GetTexCoord0();
+
+                    Vector3f edge1 = v1.GetPosition().Subtract(v0.GetPosition());
+                    Vector3f edge2 = v2.GetPosition().Subtract(v0.GetPosition());
+
+                    Vector2f edge1uv = uv1.Subtract(uv0);
+                    Vector2f edge2uv = uv2.Subtract(uv0);
+
+                    float cp = edge1uv.y * edge2uv.x - edge1uv.x * edge2uv.y;
+                    if (cp != 0.0f)
+                    {
+                        float mul = 1.0f / cp;
+                        Vector3f tangent = new Vector3f().Set(edge1.Multiply(-edge2uv.y).AddStore(edge2.Multiply(edge1uv.y)));
+                            tangent.MultiplyStore(mul);
+                        Vector3f bitangent = new Vector3f().Set(edge1.Multiply(-edge2uv.x).AddStore(edge2.Multiply(edge1uv.x)));
+                            bitangent.MultiplyStore(mul);
+
+                        tangent.NormalizeStore();
+                        bitangent.NormalizeStore();
+
+                        v0.SetTangent(tangent);
+                        v1.SetTangent(tangent);
+                        v2.SetTangent(tangent);
+
+                        v0.SetBitangent(bitangent);
+                        v1.SetBitangent(bitangent);
+                        v2.SetBitangent(bitangent);
+
+
+                    }
+
+
+                   /* float r = 1.0f / (deltaUV1.x * deltaUV2.y - deltaUV1.y * deltaUV2.x);
+                    Vector3f tangent = ((deltaPos1.Multiply(deltaUV2.y).Subtract(deltaPos2.Multiply(deltaUV1.y)))).Multiply(r);
+                    Vector3f bitangent = ((deltaPos2.Multiply(deltaUV1.x)).Subtract(deltaPos1.Multiply(deltaUV2.x))).Multiply(r);
+
+                    v0.SetTangent(tangent);
+                    v1.SetTangent(tangent);
+                    v2.SetTangent(tangent);
+
+                    v0.SetBitangent(bitangent);
+                    v1.SetBitangent(bitangent);
+                    v2.SetBitangent(bitangent);*/
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                }
+            }
         }
     }
 }

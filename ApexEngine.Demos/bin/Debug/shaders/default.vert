@@ -11,11 +11,27 @@ attribute vec2 a_texcoord0;
 varying vec2 v_texCoord0;
 varying vec4 v_position;
 varying vec4 v_normal;
-varying vec4 v_lighting;
+varying vec4 v_diffuse;
+varying vec4 v_specular;
+varying vec3 v_tangent;
+varying vec3 v_bitangent;
+
 void main()
 {
 	v_texCoord0 = a_texcoord0;
 	
+	if (Material_HasNormalMap == 1)
+	{
+		vec3 c1 = cross(a_normal, vec3(0.0, 0.0, 1.0));
+		vec3 c2 = cross(a_normal, vec3(0.0, 1.0, 0.0));
+		if (length(c1)>length(c2))
+			v_tangent = c1;
+		else
+			v_tangent = c2;
+		v_tangent = normalize(v_tangent);
+		v_bitangent = cross(a_normal, v_tangent);
+		v_bitangent = normalize(v_bitangent);
+	}
 	#ifndef SKINNING
 		v_position = (Apex_WorldMatrix * vec4(a_position, 1.0));	
 		v_normal = transpose(inverse(Apex_WorldMatrix)) * vec4(a_normal, 0.0);
@@ -53,6 +69,7 @@ void main()
 		specular = vec3(specularity);
 		specular *= Material_SpecularColor.xyz;
 		
-		v_lighting = vec4(diffuse + specular, 1.0);
+		v_diffuse = vec4(diffuse, 1.0);
+		v_specular = vec4(specular, 1.0);
 	}
 }

@@ -33,6 +33,18 @@ namespace ApexEngine.Rendering.Shaders
                 {
                     SetUniform("Material_HasDiffuseMap", 0);
                 }
+                Texture normalTex = currentMaterial.GetTexture(Material.TEXTURE_NORMAL);
+                if (normalTex != null)
+                {
+                    Texture.ActiveTextureSlot(1);
+                    normalTex.Use();
+                    SetUniform("Material_NormalMap", 1);
+                    SetUniform("Material_HasNormalMap", 1);
+                }
+                else
+                {
+                    SetUniform("Material_HasNormalMap", 0);
+                }
             }
         }
     }

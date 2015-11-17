@@ -39,6 +39,15 @@ namespace ApexEngine.Rendering
             AddFragmentProgram(Util.ShaderUtil.FormatShaderVersion(Util.ShaderUtil.FormatShaderProperties(fs_code, properties)));
             CompileShader();
         }
+        public Shader(ShaderProperties properties, string vs_code, string fs_code, string gs_code)
+        {
+            this.properties = properties;
+            Create();
+            AddVertexProgram(Util.ShaderUtil.FormatShaderVersion(GetApexVertexHeader() + Util.ShaderUtil.FormatShaderProperties(vs_code, properties)));
+            AddFragmentProgram(Util.ShaderUtil.FormatShaderVersion(Util.ShaderUtil.FormatShaderProperties(fs_code, properties)));
+            AddGeometryProgram(Util.ShaderUtil.FormatShaderVersion(Util.ShaderUtil.FormatShaderProperties(gs_code, properties)));
+            CompileShader();
+        }
         public ShaderProperties GetProperties()
         {
             return properties;
@@ -157,6 +166,7 @@ namespace ApexEngine.Rendering
             GL.ShaderSource(shader, code);
             GL.CompileShader(shader);
             GL.AttachShader(id, shader);
+            //Console.WriteLine(code);
         }
         public void SetUniform(string name, int i)
         {

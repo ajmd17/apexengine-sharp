@@ -48,23 +48,23 @@ namespace ApexEngine.Rendering
             this.vertices = vertices;
             this.indices = indices;
             if (vertices[0].GetPosition() != null)
-		        this.attribs.SetAttribute(VertexAttributes.POSITIONS);
+		        attribs.SetAttribute(VertexAttributes.POSITIONS);
 	        if (vertices[0].GetNormal() != null)
-		        this.attribs.SetAttribute(VertexAttributes.NORMALS);
+		        attribs.SetAttribute(VertexAttributes.NORMALS);
 	        if (vertices[0].GetTexCoord0() != null)
-		        this.attribs.SetAttribute(VertexAttributes.TEXCOORDS0);
+		        attribs.SetAttribute(VertexAttributes.TEXCOORDS0);
 	        if (vertices[0].GetTexCoord1() != null)
-		        this.attribs.SetAttribute(VertexAttributes.TEXCOORDS1);
+		        attribs.SetAttribute(VertexAttributes.TEXCOORDS1);
 	        if (vertices[0].GetTangent() != null)
-		        this.attribs.SetAttribute(VertexAttributes.TANGENTS);
+		        attribs.SetAttribute(VertexAttributes.TANGENTS);
 	        if (vertices[0].GetBitangent() != null)
-		        this.attribs.SetAttribute(VertexAttributes.BITANGENTS);
+		        attribs.SetAttribute(VertexAttributes.BITANGENTS);
 	        if (vertices[0].GetBoneWeight(0) != 0 || vertices[0].GetBoneWeight(1) != 0 ||
 		        vertices[0].GetBoneWeight(2) != 0 || vertices[0].GetBoneWeight(3) != 0)
-		        this.attribs.SetAttribute(VertexAttributes.BONEWEIGHTS);
+		        attribs.SetAttribute(VertexAttributes.BONEWEIGHTS);
 	        if (vertices[0].GetBoneIndex(0) != 0 || vertices[0].GetBoneIndex(1) != 0 ||
 		        vertices[0].GetBoneIndex(2) != 0 || vertices[0].GetBoneIndex(3) != 0)
-		        this.attribs.SetAttribute(VertexAttributes.BONEINDICES);
+		        attribs.SetAttribute(VertexAttributes.BONEINDICES);
             UpdateMesh();
         }
         void Create()

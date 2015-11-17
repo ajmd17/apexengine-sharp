@@ -118,15 +118,48 @@ namespace ApexEngine.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to // Apex 3D material header for shaders
+        ///
+        ///uniform int Material_SpecularTechnique;
+        ///uniform int Material_PerPixelLighting;
+        ///uniform int Material_HasDiffuseMap;
+        ///uniform int Material_HasNormalMap;
+        ///uniform int Material_HasSpecularMap;
+        ///
         ///uniform float Material_Shininess;
+        ///
         ///uniform vec4 Material_AmbientColor;
         ///uniform vec4 Material_DiffuseColor;
         ///uniform vec4 Material_SpecularColor;
-        ///uniform sampler2D Material_DiffuseMap;.
+        ///
+        ///uniform sampler2D Material_DiffuseMap;
+        ///uniform sampler2D Material_NormalMap;
+        ///uniform sampler2D Material_SpecularMap;.
         /// </summary>
         internal static string material {
             get {
                 return ResourceManager.GetString("material", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to // Apex3D mesh util shader header
+        ///
+        ///void CalculateTangents(vec3 _normal, vec3 _outTangent, vec3 _outBitangent)
+        ///{
+        ///	vec3 c1 = cross(_normal, vec3(0.0, 0.0, 1.0));
+        ///	vec3 c2 = cross(_normal, vec3(0.0, 1.0, 0.0));
+        ///	if (length(c1)&gt;length(c2))
+        ///		_outTangent = c1;
+        ///	else
+        ///		_outTangent = c2;
+        ///	v_tangent = normalize(_outTangent);
+        ///	v_bitangent = cross(_normal, _outTangent);
+        ///	v_bitangent = normalize(_outBitangent);
+        ///}.
+        /// </summary>
+        internal static string mesh {
+            get {
+                return ResourceManager.GetString("mesh", resourceCulture);
             }
         }
         

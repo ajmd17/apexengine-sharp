@@ -89,7 +89,7 @@ namespace ApexEngine.Assets.Obj
                     float spec_f = float.Parse(spec);
                     materials[materials.Count - 1].SetValue(Material.SHININESS, spec_f / 10.0f);
                 }
-                else if (tokens[0] == "map_Kd") // diffuse map
+                else if (tokens[0].ToLower() == "map_kd") // diffuse map
                 {
                     string texName = tokens[tokens.Length - 1];
                     string parentPath = System.IO.Directory.GetParent(filePath).ToString();
@@ -98,6 +98,17 @@ namespace ApexEngine.Assets.Obj
                     {
                         Texture tex = Texture.LoadTexture(texPath);
                         materials[materials.Count - 1].SetValue(Material.TEXTURE_DIFFUSE, tex);
+                    }
+                }
+                else if (tokens[0].ToLower() == "map_bump") // normal map
+                {
+                    string texName = tokens[tokens.Length - 1];
+                    string parentPath = System.IO.Directory.GetParent(filePath).ToString();
+                    string texPath = parentPath + "\\" + texName;
+                    if (File.Exists(texPath))
+                    {
+                        Texture tex = Texture.LoadTexture(texPath);
+                        materials[materials.Count - 1].SetValue(Material.TEXTURE_NORMAL, tex);
                     }
                 }
             }

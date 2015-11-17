@@ -59,6 +59,14 @@ namespace ApexEngine.Rendering
                 if (geometries[i].AttachedToRoot)
                     geometries[i].Render(cam);
             }
+           /* GL.Begin(PrimitiveType.Points);
+            GL.MatrixMode(MatrixMode.Projection);
+            GL.LoadMatrix(cam.GetProjectionMatrix().values);
+            GL.MatrixMode(MatrixMode.Modelview);
+            GL.LoadMatrix(cam.GetViewMatrix().values);
+            GL.Vertex3(0.0f, 0.0f, 0.0f);
+            GL.End();
+       */
         }
     }
 }

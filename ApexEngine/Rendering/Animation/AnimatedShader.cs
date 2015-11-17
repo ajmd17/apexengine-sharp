@@ -13,6 +13,10 @@ namespace ApexEngine.Rendering.Animation
             : base(properties, vs_code, fs_code)
         {
         }
+        public AnimatedShader(ShaderProperties properties, string vs_code, string fs_code, string gs_code)
+            : base(properties, vs_code, fs_code, gs_code)
+        {
+        }
         private void InitSkinning(Mesh mesh)
         {
             for (int i = 0; i < properties.GetInt("NUM_BONES"); i++)
