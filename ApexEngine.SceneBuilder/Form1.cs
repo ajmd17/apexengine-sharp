@@ -11,6 +11,7 @@ using ModernUISample.metro;
 using ApexEngine.Scene;
 using ApexEngine.Assets;
 using ApexEngine.Rendering;
+using ApexEditor.NormalMapGenerator;
 
 namespace ApexEditor
 {
@@ -22,7 +23,7 @@ namespace ApexEditor
         public Form1()
         {
             InitializeComponent();
-            Console.WriteLine("Apex Edtior Started.");
+            Console.WriteLine("Apex Editor Started.");
             matEditor = new frmMatEditor();
         }
         void Style_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -41,8 +42,9 @@ namespace ApexEditor
                 MetroUI.Style.DarkStyle = true;
             }
             SceneEditorGame game = new SceneEditorGame();
-            game.Camera = new ApexEngine.Rendering.Cameras.DefaultCamera(game.InputManager, 75);
-            game.Camera.Translation = new ApexEngine.Math.Vector3f(0, 0, -5);
+            //  game.Camera = new ApexEngine.Rendering.Cameras.DefaultCamera(game.InputManager, 75);
+            // game.Camera.Translation = new ApexEngine.Math.Vector3f(0, 0, -5);
+            //game.Camera.Enabled = false;
             apxCtrl = new ApexEngineControl(game);
             apxCtrl.Dock = DockStyle.Fill;
             pnlGameView.Controls.Add(apxCtrl);
@@ -293,6 +295,23 @@ namespace ApexEditor
                     treeView1.SelectedNode.Tag = matEdit.Material;
                 }
             }
+        }
+
+        private void generateCodeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new CodeGen().Show();
+        }
+
+        private void runToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GameTest test = new GameTest();
+            test.RootNode = this.apxCtrl.Game.RootNode;
+            test.Run();
+        }
+
+        private void normalMapGeneratorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new NrmGenerator().Show();
         }
     }
 }

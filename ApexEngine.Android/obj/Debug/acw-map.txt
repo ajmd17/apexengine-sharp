@@ -1,0 +1,8 @@
+ApexEngine.Android.MainActivity, ApexEngine.Android;md5065d9d0b6ca8d7efad7ae8b4849a52cd.MainActivity
+ApexEngine.Android.MainActivity, ApexEngine.Android, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md5065d9d0b6ca8d7efad7ae8b4849a52cd.MainActivity
+ApexEngine.Android.MainActivity;md5065d9d0b6ca8d7efad7ae8b4849a52cd.MainActivity
+apexengine.android.MainActivity;md5065d9d0b6ca8d7efad7ae8b4849a52cd.MainActivity
+ApexEngine.Android.GLView1, ApexEngine.Android;md5065d9d0b6ca8d7efad7ae8b4849a52cd.GLView1
+ApexEngine.Android.GLView1, ApexEngine.Android, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md5065d9d0b6ca8d7efad7ae8b4849a52cd.GLView1
+ApexEngine.Android.GLView1;md5065d9d0b6ca8d7efad7ae8b4849a52cd.GLView1
+apexengine.android.GLView1;md5065d9d0b6ca8d7efad7ae8b4849a52cd.GLView1

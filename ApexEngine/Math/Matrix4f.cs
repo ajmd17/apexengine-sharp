@@ -1,22 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace ApexEngine.Math
+﻿namespace ApexEngine.Math
 {
     public class Matrix4f
     {
         private static Matrix4f tmpMat = new Matrix4f();
+
         public const int m00 = 0, m01 = 1, m02 = 2, m03 = 3,
                          m10 = 4, m11 = 5, m12 = 6, m13 = 7,
                          m20 = 8, m21 = 9, m22 = 10, m23 = 11,
                          m30 = 12, m31 = 13, m32 = 14, m33 = 15;
+
         public float[] values = new float[16];
+
         public Matrix4f()
         {
             this.SetToIdentity();
         }
+
         public Matrix4f(float m00, float m01, float m02, float m03,
                         float m10, float m11, float m12, float m13,
                         float m20, float m21, float m22, float m23,
@@ -24,10 +23,38 @@ namespace ApexEngine.Math
         {
             this.Set(m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33);
         }
+
         public Matrix4f(Matrix4f other)
         {
             this.Set(other);
         }
+
+        public float[] GetInvertedValues()
+        {
+            float[] res = new float[16];
+            res[m00] = values[m00];
+            res[m01] = values[m10];
+            res[m02] = values[m20];
+            res[m03] = values[m30];
+
+            res[m10] = values[m01];
+            res[m11] = values[m11];
+            res[m12] = values[m21];
+            res[m13] = values[m31];
+
+            res[m20] = values[m02];
+            res[m21] = values[m12];
+            res[m22] = values[m22];
+            res[m23] = values[m32];
+
+            res[m30] = values[m03];
+            res[m31] = values[m13];
+            res[m32] = values[m23];
+            res[m33] = values[m33];
+
+            return res;
+        }
+
         public Matrix4f Set(float m00, float m01, float m02, float m03,
                         float m10, float m11, float m12, float m13,
                         float m20, float m21, float m22, float m23,
@@ -55,6 +82,7 @@ namespace ApexEngine.Math
 
             return this;
         }
+
         public Matrix4f Set(Matrix4f other)
         {
             for (int i = 0; i < values.Length; i++)
@@ -63,100 +91,205 @@ namespace ApexEngine.Math
             }
             return this;
         }
+
         public Matrix4f Multiply(Matrix4f other)
         {
-	        Matrix4f res = new Matrix4f();
-	
-	        float _m00 = this.values[m00] * other.values[m00] + this.values[m10] * other.values[m01] + this.values[m20] * other.values[m02] + this.values[m30] * other.values[m03];
-	        float _m01 = this.values[m01] * other.values[m00] + this.values[m11] * other.values[m01] + this.values[m21] * other.values[m02] + this.values[m31] * other.values[m03];
-	        float _m02 = this.values[m02] * other.values[m00] + this.values[m12] * other.values[m01] + this.values[m22] * other.values[m02] + this.values[m32] * other.values[m03];
-	        float _m03 = this.values[m03] * other.values[m00] + this.values[m13] * other.values[m01] + this.values[m23] * other.values[m02] + this.values[m33] * other.values[m03];
-	        float _m10 = this.values[m00] * other.values[m10] + this.values[m10] * other.values[m11] + this.values[m20] * other.values[m12] + this.values[m30] * other.values[m13];
-	        float _m11 = this.values[m01] * other.values[m10] + this.values[m11] * other.values[m11] + this.values[m21] * other.values[m12] + this.values[m31] * other.values[m13];
-	        float _m12 = this.values[m02] * other.values[m10] + this.values[m12] * other.values[m11] + this.values[m22] * other.values[m12] + this.values[m32] * other.values[m13];
-	        float _m13 = this.values[m03] * other.values[m10] + this.values[m13] * other.values[m11] + this.values[m23] * other.values[m12] + this.values[m33] * other.values[m13];
-	        float _m20 = this.values[m00] * other.values[m20] + this.values[m10] * other.values[m21] + this.values[m20] * other.values[m22] + this.values[m30] * other.values[m23];
-	        float _m21 = this.values[m01] * other.values[m20] + this.values[m11] * other.values[m21] + this.values[m21] * other.values[m22] + this.values[m31] * other.values[m23];
-	        float _m22 = this.values[m02] * other.values[m20] + this.values[m12] * other.values[m21] + this.values[m22] * other.values[m22] + this.values[m32] * other.values[m23];
-	        float _m23 = this.values[m03] * other.values[m20] + this.values[m13] * other.values[m21] + this.values[m23] * other.values[m22] + this.values[m33] * other.values[m23];
-	        float _m30 = this.values[m00] * other.values[m30] + this.values[m10] * other.values[m31] + this.values[m20] * other.values[m32] + this.values[m30] * other.values[m33];
-	        float _m31 = this.values[m01] * other.values[m30] + this.values[m11] * other.values[m31] + this.values[m21] * other.values[m32] + this.values[m31] * other.values[m33];
-	        float _m32 = this.values[m02] * other.values[m30] + this.values[m12] * other.values[m31] + this.values[m22] * other.values[m32] + this.values[m32] * other.values[m33];
-	        float _m33 = this.values[m03] * other.values[m30] + this.values[m13] * other.values[m31] + this.values[m23] * other.values[m32] + this.values[m33] * other.values[m33];
+            Matrix4f res = new Matrix4f();
 
-	        res.values[m00] = _m00;
-	        res.values[m01] = _m01;
-	        res.values[m02] = _m02;
-	        res.values[m03] = _m03;
+            float _m00 = this.values[m00] * other.values[m00] + this.values[m10] * other.values[m01] + this.values[m20] * other.values[m02] + this.values[m30] * other.values[m03];
+            float _m01 = this.values[m01] * other.values[m00] + this.values[m11] * other.values[m01] + this.values[m21] * other.values[m02] + this.values[m31] * other.values[m03];
+            float _m02 = this.values[m02] * other.values[m00] + this.values[m12] * other.values[m01] + this.values[m22] * other.values[m02] + this.values[m32] * other.values[m03];
+            float _m03 = this.values[m03] * other.values[m00] + this.values[m13] * other.values[m01] + this.values[m23] * other.values[m02] + this.values[m33] * other.values[m03];
+            float _m10 = this.values[m00] * other.values[m10] + this.values[m10] * other.values[m11] + this.values[m20] * other.values[m12] + this.values[m30] * other.values[m13];
+            float _m11 = this.values[m01] * other.values[m10] + this.values[m11] * other.values[m11] + this.values[m21] * other.values[m12] + this.values[m31] * other.values[m13];
+            float _m12 = this.values[m02] * other.values[m10] + this.values[m12] * other.values[m11] + this.values[m22] * other.values[m12] + this.values[m32] * other.values[m13];
+            float _m13 = this.values[m03] * other.values[m10] + this.values[m13] * other.values[m11] + this.values[m23] * other.values[m12] + this.values[m33] * other.values[m13];
+            float _m20 = this.values[m00] * other.values[m20] + this.values[m10] * other.values[m21] + this.values[m20] * other.values[m22] + this.values[m30] * other.values[m23];
+            float _m21 = this.values[m01] * other.values[m20] + this.values[m11] * other.values[m21] + this.values[m21] * other.values[m22] + this.values[m31] * other.values[m23];
+            float _m22 = this.values[m02] * other.values[m20] + this.values[m12] * other.values[m21] + this.values[m22] * other.values[m22] + this.values[m32] * other.values[m23];
+            float _m23 = this.values[m03] * other.values[m20] + this.values[m13] * other.values[m21] + this.values[m23] * other.values[m22] + this.values[m33] * other.values[m23];
+            float _m30 = this.values[m00] * other.values[m30] + this.values[m10] * other.values[m31] + this.values[m20] * other.values[m32] + this.values[m30] * other.values[m33];
+            float _m31 = this.values[m01] * other.values[m30] + this.values[m11] * other.values[m31] + this.values[m21] * other.values[m32] + this.values[m31] * other.values[m33];
+            float _m32 = this.values[m02] * other.values[m30] + this.values[m12] * other.values[m31] + this.values[m22] * other.values[m32] + this.values[m32] * other.values[m33];
+            float _m33 = this.values[m03] * other.values[m30] + this.values[m13] * other.values[m31] + this.values[m23] * other.values[m32] + this.values[m33] * other.values[m33];
 
-	        res.values[m10] = _m10;
-	        res.values[m11] = _m11;
-	        res.values[m12] = _m12;
-	        res.values[m13] = _m13;
+            res.values[m00] = _m00;
+            res.values[m01] = _m01;
+            res.values[m02] = _m02;
+            res.values[m03] = _m03;
 
-	        res.values[m20] = _m20;
-	        res.values[m21] = _m21;
-	        res.values[m22] = _m22;
-	        res.values[m23] = _m23;
+            res.values[m10] = _m10;
+            res.values[m11] = _m11;
+            res.values[m12] = _m12;
+            res.values[m13] = _m13;
 
-	        res.values[m30] = _m30;
-	        res.values[m31] = _m31;
-	        res.values[m32] = _m32;
-	        res.values[m33] = _m33;
+            res.values[m20] = _m20;
+            res.values[m21] = _m21;
+            res.values[m22] = _m22;
+            res.values[m23] = _m23;
 
-	        return res;
+            res.values[m30] = _m30;
+            res.values[m31] = _m31;
+            res.values[m32] = _m32;
+            res.values[m33] = _m33;
+
+            return res;
         }
+
         public Matrix4f MultiplyStore(Matrix4f other)
         {
-	        float _m00 = this.values[m00] * other.values[m00] + this.values[m10] * other.values[m01] + this.values[m20] * other.values[m02] + this.values[m30] * other.values[m03];
-	        float _m01 = this.values[m01] * other.values[m00] + this.values[m11] * other.values[m01] + this.values[m21] * other.values[m02] + this.values[m31] * other.values[m03];
-	        float _m02 = this.values[m02] * other.values[m00] + this.values[m12] * other.values[m01] + this.values[m22] * other.values[m02] + this.values[m32] * other.values[m03];
-	        float _m03 = this.values[m03] * other.values[m00] + this.values[m13] * other.values[m01] + this.values[m23] * other.values[m02] + this.values[m33] * other.values[m03];
-	        float _m10 = this.values[m00] * other.values[m10] + this.values[m10] * other.values[m11] + this.values[m20] * other.values[m12] + this.values[m30] * other.values[m13];
-	        float _m11 = this.values[m01] * other.values[m10] + this.values[m11] * other.values[m11] + this.values[m21] * other.values[m12] + this.values[m31] * other.values[m13];
-	        float _m12 = this.values[m02] * other.values[m10] + this.values[m12] * other.values[m11] + this.values[m22] * other.values[m12] + this.values[m32] * other.values[m13];
-	        float _m13 = this.values[m03] * other.values[m10] + this.values[m13] * other.values[m11] + this.values[m23] * other.values[m12] + this.values[m33] * other.values[m13];
-	        float _m20 = this.values[m00] * other.values[m20] + this.values[m10] * other.values[m21] + this.values[m20] * other.values[m22] + this.values[m30] * other.values[m23];
-	        float _m21 = this.values[m01] * other.values[m20] + this.values[m11] * other.values[m21] + this.values[m21] * other.values[m22] + this.values[m31] * other.values[m23];
-	        float _m22 = this.values[m02] * other.values[m20] + this.values[m12] * other.values[m21] + this.values[m22] * other.values[m22] + this.values[m32] * other.values[m23];
-	        float _m23 = this.values[m03] * other.values[m20] + this.values[m13] * other.values[m21] + this.values[m23] * other.values[m22] + this.values[m33] * other.values[m23];
-	        float _m30 = this.values[m00] * other.values[m30] + this.values[m10] * other.values[m31] + this.values[m20] * other.values[m32] + this.values[m30] * other.values[m33];
-	        float _m31 = this.values[m01] * other.values[m30] + this.values[m11] * other.values[m31] + this.values[m21] * other.values[m32] + this.values[m31] * other.values[m33];
-	        float _m32 = this.values[m02] * other.values[m30] + this.values[m12] * other.values[m31] + this.values[m22] * other.values[m32] + this.values[m32] * other.values[m33];
-	        float _m33 = this.values[m03] * other.values[m30] + this.values[m13] * other.values[m31] + this.values[m23] * other.values[m32] + this.values[m33] * other.values[m33];
+            float _m00 = this.values[m00] * other.values[m00] + this.values[m10] * other.values[m01] + this.values[m20] * other.values[m02] + this.values[m30] * other.values[m03];
+            float _m01 = this.values[m01] * other.values[m00] + this.values[m11] * other.values[m01] + this.values[m21] * other.values[m02] + this.values[m31] * other.values[m03];
+            float _m02 = this.values[m02] * other.values[m00] + this.values[m12] * other.values[m01] + this.values[m22] * other.values[m02] + this.values[m32] * other.values[m03];
+            float _m03 = this.values[m03] * other.values[m00] + this.values[m13] * other.values[m01] + this.values[m23] * other.values[m02] + this.values[m33] * other.values[m03];
+            float _m10 = this.values[m00] * other.values[m10] + this.values[m10] * other.values[m11] + this.values[m20] * other.values[m12] + this.values[m30] * other.values[m13];
+            float _m11 = this.values[m01] * other.values[m10] + this.values[m11] * other.values[m11] + this.values[m21] * other.values[m12] + this.values[m31] * other.values[m13];
+            float _m12 = this.values[m02] * other.values[m10] + this.values[m12] * other.values[m11] + this.values[m22] * other.values[m12] + this.values[m32] * other.values[m13];
+            float _m13 = this.values[m03] * other.values[m10] + this.values[m13] * other.values[m11] + this.values[m23] * other.values[m12] + this.values[m33] * other.values[m13];
+            float _m20 = this.values[m00] * other.values[m20] + this.values[m10] * other.values[m21] + this.values[m20] * other.values[m22] + this.values[m30] * other.values[m23];
+            float _m21 = this.values[m01] * other.values[m20] + this.values[m11] * other.values[m21] + this.values[m21] * other.values[m22] + this.values[m31] * other.values[m23];
+            float _m22 = this.values[m02] * other.values[m20] + this.values[m12] * other.values[m21] + this.values[m22] * other.values[m22] + this.values[m32] * other.values[m23];
+            float _m23 = this.values[m03] * other.values[m20] + this.values[m13] * other.values[m21] + this.values[m23] * other.values[m22] + this.values[m33] * other.values[m23];
+            float _m30 = this.values[m00] * other.values[m30] + this.values[m10] * other.values[m31] + this.values[m20] * other.values[m32] + this.values[m30] * other.values[m33];
+            float _m31 = this.values[m01] * other.values[m30] + this.values[m11] * other.values[m31] + this.values[m21] * other.values[m32] + this.values[m31] * other.values[m33];
+            float _m32 = this.values[m02] * other.values[m30] + this.values[m12] * other.values[m31] + this.values[m22] * other.values[m32] + this.values[m32] * other.values[m33];
+            float _m33 = this.values[m03] * other.values[m30] + this.values[m13] * other.values[m31] + this.values[m23] * other.values[m32] + this.values[m33] * other.values[m33];
 
-	        this.values[m00] = _m00;
-	        this.values[m01] = _m01;
-	        this.values[m02] = _m02;
-	        this.values[m03] = _m03;
+            this.values[m00] = _m00;
+            this.values[m01] = _m01;
+            this.values[m02] = _m02;
+            this.values[m03] = _m03;
 
-	        this.values[m10] = _m10;
-	        this.values[m11] = _m11;
-	        this.values[m12] = _m12;
-	        this.values[m13] = _m13;
+            this.values[m10] = _m10;
+            this.values[m11] = _m11;
+            this.values[m12] = _m12;
+            this.values[m13] = _m13;
 
-	        this.values[m20] = _m20;
-	        this.values[m21] = _m21;
-	        this.values[m22] = _m22;
-	        this.values[m23] = _m23;
+            this.values[m20] = _m20;
+            this.values[m21] = _m21;
+            this.values[m22] = _m22;
+            this.values[m23] = _m23;
 
-	        this.values[m30] = _m30;
-	        this.values[m31] = _m31;
-	        this.values[m32] = _m32;
-	        this.values[m33] = _m33;
+            this.values[m30] = _m30;
+            this.values[m31] = _m31;
+            this.values[m32] = _m32;
+            this.values[m33] = _m33;
 
-	        return this;
+            return this;
         }
+
+        public Matrix4f Multiply(float scalar)
+        {
+            Matrix4f newMat = new Matrix4f();
+            for (int i = 0; i < values.Length; i++)
+                newMat.values[i] = this.values[i] * scalar;
+            return newMat;
+        }
+
+        public Matrix4f MultiplyStore(float scalar)
+        {
+            for (int i = 0; i < values.Length; i++)
+                values[i] *= scalar;
+            return this;
+        }
+
+        public Matrix4f Invert()
+        {
+            Matrix4f newMat = new Matrix4f(this);
+
+            float fA0 = m00 * m11 - m01 * m10;
+            float fA1 = m00 * m12 - m02 * m10;
+            float fA2 = m00 * m13 - m03 * m10;
+            float fA3 = m01 * m12 - m02 * m11;
+            float fA4 = m01 * m13 - m03 * m11;
+            float fA5 = m02 * m13 - m03 * m12;
+            float fB0 = m20 * m31 - m21 * m30;
+            float fB1 = m20 * m32 - m22 * m30;
+            float fB2 = m20 * m33 - m23 * m30;
+            float fB3 = m21 * m32 - m22 * m31;
+            float fB4 = m21 * m33 - m23 * m31;
+            float fB5 = m22 * m33 - m23 * m32;
+            float fDet = fA0 * fB5 - fA1 * fB4 + fA2 * fB3 + fA3 * fB2 - fA4 * fB1 + fA5 * fB0;
+
+            if ((float)System.Math.Abs(fDet) <= 0f)
+            {
+                return this;
+            }
+
+            newMat.values[m00] = +m11 * fB5 - m12 * fB4 + m13 * fB3;
+            newMat.values[m10] = -m10 * fB5 + m12 * fB2 - m13 * fB1;
+            newMat.values[m20] = +m10 * fB4 - m11 * fB2 + m13 * fB0;
+            newMat.values[m30] = -m10 * fB3 + m11 * fB1 - m12 * fB0;
+            newMat.values[m01] = -m01 * fB5 + m02 * fB4 - m03 * fB3;
+            newMat.values[m11] = +m00 * fB5 - m02 * fB2 + m03 * fB1;
+            newMat.values[m21] = -m00 * fB4 + m01 * fB2 - m03 * fB0;
+            newMat.values[m31] = +m00 * fB3 - m01 * fB1 + m02 * fB0;
+            newMat.values[m02] = +m31 * fA5 - m32 * fA4 + m33 * fA3;
+            newMat.values[m12] = -m30 * fA5 + m32 * fA2 - m33 * fA1;
+            newMat.values[m22] = +m30 * fA4 - m31 * fA2 + m33 * fA0;
+            newMat.values[m32] = -m30 * fA3 + m31 * fA1 - m32 * fA0;
+            newMat.values[m03] = -m21 * fA5 + m22 * fA4 - m23 * fA3;
+            newMat.values[m13] = +m20 * fA5 - m22 * fA2 + m23 * fA1;
+            newMat.values[m23] = -m20 * fA4 + m21 * fA2 - m23 * fA0;
+            newMat.values[m33] = +m20 * fA3 - m21 * fA1 + m22 * fA0;
+
+            float fInvDet = 1.0f / fDet;
+            return newMat.MultiplyStore(fInvDet);
+        }
+
+        public Matrix4f InvertStore()
+        {
+            float fA0 = m00 * m11 - m01 * m10;
+            float fA1 = m00 * m12 - m02 * m10;
+            float fA2 = m00 * m13 - m03 * m10;
+            float fA3 = m01 * m12 - m02 * m11;
+            float fA4 = m01 * m13 - m03 * m11;
+            float fA5 = m02 * m13 - m03 * m12;
+            float fB0 = m20 * m31 - m21 * m30;
+            float fB1 = m20 * m32 - m22 * m30;
+            float fB2 = m20 * m33 - m23 * m30;
+            float fB3 = m21 * m32 - m22 * m31;
+            float fB4 = m21 * m33 - m23 * m31;
+            float fB5 = m22 * m33 - m23 * m32;
+            float fDet = fA0 * fB5 - fA1 * fB4 + fA2 * fB3 + fA3 * fB2 - fA4 * fB1 + fA5 * fB0;
+
+            if ((float)System.Math.Abs(fDet) <= 0f)
+            {
+                return this;
+            }
+
+            this.values[m00] = +m11 * fB5 - m12 * fB4 + m13 * fB3;
+            this.values[m10] = -m10 * fB5 + m12 * fB2 - m13 * fB1;
+            this.values[m20] = +m10 * fB4 - m11 * fB2 + m13 * fB0;
+            this.values[m30] = -m10 * fB3 + m11 * fB1 - m12 * fB0;
+            this.values[m01] = -m01 * fB5 + m02 * fB4 - m03 * fB3;
+            this.values[m11] = +m00 * fB5 - m02 * fB2 + m03 * fB1;
+            this.values[m21] = -m00 * fB4 + m01 * fB2 - m03 * fB0;
+            this.values[m31] = +m00 * fB3 - m01 * fB1 + m02 * fB0;
+            this.values[m02] = +m31 * fA5 - m32 * fA4 + m33 * fA3;
+            this.values[m12] = -m30 * fA5 + m32 * fA2 - m33 * fA1;
+            this.values[m22] = +m30 * fA4 - m31 * fA2 + m33 * fA0;
+            this.values[m32] = -m30 * fA3 + m31 * fA1 - m32 * fA0;
+            this.values[m03] = -m21 * fA5 + m22 * fA4 - m23 * fA3;
+            this.values[m13] = +m20 * fA5 - m22 * fA2 + m23 * fA1;
+            this.values[m23] = -m20 * fA4 + m21 * fA2 - m23 * fA0;
+            this.values[m33] = +m20 * fA3 - m21 * fA1 + m22 * fA0;
+
+            float fInvDet = 1.0f / fDet;
+            return MultiplyStore(fInvDet);
+        }
+
         public override string ToString()
         {
             string res = "[";
             res += values[Matrix4f.m00] + ", " + values[Matrix4f.m10] + ", " + values[Matrix4f.m20] + ", " + values[Matrix4f.m30] + "\n";
-	        res += values[Matrix4f.m01] + ", " + values[Matrix4f.m11] + ", " + values[Matrix4f.m21] + ", " + values[Matrix4f.m31] + "\n";
-	        res += values[Matrix4f.m02] + ", " + values[Matrix4f.m12] + ", " + values[Matrix4f.m22] + ", " + values[Matrix4f.m31] + "\n";
-	        res += values[Matrix4f.m03] + ", " + values[Matrix4f.m13] + ", " + values[Matrix4f.m23] + ", " + values[Matrix4f.m33];
-	        res += "]";
+            res += values[Matrix4f.m01] + ", " + values[Matrix4f.m11] + ", " + values[Matrix4f.m21] + ", " + values[Matrix4f.m31] + "\n";
+            res += values[Matrix4f.m02] + ", " + values[Matrix4f.m12] + ", " + values[Matrix4f.m22] + ", " + values[Matrix4f.m31] + "\n";
+            res += values[Matrix4f.m03] + ", " + values[Matrix4f.m13] + ", " + values[Matrix4f.m23] + ", " + values[Matrix4f.m33];
+            res += "]";
             return res;
         }
+
         public Matrix4f SetToTranslation(Vector3f v)
         {
             this.SetToIdentity();
@@ -183,6 +316,7 @@ namespace ApexEngine.Math
 
             return this;
         }
+
         public Matrix4f SetToRotation(Quaternion q)
         {
             this.SetToIdentity();
@@ -216,6 +350,7 @@ namespace ApexEngine.Math
 
             return this;
         }
+
         public Matrix4f SetToRotation(Vector3f axis, float angle)
         {
             this.SetToIdentity();
@@ -226,6 +361,7 @@ namespace ApexEngine.Math
             SetToRotation(tempQ);
             return this;
         }
+
         public Matrix4f SetToScaling(Vector3f v)
         {
             this.SetToIdentity();
@@ -252,6 +388,7 @@ namespace ApexEngine.Math
 
             return this;
         }
+
         public Matrix4f SetToProjection(float fov, float w, float h, float n, float f)
         {
             this.SetToIdentity();
@@ -282,6 +419,7 @@ namespace ApexEngine.Math
 
             return this;
         }
+
         public Matrix4f SetToIdentity()
         {
             this.values[m00] = 1.0f;
@@ -306,6 +444,7 @@ namespace ApexEngine.Math
 
             return this;
         }
+
         public Matrix4f SetToLookAt(Vector3f dir, Vector3f up)
         {
             this.SetToIdentity();
@@ -337,6 +476,7 @@ namespace ApexEngine.Math
 
             return this;
         }
+
         public Matrix4f SetToLookAt(Vector3f pos, Vector3f target, Vector3f up)
         {
             this.SetToIdentity();
@@ -351,11 +491,12 @@ namespace ApexEngine.Math
             this.MultiplyStore(lookAt);
             return this;
         }
+
         public Matrix4f SetToOrtho(float left, float right, float bottom, float top, float near, float far)
         {
             float x_orth = 2 / (right - left);
             float y_orth = 2 / (top - bottom);
-            float z_orth = -2 / (far - near);
+            float z_orth = 2 / (far - near);
 
             float tx = -(right + left) / (right - left);
             float ty = -(top + bottom) / (top - bottom);

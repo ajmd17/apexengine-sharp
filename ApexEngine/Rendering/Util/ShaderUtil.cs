@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ApexEngine.Math;
+using System;
 using System.Linq;
-using System.Text;
-using ApexEngine.Math;
+
 namespace ApexEngine.Rendering.Util
 {
     public class ShaderUtil
@@ -47,13 +46,12 @@ namespace ApexEngine.Rendering.Util
             if (a.values.Count != b.values.Count)
                 return false;
 
-
             string[] keys_a = a.values.Keys.ToArray();
             string[] keys_b = b.values.Keys.ToArray();
             object[] vals_a = a.values.Values.ToArray();
             object[] vals_b = b.values.Values.ToArray();
 
-            for (int i = 0; i< keys_a.Length; i++)
+            for (int i = 0; i < keys_a.Length; i++)
             {
                 if (!keys_a[i].Equals(keys_b[i]))
                 {
@@ -67,7 +65,6 @@ namespace ApexEngine.Rendering.Util
                     }
                 }
             }
-
 
             /*foreach (var pair in a.values)
             {
@@ -110,6 +107,7 @@ namespace ApexEngine.Rendering.Util
             }*/
             return true;
         }
+
         public static string FormatShaderVersion(string origCode)
         {
             string res = "";
@@ -128,6 +126,7 @@ namespace ApexEngine.Rendering.Util
             }
             return verString + "\n" + res;
         }
+
         public static string FormatShaderIncludes(string shaderPath, string origCode)
         {
             string res = "";
@@ -159,6 +158,7 @@ namespace ApexEngine.Rendering.Util
             }
             return res;
         }
+
         public static string FormatShaderProperties(string origCode, ShaderProperties properties)
         {
             string res = "";

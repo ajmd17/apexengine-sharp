@@ -1,0 +1,15 @@
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Android\obj\Debug\ApexEngine.Android.csprojResolveAssemblyReference.cache
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Android\bin\Debug\ApexEngine.Android.dll
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Android\bin\Debug\ApexEngine.Android.pdb
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Android\bin\Debug\ApexEngine.Android.apk
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Android\bin\Debug\ApexEngine.Android-Signed.apk
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Android\bin\Debug\ApexEngine.Android.Wrapper.dll
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Android\bin\Debug\ApexEngine.Android.Wrapper.pdb
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Android\obj\Debug\ApexEngine.Android.dll
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Android\obj\Debug\ApexEngine.Android.pdb
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Android\obj\Debug\android\bin\ApexEngine.Android.apk
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Android\obj\Debug\res\layout\main.xml
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Android\obj\Debug\res\values\strings.xml
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Android\obj\Debug\res\drawable\icon.png
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Android\obj\Debug\R.cs.flag
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Android\obj\Debug\uploadflags.txt

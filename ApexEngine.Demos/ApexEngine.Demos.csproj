@@ -54,6 +54,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ApexEngine.Plugins\ApexEngine.Plugins.csproj">
+      <Project>{039ef4fa-c720-4949-adb4-bca5b7ff8152}</Project>
+      <Name>ApexEngine.Plugins</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ApexEngine.Terrain\ApexEngine.Terrain.csproj">
       <Project>{98da8bb8-d4ea-48d5-a014-7db65979b0ea}</Project>
       <Name>ApexEngine.Terrain</Name>

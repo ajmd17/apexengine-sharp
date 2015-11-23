@@ -22,16 +22,19 @@ namespace ApexEditor
     {
         private int framerate = 10;
         Game game;
+
         public int Framerate
         {
             get { return framerate; }
             set { framerate = value; timer1.Interval = framerate; }
         }
+
         public Game Game
         {
             get { return game; }
             set { game = value; }
         }
+
         public ApexEngineControl(Game game)
         {
             InitializeComponent();
@@ -65,6 +68,8 @@ namespace ApexEditor
         {
             glControl1.MakeCurrent();
             GL.Viewport(0, 0, this.Width, this.Height);
+            game.Camera.Width = this.Width;
+            game.Camera.Height = this.Height;
             game.InputManager.SCREEN_HEIGHT = this.Height;
             game.InputManager.SCREEN_WIDTH = this.Width;
         }
@@ -90,6 +95,11 @@ namespace ApexEditor
         }
 
         private void glControl1_KeyDown(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        private void ApexEngineControl_MouseClick(object sender, MouseEventArgs e)
         {
 
         }

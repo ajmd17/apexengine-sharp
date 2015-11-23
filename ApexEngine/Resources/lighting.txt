@@ -1,19 +1,30 @@
 // Apex 3D Lighting Calculations
 const float PI = 3.14159265358979323846;
 
-struct DirectionalLight {
+struct DirectionalLight 
+{
 	vec3 direction;
 	vec4 color;
 	float intensity;
 };
 
-struct AmbientLight {
+struct PointLight
+{
+	vec3 position;
+	vec4 color;
+	float intensity;
+};
+
+struct AmbientLight 
+{
 	vec4 color;
 	float intensity;
 };
 
 uniform DirectionalLight Env_DirectionalLight;
+uniform PointLight Env_PointLights[4];
 uniform AmbientLight Env_AmbientLight;
+uniform int Env_NumPointLights;
 
 float sqr(float x)
 {
@@ -37,8 +48,8 @@ float CookTorranceG(float NdotL, float NdotV, float LdotH, float NdotH)
 }
 
 float LambertDirectional(vec3 _normal, vec3 _dir) {
-	vec3 n = normalize(_normal);
-	vec3 l = normalize(_dir);
+	vec3 n = _normal;
+	vec3 l = _dir;
 	float NdotL = dot(n, l);
 	return max(NdotL, 0.0);
 }
@@ -68,4 +79,41 @@ float SpecularDirectional(vec3 _normal, vec3 _pos, vec3 _cam, vec3 _dir, float _
 	float G = CookTorranceG(NdotL, max(0.0, NdotV), max(0.0, LdotH), max(0.0, NdotH));
 	
 	return max(0.0, G*F*D);
+}
+
+vec2 ParallaxTexCoords(vec4 _parallaxMap, vec2 _inTexCoords, vec3 _viewDir)
+{
+	vec2 newTexCoords;
+
+	float h;
+	h = _parallaxMap.r;
+	float heightScale = 0.04;
+	float heightBias = heightScale * -0.5;
+	vec3 normView = (_viewDir);
+	h = (h * heightScale + heightBias) * normView.z;
+	newTexCoords = _inTexCoords + (h * -normView.xy); 
+	return newTexCoords;
+}
+
+vec2 SteepParallaxTexCoords(sampler2D _parallaxMap, vec2 _inTexCoords, vec3 _viewDir)
+{
+	const float minLayers = 5;
+	const float maxLayers = 15;
+	float heightScale = 0.05;
+	float numLayers = 15.0;//mix(maxLayers, minLayers, abs(dot(vec3(0, 0, 1), _viewDir)));
+
+	float layerHeight = 1.0 / numLayers;
+	float currentLayerHeight = 0.0;
+	vec2 dtex = heightScale * _viewDir.xy / _viewDir.z / numLayers;
+	vec2 currentTextureCoords = _inTexCoords;
+	float heightFromTexture = texture(_parallaxMap, currentTextureCoords).r;
+
+	while (heightFromTexture > currentLayerHeight)
+	{
+		currentLayerHeight += layerHeight;
+		currentTextureCoords -= dtex;
+		heightFromTexture = texture(_parallaxMap, currentTextureCoords).r;
+	}
+
+	return currentTextureCoords;
 }

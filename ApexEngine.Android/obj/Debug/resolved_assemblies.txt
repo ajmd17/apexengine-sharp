@@ -1,0 +1,9 @@
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Android\obj\Debug\assemblies\ApexEngine.Android.dll
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Android\obj\Debug\assemblies\ApexEngine.Android.Wrapper.dll
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Android\obj\Debug\assemblies\Mono.Android.dll
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Android\obj\Debug\assemblies\mscorlib.dll
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Android\obj\Debug\assemblies\OpenTK.dll
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Android\obj\Debug\assemblies\System.Core.dll
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Android\obj\Debug\assemblies\System.dll
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Android\obj\Debug\assemblies\System.Xml.dll
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Android\obj\Debug\assemblies\System.Xml.Linq.dll

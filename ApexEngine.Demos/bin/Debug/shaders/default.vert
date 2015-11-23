@@ -1,13 +1,19 @@
 #version 150
+
 #ifdef SKINNING
 #include <skinning>
 #endif
+
 #include <lighting>
 #include <apex3d>
 #include <material>
+
 attribute vec3 a_position;
 attribute vec3 a_normal;
 attribute vec2 a_texcoord0;
+attribute vec3 a_tangent;
+attribute vec3 a_bitangent;
+
 varying vec2 v_texCoord0;
 varying vec4 v_position;
 varying vec4 v_normal;
@@ -15,23 +21,32 @@ varying vec4 v_diffuse;
 varying vec4 v_specular;
 varying vec3 v_tangent;
 varying vec3 v_bitangent;
+varying mat3 v_TBN;
+varying vec3 v_parallaxView;
 
 void main()
 {
 	v_texCoord0 = a_texcoord0;
 	
-	if (Material_HasNormalMap == 1)
+	
+	vec3 c1 = cross(a_normal, vec3(0.0, 0.0, 1.0));
+	vec3 c2 = cross(a_normal, vec3(0.0, 1.0, 0.0));
+	if (length(c1)>length(c2))
+		v_tangent = c1;
+	else
+		v_tangent = c2;
+	v_tangent = normalize(v_tangent);
+	v_bitangent = cross(a_normal, v_tangent);
+	v_bitangent = normalize(v_bitangent);
+	
+	
+	if (Material_HasHeightMap == 1)
 	{
-		vec3 c1 = cross(a_normal, vec3(0.0, 0.0, 1.0));
-		vec3 c2 = cross(a_normal, vec3(0.0, 1.0, 0.0));
-		if (length(c1)>length(c2))
-			v_tangent = c1;
-		else
-			v_tangent = c2;
-		v_tangent = normalize(v_tangent);
-		v_bitangent = cross(a_normal, v_tangent);
-		v_bitangent = normalize(v_bitangent);
+		mat3 normalMatrix = mat3(Apex_ViewMatrix * Apex_WorldMatrix);
+		v_TBN = mat3(normalMatrix * v_tangent, normalMatrix * v_bitangent, normalMatrix * a_normal);
+		v_parallaxView = normalize(-vec3(Apex_ViewMatrix * Apex_WorldMatrix * vec4(a_position, 1.0))) * v_TBN;
 	}
+	
 	#ifndef SKINNING
 		v_position = (Apex_WorldMatrix * vec4(a_position, 1.0));	
 		v_normal = transpose(inverse(Apex_WorldMatrix)) * vec4(a_normal, 0.0);
@@ -44,6 +59,7 @@ void main()
 		v_normal = transpose(inverse(Apex_WorldMatrix * skinningMatrix)) * vec4(a_normal, 0.0);
 		gl_Position = Apex_ProjectionMatrix * Apex_ViewMatrix * Apex_WorldMatrix * skinningMatrix * vec4(a_position, 1.0);
 	#endif
+	
 	if (Material_PerPixelLighting == 0)
 	{
 		vec3 diffuse;

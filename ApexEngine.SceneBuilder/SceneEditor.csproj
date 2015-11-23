@@ -63,6 +63,12 @@
     <Compile Include="ApexEngineControl.Designer.cs">
       <DependentUpon>ApexEngineControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="CodeGen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CodeGen.Designer.cs">
+      <DependentUpon>CodeGen.cs</DependentUpon>
+    </Compile>
     <Compile Include="Editors\MaterialEditor.cs" />
     <Compile Include="Editors\QuaternionEditForm.cs">
       <SubType>Form</SubType>
@@ -90,6 +96,7 @@
     <Compile Include="frmMatEditor.Designer.cs">
       <DependentUpon>frmMatEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="GameTest.cs" />
     <Compile Include="metro\ImageEx.cs" />
     <Compile Include="metro\MetroMenuStrip.cs">
       <SubType>Component</SubType>
@@ -101,11 +108,22 @@
     <Compile Include="metro\metroToolStripRenderer.cs" />
     <Compile Include="metro\MetroUI.cs" />
     <Compile Include="MtlViewerGame.cs" />
+    <Compile Include="NormalMapGenerator\BlurPostFilter.cs" />
+    <Compile Include="NormalMapGenerator\NormalMapShader.cs" />
+    <Compile Include="NormalMapGenerator\NrmGenerator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NormalMapGenerator\NrmGenerator.Designer.cs">
+      <DependentUpon>NrmGenerator.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SceneEditorGame.cs" />
     <EmbeddedResource Include="ApexEngineControl.resx">
       <DependentUpon>ApexEngineControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CodeGen.resx">
+      <DependentUpon>CodeGen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Editors\QuaternionEditForm.resx">
       <DependentUpon>QuaternionEditForm.cs</DependentUpon>
@@ -118,6 +136,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMatEditor.resx">
       <DependentUpon>frmMatEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NormalMapGenerator\NrmGenerator.resx">
+      <DependentUpon>NrmGenerator.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

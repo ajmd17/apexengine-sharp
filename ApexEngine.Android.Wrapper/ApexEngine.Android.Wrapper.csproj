@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F2841CD7-A3A0-42E8-A7A6-62674E5C362D}</ProjectGuid>
+    <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ApexEngine.Android.Wrapper</RootNamespace>
+    <AssemblyName>ApexEngine.Android.Wrapper</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
+    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Mono.Android" />
+    <Reference Include="Mono.Cairo" />
+    <Reference Include="mscorlib" />
+    <Reference Include="OpenTK">
+      <HintPath>..\..\..\..\OpenTK\1.1\Binaries\OpenTK\Release\OpenTK.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assets\Apx\ApxExporter.cs" />
+    <Compile Include="Assets\Apx\ApxModelLoader.cs" />
+    <Compile Include="Assets\AssetLoader..cs" />
+    <Compile Include="Assets\AssetManager.cs" />
+    <Compile Include="Assets\LoadedAsset.cs" />
+    <Compile Include="Assets\Obj\MtlAssetLoader.cs" />
+    <Compile Include="Assets\Obj\ObjModelLoader.cs" />
+    <Compile Include="Assets\OgreXml\OgreXmlModelLoader.cs" />
+    <Compile Include="Assets\OgreXml\OgreXmlSkeletonLoader.cs" />
+    <Compile Include="Assets\ShaderTextLoader.cs" />
+    <Compile Include="Assets\TextLoader.cs" />
+    <Compile Include="Assets\TextureLoader.cs" />
+    <Compile Include="Assets\Util\BoneAssign.cs" />
+    <Compile Include="Class1.cs" />
+    <Compile Include="Game.cs" />
+    <Compile Include="Input\InputManager.cs" />
+    <Compile Include="Input\KeyboardEvent.cs" />
+    <Compile Include="Input\MouseEvent.cs" />
+    <Compile Include="Math\BoundingBox.cs" />
+    <Compile Include="Math\MathUtil.cs" />
+    <Compile Include="Math\Matrix4f.cs" />
+    <Compile Include="Math\Quaternion.cs" />
+    <Compile Include="Math\Transform.cs" />
+    <Compile Include="Math\Vector2f.cs" />
+    <Compile Include="Math\Vector3f.cs" />
+    <Compile Include="Math\Vector4f.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Rendering\Animation\AnimatedShader.cs" />
+    <Compile Include="Rendering\Animation\Animation.cs" />
+    <Compile Include="Rendering\Animation\AnimationController.cs" />
+    <Compile Include="Rendering\Animation\AnimationTrack.cs" />
+    <Compile Include="Rendering\Animation\Bone.cs" />
+    <Compile Include="Rendering\Animation\Keyframe.cs" />
+    <Compile Include="Rendering\Animation\Skeleton.cs" />
+    <Compile Include="Rendering\Camera.cs" />
+    <Compile Include="Rendering\Cameras\DefaultCamera.cs" />
+    <Compile Include="Rendering\Cameras\OrthoCamera.cs" />
+    <Compile Include="Rendering\Cameras\PerspectiveCamera.cs" />
+    <Compile Include="Rendering\Environment.cs" />
+    <Compile Include="Rendering\Framebuffer.cs" />
+    <Compile Include="Rendering\Light\AmbientLight.cs" />
+    <Compile Include="Rendering\Light\DirectionalLight.cs" />
+    <Compile Include="Rendering\Light\LightSource.cs" />
+    <Compile Include="Rendering\Material.cs" />
+    <Compile Include="Rendering\Mesh.cs" />
+    <Compile Include="Rendering\OpenGL\GLRenderer.cs" />
+    <Compile Include="Rendering\PostProcess\DefaultPostFilter.cs" />
+    <Compile Include="Rendering\PostProcess\PostFilter.cs" />
+    <Compile Include="Rendering\PostProcess\PostProcessor.cs" />
+    <Compile Include="Rendering\Renderer.cs" />
+    <Compile Include="Rendering\RenderManager.cs" />
+    <Compile Include="Rendering\Shader.cs" />
+    <Compile Include="Rendering\ShaderManager.cs" />
+    <Compile Include="Rendering\ShaderProperties.cs" />
+    <Compile Include="Rendering\Shaders\DefaultShader.cs" />
+    <Compile Include="Rendering\Shaders\DepthShader.cs" />
+    <Compile Include="Rendering\Shaders\Post\DefaultPostShader.cs" />
+    <Compile Include="Rendering\Shaders\Post\PostShader.cs" />
+    <Compile Include="Rendering\Shadows\ShadowMappingComponent.cs" />
+    <Compile Include="Rendering\Shadows\ShadowMapRenderer.cs" />
+    <Compile Include="Rendering\Shadows\ShadowPostFilter.cs" />
+    <Compile Include="Rendering\Texture.cs" />
+    <Compile Include="Rendering\Util\MeshFactory.cs" />
+    <Compile Include="Rendering\Util\MeshUtil.cs" />
+    <Compile Include="Rendering\Util\ShaderUtil.cs" />
+    <Compile Include="Rendering\Vertex.cs" />
+    <Compile Include="Rendering\VertexAttributes.cs" />
+    <Compile Include="Resources\Resource.Designer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scene\Components\Controller.cs" />
+    <Compile Include="Scene\Components\EngineComponent.cs" />
+    <Compile Include="Scene\Components\GameComponent.cs" />
+    <Compile Include="Scene\Components\RenderComponent.cs" />
+    <Compile Include="Scene\GameObject.cs" />
+    <Compile Include="Scene\Geometry.cs" />
+    <Compile Include="Scene\Node.cs" />
+    <Compile Include="TestGame.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AboutResources.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Values\Strings.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Rendering\Environment\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

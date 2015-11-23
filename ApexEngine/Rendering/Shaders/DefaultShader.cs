@@ -1,24 +1,54 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using OpenTK.Graphics.OpenGL;
+using System;
 
 namespace ApexEngine.Rendering.Shaders
 {
     public class DefaultShader : Animation.AnimatedShader
     {
         private static Assets.ShaderTextLoader textLoader = Assets.ShaderTextLoader.GetInstance();
-        public DefaultShader(ShaderProperties properties) 
-            : base(properties, (string)textLoader.Load(AppDomain.CurrentDomain.BaseDirectory + "\\shaders\\default.vert"), 
-                  (string)textLoader.Load(AppDomain.CurrentDomain.BaseDirectory + "\\shaders\\default.frag"))
-        {
 
-        }
-        public override void Update(Camera cam, Mesh mesh)
+        public DefaultShader(ShaderProperties properties)
+            : base(properties, (string)textLoader.Load(AppDomain.CurrentDomain.BaseDirectory + "\\shaders\\default.vert"),
+                               (string)textLoader.Load(AppDomain.CurrentDomain.BaseDirectory + "\\shaders\\default.frag"))
         {
-            base.Update(cam, mesh);
-            Environment.Environment.DirectionalLight.BindLight(0, this);
-            Environment.Environment.AmbientLight.BindLight(0, this);
+        }
+
+        public override void ApplyMaterial(Material material)
+        {
+            base.ApplyMaterial(material);
+
+            this.SetUniform(MATERIAL_SHININESS, material.GetFloat(Material.SHININESS));
+            this.SetUniform(MATERIAL_AMBIENTCOLOR, material.GetVector4f(Material.COLOR_AMBIENT));
+            this.SetUniform(MATERIAL_DIFFUSECOLOR, material.GetVector4f(Material.COLOR_DIFFUSE));
+            this.SetUniform(MATERIAL_SPECULARCOLOR, material.GetVector4f(Material.COLOR_SPECULAR));
+            this.SetUniform(MATERIAL_SPECULARTECHNIQUE, material.GetInt(Material.TECHNIQUE_SPECULAR));
+            this.SetUniform(MATERIAL_PERPIXELLIGHTING, material.GetInt(Material.TECHNIQUE_PER_PIXEL_LIGHTING));
+
+            int blendMode = material.GetInt(Material.MATERIAL_BLENDMODE);
+            if (blendMode == 0)
+                GL.Disable(EnableCap.Blend);
+            else if (blendMode == 1)
+            {
+                GL.Enable(EnableCap.Blend);
+                GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
+            }
+        }
+
+        public override void Update(Environment environment, Camera cam, Mesh mesh)
+        {
+            base.Update(environment, cam, mesh);
+
+            environment.DirectionalLight.BindLight(0, this);
+            environment.AmbientLight.BindLight(0, this);
+            for (int i = 0; i < environment.PointLights.Count; i++)
+            {
+                environment.PointLights[i].BindLight(i, this);
+            }
+
+            SetUniform(ENV_NUMPOINTLIGHTS, environment.PointLights.Count);
+            SetUniform(ENV_FOGSTART, environment.FogStart);
+            SetUniform(ENV_FOGEND, environment.FogEnd);
+
             if (currentMaterial != null)
             {
                 Texture diffuseTex = currentMaterial.GetTexture(Material.TEXTURE_DIFFUSE);
@@ -33,6 +63,7 @@ namespace ApexEngine.Rendering.Shaders
                 {
                     SetUniform("Material_HasDiffuseMap", 0);
                 }
+
                 Texture normalTex = currentMaterial.GetTexture(Material.TEXTURE_NORMAL);
                 if (normalTex != null)
                 {
@@ -44,6 +75,31 @@ namespace ApexEngine.Rendering.Shaders
                 else
                 {
                     SetUniform("Material_HasNormalMap", 0);
+                }
+
+                Texture heightTex = currentMaterial.GetTexture(Material.TEXTURE_HEIGHT);
+                if (heightTex != null)
+                {
+                    Texture.ActiveTextureSlot(2);
+                    heightTex.Use();
+                    SetUniform("Material_HeightMap", 2);
+                    SetUniform("Material_HasHeightMap", 1);
+                }
+                else
+                {
+                    SetUniform("Material_HasHeightMap", 0);
+                }
+            }
+            if (environment.ShadowsEnabled)
+            {
+                SetUniform("Env_ShadowsEnabled", 1);
+                for (int i = 0; i < 4; i++)
+                {
+                    Texture.ActiveTextureSlot(3 + i);
+                    environment.ShadowMaps[i].Use();
+                    SetUniform("Env_ShadowMap" + i.ToString(), 3 + i);
+                    SetUniform("Env_ShadowMatrix" + i.ToString(), environment.ShadowMatrices[i]);
+                    SetUniform("Env_ShadowMapSplits[" + i.ToString() + "]", environment.ShadowMapSplits[i]);
                 }
             }
         }

@@ -41,6 +41,8 @@
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tOOLSToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.generateCodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer5 = new System.Windows.Forms.SplitContainer();
@@ -65,6 +67,7 @@
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.normalMapGeneratorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.topPanel.SuspendLayout();
             this.metroMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -110,7 +113,8 @@
             // 
             this.metroMenuStrip1.Font = new System.Drawing.Font("Segoe UI", 11.25F);
             this.metroMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.tOOLSToolStripMenuItem});
             this.metroMenuStrip1.Location = new System.Drawing.Point(0, 0);
             this.metroMenuStrip1.Name = "metroMenuStrip1";
             this.metroMenuStrip1.Size = new System.Drawing.Size(830, 24);
@@ -135,7 +139,7 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.newToolStripMenuItem.Text = "&New...";
             // 
             // openToolStripMenuItem
@@ -144,7 +148,7 @@
             this.openAsSeperateSceneToolStripMenuItem,
             this.addToSceneToolStripMenuItem});
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.openToolStripMenuItem.Text = "&Open...";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -165,27 +169,44 @@
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveToolStripMenuItem.Text = "&Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveAsToolStripMenuItem.Text = "Save &As...";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(136, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "&Exit...";
+            // 
+            // tOOLSToolStripMenuItem
+            // 
+            this.tOOLSToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.generateCodeToolStripMenuItem,
+            this.normalMapGeneratorToolStripMenuItem});
+            this.tOOLSToolStripMenuItem.Font = new System.Drawing.Font("Arial", 10F);
+            this.tOOLSToolStripMenuItem.Name = "tOOLSToolStripMenuItem";
+            this.tOOLSToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
+            this.tOOLSToolStripMenuItem.Text = "TOOLS";
+            // 
+            // generateCodeToolStripMenuItem
+            // 
+            this.generateCodeToolStripMenuItem.Name = "generateCodeToolStripMenuItem";
+            this.generateCodeToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
+            this.generateCodeToolStripMenuItem.Text = "&Generate Code...";
+            this.generateCodeToolStripMenuItem.Click += new System.EventHandler(this.generateCodeToolStripMenuItem_Click);
             // 
             // splitContainer1
             // 
@@ -382,8 +403,8 @@
             // 
             this.splitContainer4.Panel2.Controls.Add(this.splitContainer6);
             this.splitContainer4.Panel2.Controls.Add(this.metroMenuStrip6);
-            this.splitContainer4.Size = new System.Drawing.Size(830, 186);
-            this.splitContainer4.SplitterDistance = 400;
+            this.splitContainer4.Size = new System.Drawing.Size(150, 46);
+            this.splitContainer4.SplitterDistance = 25;
             this.splitContainer4.TabIndex = 0;
             // 
             // metroMenuStrip2
@@ -393,7 +414,7 @@
             this.aSSETSToolStripMenuItem});
             this.metroMenuStrip2.Location = new System.Drawing.Point(0, 0);
             this.metroMenuStrip2.Name = "metroMenuStrip2";
-            this.metroMenuStrip2.Size = new System.Drawing.Size(400, 24);
+            this.metroMenuStrip2.Size = new System.Drawing.Size(25, 24);
             this.metroMenuStrip2.TabIndex = 1;
             this.metroMenuStrip2.Text = "metroMenuStrip2";
             // 
@@ -419,8 +440,8 @@
             // splitContainer6.Panel2
             // 
             this.splitContainer6.Panel2.Controls.Add(this.pnlOrthoFront);
-            this.splitContainer6.Size = new System.Drawing.Size(426, 162);
-            this.splitContainer6.SplitterDistance = 208;
+            this.splitContainer6.Size = new System.Drawing.Size(121, 22);
+            this.splitContainer6.SplitterDistance = 59;
             this.splitContainer6.TabIndex = 6;
             // 
             // pnlOrthoTop
@@ -429,7 +450,7 @@
             this.pnlOrthoTop.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlOrthoTop.Location = new System.Drawing.Point(0, 0);
             this.pnlOrthoTop.Name = "pnlOrthoTop";
-            this.pnlOrthoTop.Size = new System.Drawing.Size(208, 162);
+            this.pnlOrthoTop.Size = new System.Drawing.Size(59, 22);
             this.pnlOrthoTop.TabIndex = 4;
             // 
             // pnlOrthoFront
@@ -438,7 +459,7 @@
             this.pnlOrthoFront.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlOrthoFront.Location = new System.Drawing.Point(0, 0);
             this.pnlOrthoFront.Name = "pnlOrthoFront";
-            this.pnlOrthoFront.Size = new System.Drawing.Size(214, 162);
+            this.pnlOrthoFront.Size = new System.Drawing.Size(58, 22);
             this.pnlOrthoFront.TabIndex = 5;
             // 
             // metroMenuStrip6
@@ -449,7 +470,7 @@
             this.metroMenuStrip6.Location = new System.Drawing.Point(0, 0);
             this.metroMenuStrip6.Name = "metroMenuStrip6";
             this.metroMenuStrip6.Padding = new System.Windows.Forms.Padding(0);
-            this.metroMenuStrip6.Size = new System.Drawing.Size(426, 24);
+            this.metroMenuStrip6.Size = new System.Drawing.Size(121, 24);
             this.metroMenuStrip6.TabIndex = 5;
             this.metroMenuStrip6.Text = "metroMenuStrip6";
             // 
@@ -474,6 +495,13 @@
             this.saveFileDialog1.DefaultExt = "apx";
             this.saveFileDialog1.Filter = "Apx files|*.apx";
             this.saveFileDialog1.Title = "Export model as APX";
+            // 
+            // normalMapGeneratorToolStripMenuItem
+            // 
+            this.normalMapGeneratorToolStripMenuItem.Name = "normalMapGeneratorToolStripMenuItem";
+            this.normalMapGeneratorToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
+            this.normalMapGeneratorToolStripMenuItem.Text = "&Normal Map Generator";
+            this.normalMapGeneratorToolStripMenuItem.Click += new System.EventHandler(this.normalMapGeneratorToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -569,6 +597,9 @@
         private System.Windows.Forms.SplitContainer splitContainer6;
         private System.Windows.Forms.Panel pnlOrthoTop;
         private System.Windows.Forms.Panel pnlOrthoFront;
+        private System.Windows.Forms.ToolStripMenuItem tOOLSToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem generateCodeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem normalMapGeneratorToolStripMenuItem;
         //  private ApexEngineControl apexEngineControl1;
     }
 }

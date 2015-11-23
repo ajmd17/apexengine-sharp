@@ -130,6 +130,12 @@
   <data name="mesh" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\mesh.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="random" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\random.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="shadows" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\shadows.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
   <data name="skinning" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\skinning.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>

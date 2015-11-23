@@ -61,6 +61,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.glControl1);
             this.Name = "ApexEngineControl";
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ApexEngineControl_MouseClick);
             this.ResumeLayout(false);
 
         }

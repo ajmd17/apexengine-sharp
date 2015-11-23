@@ -6,7 +6,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{DE1BFC80-78C3-4583-9D74-E29F423152A0}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ApexEngine</RootNamespace>
     <AssemblyName>ApexEngine</AssemblyName>
@@ -20,7 +20,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;OPENGL</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -34,9 +34,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>ApexEngine.Program</StartupObject>
+    <StartupObject>
+    </StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BulletSharp, Version=2.83.5.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\BulletSharp.dll</HintPath>
+    </Reference>
     <Reference Include="OpenTK, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\OpenTK\1.1\Binaries\OpenTK\Release\OpenTK.dll</HintPath>
@@ -69,6 +74,7 @@
     <Compile Include="Input\InputManager.cs" />
     <Compile Include="Input\KeyboardEvent.cs" />
     <Compile Include="Input\MouseEvent.cs" />
+    <Compile Include="Math\BoundingBox.cs" />
     <Compile Include="Math\MathUtil.cs" />
     <Compile Include="Math\Matrix4f.cs" />
     <Compile Include="Math\Quaternion.cs" />
@@ -94,20 +100,35 @@
     <Compile Include="Rendering\Cameras\DefaultCamera.cs" />
     <Compile Include="Rendering\Cameras\OrthoCamera.cs" />
     <Compile Include="Rendering\Cameras\PerspectiveCamera.cs" />
-    <Compile Include="Rendering\Environment\AmbientLight.cs" />
-    <Compile Include="Rendering\Environment\DirectionalLight.cs" />
-    <Compile Include="Rendering\Environment\Environment.cs" />
-    <Compile Include="Rendering\Environment\LightSource.cs" />
+    <Compile Include="Rendering\Light\PointLight.cs" />
+    <Compile Include="Rendering\OpenGL\GLRenderer.cs" />
+    <Compile Include="Rendering\Light\AmbientLight.cs" />
+    <Compile Include="Rendering\Light\DirectionalLight.cs" />
+    <Compile Include="Rendering\Environment.cs" />
+    <Compile Include="Rendering\Light\LightSource.cs" />
     <Compile Include="Rendering\Framebuffer.cs" />
     <Compile Include="Rendering\Material.cs" />
     <Compile Include="Rendering\Mesh.cs" />
-    <Compile Include="Rendering\MeshUtil.cs" />
+    <Compile Include="Rendering\PostProcess\DepthVisualizerFilter.cs" />
+    <Compile Include="Rendering\Renderer.cs" />
+    <Compile Include="Rendering\Shaders\Unshaded.cs" />
+    <Compile Include="Rendering\Util\MeshUtil.cs" />
+    <Compile Include="Rendering\PostProcess\DefaultPostFilter.cs" />
+    <Compile Include="Rendering\PostProcess\PostFilter.cs" />
+    <Compile Include="Rendering\PostProcess\PostProcessor.cs" />
     <Compile Include="Rendering\RenderManager.cs" />
     <Compile Include="Rendering\Shader.cs" />
     <Compile Include="Rendering\ShaderManager.cs" />
     <Compile Include="Rendering\ShaderProperties.cs" />
+    <Compile Include="Rendering\Shaders\DepthShader.cs" />
+    <Compile Include="Rendering\Shaders\Post\DefaultPostShader.cs" />
     <Compile Include="Rendering\Shaders\DefaultShader.cs" />
+    <Compile Include="Rendering\Shaders\Post\PostShader.cs" />
+    <Compile Include="Rendering\Shadows\ShadowMappingComponent.cs" />
+    <Compile Include="Rendering\Shadows\ShadowMapRenderer.cs" />
+    <Compile Include="Rendering\Shadows\ShadowPostFilter.cs" />
     <Compile Include="Rendering\Texture.cs" />
+    <Compile Include="Rendering\Util\MeshFactory.cs" />
     <Compile Include="Rendering\Util\ShaderUtil.cs" />
     <Compile Include="Rendering\Vertex.cs" />
     <Compile Include="Rendering\VertexAttributes.cs" />
@@ -118,6 +139,9 @@
     <Compile Include="Scene\GameObject.cs" />
     <Compile Include="Scene\Geometry.cs" />
     <Compile Include="Scene\Node.cs" />
+    <Compile Include="Scene\Physics\PhysicsDebugDraw.cs" />
+    <Compile Include="Scene\Physics\PhysicsWorld.cs" />
+    <Compile Include="Scene\Physics\RigidBodyControl.cs" />
     <Compile Include="TestGame.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -144,6 +168,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\mesh.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shadows.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Rendering\Environment\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\random.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

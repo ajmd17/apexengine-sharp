@@ -121,9 +121,11 @@ namespace ApexEngine.Properties {
         ///
         ///uniform int Material_SpecularTechnique;
         ///uniform int Material_PerPixelLighting;
+        ///
         ///uniform int Material_HasDiffuseMap;
         ///uniform int Material_HasNormalMap;
         ///uniform int Material_HasSpecularMap;
+        ///uniform int Material_HasHeightMap;
         ///
         ///uniform float Material_Shininess;
         ///
@@ -133,7 +135,7 @@ namespace ApexEngine.Properties {
         ///
         ///uniform sampler2D Material_DiffuseMap;
         ///uniform sampler2D Material_NormalMap;
-        ///uniform sampler2D Material_SpecularMap;.
+        ///uniform  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string material {
             get {
@@ -152,14 +154,51 @@ namespace ApexEngine.Properties {
         ///		_outTangent = c1;
         ///	else
         ///		_outTangent = c2;
-        ///	v_tangent = normalize(_outTangent);
-        ///	v_bitangent = cross(_normal, _outTangent);
-        ///	v_bitangent = normalize(_outBitangent);
+        ///	_outTangent = normalize(_outTangent);
+        ///	_outBitangent = cross(_normal, _outTangent);
+        ///	_outBitangent = normalize(_outBitangent);
         ///}.
         /// </summary>
         internal static string mesh {
             get {
                 return ResourceManager.GetString("mesh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to float random(vec4 seed4) 
+        ///{
+        ///	float dot_product = dot(seed4, vec4(12.9898,78.233,45.164,94.673));
+        ///    return fract(sin(dot_product) * 43758.5453);
+        ///}.
+        /// </summary>
+        internal static string random {
+            get {
+                return ResourceManager.GetString("random", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to uniform int Material_ShadowsEnabled;
+        ///
+        ///uniform sampler2D Material_ShadowMap0;
+        ///uniform sampler2D Material_ShadowMap1;
+        ///uniform sampler2D Material_ShadowMap2;
+        ///uniform sampler2D Material_ShadowMap3;
+        ///
+        ///uniform mat4 Material_ShadowMatrix0;
+        ///uniform mat4 Material_ShadowMatrix1;
+        ///uniform mat4 Material_ShadowMatrix2;
+        ///uniform mat4 Material_ShadowMatrix3;
+        ///
+        ///const vec2 poisson16[] = vec2[](
+        ///					    vec2( -0.94201624,  -0.39906216 ),
+        ///						vec2(  0.94558609,  -0.76890725 ),
+        ///						vec2( -0.094184101, -0.929388 [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string shadows {
+            get {
+                return ResourceManager.GetString("shadows", resourceCulture);
             }
         }
         
