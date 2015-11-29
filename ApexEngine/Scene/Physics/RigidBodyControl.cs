@@ -6,7 +6,12 @@ using ApexEngine.Scene.Components;
 using ApexEngine.Math;
 using ApexEngine.Rendering;
 using ApexEngine.Rendering.Util;
-using BulletSharp;
+using Jitter;
+using Jitter.Collision;
+using Jitter.Dynamics;
+using Jitter.Collision.Shapes;
+using Jitter.LinearMath;
+using Jitter.DataStructures;
 
 namespace ApexEngine.Scene.Physics
 {
@@ -14,7 +19,7 @@ namespace ApexEngine.Scene.Physics
     {
         private RigidBody body;
         private Vector3f tmpVec0 = new Vector3f();
-        private Quaternion tmpRot0 = new Quaternion();
+        private ApexEngine.Math.Quaternion tmpRot0 = new ApexEngine.Math.Quaternion();
         private float mass = 1f;
         private PhysicsWorld.PhysicsShape physicsShape = PhysicsWorld.PhysicsShape.ConvexMesh;
 
@@ -22,7 +27,7 @@ namespace ApexEngine.Scene.Physics
         {
             mass = 1.0f;
         }
-        
+
         public RigidBodyControl(float mass)
         {
             this.mass = mass;
@@ -39,40 +44,36 @@ namespace ApexEngine.Scene.Physics
             get { return body; }
         }
 
-        private static OpenTK.Vector3 ConvertVec(Vector3f orig)
-        {
-            return new OpenTK.Vector3(orig.x, orig.y, orig.z);
-        }
-
         public override void Init()
         {
-            CollisionShape shape = null;
-
+            Shape shape = null;
+            GameObject.UpdateTransform();
             if (physicsShape == PhysicsWorld.PhysicsShape.StaticMesh)
             {
-                TriangleMesh trimesh = new TriangleMesh();
+                List<JVector> jvec = new List<JVector>();
+                List<TriangleVertexIndices> tv = new List<TriangleVertexIndices>();
                 List<Mesh> meshes = MeshUtil.GatherMeshes(GameObject);
                 List<Vector3f> vertexPositions = new List<Vector3f>();
 
                 for (int m = 0; m < meshes.Count; m++)
                 {
-                    for (int v = 0; v < meshes[m].indices.Count; v++)
+                    for (int v = 0; v < meshes[m].vertices.Count; v++)
                     {
-                        vertexPositions.Add(meshes[m].vertices[meshes[m].indices[v]].GetPosition());
+                        Vector3f myvec = meshes[m].vertices[v].GetPosition();
+                        jvec.Add(new JVector(myvec.x, myvec.y, myvec.z));
+                    }
+                    for (int i = 0; i < meshes[m].indices.Count; i+=3)
+                    {
+                        tv.Add(new TriangleVertexIndices(meshes[m].indices[i +2], meshes[m].indices[i + 1], meshes[m].indices[i]));
                     }
                 }
-
-                for (int i = 0; i < vertexPositions.Count; i += 3)
-                {
-                    trimesh.AddTriangle(ConvertVec(vertexPositions[i]), ConvertVec(vertexPositions[i + 1]), ConvertVec(vertexPositions[i + 2]));
-                }
-
-                shape = new BvhTriangleMeshShape(trimesh, true, true);
+                Octree oct = new Octree(jvec, tv);
+                TriangleMeshShape trimesh = new TriangleMeshShape(oct);
+                shape = trimesh;
             }
             else if (physicsShape == PhysicsWorld.PhysicsShape.ConvexMesh)
             {
-                ConvexHullShape hullShape = new ConvexHullShape();
-
+                List<JVector> jvec = new List<JVector>();
                 List<Mesh> meshes = MeshUtil.GatherMeshes(GameObject);
                 List<Vector3f> vertexPositions = new List<Vector3f>();
 
@@ -80,35 +81,36 @@ namespace ApexEngine.Scene.Physics
                 {
                     for (int v = 0; v < meshes[m].indices.Count; v++)
                     {
-                        vertexPositions.Add(meshes[m].vertices[meshes[m].indices[v]].GetPosition());
+                        Vector3f vec = meshes[m].vertices[meshes[m].indices[v]].GetPosition();
+                        jvec.Add(new JVector(vec.x, vec.y, vec.z));
                     }
                 }
 
-                for (int i = 0; i < vertexPositions.Count; i++)
-                {
-                    hullShape.AddPoint(ConvertVec(vertexPositions[i]));
-                }
-
+                ConvexHullShape hullShape = new ConvexHullShape(jvec);
                 shape = hullShape;
             }
-
-            OpenTK.Vector3 localInertia;
-            shape.CalculateLocalInertia(mass, out localInertia);
-            MotionState motionState = new DefaultMotionState(OpenTK.Matrix4.CreateTranslation(GameObject.GetLocalTranslation().x, GameObject.GetLocalTranslation().y, GameObject.GetLocalTranslation().z));
-            RigidBodyConstructionInfo info = new RigidBodyConstructionInfo(mass, motionState, shape, localInertia);
-            body = new RigidBody(info);
+            else if (physicsShape == PhysicsWorld.PhysicsShape.Box)
+            {
+                shape = new BoxShape(2, 2, 2); // TODO: Calculate mesh bounding box
+            }
+            body = new RigidBody(shape);
+            body.Tag = GameObject;
+            body.Position = new JVector(GameObject.GetWorldTranslation().x, GameObject.GetWorldTranslation().y, GameObject.GetWorldTranslation().z);
+            
+            if (mass == 0)
+                body.IsStatic = true;
         }
 
         public override void Update()
         {
-            OpenTK.Vector3 vec = body.WorldTransform.ExtractTranslation();
+            JVector vec = body.Position;
             tmpVec0.Set(vec.X, vec.Y, vec.Z);
-            GameObject.SetLocalTranslation(tmpVec0);
-
-            OpenTK.Quaternion rot = body.WorldTransform.ExtractRotation();
+            if (mass > 0.0f)
+                GameObject.SetLocalTranslation(tmpVec0);
+            /*body.Orientation.
             tmpRot0.Set(rot.X, rot.Y, rot.Z, rot.W);
             tmpRot0.InverseStore();
-            GameObject.SetLocalRotation(tmpRot0);
+            GameObject.SetLocalRotation(tmpRot0);*/
         }
     }
 }

@@ -58,7 +58,10 @@ namespace ApexEditor
         {
             cbPPL.Checked = (Material.GetInt(Material.TECHNIQUE_PER_PIXEL_LIGHTING) == 1);
             castsShadows.Checked = (Material.GetInt(Material.MATERIAL_CASTSHADOWS) == 1);
-            this.shininessLevel.Value = (int)Material.GetFloat(Material.SHININESS);
+            this.shininessLevel.Value = (int)(MathUtil.Clamp(Material.GetFloat(Material.SHININESS)*100, 0.0f, 100.0f));
+            this.trackBar1.Value = (int)MathUtil.Clamp(Material.GetFloat(Material.SPECULAR_EXPONENT), 0.0f, 100.0f);
+            this.trackBar2.Value = (int)(MathUtil.Clamp(Material.GetFloat(Material.ROUGHNESS) * 100, 0.0f, 100.0f));
+            this.trackBar3.Value = (int)(MathUtil.Clamp(Material.GetFloat(Material.METALNESS) * 100, 0.0f, 100.0f));
             if (Material.GetInt(Material.TECHNIQUE_SPECULAR) == 0)
                 specTechnique.SelectedIndex = 1;
             else if (Material.GetInt(Material.TECHNIQUE_SPECULAR) == 1)
@@ -80,7 +83,8 @@ namespace ApexEditor
 
         private void shininessLevel_Scroll(object sender, EventArgs e)
         {
-            Material.SetValue(Material.SHININESS, shininessLevel.Value * 1.0f);
+            Material.SetValue(Material.SHININESS, shininessLevel.Value / 100.0f);
+            Console.WriteLine("Shininess: " + Material.GetFloat(Material.SHININESS));
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -138,6 +142,24 @@ namespace ApexEditor
         private void castsShadows_CheckedChanged(object sender, EventArgs e)
         {
             Material.SetValue(Material.MATERIAL_CASTSHADOWS, (castsShadows.Checked ? 1 : 0));
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            Material.SetValue(Material.SPECULAR_EXPONENT, trackBar1.Value * 1.0f);
+            Console.WriteLine("Specular Exponent: " + Material.GetFloat(Material.SPECULAR_EXPONENT));
+        }
+
+        private void trackBar2_Scroll(object sender, EventArgs e)
+        {
+            Material.SetValue(Material.ROUGHNESS, trackBar2.Value / 100.0f);
+            Console.WriteLine("Roughness: " + Material.GetFloat(Material.ROUGHNESS));
+        }
+
+        private void trackBar3_Scroll(object sender, EventArgs e)
+        {
+            Material.SetValue(Material.METALNESS, trackBar3.Value / 100.0f);
+            Console.WriteLine("Metalness: " + Material.GetFloat(Material.METALNESS));
         }
     }
 }

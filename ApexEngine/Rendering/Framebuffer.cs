@@ -54,7 +54,7 @@ namespace ApexEngine.Rendering
 
             Use();
             RenderManager.renderer.BindTexture(TextureTarget.Texture2D, colorTextureID);
-            RenderManager.renderer.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba8, width, height, 0, OpenTK.Graphics.OpenGL.PixelFormat.Rgba, PixelType.Int, IntPtr.Zero);
+            RenderManager.renderer.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba16, width, height, 0, OpenTK.Graphics.OpenGL.PixelFormat.Rgba, PixelType.Int, IntPtr.Zero);
             RenderManager.renderer.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Nearest);
             RenderManager.renderer.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Nearest);
             RenderManager.renderer.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.ClampToEdge);
@@ -71,8 +71,8 @@ namespace ApexEngine.Rendering
             RenderManager.renderer.FramebufferTexture2D(FramebufferTarget.Framebuffer, FramebufferAttachment.DepthAttachment, TextureTarget.Texture2D, depthTextureID, 0);
             Clear();
 
-            if (colorTexture == null) colorTexture = new Texture(colorTextureID);
-            if (depthTexture == null) depthTexture = new Texture(depthTextureID);
+            if (colorTexture == null) colorTexture = new Texture2D(colorTextureID);
+            if (depthTexture == null) depthTexture = new Texture2D(depthTextureID);
         }
 
         public void Capture()
@@ -84,7 +84,7 @@ namespace ApexEngine.Rendering
         public void Release()
         {
             Clear();
-            Texture.Clear();
+            Texture2D.Clear();
         }
     }
 }

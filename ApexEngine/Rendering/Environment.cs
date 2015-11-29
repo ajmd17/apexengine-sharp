@@ -14,8 +14,10 @@ namespace ApexEngine.Rendering
         private Matrix4f[] shadowMatrices = new Matrix4f[4];
         private float[] shadowMapSplits = new float[4];
         private bool shadowsEnabled = false;
+
         private float fogStart = 40f;
-        private float fogEnd = 100f;
+        private float fogEnd = 170f;
+        private Vector4f fogColor = new Vector4f(0.3f, 0.3f, 0.3f, 1.0f);
 
         public float FogStart
         {
@@ -27,6 +29,12 @@ namespace ApexEngine.Rendering
         {
             get { return fogEnd; }
             set { fogEnd = value; }
+        }
+
+        public Vector4f FogColor
+        {
+            get { return fogColor; }
+            set { fogColor.Set(value); }
         }
 
         public List<PointLight> PointLights

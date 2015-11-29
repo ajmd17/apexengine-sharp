@@ -24,12 +24,16 @@ namespace ApexEngine.Rendering
         public const string APEX_ELAPSEDTIME = "Apex_ElapsedTime";
 
         public const string MATERIAL_SHININESS = "Material_Shininess";
+        public const string MATERIAL_ROUGHNESS = "Material_Roughness";
+        public const string MATERIAL_METALNESS = "Material_Metalness";
         public const string MATERIAL_AMBIENTCOLOR = "Material_AmbientColor";
         public const string MATERIAL_DIFFUSECOLOR = "Material_DiffuseColor";
         public const string MATERIAL_SPECULARCOLOR = "Material_SpecularColor";
         public const string MATERIAL_SPECULARTECHNIQUE = "Material_SpecularTechnique";
+        public const string MATERIAL_SPECULAREXPONENT = "Material_SpecularExponent";
         public const string MATERIAL_PERPIXELLIGHTING = "Material_PerPixelLighting";
 
+        public const string ENV_FOGCOLOR = "Env_FogColor";
         public const string ENV_FOGSTART = "Env_FogStart";
         public const string ENV_FOGEND = "Env_FogEnd";
         public const string ENV_NUMPOINTLIGHTS = "Env_NumPointLights";
@@ -200,7 +204,7 @@ namespace ApexEngine.Rendering
             GL.GetShader(shader, ShaderParameter.CompileStatus, out status);
             if (status != 1)
             {
-                Console.WriteLine("Shader compiler error!\n" +
+                Console.WriteLine("Shader compiler error!\nType: " + type.ToString() + "\nName: " + this.GetType().ToString() + "\n\n" +
                            info + "\n" + "Status Code: " + status.ToString());
             }
         }
@@ -240,14 +244,32 @@ namespace ApexEngine.Rendering
             SetUniform(name, vec.x, vec.y);
         }
 
+        public void SetUniform(string name, Vector2f[] vec)
+        {
+            for (int i = 0; i < vec.Length; i++)
+                SetUniform(name + "[" + i.ToString() + "]", vec[i].x, vec[i].y);
+        }
+
         public void SetUniform(string name, Vector3f vec)
         {
             SetUniform(name, vec.x, vec.y, vec.z);
         }
 
+        public void SetUniform(string name, Vector3f[] vec)
+        {
+            for (int i = 0; i < vec.Length; i++)
+                SetUniform(name + "[" + i.ToString() + "]", vec[i].x, vec[i].y, vec[i].z);
+        }
+
         public void SetUniform(string name, Vector4f vec)
         {
             SetUniform(name, vec.x, vec.y, vec.z, vec.w);
+        }
+
+        public void SetUniform(string name, Vector4f[] vec)
+        {
+            for (int i = 0; i < vec.Length; i++)
+                SetUniform(name + "[" + i.ToString() + "]", vec[i].x, vec[i].y, vec[i].z, vec[i].w);
         }
 
         public void SetUniform(string name, Matrix4f mat)

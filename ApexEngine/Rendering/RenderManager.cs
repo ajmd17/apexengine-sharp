@@ -47,6 +47,15 @@ namespace ApexEngine.Rendering
             depthFbo = new Framebuffer(cam.Width, cam.Height);
         }
 
+        public static void CheckGLError()
+        {
+            ErrorCode ec = GL.GetError();
+            if (ec != 0)
+            {
+                throw new System.Exception(ec.ToString());
+            }
+        }
+
         public Vector4f BackgroundColor
         {
             get { return backgroundColor; }
@@ -89,7 +98,8 @@ namespace ApexEngine.Rendering
         public void RemoveComponent(RenderComponent cmp)
         {
             components.Remove(cmp);
-            cmp.renderManager = null;
+            if (cmp != null)
+                cmp.renderManager = null;
         }
 
         public static float ElapsedTime
@@ -116,7 +126,7 @@ namespace ApexEngine.Rendering
 
             renderer.CopyTexSubImage2D(TextureTarget.Texture2D, 0, 0, 0, 0, 0, cam.Width, cam.Height);
 
-            Texture.Clear();
+            Texture2D.Clear();
         }
 
         public void RenderDepthTexture(Environment env, Camera cam)
@@ -168,7 +178,28 @@ namespace ApexEngine.Rendering
                     }
 
                     Shader.Clear();
-                    Texture.Clear();
+                    Texture2D.Clear();
+                }
+            }
+        }
+
+        public void RenderBucketNormals(Environment env, Camera cam, Bucket bucket)
+        {
+            for (int i = 0; i < geometries.Count; i++)
+            {
+                if (geometries[i].AttachedToRoot && geometries[i].Bucket == bucket)
+                {
+                    if (geometries[i].NormalsShader == null)
+                        geometries[i].NormalsShader = ShaderManager.GetShader(typeof(Shaders.NormalsShader));
+
+                    geometries[i].NormalsShader.Use();
+                    geometries[i].NormalsShader.ApplyMaterial(geometries[i].Material);
+                    geometries[i].NormalsShader.SetTransforms(geometries[i].GetWorldMatrix(), cam.ViewMatrix, cam.ProjectionMatrix);
+                    geometries[i].NormalsShader.Update(env, cam, geometries[i].Mesh);
+                    geometries[i].NormalsShader.Render(geometries[i].Mesh);
+                    geometries[i].NormalsShader.End();
+
+                    Shader.Clear();
                 }
             }
         }
@@ -176,6 +207,9 @@ namespace ApexEngine.Rendering
         public void Render(Environment env, Camera cam)
         {
             renderer.Viewport(0, 0, cam.Width, cam.Height);
+
+           // RenderDepthTexture(env, cam);
+
             renderer.ClearColor(backgroundColor.x, backgroundColor.y, backgroundColor.z, backgroundColor.w);
             renderer.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 

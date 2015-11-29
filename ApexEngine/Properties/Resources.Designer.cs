@@ -62,13 +62,20 @@ namespace ApexEngine.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to // Apex 3D standard header, provides additional uniforms for shaders.
-        ///// By default, Apex_WorldMatrix, Apex_ViewMatirx, and Apex_ProjectionMatrix 
-        ///// are included in all compiled shader programs.
         ///
-        ///// The camera&apos;s location.
+        ///// Model matrix, world space
+        ///uniform mat4 Apex_WorldMatrix;
+        ///
+        ///// Camera view matrix
+        ///uniform mat4 Apex_ViewMatrix;
+        ///
+        ///// Camera projection matrix
+        ///uniform mat4 Apex_ProjectionMatrix;
+        ///
+        ///// The camera location.
         ///uniform vec3 Apex_CameraPosition; 
         ///
-        ///// The camera&apos;s view direction.
+        ///// The camera view direction.
         ///uniform vec3 Apex_CameraDirection;
         ///
         ///// Elapsed global time
@@ -84,29 +91,34 @@ namespace ApexEngine.Properties {
         ///   Looks up a localized string similar to // Apex 3D Lighting Calculations
         ///const float PI = 3.14159265358979323846;
         ///
-        ///struct DirectionalLight {
+        ///struct DirectionalLight 
+        ///{
         ///	vec3 direction;
         ///	vec4 color;
         ///	float intensity;
         ///};
         ///
-        ///struct AmbientLight {
+        ///struct PointLight
+        ///{
+        ///	vec3 position;
+        ///	vec4 color;
+        ///	float intensity;
+        ///};
+        ///
+        ///struct AmbientLight 
+        ///{
         ///	vec4 color;
         ///	float intensity;
         ///};
         ///
         ///uniform DirectionalLight Env_DirectionalLight;
+        ///uniform PointLight Env_PointLights[4];
         ///uniform AmbientLight Env_AmbientLight;
+        ///uniform int Env_NumPointLights;
         ///
         ///float sqr(float x)
         ///{
         ///    return x*x;
-        ///}
-        ///
-        ///float NormalizedTrowbridgeReitz(float costhetaH, float w)
-        ///{
-        ///    float w2 = w*w;
-        ///    return w2 / (PI * sqr( costhetaH*costhetaH * (w2 - 1) + 1 ));
         ///}
         /// [rest of string was truncated]&quot;;.
         /// </summary>
@@ -121,21 +133,21 @@ namespace ApexEngine.Properties {
         ///
         ///uniform int Material_SpecularTechnique;
         ///uniform int Material_PerPixelLighting;
+        ///uniform float Material_Shininess;
         ///
         ///uniform int Material_HasDiffuseMap;
         ///uniform int Material_HasNormalMap;
         ///uniform int Material_HasSpecularMap;
         ///uniform int Material_HasHeightMap;
         ///
-        ///uniform float Material_Shininess;
+        ///uniform float Env_FogStart;
+        ///uniform float Env_FogEnd;
         ///
         ///uniform vec4 Material_AmbientColor;
         ///uniform vec4 Material_DiffuseColor;
         ///uniform vec4 Material_SpecularColor;
         ///
-        ///uniform sampler2D Material_DiffuseMap;
-        ///uniform sampler2D Material_NormalMap;
-        ///uniform  [rest of string was truncated]&quot;;.
+        ///uniform sampler2D Material_Diff [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string material {
             get {
@@ -179,22 +191,25 @@ namespace ApexEngine.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to uniform int Material_ShadowsEnabled;
+        ///   Looks up a localized string similar to uniform int Env_ShadowsEnabled;
         ///
-        ///uniform sampler2D Material_ShadowMap0;
-        ///uniform sampler2D Material_ShadowMap1;
-        ///uniform sampler2D Material_ShadowMap2;
-        ///uniform sampler2D Material_ShadowMap3;
+        ///uniform sampler2D Env_ShadowMap0;
+        ///uniform sampler2D Env_ShadowMap1;
+        ///uniform sampler2D Env_ShadowMap2;
+        ///uniform sampler2D Env_ShadowMap3;
         ///
-        ///uniform mat4 Material_ShadowMatrix0;
-        ///uniform mat4 Material_ShadowMatrix1;
-        ///uniform mat4 Material_ShadowMatrix2;
-        ///uniform mat4 Material_ShadowMatrix3;
+        ///uniform mat4 Env_ShadowMatrix0;
+        ///uniform mat4 Env_ShadowMatrix1;
+        ///uniform mat4 Env_ShadowMatrix2;
+        ///uniform mat4 Env_ShadowMatrix3;
+        ///
+        ///uniform float Env_ShadowMapSplits[4];
+        ///
         ///
         ///const vec2 poisson16[] = vec2[](
         ///					    vec2( -0.94201624,  -0.39906216 ),
         ///						vec2(  0.94558609,  -0.76890725 ),
-        ///						vec2( -0.094184101, -0.929388 [rest of string was truncated]&quot;;.
+        ///						vec2( -0.094184101, -0.92938870 [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string shadows {
             get {

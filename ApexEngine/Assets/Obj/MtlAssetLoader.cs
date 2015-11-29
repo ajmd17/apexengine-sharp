@@ -32,6 +32,10 @@ namespace ApexEngine.Assets.Obj
         }
         public override object Load(string filePath)
         {
+            if (!File.Exists(filePath))
+            {
+                return materials;
+            }
             StreamReader reader = File.OpenText(filePath);
             string line;
             while ((line = reader.ReadLine()) != null)
@@ -87,7 +91,7 @@ namespace ApexEngine.Assets.Obj
                 {
                     string spec = tokens[1];
                     float spec_f = float.Parse(spec);
-                    materials[materials.Count - 1].SetValue(Material.SHININESS, spec_f / 4f);
+                    materials[materials.Count - 1].SetValue(Material.SPECULAR_EXPONENT, spec_f / 4f);
                 }
                 else if (tokens[0].ToLower() == "map_kd") // diffuse map
                 {

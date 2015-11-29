@@ -19,8 +19,12 @@ namespace ApexEngine.Rendering
         public const string TEXTURE_NORMAL = "normal_map";
         public const string TEXTURE_SPECULAR = "specular_map";
         public const string TEXTURE_HEIGHT = "height_map";
+        public const string TEXTURE_ENV = "env_map";
 
+        public const string SPECULAR_EXPONENT = "spec_exponent";
         public const string SHININESS = "shininess";
+        public const string ROUGHNESS = "roughness";
+        public const string METALNESS = "metalness";
         public const string TECHNIQUE_SPECULAR = "spec_technique";
         public const string TECHNIQUE_PER_PIXEL_LIGHTING = "per_pixel_lighting";
 
@@ -31,12 +35,15 @@ namespace ApexEngine.Rendering
 
         public Material()
         {
-            SetValue(SHININESS, 45f);
             SetValue(COLOR_DIFFUSE, new Vector4f(1.0f));
             SetValue(COLOR_SPECULAR, new Vector4f(1.0f));
             SetValue(COLOR_AMBIENT, new Vector4f(0.0f));
             SetValue(TECHNIQUE_SPECULAR, 1);
             SetValue(TECHNIQUE_PER_PIXEL_LIGHTING, 1);
+            SetValue(SHININESS, 0.5f);
+            SetValue(ROUGHNESS, 0.2f);
+            SetValue(METALNESS, 0.0f);
+            SetValue(SPECULAR_EXPONENT, 20f);
             SetValue(MATERIAL_BLENDMODE, 0);
             SetValue(MATERIAL_CASTSHADOWS, 1);
         }

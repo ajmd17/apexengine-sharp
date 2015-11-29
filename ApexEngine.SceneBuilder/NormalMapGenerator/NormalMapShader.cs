@@ -23,7 +23,7 @@ namespace ApexEditor.NormalMapGenerator
 
             if (currentMaterial != null)
             {
-                Texture tex = currentMaterial.GetTexture(Material.TEXTURE_DIFFUSE);
+                Texture2D tex = (Texture2D)currentMaterial.GetTexture(Material.TEXTURE_DIFFUSE);
                 if (tex != null)
                 {
                     Texture.ActiveTextureSlot(0);

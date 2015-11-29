@@ -50,7 +50,7 @@ namespace ApexEngine.Rendering.PostProcess
             mesh.SetVertices(vertices);
             mesh.PrimitiveType = BeginMode.TriangleFan;
             quadGeom = new Geometry(mesh);
-            postFilters.Add(new DefaultPostFilter());
+            postFilters.Add(new Filters.DefaultPostFilter());
         }
 
         public void Capture()

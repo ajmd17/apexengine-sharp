@@ -173,20 +173,20 @@ namespace ApexEngine.Rendering.Util
                 {
                     inIfStatement = true;
                     ifStatementText = lines[i].Trim().Substring(7);
-                    if (properties.GetBool(ifStatementText) == false)
-                        removing = true;
-                    else
+                    if (properties.GetBool(ifStatementText) == true)
                         removing = false;
+                    else
+                        removing = true;
                     lines[i] = "";
                 }
                 else if (lines[i].Trim().StartsWith("#ifndef"))
                 {
                     inIfStatement = true;
                     ifStatementText = lines[i].Trim().Substring(8);
-                    if (properties.GetBool(ifStatementText) == true)
-                        removing = true;
-                    else
+                    if (properties.GetBool(ifStatementText) == false)
                         removing = false;
+                    else
+                        removing = true;
                     lines[i] = "";
                 }
                 else if (lines[i].Trim().StartsWith("#endif"))

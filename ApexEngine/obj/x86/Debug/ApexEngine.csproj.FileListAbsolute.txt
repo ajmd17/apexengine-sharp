@@ -14,5 +14,11 @@ C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine\bin\Debu
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine\obj\x86\Debug\ApexEngine.Properties.Resources.resources
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine\obj\x86\Debug\ApexEngine.csproj.GenerateResource.Cache
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine\obj\x86\Debug\ApexEngine.pdb
-C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine\bin\Debug\ApexEngine.dll
-C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine\obj\x86\Debug\ApexEngine.dll
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine\obj\x86\Debug\ApexEngine.csprojResolveAssemblyReference.cache
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine\bin\Debug\ApexEngine.Math.dll
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine\bin\Debug\ApexEngine.Math.pdb
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine\bin\Debug\ApexEngine.exe
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine\obj\x86\Debug\ApexEngine.exe
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine\bin\Debug\ApexEngine.exe.config
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine\bin\Debug\Jitter.dll
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine\bin\Debug\Jitter.pdb

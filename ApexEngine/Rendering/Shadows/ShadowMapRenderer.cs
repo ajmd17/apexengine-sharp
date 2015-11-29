@@ -73,7 +73,7 @@ namespace ApexEngine.Rendering.Shadows
             get { return tex; }
         }
 
-        private void Transform(Vector3f[] inVec, Vector3f[] outVec, Matrix4f mat)
+        private void Transform(ref Vector3f[] inVec, ref Vector3f[] outVec, ref Matrix4f mat)
         {
             for (int i = 0; i < inVec.Length; i++)
             {
@@ -112,7 +112,7 @@ namespace ApexEngine.Rendering.Shadows
             }
             centerPos.DivideStore(8f);
             newView.SetToLookAt(tmpVec.Set(centerPos).SubtractStore(lightDirection), centerPos, Vector3f.UNIT_Y);
-            Transform(frustumCornersWS, frustumCornersLS, newView);
+            Transform(ref frustumCornersWS, ref frustumCornersLS, ref newView);
             maxes.Set(float.MinValue, float.MinValue, float.MinValue);
             mins.Set(float.MaxValue, float.MaxValue, float.MaxValue);
             for (int i = 0; i < frustumCornersLS.Length; i++)
@@ -154,15 +154,20 @@ namespace ApexEngine.Rendering.Shadows
         
         public void Render()
         {
+          //  GL.Enable(EnableCap.PolygonOffsetFill);
+          //  GL.PolygonOffset(1f, 40f);
+
             Update();
             Capture();
             
-            Shader.FrontFace = FrontFaceDirection.Cw;
+            //Shader.FrontFace = FrontFaceDirection.Cw;
             rm.RenderBucketDepth(environment, s_cam, RenderManager.Bucket.Opaque, RenderManager.DepthRenderMode.Shadow);
             rm.RenderBucketDepth(environment, s_cam, RenderManager.Bucket.Transparent, RenderManager.DepthRenderMode.Shadow);
-            Shader.FrontFace = FrontFaceDirection.Ccw;
+            //Shader.FrontFace = FrontFaceDirection.Ccw;
 
             Release();
+
+          //  GL.Disable(EnableCap.PolygonOffsetFill);
         }
 
         public void Capture()

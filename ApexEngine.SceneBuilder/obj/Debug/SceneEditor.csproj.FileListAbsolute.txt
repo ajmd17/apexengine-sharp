@@ -39,5 +39,11 @@ C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBui
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBuilder\obj\Debug\SceneEditor.csproj.GenerateResource.Cache
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBuilder\obj\Debug\ApexEditor.CodeGen.resources
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBuilder\obj\Debug\ApexEditor.NormalMapGenerator.NrmGenerator.resources
-C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBuilder\bin\Debug\ApexEngine.dll
-C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBuilder\bin\Debug\BulletSharp.dll
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBuilder\bin\Debug\ApexEngine.Math.dll
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBuilder\bin\Debug\ApexEngine.Math.pdb
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBuilder\bin\Debug\ApexEngine.exe
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBuilder\bin\Debug\Jitter.dll
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBuilder\bin\Debug\Jitter.pdb
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBuilder\bin\Debug\ApexEngine.Terrain.dll
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBuilder\bin\Debug\ApexEngine.Terrain.pdb
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBuilder\obj\Debug\ApexEditor.addCpts.resources

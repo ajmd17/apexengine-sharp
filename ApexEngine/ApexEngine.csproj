@@ -1,17 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{DE1BFC80-78C3-4583-9D74-E29F423152A0}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ApexEngine</RootNamespace>
     <AssemblyName>ApexEngine</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -23,6 +24,7 @@
     <DefineConstants>TRACE;DEBUG;OPENGL</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -32,15 +34,15 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>
     </StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BulletSharp, Version=2.83.5.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\BulletSharp.dll</HintPath>
+    <Reference Include="Jitter">
+      <HintPath>..\..\..\..\..\Downloads\Jitter 0.1.7.0 Binaries\bin\Release\Jitter.dll</HintPath>
     </Reference>
     <Reference Include="OpenTK, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -74,14 +76,6 @@
     <Compile Include="Input\InputManager.cs" />
     <Compile Include="Input\KeyboardEvent.cs" />
     <Compile Include="Input\MouseEvent.cs" />
-    <Compile Include="Math\BoundingBox.cs" />
-    <Compile Include="Math\MathUtil.cs" />
-    <Compile Include="Math\Matrix4f.cs" />
-    <Compile Include="Math\Quaternion.cs" />
-    <Compile Include="Math\Transform.cs" />
-    <Compile Include="Math\Vector4f.cs" />
-    <Compile Include="Math\Vector2f.cs" />
-    <Compile Include="Math\Vector3f.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -100,6 +94,7 @@
     <Compile Include="Rendering\Cameras\DefaultCamera.cs" />
     <Compile Include="Rendering\Cameras\OrthoCamera.cs" />
     <Compile Include="Rendering\Cameras\PerspectiveCamera.cs" />
+    <Compile Include="Rendering\Cubemap.cs" />
     <Compile Include="Rendering\Light\PointLight.cs" />
     <Compile Include="Rendering\OpenGL\GLRenderer.cs" />
     <Compile Include="Rendering\Light\AmbientLight.cs" />
@@ -109,11 +104,16 @@
     <Compile Include="Rendering\Framebuffer.cs" />
     <Compile Include="Rendering\Material.cs" />
     <Compile Include="Rendering\Mesh.cs" />
-    <Compile Include="Rendering\PostProcess\DepthVisualizerFilter.cs" />
+    <Compile Include="Rendering\PostProcess\Filters\DepthVisualizerFilter.cs" />
+    <Compile Include="Rendering\PostProcess\Filters\GammaCorrectionFilter.cs" />
+    <Compile Include="Rendering\NormalMapRenderer.cs" />
     <Compile Include="Rendering\Renderer.cs" />
+    <Compile Include="Rendering\Shaders\NormalsShader.cs" />
+    <Compile Include="Rendering\PostProcess\Filters\SSAOFilter.cs" />
     <Compile Include="Rendering\Shaders\Unshaded.cs" />
+    <Compile Include="Rendering\Texture2D.cs" />
     <Compile Include="Rendering\Util\MeshUtil.cs" />
-    <Compile Include="Rendering\PostProcess\DefaultPostFilter.cs" />
+    <Compile Include="Rendering\PostProcess\Filters\DefaultPostFilter.cs" />
     <Compile Include="Rendering\PostProcess\PostFilter.cs" />
     <Compile Include="Rendering\PostProcess\PostProcessor.cs" />
     <Compile Include="Rendering\RenderManager.cs" />
@@ -152,6 +152,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Resources\apex3d.txt" />
     <None Include="Resources\sphere16.obj" />
     <None Include="Resources\sphere32.obj" />
@@ -172,11 +173,18 @@
   <ItemGroup>
     <None Include="Resources\shadows.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Rendering\Environment\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Resources\random.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ApexEngine.Math\ApexEngine.Math.csproj">
+      <Project>{a3e4f805-3271-4f83-bde0-180543845ba7}</Project>
+      <Name>ApexEngine.Math</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

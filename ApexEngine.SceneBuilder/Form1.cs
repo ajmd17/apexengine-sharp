@@ -12,6 +12,8 @@ using ApexEngine.Scene;
 using ApexEngine.Assets;
 using ApexEngine.Rendering;
 using ApexEditor.NormalMapGenerator;
+using ApexEngine.Scene.Components;
+using ApexEngine.Math;
 
 namespace ApexEditor
 {
@@ -20,6 +22,8 @@ namespace ApexEditor
         ApexEngineControl apxCtrl;
         private int activeNodeID;
         frmMatEditor matEditor;
+        private ApexEngine.Rendering.Shadows.ShadowMappingComponent shadowCpt;
+
         public Form1()
         {
             InitializeComponent();
@@ -43,8 +47,8 @@ namespace ApexEditor
             }
             SceneEditorGame game = new SceneEditorGame();
             //  game.Camera = new ApexEngine.Rendering.Cameras.DefaultCamera(game.InputManager, 75);
-            // game.Camera.Translation = new ApexEngine.Math.Vector3f(0, 0, -5);
-            //game.Camera.Enabled = false;
+            game.Camera.Translation = new ApexEngine.Math.Vector3f(0, 2, 0);
+            game.Camera.Enabled = false;
             apxCtrl = new ApexEngineControl(game);
             apxCtrl.Dock = DockStyle.Fill;
             pnlGameView.Controls.Add(apxCtrl);
@@ -115,6 +119,16 @@ namespace ApexEditor
         {
             AddTreeViewItem(null, rootObject);
         }
+
+        private void ReloadComponents()
+        {
+            listBox1.Items.Clear();
+            foreach (GameComponent gc in apxCtrl.Game.GameComponents)
+            {
+                listBox1.Items.Add(gc);
+            }
+        }
+
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
             
@@ -128,6 +142,9 @@ namespace ApexEditor
             {
                 ApexEngine.Scene.GameObject loadedModel = ApexEngine.Assets.AssetManager.LoadModel(openFileDialog1.FileName);
                 apxCtrl.Game.RootNode.AddChild(loadedModel);
+                List<Geometry> geoms = ApexEngine.Rendering.Util.MeshUtil.GatherGeometry(loadedModel);
+                foreach (Geometry g in geoms)
+                    apxCtrl.Game.PhysicsWorld.AddObject(g, 0f);
                 activeNodeID = apxCtrl.Game.RootNode.Children.Count - 1;
                 AddTreeViewItem(treeView1.Nodes[0], loadedModel);
             }
@@ -139,6 +156,10 @@ namespace ApexEditor
             DialogResult result = openFileDialog1.ShowDialog();
             if (result == DialogResult.OK)
             {
+                List<Geometry> geoms = ApexEngine.Rendering.Util.MeshUtil.GatherGeometry(apxCtrl.Game.RootNode);
+                foreach (Geometry g in geoms)
+                    apxCtrl.Game.PhysicsWorld.RemoveObject(g);
+
                 for (int i = apxCtrl.Game.RootNode.Children.Count - 1; i > -1; i--)
                 {
                     apxCtrl.Game.RootNode.RemoveChild(apxCtrl.Game.RootNode.GetChild(i));
@@ -146,6 +167,9 @@ namespace ApexEditor
                 treeView1.Nodes.Clear();
                 ApexEngine.Scene.GameObject loadedModel = ApexEngine.Assets.AssetManager.LoadModel(openFileDialog1.FileName);
                 apxCtrl.Game.RootNode.AddChild(loadedModel);
+                List<Geometry> geoms1 = ApexEngine.Rendering.Util.MeshUtil.GatherGeometry(loadedModel);
+                foreach (Geometry g in geoms1)
+                    apxCtrl.Game.PhysicsWorld.AddObject(g, 0f);
                 activeNodeID = apxCtrl.Game.RootNode.Children.Count - 1;
                 PopulateTreeView(apxCtrl.Game.RootNode);
             }
@@ -312,6 +336,76 @@ namespace ApexEditor
         private void normalMapGeneratorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new NrmGenerator().Show();
+        }
+
+        private void metroMenuStrip5_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            addCpts cptDlg = new addCpts(apxCtrl.Game);
+            if (cptDlg.ShowDialog() == DialogResult.OK)
+            {
+                apxCtrl.Game.AddComponent(cptDlg.resComponent);
+                ReloadComponents();
+                treeView1.Nodes.Clear();
+                PopulateTreeView(apxCtrl.Game.RootNode);
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            ReloadComponents();
+            treeView1.Nodes.Clear();
+            PopulateTreeView(apxCtrl.Game.RootNode);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                apxCtrl.Game.RemoveComponent((GameComponent)listBox1.SelectedItem);
+                ReloadComponents();
+                treeView1.Nodes.Clear();
+                PopulateTreeView(apxCtrl.Game.RootNode);
+            }
+            catch (Exception ex) { }
+        }
+
+        private void reloadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            PopulateTreeView(apxCtrl.Game.RootNode);
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            treeView1.Nodes.Clear();
+            PopulateTreeView(apxCtrl.Game.RootNode);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void renderWireframeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ((SceneEditorGame)apxCtrl.Game).RenderDebug = renderWireframeToolStripMenuItem.Checked;
+        }
+
+        private void shadowsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            /*if (shadowsToolStripMenuItem.Checked)
+            {
+                apxCtrl.Game.RenderManager.AddComponent((shadowCpt == null ? shadowCpt = new ApexEngine.Rendering.Shadows.ShadowMappingComponent(apxCtrl.Game.Camera, apxCtrl.Game.Environment) : shadowCpt));
+            }
+            else
+            {
+                apxCtrl.Game.RenderManager.RemoveComponent(shadowCpt);
+            }*/
         }
     }
 }

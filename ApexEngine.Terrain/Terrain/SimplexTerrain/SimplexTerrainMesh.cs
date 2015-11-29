@@ -12,6 +12,7 @@ namespace ApexEngine.Terrain.SimplexTerrain
         protected int x, z;
         int chunkSize;
         SimplexTerrainComponent parent;
+
         public SimplexTerrainMesh(SimplexTerrainComponent parent, int xstart, int zstart, Vector3f scale, int chunkSize) : base()
         {
             try
@@ -32,6 +33,9 @@ namespace ApexEngine.Terrain.SimplexTerrain
                 for (int i = 0; i < vertexArray.Length; i++)
                     newVertexArray.Add(vertexArray[i]);
                 this.SetVertices(newVertexArray, newIndexArray);
+                indexArray = null;
+                vertexArray = null;
+                
             }
             catch (Exception ex)
             {

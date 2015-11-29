@@ -2,48 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using BulletSharp;
-using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using ApexEngine.Rendering;
+using Jitter;
+using Jitter.Dynamics;
+using Jitter.LinearMath;
 
 namespace ApexEngine.Scene.Physics
 {
-    public class PhysicsDebugDraw : DebugDraw
+    public class PhysicsDebugDraw : IDebugDrawer
     {
         private Camera cam;
-        private DebugDrawModes debugMode;
 
         public PhysicsDebugDraw(Camera cam)
         {
             this.cam = cam;
         }
 
-        public override DebugDrawModes DebugMode
-        {
-            get
-            {
-                return debugMode;
-            }
-
-            set
-            {
-                debugMode = value;
-            }
-        }
-
-        public override void Draw3dText(ref Vector3 location, string textString)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void DrawContactPoint(ref Vector3 pointOnB, ref Vector3 normalOnB, float distance, int lifeTime, Color4 color)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void DrawLine(ref Vector3 from, ref Vector3 to, Color4 color)
+        public void DrawLine(JVector start, JVector end)
         {
             GL.MatrixMode(MatrixMode.Modelview);
             GL.LoadMatrix(cam.ViewMatrix.Invert().GetInvertedValues());
@@ -53,15 +30,32 @@ namespace ApexEngine.Scene.Physics
             GL.Begin(PrimitiveType.Lines);
 
             GL.Color4(0.0f, 1.0f, 0.0f, 1.0f);
-            GL.Vertex3(from.X, from.Y, from.Z);
-            GL.Vertex3(to.X, to.Y, to.Z);
+            GL.Vertex3(start.X, start.Y, start.Z);
+            GL.Vertex3(end.X, end.Y, end.Z);
 
             GL.End();
         }
 
-        public override void ReportErrorWarning(string warningString)
+        public void DrawPoint(JVector pos)
         {
             throw new NotImplementedException();
+        }
+
+        public void DrawTriangle(JVector pos1, JVector pos2, JVector pos3)
+        {
+            GL.MatrixMode(MatrixMode.Modelview);
+            GL.LoadMatrix(cam.ViewMatrix.GetInvertedValues());
+            GL.MatrixMode(MatrixMode.Projection);
+            GL.LoadMatrix(cam.ProjectionMatrix.GetInvertedValues());
+            
+            GL.Begin(PrimitiveType.Lines);
+
+            GL.Color4(0.0f, 1.0f, 0.0f, 1.0f);
+            GL.Vertex3(pos1.X, pos1.Y, pos1.Z);
+            GL.Vertex3(pos2.X, pos2.Y, pos2.Z);
+            GL.Vertex3(pos3.X, pos3.Y, pos3.Z);
+
+            GL.End();
         }
     }
 }

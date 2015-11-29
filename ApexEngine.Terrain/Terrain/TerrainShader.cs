@@ -21,11 +21,13 @@ namespace ApexEngine.Terrain
         {
             base.ApplyMaterial(material);
 
-            this.SetUniform(MATERIAL_SHININESS, material.GetFloat(Material.SHININESS));
             this.SetUniform(MATERIAL_AMBIENTCOLOR, material.GetVector4f(Material.COLOR_AMBIENT));
             this.SetUniform(MATERIAL_DIFFUSECOLOR, material.GetVector4f(Material.COLOR_DIFFUSE));
             this.SetUniform(MATERIAL_SPECULARCOLOR, material.GetVector4f(Material.COLOR_SPECULAR));
+            this.SetUniform(MATERIAL_SHININESS, material.GetFloat(Material.SHININESS));
+            this.SetUniform(MATERIAL_ROUGHNESS, material.GetFloat(Material.ROUGHNESS));
             this.SetUniform(MATERIAL_SPECULARTECHNIQUE, material.GetInt(Material.TECHNIQUE_SPECULAR));
+            this.SetUniform(MATERIAL_SPECULAREXPONENT, material.GetFloat(Material.SPECULAR_EXPONENT));
             this.SetUniform(MATERIAL_PERPIXELLIGHTING, material.GetInt(Material.TECHNIQUE_PER_PIXEL_LIGHTING));
         }
 
@@ -38,6 +40,7 @@ namespace ApexEngine.Terrain
 
             SetUniform(ENV_FOGSTART, environment.FogStart);
             SetUniform(ENV_FOGEND, environment.FogEnd);
+            SetUniform(ENV_FOGCOLOR, environment.FogColor);
 
             if (currentMaterial != null)
             {
@@ -63,13 +66,26 @@ namespace ApexEngine.Terrain
                     SetUniform("terrainTexture0HasNormal", 0);
                 }
 
-                Texture slopeTex = currentMaterial.GetTexture(TerrainMaterial.TEXTURE_SLOPE);
+                Texture slopeTex = currentMaterial.GetTexture(TerrainMaterial.TEXTURE_DIFFUSE_SLOPE);
                 if (slopeTex != null)
                 {
                     Texture.ActiveTextureSlot(9);
                     slopeTex.Use();
                     SetUniform("slopeTexture", 9);
                     SetUniform("slopeScale", 16f);
+                }
+
+                Texture slopeNormalTex = currentMaterial.GetTexture(TerrainMaterial.TEXTURE_NORMAL_SLOPE);
+                if (slopeNormalTex != null)
+                {
+                    Texture.ActiveTextureSlot(10);
+                    slopeNormalTex.Use();
+                    SetUniform("slopeTextureNormal", 10);
+                    SetUniform("slopeTextureHasNormal", 1);
+                }
+                else
+                {
+                    SetUniform("slopeTextureHasNormal", 0);
                 }
             }
             if (environment.ShadowsEnabled)

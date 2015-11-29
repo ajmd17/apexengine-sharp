@@ -1,13 +1,15 @@
 ﻿using ApexEngine.Rendering;
 using System;
+using System.Linq;
 
 namespace ApexEngine.Scene
 {
     public class Geometry : GameObject
     {
+        protected ShaderProperties g_shaderProperties = new ShaderProperties();
         protected Material material;
         protected Mesh mesh;
-        protected Shader shader, depthShader;
+        protected Shader shader, depthShader, normalsShader;
         protected RenderManager.Bucket bucket = RenderManager.Bucket.Opaque;
 
         public Geometry()
@@ -26,10 +28,22 @@ namespace ApexEngine.Scene
             this.shader = shader;
         }
 
+        public ShaderProperties ShaderProperties
+        {
+            get { return g_shaderProperties; }
+            set { g_shaderProperties = value; }
+        }
+
         public Shader DepthShader
         {
             get { return depthShader; }
             set { depthShader = value; }
+        }
+
+        public Shader NormalsShader
+        {
+            get { return normalsShader; }
+            set { normalsShader = value; }
         }
 
         public RenderManager.Bucket Bucket
@@ -51,22 +65,14 @@ namespace ApexEngine.Scene
                 if (mesh.GetSkeleton() != null)
                 {
                     Shader shader;
-                    ShaderProperties properties = new ShaderProperties()
-                        .SetProperty("SKINNING", true)
-                        .SetProperty("NUM_BONES", mesh.GetSkeleton().GetNumBones());
-                    //if (mesh.GetAttributes().HasAttribute(VertexAttributes.NORMALS))
-                        shader = ShaderManager.GetShader(typeof(Rendering.Shaders.DefaultShader), properties);
-                   // else
-                   //     shader = ShaderManager.GetShader(typeof(Rendering.Shaders.Unshaded), properties);
+                    g_shaderProperties.SetProperty("SKINNING", true).SetProperty("NUM_BONES", mesh.GetSkeleton().GetNumBones());
+                    shader = ShaderManager.GetShader(typeof(Rendering.Shaders.DefaultShader), g_shaderProperties);
                     SetShader(shader);
                 }
                 else
                 {
                     Shader shader;
-                   // if (mesh.GetAttributes().HasAttribute(VertexAttributes.NORMALS))
-                        shader = ShaderManager.GetShader(typeof(Rendering.Shaders.DefaultShader));
-                   // else
-                    //    shader = ShaderManager.GetShader(typeof(Rendering.Shaders.Unshaded));
+                    shader = ShaderManager.GetShader(typeof(Rendering.Shaders.DefaultShader), g_shaderProperties);
                     SetShader(shader);
                 }
             }
@@ -79,7 +85,36 @@ namespace ApexEngine.Scene
                 shader.Render(mesh);
                 shader.End();
                 Shader.Clear();
-                Texture.Clear();
+            }
+        }
+
+        public void UpdateShaderProperties()
+        {
+            string[] keys = Material.Values.Keys.ToArray();
+            object[] vals = Material.Values.Values.ToArray();
+            for (int i = 0; i < vals.Length; i++)
+            {
+                if (vals[i] == null) { }
+                //g_shaderProperties.SetProperty(keys[i].ToUpper(), false);
+                else
+                {
+                    /*if (vals[i] is int)
+                        g_shaderProperties.SetProperty(keys[i].ToUpper(), (int)vals[i]);
+                    else if (vals[i] is float)
+                        g_shaderProperties.SetProperty(keys[i].ToUpper(), (float)vals[i]);
+                    else if (vals[i] is bool)
+                        g_shaderProperties.SetProperty(keys[i].ToUpper(), (bool)vals[i]);
+                    else if (vals[i] is string)
+                        g_shaderProperties.SetProperty(keys[i].ToUpper(), (string)vals[i]);
+                    else */
+                    if (vals[i] is Texture)
+                        g_shaderProperties.SetProperty(keys[i].ToUpper(), true);
+                }
+            }
+            if (shader != null)
+            {
+                Type shaderType = shader.GetType();
+                SetShader(shaderType, g_shaderProperties);
             }
         }
 

@@ -185,6 +185,15 @@ namespace ApexEngine.Assets.Obj
                 geom.Material = MaterialWithName(geom.Name);
                 node.AddChild(geom);
             }
+            objIndices.Clear();
+            hasTexCoords = false;
+            hasNormals = false;
+            texCoords.Clear();
+            positions.Clear();
+            normals.Clear();
+            names.Clear();
+            materials.Clear();
+            mtlOrder.Clear();
             return node;
         }
     }

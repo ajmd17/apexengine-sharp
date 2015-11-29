@@ -6,6 +6,7 @@ namespace ApexEngine.Rendering.Cameras
     {
         protected Quaternion rotation = new Quaternion();
         protected float fov = 45f, yaw, roll, pitch;
+        private Vector3f tmp = new Vector3f();
 
         public PerspectiveCamera()
             : base()
@@ -27,10 +28,10 @@ namespace ApexEngine.Rendering.Cameras
         public override void UpdateMatrix()
         {
             rotation.SetToLookAt(direction, up);
-            viewMatrix.SetToLookAt(translation, translation.Add(direction), up);
+            viewMatrix.SetToLookAt(translation, tmp.Set(translation).AddStore(direction), up);
             projMatrix.SetToProjection(fov, width, height, 0.05f, far);
-            viewProjMatrix.Set(viewMatrix);
-            viewProjMatrix.MultiplyStore(projMatrix);
+            viewProjMatrix.Set(projMatrix);
+            viewProjMatrix.MultiplyStore(viewMatrix);
             invViewProjMatrix.Set(viewProjMatrix);
             invViewProjMatrix.InvertStore();
 

@@ -50,6 +50,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Terrain\HeightInfo.cs" />
+    <Compile Include="Terrain\ModelTerrain\ModelTerrainChunkNode.cs" />
+    <Compile Include="Terrain\ModelTerrain\ModelTerrainComponent.cs" />
     <Compile Include="Terrain\SimplexTerrain\SimplexTerrainChunkNode.cs" />
     <Compile Include="Terrain\SimplexTerrain\SimplexTerrainComponent.cs" />
     <Compile Include="Terrain\SimplexTerrain\SimplexTerrainMesh.cs" />
@@ -85,11 +87,16 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ApexEngine.Math\ApexEngine.Math.csproj">
+      <Project>{a3e4f805-3271-4f83-bde0-180543845ba7}</Project>
+      <Name>ApexEngine.Math</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ApexEngine\ApexEngine.csproj">
       <Project>{de1bfc80-78c3-4583-9d74-e29f423152a0}</Project>
       <Name>ApexEngine</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

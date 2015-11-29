@@ -54,6 +54,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ApexEngine.Math\ApexEngine.Math.csproj">
+      <Project>{a3e4f805-3271-4f83-bde0-180543845ba7}</Project>
+      <Name>ApexEngine.Math</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ApexEngine.Plugins\ApexEngine.Plugins.csproj">
       <Project>{039ef4fa-c720-4949-adb4-bca5b7ff8152}</Project>
       <Name>ApexEngine.Plugins</Name>

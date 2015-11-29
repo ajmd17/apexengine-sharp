@@ -93,8 +93,6 @@ namespace ApexEngine
                 {
                     inputManager.WINDOW_X = game.X;
                     inputManager.WINDOW_Y = game.Y;
-                    foreach (GameComponent cmp in components)
-                        cmp.Update();
                     UpdateInternal();
                 };
                 game.RenderFrame += (sender, e) =>
@@ -141,6 +139,8 @@ namespace ApexEngine
 
         public void UpdateInternal()
         {
+            foreach (GameComponent cmp in components)
+                cmp.Update();
             RenderManager.ElapsedTime += 0.01f;
             cam.Update();
             physicsWorld.Update();

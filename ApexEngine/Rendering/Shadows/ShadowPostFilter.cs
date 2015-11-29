@@ -98,7 +98,7 @@ namespace ApexEngine.Rendering.Shadows
               + "	} else {\n"
               + "		depth = texture2D(u_shadowMap3, coord.xy).r;\n"
               + "	}\n"
-              + "   result = max(step(coord.z+0.00001, depth), 0.0);\n"
+              + "   result = max(step(coord.z+0.001, depth), 0.0);\n"
               + "	return result;\n"
               + "}\n"
               + "bool inRadius(vec3 cam, vec3 world, float radius) {\n" +

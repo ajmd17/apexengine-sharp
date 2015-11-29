@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApexEngine.Demos", "ApexEng
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApexEngine.Plugins", "ApexEngine.Plugins\ApexEngine.Plugins.csproj", "{039EF4FA-C720-4949-ADB4-BCA5B7FF8152}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApexEngine.Math", "ApexEngine.Math\ApexEngine.Math.csproj", "{A3E4F805-3271-4F83-BDE0-180543845BA7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -22,6 +24,7 @@ Global
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{DE1BFC80-78C3-4583-9D74-E29F423152A0}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{DE1BFC80-78C3-4583-9D74-E29F423152A0}.Debug|Any CPU.Build.0 = Debug|x86
 		{DE1BFC80-78C3-4583-9D74-E29F423152A0}.Debug|x86.ActiveCfg = Debug|x86
 		{DE1BFC80-78C3-4583-9D74-E29F423152A0}.Debug|x86.Build.0 = Debug|x86
 		{DE1BFC80-78C3-4583-9D74-E29F423152A0}.Release|Any CPU.ActiveCfg = Release|x86
@@ -59,6 +62,14 @@ Global
 		{039EF4FA-C720-4949-ADB4-BCA5B7FF8152}.Release|Any CPU.Build.0 = Release|Any CPU
 		{039EF4FA-C720-4949-ADB4-BCA5B7FF8152}.Release|x86.ActiveCfg = Release|Any CPU
 		{039EF4FA-C720-4949-ADB4-BCA5B7FF8152}.Release|x86.Build.0 = Release|Any CPU
+		{A3E4F805-3271-4F83-BDE0-180543845BA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3E4F805-3271-4F83-BDE0-180543845BA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3E4F805-3271-4F83-BDE0-180543845BA7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A3E4F805-3271-4F83-BDE0-180543845BA7}.Debug|x86.Build.0 = Debug|Any CPU
+		{A3E4F805-3271-4F83-BDE0-180543845BA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3E4F805-3271-4F83-BDE0-180543845BA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3E4F805-3271-4F83-BDE0-180543845BA7}.Release|x86.ActiveCfg = Release|Any CPU
+		{A3E4F805-3271-4F83-BDE0-180543845BA7}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -2,13 +2,18 @@
 
 uniform int Material_SpecularTechnique;
 uniform int Material_PerPixelLighting;
+uniform float Material_SpecularExponent;
 uniform float Material_Shininess;
+uniform float Material_Roughness;
+uniform float Material_Metalness;
 
 uniform int Material_HasDiffuseMap;
 uniform int Material_HasNormalMap;
 uniform int Material_HasSpecularMap;
 uniform int Material_HasHeightMap;
+uniform int Material_HasEnvironmentMap;
 
+uniform vec4 Env_FogColor;
 uniform float Env_FogStart;
 uniform float Env_FogEnd;
 
@@ -20,6 +25,7 @@ uniform sampler2D Material_DiffuseMap;
 uniform sampler2D Material_NormalMap;
 uniform sampler2D Material_SpecularMap;
 uniform sampler2D Material_HeightMap;
+uniform samplerCube Material_EnvironmentMap;
 
 
 vec3 CalculateFog(vec3 inColor, vec3 toColor, vec3 worldPos, vec3 camPos, float fogStart, float fogEnd)
@@ -38,4 +44,10 @@ vec4 CalculateFog(vec4 inColor, vec4 toColor, vec3 worldPos, vec3 camPos, float 
 	float fogFactor = (fogEnd - dist)/(fogEnd - fogStart);
 	fogFactor = clamp(fogFactor, 0.0, 1.0);
 	return mix(toColor, inColor, fogFactor);
+}
+
+vec3 ReflectionVector(vec3 n, vec3 worldPos, vec3 camPos)
+{
+	vec3 i = normalize(worldPos - camPos);
+	return reflect(i, n);
 }

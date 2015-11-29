@@ -1,6 +1,7 @@
 ﻿using OpenTK.Graphics.OpenGL;
 using System;
 using System.Collections.Generic;
+using ApexEngine.Math;
 
 namespace ApexEngine.Rendering
 {
@@ -154,6 +155,29 @@ namespace ApexEngine.Rendering
             if (GetAttributes().HasAttribute(VertexAttributes.BITANGENTS)) GL.DisableVertexAttribArray(5);
             if (GetAttributes().HasAttribute(VertexAttributes.BONEWEIGHTS)) GL.DisableVertexAttribArray(6);
             if (GetAttributes().HasAttribute(VertexAttributes.BONEINDICES)) GL.DisableVertexAttribArray(7);
+        }
+
+        public BoundingBox CreateBoundingBox()
+        {
+            return CreateBoundingBox(vertices);
+        }
+
+
+        public BoundingBox CreateBoundingBox(List<Vertex> vertices)
+        {
+            BoundingBox b = new BoundingBox();
+            Vertex v_min = new Vertex(new Vector3f(0.0f)), v_max = new Vertex(new Vector3f(0.0f));
+            foreach (Vertex v in vertices)
+            {
+                if (v.GetPosition().x < v_min.GetPosition().x) v_min.GetPosition().x = v.GetPosition().x;
+                if (v.GetPosition().y < v_min.GetPosition().y) v_min.GetPosition().y = v.GetPosition().y;
+                if (v.GetPosition().z < v_min.GetPosition().z) v_min.GetPosition().z = v.GetPosition().z;
+
+                if (v.GetPosition().x > v_max.GetPosition().x) v_max.GetPosition().x = v.GetPosition().x;
+                if (v.GetPosition().y > v_max.GetPosition().y) v_max.GetPosition().y = v.GetPosition().y;
+                if (v.GetPosition().z > v_max.GetPosition().z) v_max.GetPosition().z = v.GetPosition().z;
+            }
+            return b.Set(v_min.GetPosition(), v_max.GetPosition());
         }
     }
 }

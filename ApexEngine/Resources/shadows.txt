@@ -12,6 +12,7 @@ uniform mat4 Env_ShadowMatrix3;
 
 uniform float Env_ShadowMapSplits[4];
 
+
 const vec2 poisson16[] = vec2[](
 					    vec2( -0.94201624,  -0.39906216 ),
 						vec2(  0.94558609,  -0.76890725 ),
@@ -86,9 +87,37 @@ float GetShadowness(int idx, vec3 coord)
 		depth = texture2D(Env_ShadowMap3, coord.xy).r;
 	}
 
-    result = max(step(coord.z+0.00001, depth), 0.0);
+    result = max(step(coord.z-0.0015, depth), 0.0);
 	return result;
 }
+
+
+float GetShadowness(int idx, vec3 coord, float lambert)
+{
+	float result = 1.0;
+	float depth;
+	if (idx == 0) 
+	{
+		depth = texture2D(Env_ShadowMap0, coord.xy).r;
+	} 
+	else if (idx == 1) 
+	{
+		depth = texture2D(Env_ShadowMap1, coord.xy).r;
+	} 
+	else if (idx == 2) 
+	{
+		depth = texture2D(Env_ShadowMap2, coord.xy).r;
+	} 
+	else 
+	{
+		depth = texture2D(Env_ShadowMap3, coord.xy).r;
+	}
+
+	float bias = 0.005;
+    result = max(step(coord.z, depth-0.003), 0.0) ;
+	return result;
+}
+
 
 vec3 GetShadowCoord(int index, vec3 worldPos) 
 {

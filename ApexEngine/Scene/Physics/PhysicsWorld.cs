@@ -1,8 +1,12 @@
-﻿using System;
+﻿using Jitter;
+using Jitter.Collision;
+using Jitter.Dynamics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using BulletSharp;
+using ApexEngine.Math;
+
 namespace ApexEngine.Scene.Physics
 {
     public class PhysicsWorld
@@ -15,26 +19,48 @@ namespace ApexEngine.Scene.Physics
             ConvexMesh
         };
 
-        DefaultCollisionConfiguration collisionConfiguration;
-        CollisionDispatcher dispatcher;
-        DiscreteDynamicsWorld dynamicWorld;
+        CollisionSystem collisionSystem = new CollisionSystemSAP();
+        World world;
+        PhysicsDebugDraw debugDraw;
 
-        public PhysicsWorld(DebugDraw debugDraw)
+        public PhysicsWorld(PhysicsDebugDraw debugDraw)
         {
-            collisionConfiguration = new DefaultCollisionConfiguration();
-            dispatcher = new CollisionDispatcher(collisionConfiguration);
-            BroadphaseInterface broadphase = new DbvtBroadphase();
-            SequentialImpulseConstraintSolver solver = new SequentialImpulseConstraintSolver();
-            dynamicWorld = new DiscreteDynamicsWorld(dispatcher, broadphase, solver, collisionConfiguration);
-            dynamicWorld.Gravity = new OpenTK.Vector3(0, -9.81f, 0);
-            dynamicWorld.DispatchInfo.AllowedCcdPenetration = 0.05f;
-            dynamicWorld.DebugDrawer = debugDraw;
-            debugDraw.DebugMode = DebugDrawModes.DrawWireframe;
+            collisionSystem.UseTriangleMeshNormal = false;
+            world = new World(collisionSystem);
+            this.debugDraw = debugDraw;
+        }
+
+        public void Raycast(Vector3f origin, Vector3f direction, out Vector3f hitPoint)
+        {
+            Jitter.LinearMath.JVector outNormal;
+            RigidBody outBody;
+            float outFraction;
+            bool hit = world.CollisionSystem.Raycast(new Jitter.LinearMath.JVector(origin.x, origin.y, origin.z),
+                                          new Jitter.LinearMath.JVector(direction.x, direction.y, direction.z),
+                                          null, out outBody, out outNormal, out outFraction);
+            if (hit)
+                hitPoint = origin.Add(direction.Multiply(outFraction));
+            else
+                hitPoint = null;
+        }
+
+        public void Raycast(Vector3f origin, Vector3f direction, out GameObject hitObject)
+        {
+            Jitter.LinearMath.JVector outNormal;
+            RigidBody outBody;
+            float outFraction;
+            bool hit = world.CollisionSystem.Raycast(new Jitter.LinearMath.JVector(origin.x, origin.y, origin.z),
+                                          new Jitter.LinearMath.JVector(direction.x, direction.y, direction.z),
+                                          null, out outBody, out outNormal, out outFraction);
+            if (hit)
+                hitObject = (GameObject)outBody.Tag;
+            else
+                hitObject = null;
         }
 
         public void Dispose()
         {
-            dynamicWorld.Dispose();
+            //dynamicWorld.Dispose();
         }
 
         public void AddObject(GameObject gameObject)
@@ -44,27 +70,30 @@ namespace ApexEngine.Scene.Physics
 
         public void AddObject(GameObject gameObject, float mass)
         {
-            AddObject(gameObject, mass, mass > 0.0f ? PhysicsShape.ConvexMesh : PhysicsShape.StaticMesh);
+            AddObject(gameObject, mass, mass > 0 ? PhysicsShape.ConvexMesh : PhysicsShape.StaticMesh);
         }
 
         public void AddObject(GameObject gameObject, float mass, PhysicsShape physicsShape)
         {
             RigidBodyControl rbc = new RigidBodyControl(mass, physicsShape);
             gameObject.AddController(rbc);
-            dynamicWorld.AddRigidBody(rbc.Body);
+            world.AddBody(rbc.Body);
+            rbc.Body.EnableDebugDraw = true;
+            rbc.Body.DebugDraw(debugDraw);
         }
 
         public void RemoveObject(GameObject gameObject)
         {
             RigidBodyControl rbc = (RigidBodyControl)gameObject.GetController(typeof(RigidBodyControl));
-            dynamicWorld.AddRigidBody(rbc.Body);
+            world.RemoveBody(rbc.Body);
             gameObject.RemoveController(rbc);
         }
 
         public void Update()
         {
-            dynamicWorld.StepSimulation(0.01f);
-            int numManifolds = dynamicWorld.Dispatcher.NumManifolds;
+            world.Step(0.01f, true);
+           // dynamicWorld.StepSimulation(0.01f);
+           /* int numManifolds = dynamicWorld.Dispatcher.NumManifolds;
             for (int i = 0; i < numManifolds; i++)
             {
                 PersistentManifold contactManifold = dynamicWorld.Dispatcher.GetManifoldByIndexInternal(i);
@@ -77,17 +106,20 @@ namespace ApexEngine.Scene.Physics
                     ManifoldPoint pt = contactManifold.GetContactPoint(j);
                     if (pt.Distance < 0.0f)
                     {
-                        OpenTK.Vector3 ptA = pt.PositionWorldOnA;
-                        OpenTK.Vector3 ptB = pt.PositionWorldOnB;
-                        OpenTK.Vector3 normalOnB = pt.NormalWorldOnB;
+                        Vector3 ptA = pt.PositionWorldOnA;
+                        Vector3 ptB = pt.PositionWorldOnB;
+                        Vector3 normalOnB = pt.NormalWorldOnB;
                     }
                 }
-            }
+            }*/
         }
 
         public void DrawDebug()
         {
-            dynamicWorld.DebugDrawWorld();
+            foreach (RigidBody body in world.RigidBodies)
+            {
+                body.DebugDraw(debugDraw);
+            }
         }
     }
 }

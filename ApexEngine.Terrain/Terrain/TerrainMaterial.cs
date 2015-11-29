@@ -18,7 +18,13 @@ namespace ApexEngine.Terrain
         public const string TEXTURE_NORMAL2 = Material.TEXTURE_NORMAL + "_2";
         public const string TEXTURE_NORMAL3 = Material.TEXTURE_NORMAL + "_3";
 
-        public const string TEXTURE_SLOPE = "slope_map";
+        public const string TEXTURE_DIFFUSE_SLOPE = "slope_map";
+        public const string TEXTURE_NORMAL_SLOPE = "slope_normal_map";
         public const string TERRAIN_SLOPE_TOLERANCE = "tolerance";
+
+        public TerrainMaterial() : base()
+        {
+
+        }
     }
 }

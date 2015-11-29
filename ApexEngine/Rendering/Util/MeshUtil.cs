@@ -38,6 +38,37 @@ namespace ApexEngine.Rendering.Util
             }
         }
 
+        public static List<Geometry> GatherGeometry(GameObject gameObject)
+        {
+            List<Geometry> geoms = new List<Geometry>();
+
+            if (gameObject is Node)
+            {
+                GatherGeometry((Node)gameObject, geoms);
+            }
+            else if (gameObject is Geometry)
+            {
+                geoms.Add((Geometry)gameObject);
+            }
+
+            return geoms;
+        }
+
+        private static void GatherGeometry(Node node, List<Geometry> geoms)
+        {
+            foreach (GameObject child in node.Children)
+            {
+                if (child is Node)
+                {
+                    GatherGeometry((Node)child, geoms);
+                }
+                else if (child is Geometry)
+                {
+                    geoms.Add((Geometry)child);
+                }
+            }
+        }
+
         public static float[] CreateFloatBuffer(Mesh mesh)
         {
             List<Vertex> a = mesh.vertices;

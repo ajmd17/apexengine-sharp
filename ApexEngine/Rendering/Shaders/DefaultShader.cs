@@ -17,11 +17,14 @@ namespace ApexEngine.Rendering.Shaders
         {
             base.ApplyMaterial(material);
 
-            this.SetUniform(MATERIAL_SHININESS, material.GetFloat(Material.SHININESS));
             this.SetUniform(MATERIAL_AMBIENTCOLOR, material.GetVector4f(Material.COLOR_AMBIENT));
             this.SetUniform(MATERIAL_DIFFUSECOLOR, material.GetVector4f(Material.COLOR_DIFFUSE));
             this.SetUniform(MATERIAL_SPECULARCOLOR, material.GetVector4f(Material.COLOR_SPECULAR));
+            this.SetUniform(MATERIAL_SHININESS, material.GetFloat(Material.SHININESS));
+            this.SetUniform(MATERIAL_ROUGHNESS, material.GetFloat(Material.ROUGHNESS));
+            this.SetUniform(MATERIAL_METALNESS, material.GetFloat(Material.METALNESS));
             this.SetUniform(MATERIAL_SPECULARTECHNIQUE, material.GetInt(Material.TECHNIQUE_SPECULAR));
+            this.SetUniform(MATERIAL_SPECULAREXPONENT, material.GetFloat(Material.SPECULAR_EXPONENT));
             this.SetUniform(MATERIAL_PERPIXELLIGHTING, material.GetInt(Material.TECHNIQUE_PER_PIXEL_LIGHTING));
 
             int blendMode = material.GetInt(Material.MATERIAL_BLENDMODE);
@@ -48,6 +51,7 @@ namespace ApexEngine.Rendering.Shaders
             SetUniform(ENV_NUMPOINTLIGHTS, environment.PointLights.Count);
             SetUniform(ENV_FOGSTART, environment.FogStart);
             SetUniform(ENV_FOGEND, environment.FogEnd);
+            SetUniform(ENV_FOGCOLOR, environment.FogColor);
 
             if (currentMaterial != null)
             {
@@ -88,6 +92,19 @@ namespace ApexEngine.Rendering.Shaders
                 else
                 {
                     SetUniform("Material_HasHeightMap", 0);
+                }
+
+                Texture envTex = currentMaterial.GetTexture(Material.TEXTURE_ENV);
+                if (envTex != null)
+                {
+                    Texture.ActiveTextureSlot(3);
+                    envTex.Use();
+                    SetUniform("Material_EnvironmentMap", 3);
+                    SetUniform("Material_HasEnvironmentMap", 1);
+                }
+                else
+                {
+                    SetUniform("Material_HasEnvironmentMap", 0);
                 }
             }
             if (environment.ShadowsEnabled)

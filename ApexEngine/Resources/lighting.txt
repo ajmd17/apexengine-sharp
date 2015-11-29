@@ -37,6 +37,29 @@ float NormalizedTrowbridgeReitz(float costhetaH, float w)
     return w2 / (PI * sqr( costhetaH*costhetaH * (w2 - 1) + 1 ));
 }
 
+float kurtG(float NdotL, float NdotV, float LdotH, float alpha)
+{
+    return 1.0 / (4.0 * LdotH * pow(NdotL* NdotV, alpha));
+}
+
+float duerG(vec3 L, vec3 V, vec3 N)
+{
+    vec3 LplusV = L + V;
+    return dot(LplusV,LplusV) / (PI * pow(dot(LplusV,N), 4.0));
+}
+
+float smithG_GGX(float Ndotv, float alphaG)
+{
+    return 2.0/(1.0 + sqrt(1.0 + alphaG*alphaG * (1.0-Ndotv*Ndotv)/(Ndotv*Ndotv)));
+}
+
+float GGX(float alpha, float cosThetaM)
+{
+    float CosSquared = cosThetaM*cosThetaM;
+    float TanSquared = (1.0-CosSquared)/CosSquared;
+    return (1.0/PI) * sqr(alpha/(CosSquared * (alpha*alpha + TanSquared)));
+}
+
 float SchlickFresnel(float f0, float f90, float u)
 {
     return f0 + (f90-f0) * pow(1-u, 5);
@@ -62,23 +85,54 @@ float BlinnPhongDirectional(vec3 _normal, vec3 _pos, vec3 _cam, vec3 _dir, float
 	return pow(max(dot(n, vHalfVector), 0.0), _shininess) * 1.5;
 }
 
-float SpecularDirectional(vec3 _normal, vec3 _pos, vec3 _cam, vec3 _dir, float _shininess)
+float SpecularDirectional(vec3 _normal, vec3 _pos, vec3 _cam, vec3 _dir, float _shininess, float _roughness)
 {
 	vec3 eyeDir = normalize(_cam-_pos);
   	vec3 vHalfVector = normalize(_dir+eyeDir);
-	vec3 n = normalize(_normal);
-	vec3 l = normalize(_dir);
+	vec3 n = (_normal);
+	vec3 l = (_dir);
+
 	float NdotH = dot(n, vHalfVector);
 	float LdotH = dot(l, vHalfVector);
 	float NdotL = dot(n, l);
+	float VdotH = dot(eyeDir, vHalfVector);
 	float NdotV = dot(n, eyeDir);
+
+	float D = GGX(_roughness, NdotH);//NormalizedTrowbridgeReitz(NdotH, _roughness);
+	float F = SchlickFresnel(0.2, 1.0, LdotH);
+
+    vec3 LplusV = l + eyeDir;
+
+   // float G = dot(LplusV,LplusV) * (PI/pow(dot(LplusV,n),4.0));
+   // G *= NdotL*NdotV;
+	float G = CookTorranceG(NdotL, NdotV, LdotH, NdotH) / (PI * NdotL * NdotV);
+
+	return G*F*D;
+}
+
+float Fresnel(vec3 _normal, vec3 _pos, vec3 _cam, vec3 _dir, float _roughness)
+{
+	vec3 eyeDir = normalize(_cam-_pos);
+  	vec3 vHalfVector = normalize(_dir+eyeDir);
+	vec3 n = (_normal);
+	vec3 l = (_dir);
+
+	float NdotH = dot(n, vHalfVector);
+	float LdotH = dot(l, vHalfVector);
+	float NdotL = dot(n, l);
+	float VdotH = dot(eyeDir, vHalfVector);
+	float NdotV = dot(n, eyeDir);
+
+	float fresnel = pow((1.0-dot(eyeDir, _normal)), _roughness*3.0+4.5);
+	fresnel = fresnel * (1.0 - _roughness * 0.7);
+
 	
-	const float F0 = .2;
-	float D = NormalizedTrowbridgeReitz(max(NdotH, 0.0), 0.5-(clamp(_shininess, 1.0, 100.0)*0.005));
-	float F = SchlickFresnel(F0, 1.0, max(0.0, LdotH));
-	float G = CookTorranceG(NdotL, max(0.0, NdotV), max(0.0, LdotH), max(0.0, NdotH));
-	
-	return max(0.0, G*F*D);
+	float shared_geo = 2.0 * NdotH / VdotH; 
+	float geo_b = shared_geo * NdotV; 
+	float geo_c = shared_geo * NdotL; 
+	float G = min( 1.0, min( geo_b, geo_c ) ); 
+
+	return fresnel;// * G;
 }
 
 vec2 ParallaxTexCoords(vec4 _parallaxMap, vec2 _inTexCoords, vec3 _viewDir)

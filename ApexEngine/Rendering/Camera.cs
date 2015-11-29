@@ -47,6 +47,25 @@ namespace ApexEngine.Rendering
             set { invViewProjMatrix = value; }
         }
 
+        public Vector3f Unproject(Vector2f mouseXY)
+        {
+            return Unproject(mouseXY.x, mouseXY.y);
+        }
+
+        public Vector3f Unproject(float mouseX, float mouseY)
+        {
+            Vector3f vec = new Vector3f();
+
+            vec.x = -2f * (mouseX / width);
+            vec.y = 2f * (mouseY / height);
+            vec.z = 0f;
+            
+            vec.MultiplyStore(projMatrix.Invert());
+            vec.MultiplyStore(viewMatrix.Invert());
+
+            return vec;
+        }
+
         public bool Enabled
         {
             get { return enabled; }
