@@ -18,7 +18,7 @@ namespace ApexEngine.Demos
             Environment.AmbientLight.Color.Set(0.2f, 0.15f, 0.1f, 1.0f);
             Environment.DirectionalLight.Direction.Set(0.7f, 1, 0.7f);
             Environment.DirectionalLight.Color.Set(1.0f, 0.9f, 0.8f, 1.0f);
-
+          //  RenderManager.PostProcessor.PostFilters.Add(new ApexEngine.Plugins.RaytracerFilter());
 
             ((PerspectiveCamera)Camera).FieldOfView = 75;
 
@@ -33,13 +33,7 @@ namespace ApexEngine.Demos
             //  ((Node)loadedObj).GetChildGeom(0).Material.SetValue(Material.TEXTURE_HEIGHT, Texture.LoadTexture("C:\\Users\\User\\Pictures\\Brick_14_UV_H_CM_1_DISP.jpg"));
             rootNode.AddChild(loadedObj);
             PhysicsWorld.AddObject(loadedObj, 0.0f);
-
-            /*Node boxNode = new Node();
-            Geometry box = new Geometry(Rendering.Util.MeshFactory.CreateCube(new Vector3f(-1), new Vector3f(1)));
-            boxNode.AddChild(box);
-            boxNode.SetLocalTranslation(new Vector3f(0, 12, 0));
-            rootNode.AddChild(boxNode);
-            PhysicsWorld.AddObject(boxNode);*/
+            
 
 
             // rootNode.AddChild(new Geometry(Rendering.Util.MeshFactory.CreateCube(new Vector3f(-1,-1,-1), new Vector3f(1,1,1))));
@@ -77,10 +71,10 @@ namespace ApexEngine.Demos
                                                  AssetManager.GetAppPath() + "\\textures\\frozendusk\\frozendusk_back.jpg" });
 
             // loadedApx.GetChildNode(0).GetChildGeom(0).Material.SetValue(Material.TEXTURE_ENV, skybox);
-             loadedApx.GetChildNode(0).GetChildGeom(0).Material.SetValue(Material.SHININESS, 1.0f);
-             loadedApx.GetChildNode(0).GetChildGeom(0).Material.SetValue(Material.ROUGHNESS, 0.3f);
+             loadedApx.GetChildNode(0).GetChildGeom(0).Material.SetValue(Material.SHININESS, 0.4f);
+             loadedApx.GetChildNode(0).GetChildGeom(0).Material.SetValue(Material.ROUGHNESS, 0.2f);
              //loadedApx.GetChildNode(0).GetChildGeom(0).Material.SetValue(Material.METALNESS, 0.7f);
-             loadedApx.GetChildNode(0).GetChildGeom(0).Material.SetValue(Material.SPECULAR_EXPONENT, 10f);
+             loadedApx.GetChildNode(0).GetChildGeom(0).Material.SetValue(Material.SPECULAR_EXPONENT, 2f);
              loadedApx.GetChildNode(0).GetChildGeom(0).UpdateShaderProperties();
              Console.WriteLine(loadedApx.GetChildNode(0).GetChildGeom(0).ShaderProperties);
            // rootNode.AddChild(AssetManager.LoadModel(AssetManager.GetAppPath() + "\\pbr_monkey.apx"));

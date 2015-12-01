@@ -58,6 +58,26 @@ namespace ApexEngine.Scene.Physics
                 hitObject = null;
         }
 
+        public void Raycast(Vector3f origin, Vector3f direction, out Vector3f hitPoint, out GameObject hitObject)
+        {
+            Jitter.LinearMath.JVector outNormal;
+            RigidBody outBody;
+            float outFraction;
+            bool hit = world.CollisionSystem.Raycast(new Jitter.LinearMath.JVector(origin.x, origin.y, origin.z),
+                                          new Jitter.LinearMath.JVector(direction.x, direction.y, direction.z),
+                                          null, out outBody, out outNormal, out outFraction);
+            if (hit)
+            {
+                hitObject = (GameObject)outBody.Tag;
+                hitPoint = origin.Add(direction.Multiply(outFraction));
+            }
+            else
+            {
+                hitObject = null;
+                hitPoint = null;
+            }
+        }
+
         public void Dispose()
         {
             //dynamicWorld.Dispose();
@@ -85,8 +105,11 @@ namespace ApexEngine.Scene.Physics
         public void RemoveObject(GameObject gameObject)
         {
             RigidBodyControl rbc = (RigidBodyControl)gameObject.GetController(typeof(RigidBodyControl));
-            world.RemoveBody(rbc.Body);
-            gameObject.RemoveController(rbc);
+            if (rbc != null && world.RigidBodies.Contains(rbc.Body))
+            {
+                world.RemoveBody(rbc.Body);
+                gameObject.RemoveController(rbc);
+            }
         }
 
         public void Update()

@@ -30,8 +30,9 @@
         {
             this.pnlMtl = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
-            this.listBox1 = new System.Windows.Forms.ListBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.trackBar3 = new System.Windows.Forms.TrackBar();
+            this.label9 = new System.Windows.Forms.Label();
             this.trackBar2 = new System.Windows.Forms.TrackBar();
             this.label8 = new System.Windows.Forms.Label();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
@@ -53,13 +54,15 @@
             this.colorDialog2 = new System.Windows.Forms.ColorDialog();
             this.colorDialog3 = new System.Windows.Forms.ColorDialog();
             this.castsShadows = new System.Windows.Forms.CheckBox();
-            this.trackBar3 = new System.Windows.Forms.TrackBar();
-            this.label9 = new System.Windows.Forms.Label();
+            this.rndrBucket = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.fcCull = new System.Windows.Forms.ComboBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.shininessLevel)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar3)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlMtl
@@ -82,19 +85,6 @@
             this.button1.Text = "OK";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // listBox1
-            // 
-            this.listBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-            this.listBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.listBox1.ForeColor = System.Drawing.Color.Gainsboro;
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 15;
-            this.listBox1.Location = new System.Drawing.Point(129, 390);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(10, 2);
-            this.listBox1.TabIndex = 6;
-            this.listBox1.Visible = false;
             // 
             // panel1
             // 
@@ -125,6 +115,29 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(265, 532);
             this.panel1.TabIndex = 7;
+            // 
+            // trackBar3
+            // 
+            this.trackBar3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.trackBar3.Location = new System.Drawing.Point(6, 212);
+            this.trackBar3.Maximum = 100;
+            this.trackBar3.Name = "trackBar3";
+            this.trackBar3.Size = new System.Drawing.Size(256, 45);
+            this.trackBar3.TabIndex = 18;
+            this.trackBar3.TickFrequency = 5;
+            this.trackBar3.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackBar3.Value = 1;
+            this.trackBar3.Scroll += new System.EventHandler(this.trackBar3_Scroll);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(3, 194);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(87, 15);
+            this.label9.TabIndex = 17;
+            this.label9.Text = "Alpha Discard:";
             // 
             // trackBar2
             // 
@@ -344,28 +357,54 @@
             this.castsShadows.UseVisualStyleBackColor = true;
             this.castsShadows.CheckedChanged += new System.EventHandler(this.castsShadows_CheckedChanged);
             // 
-            // trackBar3
+            // rndrBucket
             // 
-            this.trackBar3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.trackBar3.Location = new System.Drawing.Point(6, 212);
-            this.trackBar3.Maximum = 100;
-            this.trackBar3.Name = "trackBar3";
-            this.trackBar3.Size = new System.Drawing.Size(256, 45);
-            this.trackBar3.TabIndex = 18;
-            this.trackBar3.TickFrequency = 5;
-            this.trackBar3.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trackBar3.Value = 45;
-            this.trackBar3.Scroll += new System.EventHandler(this.trackBar3_Scroll);
+            this.rndrBucket.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.rndrBucket.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.rndrBucket.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.rndrBucket.ForeColor = System.Drawing.Color.Gainsboro;
+            this.rndrBucket.FormattingEnabled = true;
+            this.rndrBucket.Location = new System.Drawing.Point(12, 386);
+            this.rndrBucket.Name = "rndrBucket";
+            this.rndrBucket.Size = new System.Drawing.Size(256, 23);
+            this.rndrBucket.TabIndex = 15;
+            this.rndrBucket.SelectedIndexChanged += new System.EventHandler(this.rndrBucket_SelectedIndexChanged);
+            this.rndrBucket.MouseClick += new System.Windows.Forms.MouseEventHandler(this.rndrBucket_MouseClick);
             // 
-            // label9
+            // label10
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(3, 194);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(67, 15);
-            this.label9.TabIndex = 17;
-            this.label9.Text = "Metalness:";
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(9, 368);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(91, 15);
+            this.label10.TabIndex = 14;
+            this.label10.Text = "Render Bucket:";
+            // 
+            // fcCull
+            // 
+            this.fcCull.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.fcCull.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.fcCull.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.fcCull.ForeColor = System.Drawing.Color.Gainsboro;
+            this.fcCull.FormattingEnabled = true;
+            this.fcCull.Items.AddRange(new object[] {
+            "Off",
+            "Back",
+            "Front"});
+            this.fcCull.Location = new System.Drawing.Point(12, 339);
+            this.fcCull.Name = "fcCull";
+            this.fcCull.Size = new System.Drawing.Size(256, 23);
+            this.fcCull.TabIndex = 17;
+            this.fcCull.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged_1);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(9, 321);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(62, 15);
+            this.label11.TabIndex = 16;
+            this.label11.Text = "Face Cull:";
             // 
             // frmMatEditor
             // 
@@ -374,9 +413,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
             this.ClientSize = new System.Drawing.Size(551, 594);
+            this.Controls.Add(this.fcCull);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.rndrBucket);
+            this.Controls.Add(this.label10);
             this.Controls.Add(this.castsShadows);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.cbPPL);
             this.Controls.Add(this.pnlMtl);
@@ -390,10 +432,10 @@
             this.Load += new System.EventHandler(this.frmMatEditor_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.shininessLevel)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar3)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -403,7 +445,6 @@
 
         private System.Windows.Forms.Panel pnlMtl;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TrackBar shininessLevel;
         private System.Windows.Forms.Label label1;
@@ -428,5 +469,9 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TrackBar trackBar3;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ComboBox rndrBucket;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ComboBox fcCull;
+        private System.Windows.Forms.Label label11;
     }
 }

@@ -50,7 +50,7 @@ namespace ApexEngine.Terrain
                     Texture.ActiveTextureSlot(0);
                     diffuseTex0.Use();
                     SetUniform("terrainTexture0", 0);
-                    SetUniform("terrainTexture0Scale", 16f);
+                    SetUniform("terrainTexture0Scale", 8f);
                 }
 
                 Texture normalTex0 = currentMaterial.GetTexture(TerrainMaterial.TEXTURE_NORMAL0);
@@ -72,7 +72,7 @@ namespace ApexEngine.Terrain
                     Texture.ActiveTextureSlot(9);
                     slopeTex.Use();
                     SetUniform("slopeTexture", 9);
-                    SetUniform("slopeScale", 16f);
+                    SetUniform("slopeScale", 8f);
                 }
 
                 Texture slopeNormalTex = currentMaterial.GetTexture(TerrainMaterial.TEXTURE_NORMAL_SLOPE);

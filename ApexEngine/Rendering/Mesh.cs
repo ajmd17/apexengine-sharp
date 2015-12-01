@@ -14,11 +14,18 @@ namespace ApexEngine.Rendering
         public List<Vertex> vertices = new List<Vertex>();
         public List<int> indices = new List<int>();
         private BeginMode primitiveType = BeginMode.Triangles;
+        private BoundingBox boundingBox = null;
 
         public Mesh()
         {
             vbo = 0;
             ibo = 0;
+        }
+
+        public BoundingBox BoundingBox
+        {
+            get { return boundingBox; }
+            set { boundingBox = value; }
         }
 
         public BeginMode PrimitiveType
@@ -159,25 +166,26 @@ namespace ApexEngine.Rendering
 
         public BoundingBox CreateBoundingBox()
         {
-            return CreateBoundingBox(vertices);
+            return CreateBoundingBox(vertices, indices);
         }
 
 
-        public BoundingBox CreateBoundingBox(List<Vertex> vertices)
+        public BoundingBox CreateBoundingBox(List<Vertex> vertices, List<int> indices)
         {
-            BoundingBox b = new BoundingBox();
-            Vertex v_min = new Vertex(new Vector3f(0.0f)), v_max = new Vertex(new Vector3f(0.0f));
-            foreach (Vertex v in vertices)
+            BoundingBox b = new BoundingBox(new Vector3f(float.MaxValue), new Vector3f(float.MinValue));
+            //Vertex v_min = new Vertex(new Vector3f(0.0f)), v_max = new Vertex(new Vector3f(0.0f));
+            for (int i = 0; i < indices.Count; i++)
             {
-                if (v.GetPosition().x < v_min.GetPosition().x) v_min.GetPosition().x = v.GetPosition().x;
+                b.Extend(vertices[indices[i]].GetPosition());
+               /* if (v.GetPosition().x < v_min.GetPosition().x) v_min.GetPosition().x = v.GetPosition().x;
                 if (v.GetPosition().y < v_min.GetPosition().y) v_min.GetPosition().y = v.GetPosition().y;
                 if (v.GetPosition().z < v_min.GetPosition().z) v_min.GetPosition().z = v.GetPosition().z;
 
                 if (v.GetPosition().x > v_max.GetPosition().x) v_max.GetPosition().x = v.GetPosition().x;
                 if (v.GetPosition().y > v_max.GetPosition().y) v_max.GetPosition().y = v.GetPosition().y;
-                if (v.GetPosition().z > v_max.GetPosition().z) v_max.GetPosition().z = v.GetPosition().z;
+                if (v.GetPosition().z > v_max.GetPosition().z) v_max.GetPosition().z = v.GetPosition().z;*/
             }
-            return b.Set(v_min.GetPosition(), v_max.GetPosition());
+            return b;
         }
     }
 }

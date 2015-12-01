@@ -32,7 +32,7 @@ namespace ApexEditor
         private void button4_Click(object sender, EventArgs e)
         {
             if (listBox1.SelectedItem.ToString() == "Procedural Terrain")
-                resComponent = new SimplexTerrainComponent();
+                resComponent = new SimplexTerrainComponent(game.PhysicsWorld);
             this.DialogResult = DialogResult.OK;
             this.Close();
         }

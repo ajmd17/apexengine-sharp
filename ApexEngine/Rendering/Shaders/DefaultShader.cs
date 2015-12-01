@@ -28,13 +28,18 @@ namespace ApexEngine.Rendering.Shaders
             this.SetUniform(MATERIAL_PERPIXELLIGHTING, material.GetInt(Material.TECHNIQUE_PER_PIXEL_LIGHTING));
 
             int blendMode = material.GetInt(Material.MATERIAL_BLENDMODE);
-            if (blendMode == 0)
-                GL.Disable(EnableCap.Blend);
-            else if (blendMode == 1)
+            if (blendMode == 1)
             {
                 GL.Enable(EnableCap.Blend);
                 GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
             }
+        }
+
+        public override void End()
+        {
+            base.End();
+
+            GL.Disable(EnableCap.Blend);
         }
 
         public override void Update(Environment environment, Camera cam, Mesh mesh)

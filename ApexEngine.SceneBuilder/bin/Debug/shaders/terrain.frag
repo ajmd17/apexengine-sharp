@@ -101,16 +101,29 @@ void main()
 		{
 			specularity = SpecularDirectional(n, v_position.xyz, Apex_CameraPosition, l, Material_Shininess, Material_Roughness);
 		}
+		
 		float shineAmt = Material_Shininess;
 		
-		vec3 surfaceColor = diffuseTexture.xyz;
-		vec3 diffuseLight = vec3(ndotl) * surfaceColor;// * Env_DirectionalLight.color.xyz;
-		vec3 diffuse = diffuseLight * shadowColor;
+		vec3 surfaceColor = Material_DiffuseColor.xyz * diffuseTexture.xyz;
 		
-		vec3 ambient = surfaceColor * 0.05;//Env_AmbientLight.color.xyz + Material_AmbientColor.xyz;
+		vec3 diffuseLight = vec3(ndotl) * Env_DirectionalLight.color.xyz * shadowColor;
+		vec3 diffuse = diffuseLight * surfaceColor;
 		
-		vec3 specular = vec3(specularity);// * Env_DirectionalLight.color.xyz;
+		vec3 ambient = surfaceColor * (Material_AmbientColor.xyz + Env_AmbientLight.color.xyz);
+		
+		vec3 specular = vec3(specularity);
+		
 		specular *= shadowness;
+		
+		vec3 reflection;
+		float fresnel = Fresnel(n, v_position.xyz, Apex_CameraPosition, l, Material_Roughness);
+		reflection = vec3(fresnel);
+		#ifdef ENV_MAP
+			vec4 envMap = texture(Material_EnvironmentMap, refVec, Material_Roughness*4.0);
+			reflection *= Material_Metalness*envMap.rgb;
+		#endif
+		specular += reflection;
+		specular *= Env_DirectionalLight.color.xyz;
 		
 		for (int i = 0; i < Env_NumPointLights; i++)
 		{
@@ -124,16 +137,14 @@ void main()
 			specular += pl_spec;
 		}	
 		
-		diffuse *= Material_DiffuseColor.xyz;
-		specular *= Material_SpecularColor.xyz;
 		
 		diffuse = clamp(diffuse, vec3(0.0), vec3(1.0));
 		specular = clamp(specular, vec3(0.0), vec3(1.0));
-		
-		diffuse *= vec3(1.0-shineAmt);
-		specular *= shineAmt;
 
-		vec4 lightSum = vec4(ambient + diffuse, 1.0);
+		diffuse = mix(diffuse, vec3(0.0), Material_Shininess);
+		specular *= Material_Shininess;
+
+		vec4 lightSum = vec4(ambient + diffuse + specular, 1.0);
 		
 		lightSum = CalculateFog(lightSum, lightSum+Env_FogColor, v_position.xyz, Apex_CameraPosition, Env_FogStart, Env_FogEnd);
 		gl_FragColor = lightSum;

@@ -8,7 +8,11 @@ namespace ApexEngine.Rendering
         public const string MATERIAL_NAME = "matname";
         public const string MATERIAL_ALPHADISCARD = "alpha_discard";
         public const string MATERIAL_BLENDMODE = "blendmode"; // 0 = opaque, 1 = transparent
-        
+        public const string MATERIAL_DEPTHTEST = "depthtest";
+        public const string MATERIAL_DEPTHMASK = "depthmask";
+        public const string MATERIAL_FACETOCULL = "cullface"; // 0 = back, 1 = front
+        public const string MATERIAL_CULLENABLED = "cullenable";
+
         public const string MATERIAL_CASTSHADOWS = "cast_shadows";
 
         public const string COLOR_DIFFUSE = "diffuse";
@@ -32,6 +36,7 @@ namespace ApexEngine.Rendering
         private Vector3f tmpVec3 = new Vector3f();
         private Vector4f tmpVec4 = new Vector4f();
         public Dictionary<string, object> values = new Dictionary<string, object>();
+        protected RenderManager.Bucket bucket = RenderManager.Bucket.Opaque;
 
         public Material()
         {
@@ -46,6 +51,11 @@ namespace ApexEngine.Rendering
             SetValue(SPECULAR_EXPONENT, 20f);
             SetValue(MATERIAL_BLENDMODE, 0);
             SetValue(MATERIAL_CASTSHADOWS, 1);
+            SetValue(MATERIAL_DEPTHMASK, true);
+            SetValue(MATERIAL_DEPTHTEST, true);
+            SetValue(MATERIAL_ALPHADISCARD, 0.1f);
+            SetValue(MATERIAL_CULLENABLED, true);
+            SetValue(MATERIAL_FACETOCULL, 0);
         }
 
         public Dictionary<string, object> Values
@@ -61,6 +71,12 @@ namespace ApexEngine.Rendering
         public string GetName()
         {
             return GetString(MATERIAL_NAME);
+        }
+
+        public RenderManager.Bucket Bucket
+        {
+            get { return bucket; }
+            set { bucket = value; }
         }
 
         public Material SetValue(string name, object val)

@@ -73,7 +73,7 @@ namespace ApexEngine.Assets.Obj
                     y = float.Parse(y_str);
                     z = float.Parse(z_str);
                     Vector4f color = new Vector4f(x, y, z, 1.0f);
-                  //  materials[materials.Count - 1].SetValue(Material.COLOR_DIFFUSE, color);
+                    materials[materials.Count - 1].SetValue(Material.COLOR_DIFFUSE, color);
                 }
                 else if (tokens[0] == "Ks") // ambient color
                 {
@@ -85,7 +85,7 @@ namespace ApexEngine.Assets.Obj
                     y = float.Parse(y_str);
                     z = float.Parse(z_str);
                     Vector4f color = new Vector4f(x, y, z, 1.0f);
-                   // materials[materials.Count - 1].SetValue(Material.COLOR_SPECULAR, color);
+                    materials[materials.Count - 1].SetValue(Material.COLOR_SPECULAR, color);
                 }
                 else if (tokens[0] == "Ns") // ambient color
                 {

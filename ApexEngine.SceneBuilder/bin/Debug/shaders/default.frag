@@ -34,6 +34,10 @@ void main()
 	if (Material_HasDiffuseMap == 1)
 	{
 		diffuseTexture = pow(texture2D(Material_DiffuseMap, texCoord), vec4(2.2, 2.2, 2.2, 1.0));
+		if (diffuseTexture.a < Material_AlphaDiscard)
+		{
+			discard;
+		}
 	}
 	
 	if (Material_PerPixelLighting == 1)
@@ -42,6 +46,7 @@ void main()
 		float shadowness = 1.0;
 		
 		vec3 n = normalize(v_normal.xyz);
+		vec3 v = normalize(Apex_CameraPosition - v_position.xyz);
 		vec3 l = normalize(Env_DirectionalLight.direction);
 		
 		if (Material_HasNormalMap == 1)
@@ -52,6 +57,9 @@ void main()
 			n = normalize((v_tangent * normalsTexture.x) + (v_bitangent * normalsTexture.y) + (n * normalsTexture.z));
 		}
 		float ndotl = clamp(LambertDirectional(n, l), 0.0, 1.0);
+		#ifdef OREN_NAYAR
+			ndotl = clamp(OrenNayarDirectional(n, l, normalize(Apex_CameraPosition), Material_Roughness), 0.0, 1.0);
+		#endif
 		float specularity;
 		
 		if (Env_ShadowsEnabled == 1)
@@ -92,18 +100,22 @@ void main()
 		
 		vec3 ambient = surfaceColor * (Material_AmbientColor.xyz + Env_AmbientLight.color.xyz);
 		
-		vec3 specular = vec3(specularity) * Env_DirectionalLight.color.xyz;
+		vec3 specular = vec3(specularity);
 		
 		specular *= shadowness;
 		
 		vec3 reflection;
-		float fresnel = Fresnel(n, v_position.xyz, Apex_CameraPosition, l, Material_Roughness);
+		float fresnel;
+		//fresnel = Fresnel(n, v_position.xyz, Apex_CameraPosition, l, Material_Roughness);
+		fresnel = max(1.0 - dot(n, v), 0.0);
+		fresnel = pow(fresnel, 2.0);
 		reflection = vec3(fresnel);
 		#ifdef ENV_MAP
-			vec4 envMap = texture(Material_EnvironmentMap, refVec, Material_Roughness*10.0);
-			reflection += Material_Metalness*envMap.rgb;
+			vec4 envMap = texture(Material_EnvironmentMap, refVec, Material_Roughness*4.0);
+			reflection *= Material_Metalness*envMap.rgb;
 		#endif
 		specular += reflection;
+		specular *= Env_DirectionalLight.color.xyz;
 		
 		for (int i = 0; i < Env_NumPointLights; i++)
 		{
@@ -133,7 +145,7 @@ void main()
 		//diffuse = mix(diffuse, diffuse * vec3(1.0-shineAmt), Material_Metalness);
 		//specular = mix(specular, specular * shineAmt, Material_Metalness);
 
-		vec4 lightSum = vec4(ambient + diffuse + specular, 1.0);
+		vec4 lightSum = vec4(ambient + diffuse + specular, diffuseTexture.a);
 		lightSum = CalculateFog(lightSum, Env_FogColor, v_position.xyz, Apex_CameraPosition, Env_FogStart, Env_FogEnd);
 		gl_FragColor = lightSum;
 	}

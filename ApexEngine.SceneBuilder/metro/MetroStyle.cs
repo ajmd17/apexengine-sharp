@@ -159,7 +159,7 @@ namespace ModernUISample.metro
                     {
                         BackColor = Color.FromArgb(51, 51, 51);
                         ForeColor = Color.White;
-                        AccentColor = Color.DarkOrange;
+                        AccentColor = Color.AliceBlue;
                         AccentFrontColor = Color.FromArgb(51, 51, 51);
                         DisabledColor = Color.DimGray;
                     }

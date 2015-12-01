@@ -18,10 +18,14 @@ namespace ApexEngine.Scene.Physics
     public class RigidBodyControl : Controller
     {
         private RigidBody body;
-        private Vector3f tmpVec0 = new Vector3f();
+        private Vector3f tmpVec0 = new Vector3f(), tmpVec1 = new Vector3f(), tmpScl = new Vector3f(1, 1, 1);
         private ApexEngine.Math.Quaternion tmpRot0 = new ApexEngine.Math.Quaternion();
         private float mass = 1f;
         private PhysicsWorld.PhysicsShape physicsShape = PhysicsWorld.PhysicsShape.ConvexMesh;
+        private Vector3f origin = new Vector3f();
+        private JVector tmpJVec = new JVector();
+        private BoundingBox boundingBox;
+        private Vector3f offset = new Vector3f();
 
         public RigidBodyControl()
         {
@@ -44,15 +48,54 @@ namespace ApexEngine.Scene.Physics
             get { return body; }
         }
 
-        public override void Init()
+        public Vector3f Origin
+        {
+            get { return origin; }
+        }
+
+        public BoundingBox BoundingBox
+        {
+            get { return boundingBox; }
+        }
+
+        public Vector3f Offset
+        {
+            get { return offset; }
+            set { offset.Set(value); }
+        }
+        
+        public void SetTranslation(Vector3f pos)
+        {
+            if (body != null)
+            {
+                tmpJVec.Set(pos.x, pos.y, pos.z);
+                body.Position = tmpJVec;
+                // origin.SubtractStore(boundingBox.Center);
+            }
+            origin.Set(GameObject.GetUpdatedWorldTranslation());
+        }
+
+        public Vector3f GetTranslation()
+        {
+            if (body != null)
+                tmpVec1.Set(body.Position.X, body.Position.Y, body.Position.Z);
+            return tmpVec1;
+        }
+
+        private Shape CreateShape()
         {
             Shape shape = null;
-            GameObject.UpdateTransform();
+            boundingBox = new BoundingBox();
+            List<Mesh> meshes = MeshUtil.GatherMeshes(GameObject);
+            foreach (Mesh m in meshes)
+            {
+                BoundingBox tmpBB = m.CreateBoundingBox();
+                boundingBox.Extend(tmpBB);
+            }
             if (physicsShape == PhysicsWorld.PhysicsShape.StaticMesh)
             {
                 List<JVector> jvec = new List<JVector>();
                 List<TriangleVertexIndices> tv = new List<TriangleVertexIndices>();
-                List<Mesh> meshes = MeshUtil.GatherMeshes(GameObject);
                 List<Vector3f> vertexPositions = new List<Vector3f>();
 
                 for (int m = 0; m < meshes.Count; m++)
@@ -62,9 +105,9 @@ namespace ApexEngine.Scene.Physics
                         Vector3f myvec = meshes[m].vertices[v].GetPosition();
                         jvec.Add(new JVector(myvec.x, myvec.y, myvec.z));
                     }
-                    for (int i = 0; i < meshes[m].indices.Count; i+=3)
+                    for (int i = 0; i < meshes[m].indices.Count; i += 3)
                     {
-                        tv.Add(new TriangleVertexIndices(meshes[m].indices[i +2], meshes[m].indices[i + 1], meshes[m].indices[i]));
+                        tv.Add(new TriangleVertexIndices(meshes[m].indices[i + 2], meshes[m].indices[i + 1], meshes[m].indices[i]));
                     }
                 }
                 Octree oct = new Octree(jvec, tv);
@@ -74,7 +117,6 @@ namespace ApexEngine.Scene.Physics
             else if (physicsShape == PhysicsWorld.PhysicsShape.ConvexMesh)
             {
                 List<JVector> jvec = new List<JVector>();
-                List<Mesh> meshes = MeshUtil.GatherMeshes(GameObject);
                 List<Vector3f> vertexPositions = new List<Vector3f>();
 
                 for (int m = 0; m < meshes.Count; m++)
@@ -91,11 +133,43 @@ namespace ApexEngine.Scene.Physics
             }
             else if (physicsShape == PhysicsWorld.PhysicsShape.Box)
             {
-                shape = new BoxShape(2, 2, 2); // TODO: Calculate mesh bounding box
+                Mesh boxMesh = MeshFactory.CreateCube(boundingBox.Min, boundingBox.Max);
+                List<JVector> jvec = new List<JVector>();
+                List<TriangleVertexIndices> tv = new List<TriangleVertexIndices>();
+                for (int v = 0; v < boxMesh.vertices.Count; v++)
+                {
+                    Vector3f myvec = boxMesh.vertices[v].GetPosition();
+                    jvec.Add(new JVector(myvec.x, myvec.y, myvec.z));
+                }
+                for (int i = 0; i < boxMesh.indices.Count; i += 3)
+                {
+                    tv.Add(new TriangleVertexIndices(boxMesh.indices[i + 2], boxMesh.indices[i + 1], boxMesh.indices[i]));
+                }
+
+                Octree oct = new Octree(jvec, tv);
+                TriangleMeshShape trimesh = new TriangleMeshShape(oct);
+                shape = trimesh;
+
             }
-            body = new RigidBody(shape);
+            return shape;
+        }
+
+        public void Reinit()
+        {
+            body.Shape = CreateShape();
+            origin.Set(GameObject.GetUpdatedWorldTranslation());
+            body.Position = new JVector(origin.x, origin.y, origin.z);
+        }
+
+        public override void Init()
+        {
+            
+
+            body = new RigidBody(CreateShape());
             body.Tag = GameObject;
-            body.Position = new JVector(GameObject.GetWorldTranslation().x, GameObject.GetWorldTranslation().y, GameObject.GetWorldTranslation().z);
+
+            origin.Set(GameObject.GetUpdatedWorldTranslation());
+            body.Position = new JVector(origin.x, origin.y, origin.z);
             
             if (mass == 0)
                 body.IsStatic = true;
@@ -105,8 +179,9 @@ namespace ApexEngine.Scene.Physics
         {
             JVector vec = body.Position;
             tmpVec0.Set(vec.X, vec.Y, vec.Z);
-            if (mass > 0.0f)
-                GameObject.SetLocalTranslation(tmpVec0);
+           // tmpVec0.SubtractStore(boundingBox.Center);
+           // if (mass > 0.0f)
+                GameObject.SetWorldTransformPhysics(tmpVec0, tmpRot0, tmpScl);
             /*body.Orientation.
             tmpRot0.Set(rot.X, rot.Y, rot.Z, rot.W);
             tmpRot0.InverseStore();

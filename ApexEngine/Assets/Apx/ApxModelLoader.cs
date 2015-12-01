@@ -228,7 +228,16 @@ namespace ApexEngine.Assets.Apx
                     }
                     else if (xmlReader.Name == ApxExporter.TOKEN_MATERIAL)
                     {
-                        mats.Add(new Material());
+                        Material mat = new Material();
+                        mats.Add(mat);
+                        string bucketStr = xmlReader.GetAttribute(ApxExporter.TOKEN_MATERIAL_BUCKET);
+                        RenderManager.Bucket bucket;
+                        if (bucketStr != null)
+                            Enum.TryParse<RenderManager.Bucket>(bucketStr, out bucket);
+                        else
+                            bucket = RenderManager.Bucket.Opaque;
+                        Console.WriteLine("Bucket: " + bucket.ToString());
+                        mat.Bucket = bucket;
                     }
                     else if (xmlReader.Name == ApxExporter.TOKEN_MATERIAL_PROPERTY)
                     {

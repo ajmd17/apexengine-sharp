@@ -23,6 +23,7 @@ namespace ApexEngine.Rendering
         public const string APEX_CAMERADIRECTION = "Apex_CameraDirection";
         public const string APEX_ELAPSEDTIME = "Apex_ElapsedTime";
 
+        public const string MATERIAL_ALPHADISCARD = "Material_AlphaDiscard";
         public const string MATERIAL_SHININESS = "Material_Shininess";
         public const string MATERIAL_ROUGHNESS = "Material_Roughness";
         public const string MATERIAL_METALNESS = "Material_Metalness";
@@ -93,7 +94,7 @@ namespace ApexEngine.Rendering
             GL.UseProgram(id);
         }
 
-        public void End()
+        public virtual void End()
         {
             currentMaterial = null;
         }
@@ -121,7 +122,26 @@ namespace ApexEngine.Rendering
         public virtual void ApplyMaterial(Material material)
         {
             currentMaterial = material;
-
+            if (currentMaterial.GetBool(Material.MATERIAL_DEPTHTEST))
+                GL.Enable(EnableCap.DepthTest);
+            else
+                GL.Disable(EnableCap.DepthTest);
+            if (currentMaterial.GetBool(Material.MATERIAL_DEPTHMASK))
+                GL.DepthMask(true);
+            else
+                GL.DepthMask(false);
+            if (currentMaterial.GetBool(Material.MATERIAL_CULLENABLED))
+            {
+                GL.Enable(EnableCap.CullFace);
+                int i = currentMaterial.GetInt(Material.MATERIAL_FACETOCULL);
+                if (i == 0)
+                    GL.CullFace(CullFaceMode.Back);
+                else if (i == 1)
+                    GL.CullFace(CullFaceMode.Front);
+            }
+            else
+                GL.Disable(EnableCap.CullFace);
+            SetUniform(MATERIAL_ALPHADISCARD, currentMaterial.GetFloat(Material.MATERIAL_ALPHADISCARD));
         }
 
         public void Render(Mesh mesh)
@@ -145,10 +165,6 @@ namespace ApexEngine.Rendering
             GL.Enable(EnableCap.DepthClamp);
             GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill);
             GL.FrontFace(FrontFace);
-            GL.Enable(EnableCap.CullFace);
-            GL.CullFace(CullFaceMode.Back);
-            GL.Enable(EnableCap.DepthTest);
-            GL.DepthMask(true);
         }
 
         public void SetTransforms(Matrix4f world, Matrix4f view, Matrix4f proj)

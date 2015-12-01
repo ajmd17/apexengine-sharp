@@ -33,7 +33,8 @@ namespace ApexEngine.Assets.Apx
 	    public const string TOKEN_VERTEXINDEX = "vertex_index";
 	    public const string TOKEN_MATERIAL = "material";
 	    public const string TOKEN_MATERIAL_PROPERTY = "material_property";
-	    public const string TOKEN_SHADER = "shader";
+        public const string TOKEN_MATERIAL_BUCKET = "bucket";
+        public const string TOKEN_SHADER = "shader";
 	    public const string TOKEN_SHADERPROPERTIES = "shader_properties";
 	    public const string TOKEN_SHADERPROPERTY = "property";
 	    public const string TOKEN_CLASS = "class";
@@ -314,6 +315,7 @@ namespace ApexEngine.Assets.Apx
         private static void SaveMaterial(Material material, XmlWriter writer)
         {
             writer.WriteStartElement(TOKEN_MATERIAL);
+            writer.WriteAttributeString(TOKEN_MATERIAL_BUCKET, material.Bucket.ToString());
             for (int i = 0; i < material.Values.Count; i++)
             {
                 writer.WriteStartElement(TOKEN_MATERIAL_PROPERTY);

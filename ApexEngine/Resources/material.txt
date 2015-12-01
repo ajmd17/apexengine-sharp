@@ -20,6 +20,7 @@ uniform float Env_FogEnd;
 uniform vec4 Material_AmbientColor;
 uniform vec4 Material_DiffuseColor;
 uniform vec4 Material_SpecularColor;
+uniform float Material_AlphaDiscard;
 
 uniform sampler2D Material_DiffuseMap;
 uniform sampler2D Material_NormalMap;

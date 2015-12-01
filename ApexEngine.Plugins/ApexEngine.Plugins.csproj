@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ApexEngine.Plugins</RootNamespace>
     <AssemblyName>ApexEngine.Plugins</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -45,8 +46,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RaytracerFilter.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ApexEngine.Math\ApexEngine.Math.csproj">
+      <Project>{a3e4f805-3271-4f83-bde0-180543845ba7}</Project>
+      <Name>ApexEngine.Math</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ApexEngine\ApexEngine.csproj">
       <Project>{de1bfc80-78c3-4583-9d74-e29f423152a0}</Project>
       <Name>ApexEngine</Name>

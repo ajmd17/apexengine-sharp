@@ -133,21 +133,19 @@ namespace ApexEngine.Properties {
         ///
         ///uniform int Material_SpecularTechnique;
         ///uniform int Material_PerPixelLighting;
+        ///uniform float Material_SpecularExponent;
         ///uniform float Material_Shininess;
+        ///uniform float Material_Roughness;
+        ///uniform float Material_Metalness;
         ///
         ///uniform int Material_HasDiffuseMap;
         ///uniform int Material_HasNormalMap;
         ///uniform int Material_HasSpecularMap;
         ///uniform int Material_HasHeightMap;
+        ///uniform int Material_HasEnvironmentMap;
         ///
-        ///uniform float Env_FogStart;
-        ///uniform float Env_FogEnd;
-        ///
-        ///uniform vec4 Material_AmbientColor;
-        ///uniform vec4 Material_DiffuseColor;
-        ///uniform vec4 Material_SpecularColor;
-        ///
-        ///uniform sampler2D Material_Diff [rest of string was truncated]&quot;;.
+        ///uniform vec4 Env_FogColor;
+        ///uniform float Env_FogS [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string material {
             get {

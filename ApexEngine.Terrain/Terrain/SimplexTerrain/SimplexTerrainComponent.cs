@@ -50,7 +50,8 @@ namespace ApexEngine.Terrain.SimplexTerrain
             terrainMaterial.SetValue(TerrainMaterial.TEXTURE_DIFFUSE_SLOPE, dirt);
             terrainMaterial.SetValue(TerrainMaterial.TEXTURE_NORMAL_SLOPE, dirt_nrm);
             terrainMaterial.SetValue(Material.MATERIAL_CASTSHADOWS, false);
-           // terrainMaterial.SetValue(Material.SHININESS, 0f);
+            terrainMaterial.SetValue(Material.SHININESS, 0.1f);
+            terrainMaterial.SetValue(Material.ROUGHNESS, 0.4f);
         }
 
         public double getNoise(int x, int y)

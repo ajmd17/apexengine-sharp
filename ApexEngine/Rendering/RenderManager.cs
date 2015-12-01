@@ -152,7 +152,7 @@ namespace ApexEngine.Rendering
         {
             for (int i = 0; i < geometries.Count; i++)
             {
-                if (geometries[i].AttachedToRoot && geometries[i].Bucket == bucket)
+                if (geometries[i].AttachedToRoot && geometries[i].Material.Bucket == bucket)
                 {
                     geometries[i].Render(env, cam);
                 }
@@ -163,7 +163,7 @@ namespace ApexEngine.Rendering
         {
             for (int i = 0; i < geometries.Count; i++)
             {
-                if (geometries[i].AttachedToRoot && geometries[i].Bucket == bucket)
+                if (geometries[i].AttachedToRoot && geometries[i].Material.Bucket == bucket)
                 {
                     if (geometries[i].DepthShader == null)
                         geometries[i].DepthShader = ShaderManager.GetShader(typeof(Shaders.DepthShader));
@@ -187,7 +187,7 @@ namespace ApexEngine.Rendering
         {
             for (int i = 0; i < geometries.Count; i++)
             {
-                if (geometries[i].AttachedToRoot && geometries[i].Bucket == bucket)
+                if (geometries[i].AttachedToRoot && geometries[i].Material.Bucket == bucket)
                 {
                     if (geometries[i].NormalsShader == null)
                         geometries[i].NormalsShader = ShaderManager.GetShader(typeof(Shaders.NormalsShader));

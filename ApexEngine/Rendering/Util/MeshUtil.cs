@@ -69,6 +69,58 @@ namespace ApexEngine.Rendering.Util
             }
         }
 
+        public static List<GameObject> GatherObjects(GameObject gameObject)
+        {
+            List<GameObject> objs = new List<GameObject>();
+
+            objs.Add(gameObject);
+            if (gameObject is Node)
+            {
+                GatherObjects((Node)gameObject, objs);
+            }
+
+            return objs;
+        }
+
+        private static void GatherObjects(Node node, List<GameObject> objs)
+        {
+            foreach (GameObject child in node.Children)
+            {
+                if (child is Node)
+                {
+                    GatherObjects((Node)child, objs);
+                }
+                else if (child is Geometry)
+                {
+                    objs.Add(child);
+                }
+            }
+        }
+        /// <summary>
+        /// Calculates the bounding box of the mesh and sets the mesh to [0, 0, 0].
+        /// </summary>
+        /// <param name="mesh"></param>
+        public static void SetToOrigin(Geometry geom)
+        {
+            Mesh mesh = geom.Mesh;
+            if (mesh.BoundingBox == null)
+                mesh.BoundingBox = mesh.CreateBoundingBox();
+            for (int i = 0; i < mesh.indices.Count; i++)
+            {
+                mesh.vertices[mesh.indices[i]].SetPosition(mesh.vertices[mesh.indices[i]].GetPosition().Subtract(mesh.BoundingBox.Center));
+            }
+            mesh.SetVertices(mesh.vertices, mesh.indices);
+            if (geom.GetController(typeof(Scene.Physics.RigidBodyControl)) != null)
+            {
+                Scene.Physics.RigidBodyControl rbc = (Scene.Physics.RigidBodyControl)geom.GetController(typeof(Scene.Physics.RigidBodyControl));
+                //rbc.Init();
+               // rbc.Offset = mesh.BoundingBox.Center;
+                rbc.Reinit();
+            }
+            mesh.BoundingBox = mesh.CreateBoundingBox();
+        }
+
+
         public static float[] CreateFloatBuffer(Mesh mesh)
         {
             List<Vertex> a = mesh.vertices;

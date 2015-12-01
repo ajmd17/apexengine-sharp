@@ -194,7 +194,7 @@ namespace ApexEngine.Scene
             }
         }
 
-        protected Vector3f GetUpdatedWorldTranslation()
+        public Vector3f GetUpdatedWorldTranslation()
         {
             wtrans.Set(0, 0, 0);
             UpdateWorldTranslation(wtrans);
@@ -211,7 +211,7 @@ namespace ApexEngine.Scene
             }
         }
 
-        protected Vector3f GetUpdatedWorldScale()
+        public Vector3f GetUpdatedWorldScale()
         {
             wscl.Set(1, 1, 1);
             UpdateWorldScale(wscl);
@@ -228,7 +228,7 @@ namespace ApexEngine.Scene
             }
         }
 
-        protected Quaternion GetUpdatedWorldRotation()
+        public Quaternion GetUpdatedWorldRotation()
         {
             wrot.SetToIdentity();
             UpdateWorldRotation(wrot);
@@ -265,10 +265,17 @@ namespace ApexEngine.Scene
             Vector3f worldTrans = GetUpdatedWorldTranslation();
             Quaternion worldRot = GetUpdatedWorldRotation();
             Vector3f worldScale = GetUpdatedWorldScale();
-
-            worldTransform.SetTranslation(worldTrans);
-            worldTransform.SetRotation(worldRot);
-            worldTransform.SetScale(worldScale);
+            if (!HasController(typeof(Physics.RigidBodyControl)))
+            {
+                worldTransform.SetTranslation(worldTrans);
+                worldTransform.SetRotation(worldRot);
+                worldTransform.SetScale(worldScale);
+            }
+            else
+            {
+                Vector3f diff = GetPhysicsOrigin().Subtract(worldTrans);
+                SetPhysicsTranslation(GetPhysicsTranslation().Subtract(diff));
+            }
 
             worldMatrix = worldTransform.GetMatrix();
         }
@@ -276,6 +283,35 @@ namespace ApexEngine.Scene
         public virtual void UpdateParents()
         {
             attachedToRoot = CalcAttachedToRoot();
+        }
+
+        Vector3f GetPhysicsTranslation()
+        {
+            Physics.RigidBodyControl rbc = (Physics.RigidBodyControl)GetController(typeof(Physics.RigidBodyControl));
+            return rbc.GetTranslation();
+        }
+
+        Vector3f GetPhysicsOrigin()
+        {
+            Physics.RigidBodyControl rbc = (Physics.RigidBodyControl)GetController(typeof(Physics.RigidBodyControl));
+            return rbc.Origin;
+        }
+
+        public void SetPhysicsTranslation(Vector3f trans)
+        {
+            foreach (Components.Controller sc in controls)
+            {
+                if (sc is Physics.RigidBodyControl)
+                 ((Physics.RigidBodyControl)sc).SetTranslation(trans);
+            }
+        }
+        
+        public virtual void SetWorldTransformPhysics(Vector3f trans, Quaternion rot, Vector3f scl)
+        {
+            worldTransform.SetTranslation(trans);
+            worldTransform.SetRotation(rot);
+            worldTransform.SetScale(scl);
+            worldMatrix = worldTransform.GetMatrix();
         }
 
         public bool AttachedToRoot

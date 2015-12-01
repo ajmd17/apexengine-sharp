@@ -23,6 +23,9 @@ namespace ApexEditor
         private int activeNodeID;
         frmMatEditor matEditor;
         private ApexEngine.Rendering.Shadows.ShadowMappingComponent shadowCpt;
+        private SceneEditorGame.CamModes camMode = SceneEditorGame.CamModes.Freelook;
+
+
 
         public Form1()
         {
@@ -144,7 +147,7 @@ namespace ApexEditor
                 apxCtrl.Game.RootNode.AddChild(loadedModel);
                 List<Geometry> geoms = ApexEngine.Rendering.Util.MeshUtil.GatherGeometry(loadedModel);
                 foreach (Geometry g in geoms)
-                    apxCtrl.Game.PhysicsWorld.AddObject(g, 0f);
+                    apxCtrl.Game.PhysicsWorld.AddObject(g, 0f, ApexEngine.Scene.Physics.PhysicsWorld.PhysicsShape.Box);
                 activeNodeID = apxCtrl.Game.RootNode.Children.Count - 1;
                 AddTreeViewItem(treeView1.Nodes[0], loadedModel);
             }
@@ -156,8 +159,8 @@ namespace ApexEditor
             DialogResult result = openFileDialog1.ShowDialog();
             if (result == DialogResult.OK)
             {
-                List<Geometry> geoms = ApexEngine.Rendering.Util.MeshUtil.GatherGeometry(apxCtrl.Game.RootNode);
-                foreach (Geometry g in geoms)
+                List<GameObject> objs = ApexEngine.Rendering.Util.MeshUtil.GatherObjects(apxCtrl.Game.RootNode);
+                foreach (GameObject g in objs)
                     apxCtrl.Game.PhysicsWorld.RemoveObject(g);
 
                 for (int i = apxCtrl.Game.RootNode.Children.Count - 1; i > -1; i--)
@@ -169,7 +172,7 @@ namespace ApexEditor
                 apxCtrl.Game.RootNode.AddChild(loadedModel);
                 List<Geometry> geoms1 = ApexEngine.Rendering.Util.MeshUtil.GatherGeometry(loadedModel);
                 foreach (Geometry g in geoms1)
-                    apxCtrl.Game.PhysicsWorld.AddObject(g, 0f);
+                    apxCtrl.Game.PhysicsWorld.AddObject(g, 0f, ApexEngine.Scene.Physics.PhysicsWorld.PhysicsShape.Box);
                 activeNodeID = apxCtrl.Game.RootNode.Children.Count - 1;
                 PopulateTreeView(apxCtrl.Game.RootNode);
             }
@@ -226,6 +229,16 @@ namespace ApexEditor
                     if (treeView1.SelectedNode.Tag != apxCtrl.Game.RootNode)
                     {
                         GameObject selectedObj = (GameObject)treeView1.SelectedNode.Tag;
+                        if (selectedObj.HasController(typeof(ApexEngine.Scene.Physics.RigidBodyControl)))
+                        {
+                            apxCtrl.Game.PhysicsWorld.RemoveObject(selectedObj);
+                        }
+                        if (selectedObj is Node)
+                        {
+                            List<GameObject> childObjs = ApexEngine.Rendering.Util.MeshUtil.GatherObjects(selectedObj);
+                            foreach (GameObject g in childObjs)
+                                apxCtrl.Game.PhysicsWorld.RemoveObject(g);
+                        }
                         selectedObj.GetParent().RemoveChild(selectedObj);
                         treeView1.Nodes.Remove(treeView1.SelectedNode);
                     }
@@ -240,12 +253,6 @@ namespace ApexEditor
 
         private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
         {
-            
-        }
-
-        private void contextMenuStrip1_Opened(object sender, EventArgs e)
-        {
-            
             if (treeView1.SelectedNode != null)
             {
                 if (treeView1.SelectedNode.Tag == apxCtrl.Game.RootNode)
@@ -257,7 +264,33 @@ namespace ApexEditor
                     contextMenuStrip1.Items[0].Enabled = true;
 
                 }
+                if (treeView1.SelectedNode.Tag is Geometry)
+                {
+                    setToOriginToolStripMenuItem.Enabled = true;
+                }
+                else
+                {
+                    setToOriginToolStripMenuItem.Enabled = false;
+                }
+
+                if (treeView1.SelectedNode.Tag is Node)
+                {
+                    lockToolStripMenuItem.Enabled = true;
+                    if (((Node)treeView1.SelectedNode.Tag).HasController(typeof(ApexEngine.Scene.Physics.RigidBodyControl)))
+                        lockToolStripMenuItem.Checked = true;
+                    else
+                        lockToolStripMenuItem.Checked = false;
+                }
+                else
+                {
+                    lockToolStripMenuItem.Enabled = false;
+                    lockToolStripMenuItem.Checked = false;
+                }
             }
+        }
+
+        private void contextMenuStrip1_Opened(object sender, EventArgs e)
+        {
         }
 
         private void treeView1_MouseDown(object sender, MouseEventArgs e)
@@ -313,7 +346,7 @@ namespace ApexEditor
                 frmMatEditor matEdit = new frmMatEditor();
                 matEdit.Init();
                 matEdit.Material = (Material)treeView1.SelectedNode.Tag;
-                matEdit.ShowDialog();
+                matEdit.Show();
                 if (matEdit.DialogResult == DialogResult.OK)
                 {
                     treeView1.SelectedNode.Tag = matEdit.Material;
@@ -406,6 +439,84 @@ namespace ApexEditor
             {
                 apxCtrl.Game.RenderManager.RemoveComponent(shadowCpt);
             }*/
+        }
+
+        private void setToOriginToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Geometry geom = (Geometry)treeView1.SelectedNode.Tag;
+            ApexEngine.Rendering.Util.MeshUtil.SetToOrigin(geom);
+        }
+
+        private void lockToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GameObject go = (GameObject)treeView1.SelectedNode.Tag;
+            if (go is Node)
+            {
+                if (!lockToolStripMenuItem.Checked)
+                {
+                    foreach (GameObject child in ((Node)go).Children)
+                    {
+                        if (child.HasController(typeof(ApexEngine.Scene.Physics.RigidBodyControl)))
+                        {
+                            apxCtrl.Game.PhysicsWorld.RemoveObject(child);
+                        }
+                    }
+                    if (!go.HasController(typeof(ApexEngine.Scene.Physics.RigidBodyControl)))
+                    {
+                        apxCtrl.Game.PhysicsWorld.AddObject(go, 0.0f, ApexEngine.Scene.Physics.PhysicsWorld.PhysicsShape.Box);
+                    }
+                }
+                else
+                {
+                    if (go.HasController(typeof(ApexEngine.Scene.Physics.RigidBodyControl)))
+                    {
+                        apxCtrl.Game.PhysicsWorld.RemoveObject(go);
+                    }
+                    foreach (GameObject child in ((Node)go).Children)
+                    {
+                        if (!child.HasController(typeof(ApexEngine.Scene.Physics.RigidBodyControl)))
+                        {
+                            apxCtrl.Game.PhysicsWorld.AddObject(child, 0.0f, ApexEngine.Scene.Physics.PhysicsWorld.PhysicsShape.Box);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void SetCamMode(SceneEditorGame.CamModes camMode)
+        {
+            this.camMode = camMode;
+            checkBox1.Checked = (camMode == SceneEditorGame.CamModes.Freelook);
+            checkBox2.Checked = (camMode == SceneEditorGame.CamModes.Grab);
+            checkBox3.Checked = (camMode == SceneEditorGame.CamModes.Rotate);
+            ((SceneEditorGame)apxCtrl.Game).CamMode = camMode;
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void checkBox3_CheckedChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void checkBox1_Click(object sender, EventArgs e)
+        {
+            SetCamMode(SceneEditorGame.CamModes.Freelook);
+        }
+
+        private void checkBox2_Click(object sender, EventArgs e)
+        {
+            SetCamMode(SceneEditorGame.CamModes.Grab);
+        }
+
+        private void checkBox3_Click(object sender, EventArgs e)
+        {
+            SetCamMode(SceneEditorGame.CamModes.Rotate);
         }
     }
 }

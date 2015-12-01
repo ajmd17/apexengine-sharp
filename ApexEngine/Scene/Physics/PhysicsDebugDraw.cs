@@ -23,9 +23,9 @@ namespace ApexEngine.Scene.Physics
         public void DrawLine(JVector start, JVector end)
         {
             GL.MatrixMode(MatrixMode.Modelview);
-            GL.LoadMatrix(cam.ViewMatrix.Invert().GetInvertedValues());
+            GL.LoadMatrix(cam.ViewMatrix.GetInvertedValues());
             GL.MatrixMode(MatrixMode.Projection);
-            GL.LoadMatrix(cam.ProjectionMatrix.Invert().GetInvertedValues());
+            GL.LoadMatrix(cam.ProjectionMatrix.GetInvertedValues());
 
             GL.Begin(PrimitiveType.Lines);
 
@@ -47,8 +47,10 @@ namespace ApexEngine.Scene.Physics
             GL.LoadMatrix(cam.ViewMatrix.GetInvertedValues());
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadMatrix(cam.ProjectionMatrix.GetInvertedValues());
-            
-            GL.Begin(PrimitiveType.Lines);
+            GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line);
+
+            GL.LineWidth(2.4f);
+            GL.Begin(PrimitiveType.Triangles);
 
             GL.Color4(0.0f, 1.0f, 0.0f, 1.0f);
             GL.Vertex3(pos1.X, pos1.Y, pos1.Z);

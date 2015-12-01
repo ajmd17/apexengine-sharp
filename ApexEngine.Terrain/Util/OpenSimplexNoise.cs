@@ -184,7 +184,7 @@ namespace ApexEngine.Util
             }
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    //    [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static int FastFloor(double x)
         {
             var xi = (int)x;

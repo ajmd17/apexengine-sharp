@@ -16,23 +16,18 @@ namespace ApexEditor
     public partial class frmMatEditor : Form
     {
         MtlViewerGame mtlPreview;
+
         public Material Material
         {
             get { return ((Geometry)mtlPreview.RootNode.GetChild(0)).Material; }
-            set { ((Geometry)mtlPreview.RootNode.GetChild(0)).Material = value; UpdateMaterial();  }
+            set { ((Geometry)mtlPreview.RootNode.GetChild(0)).Material = value; }
         }
+
         public frmMatEditor()
         {
             InitializeComponent();
         }
-        private void UpdateMaterial()
-        {
-            listBox1.Items.Clear();
-            for (int i = 0; i < Material.Values.Count; i++)
-            {
-                listBox1.Items.Add(Material.Values.ElementAt(i).Key);
-            }
-        }
+
         public void Init()
         {
 
@@ -50,8 +45,6 @@ namespace ApexEditor
             mtlViewer.Framerate = 50;
             mtlViewer.Dock = DockStyle.Fill;
             pnlMtl.Controls.Add(mtlViewer);
-            UpdateMaterial();
-
         }
 
         private void frmMatEditor_Load(object sender, EventArgs e)
@@ -61,7 +54,7 @@ namespace ApexEditor
             this.shininessLevel.Value = (int)(MathUtil.Clamp(Material.GetFloat(Material.SHININESS)*100, 0.0f, 100.0f));
             this.trackBar1.Value = (int)MathUtil.Clamp(Material.GetFloat(Material.SPECULAR_EXPONENT), 0.0f, 100.0f);
             this.trackBar2.Value = (int)(MathUtil.Clamp(Material.GetFloat(Material.ROUGHNESS) * 100, 0.0f, 100.0f));
-            this.trackBar3.Value = (int)(MathUtil.Clamp(Material.GetFloat(Material.METALNESS) * 100, 0.0f, 100.0f));
+            this.trackBar3.Value = (int)(MathUtil.Clamp(Material.GetFloat(Material.MATERIAL_ALPHADISCARD) * 100, 0.0f, 100.0f));
             if (Material.GetInt(Material.TECHNIQUE_SPECULAR) == 0)
                 specTechnique.SelectedIndex = 1;
             else if (Material.GetInt(Material.TECHNIQUE_SPECULAR) == 1)
@@ -70,6 +63,19 @@ namespace ApexEditor
                 blendModeBox.SelectedIndex = 0;
             else if (Material.GetInt(Material.MATERIAL_BLENDMODE) == 1)
                 blendModeBox.SelectedIndex = 1;
+            rndrBucket.DataSource = Enum.GetValues(typeof(RenderManager.Bucket));
+            rndrBucket.SelectedIndex = (int)Material.Bucket;
+            if (Material.GetBool(Material.MATERIAL_CULLENABLED))
+            {
+                int i = Material.GetInt(Material.MATERIAL_FACETOCULL);
+                if (i == 0)
+                    fcCull.SelectedIndex = 1;
+                else if (i == 1)
+                    fcCull.SelectedIndex = 2;
+            }
+            else
+                fcCull.SelectedIndex = 0;
+            //rndrBucket.Text = Material.Bucket.ToString();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -147,19 +153,46 @@ namespace ApexEditor
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
             Material.SetValue(Material.SPECULAR_EXPONENT, trackBar1.Value * 1.0f);
-            Console.WriteLine("Specular Exponent: " + Material.GetFloat(Material.SPECULAR_EXPONENT));
         }
 
         private void trackBar2_Scroll(object sender, EventArgs e)
         {
             Material.SetValue(Material.ROUGHNESS, trackBar2.Value / 100.0f);
-            Console.WriteLine("Roughness: " + Material.GetFloat(Material.ROUGHNESS));
         }
 
         private void trackBar3_Scroll(object sender, EventArgs e)
         {
-            Material.SetValue(Material.METALNESS, trackBar3.Value / 100.0f);
-            Console.WriteLine("Metalness: " + Material.GetFloat(Material.METALNESS));
+            Material.SetValue(Material.MATERIAL_ALPHADISCARD, trackBar3.Value / 100.0f);
+        }
+
+        private void rndrBucket_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void rndrBucket_MouseClick(object sender, MouseEventArgs e)
+        {
+
+            RenderManager.Bucket bucket;
+            Enum.TryParse<RenderManager.Bucket>(rndrBucket.SelectedValue.ToString(), out bucket);
+            Material.Bucket = bucket;
+        }
+
+        private void comboBox1_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            if (fcCull.SelectedIndex == 0)
+            {
+                Material.SetValue(Material.MATERIAL_CULLENABLED, false);
+            }
+            else if (fcCull.SelectedIndex == 1)
+            {
+                Material.SetValue(Material.MATERIAL_CULLENABLED, true);
+                Material.SetValue(Material.MATERIAL_FACETOCULL, 0);
+            }
+            else if (fcCull.SelectedIndex == 2)
+            {
+                Material.SetValue(Material.MATERIAL_CULLENABLED, true);
+                Material.SetValue(Material.MATERIAL_FACETOCULL, 1);
+            }
         }
     }
 }

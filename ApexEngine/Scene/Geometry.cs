@@ -10,7 +10,6 @@ namespace ApexEngine.Scene
         protected Material material;
         protected Mesh mesh;
         protected Shader shader, depthShader, normalsShader;
-        protected RenderManager.Bucket bucket = RenderManager.Bucket.Opaque;
 
         public Geometry()
             : base()
@@ -44,12 +43,6 @@ namespace ApexEngine.Scene
         {
             get { return normalsShader; }
             set { normalsShader = value; }
-        }
-
-        public RenderManager.Bucket Bucket
-        {
-            get { return bucket; }
-            set { bucket = value; }
         }
 
         public Material Material

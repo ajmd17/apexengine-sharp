@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ApexEngine.Math;
+using System.Collections.Generic;
 
 namespace ApexEngine.Scene
 {
@@ -68,6 +69,13 @@ namespace ApexEngine.Scene
         public Node GetChildNode(string name)
         {
             return (Node)GetChild(name);
+        }
+
+        public override void SetWorldTransformPhysics(Vector3f trans, Quaternion rot, Vector3f scl)
+        {
+            base.SetWorldTransformPhysics(trans, rot, scl);
+            foreach (GameObject gi in children)
+                gi.SetWorldTransformPhysics(trans.Add(gi.GetLocalTranslation()), rot.Multiply(gi.GetLocalRotation()), scl.Multiply(gi.GetLocalScale()));
         }
 
         public override void Update(Rendering.RenderManager renderManager)
