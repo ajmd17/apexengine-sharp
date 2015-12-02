@@ -48,6 +48,12 @@ namespace ApexEditor
                 MetroUI.Style.PropertyChanged += Style_PropertyChanged;
                 MetroUI.Style.DarkStyle = true;
             }
+            ImageList ilist1 = new ImageList();
+            ilist1.Images.Add(Properties.Resources.node_16);
+            ilist1.Images.Add(Properties.Resources.geometry_16);
+            ilist1.Images.Add(Properties.Resources.material);
+            treeView1.ImageList = ilist1;
+
             SceneEditorGame game = new SceneEditorGame();
             //  game.Camera = new ApexEngine.Rendering.Cameras.DefaultCamera(game.InputManager, 75);
             game.Camera.Translation = new ApexEngine.Math.Vector3f(0, 2, 0);
@@ -97,6 +103,7 @@ namespace ApexEditor
                 TreeNode matNode = new TreeNode(geom.Material.GetName());
                 matNode.Tag = geom.Material;
                 newNode.Nodes.Add(matNode);
+                newNode.ImageIndex = 1;
                 if (parent == null)
                     treeView1.Nodes.Add(newNode);
                 else
@@ -107,6 +114,7 @@ namespace ApexEditor
                 TreeNode newNode = new TreeNode(obj.Name + " (Node)");
                 Node n = (Node)obj;
                 newNode.Tag = n;
+                newNode.ImageIndex = 0;
                 if (parent == null)
                     treeView1.Nodes.Add(newNode);
                 else
@@ -145,9 +153,9 @@ namespace ApexEditor
             {
                 ApexEngine.Scene.GameObject loadedModel = ApexEngine.Assets.AssetManager.LoadModel(openFileDialog1.FileName);
                 apxCtrl.Game.RootNode.AddChild(loadedModel);
-                List<Geometry> geoms = ApexEngine.Rendering.Util.MeshUtil.GatherGeometry(loadedModel);
-                foreach (Geometry g in geoms)
-                    apxCtrl.Game.PhysicsWorld.AddObject(g, 0f, ApexEngine.Scene.Physics.PhysicsWorld.PhysicsShape.Box);
+               // List<Geometry> geoms = ApexEngine.Rendering.Util.MeshUtil.GatherGeometry(loadedModel);
+               // foreach (Geometry g in geoms)
+                    apxCtrl.Game.PhysicsWorld.AddObject(loadedModel, 0f, ApexEngine.Scene.Physics.PhysicsWorld.PhysicsShape.Box);
                 activeNodeID = apxCtrl.Game.RootNode.Children.Count - 1;
                 AddTreeViewItem(treeView1.Nodes[0], loadedModel);
             }
@@ -164,15 +172,11 @@ namespace ApexEditor
                     apxCtrl.Game.PhysicsWorld.RemoveObject(g);
 
                 for (int i = apxCtrl.Game.RootNode.Children.Count - 1; i > -1; i--)
-                {
                     apxCtrl.Game.RootNode.RemoveChild(apxCtrl.Game.RootNode.GetChild(i));
-                }
                 treeView1.Nodes.Clear();
                 ApexEngine.Scene.GameObject loadedModel = ApexEngine.Assets.AssetManager.LoadModel(openFileDialog1.FileName);
                 apxCtrl.Game.RootNode.AddChild(loadedModel);
-                List<Geometry> geoms1 = ApexEngine.Rendering.Util.MeshUtil.GatherGeometry(loadedModel);
-                foreach (Geometry g in geoms1)
-                    apxCtrl.Game.PhysicsWorld.AddObject(g, 0f, ApexEngine.Scene.Physics.PhysicsWorld.PhysicsShape.Box);
+                apxCtrl.Game.PhysicsWorld.AddObject(loadedModel, 0f, ApexEngine.Scene.Physics.PhysicsWorld.PhysicsShape.Box);
                 activeNodeID = apxCtrl.Game.RootNode.Children.Count - 1;
                 PopulateTreeView(apxCtrl.Game.RootNode);
             }
@@ -180,9 +184,6 @@ namespace ApexEditor
 
         private void propertyGrid1_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
         {
-            // treeView1.Nodes.Clear();
-           //  PopulateTreeView(apxCtrl.Game.RootNode);
-           
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)

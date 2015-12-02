@@ -76,7 +76,11 @@ namespace ApexEditor
                     holding = true;
                     if (hitObject != null)
                     {
-                        Console.WriteLine(hitObject.Name);
+                        foreach (Geometry g in axisArrows)
+                        {
+                            g.SetLocalTranslation(hitObject.GetLocalTranslation());
+                            g.UpdateTransform();
+                        }
                     }
                 }
             })));

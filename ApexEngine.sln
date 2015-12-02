@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApexEngine", "ApexEngine\ApexEngine.csproj", "{DE1BFC80-78C3-4583-9D74-E29F423152A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SceneEditor", "ApexEngine.SceneBuilder\SceneEditor.csproj", "{81B73DBD-F5A5-4E95-B71E-9C3ADF328CD5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApexEngine.SceneBuilder", "ApexEngine.SceneBuilder\ApexEngine.SceneBuilder.csproj", "{81B73DBD-F5A5-4E95-B71E-9C3ADF328CD5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApexEngine.Terrain", "ApexEngine.Terrain\ApexEngine.Terrain.csproj", "{98DA8BB8-D4EA-48D5-A014-7DB65979B0EA}"
 EndProject

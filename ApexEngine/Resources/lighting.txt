@@ -139,7 +139,7 @@ float SpecularDirectional(vec3 _normal, vec3 _pos, vec3 _cam, vec3 _dir, float _
    // G *= NdotL*NdotV;
 	float G = CookTorranceG(NdotL, NdotV, LdotH, NdotH) / (PI * NdotL * NdotV);
 
-	return G*F*D;
+	return F*D;
 }
 
 float Fresnel(vec3 _normal, vec3 _pos, vec3 _cam, vec3 _dir, float _roughness)

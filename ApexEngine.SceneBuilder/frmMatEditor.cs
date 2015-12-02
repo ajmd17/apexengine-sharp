@@ -31,7 +31,7 @@ namespace ApexEditor
         public void Init()
         {
 
-            Node monkey = (Node)(AssetManager.Load("C:\\Users\\User\\Desktop\\monkey.obj"));
+            Node monkey = (Node)(AssetManager.Load(AssetManager.GetAppPath() + "\\models\\debug_shapes\\monkey.obj"));
             monkey.GetChild(0).SetLocalRotation(new ApexEngine.Math.Quaternion().SetFromAxis(ApexEngine.Math.Vector3f.UNIT_Y, 180));
             mtlPreview = new MtlViewerGame();
             mtlPreview.Camera.Enabled = false;

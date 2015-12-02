@@ -108,7 +108,7 @@ void main()
 		float fresnel;
 		//fresnel = Fresnel(n, v_position.xyz, Apex_CameraPosition, l, Material_Roughness);
 		fresnel = max(1.0 - dot(n, v), 0.0);
-		fresnel = pow(fresnel, 2.0);
+		fresnel = pow(fresnel, 5.0);
 		reflection = vec3(fresnel);
 		#ifdef ENV_MAP
 			vec4 envMap = texture(Material_EnvironmentMap, refVec, Material_Roughness*4.0);
