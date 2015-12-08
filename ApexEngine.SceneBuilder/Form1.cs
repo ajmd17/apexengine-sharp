@@ -25,7 +25,7 @@ namespace ApexEditor
         frmMatEditor matEditor;
         private ApexEngine.Rendering.Shadows.ShadowMappingComponent shadowCpt;
         private SceneEditorGame.CamModes camMode = SceneEditorGame.CamModes.Freelook;
-        private Vector3f rotateAxis = Vector3f.UNIT_X;
+        private Vector3f rotateAxis = new Vector3f(Vector3f.UnitX);
 
 
 
@@ -665,12 +665,12 @@ namespace ApexEditor
                     if (seg.objectHolding != null)
                     {
                         seg.offsetLoc.Set(seg.objectHolding.GetWorldTranslation());
-                        Vector2f proj = apxCtrl.Game.Camera.Project(seg.objectHolding.GetWorldTranslation());
+                      //  Vector2f proj = apxCtrl.Game.Camera.Project(seg.objectHolding.GetWorldTranslation());
                     }
                 }
                 else if (camMode == SceneEditorGame.CamModes.Rotate)
                 {
-                    rotateAxis = Vector3f.UNIT_X;
+                    rotateAxis.Set(Vector3f.UnitX);
                 }
             }
             else if (e.KeyCode == Keys.Y)
@@ -688,12 +688,12 @@ namespace ApexEditor
                     if (seg.objectHolding != null)
                     {
                         seg.offsetLoc.Set(seg.objectHolding.GetWorldTranslation());
-                        Vector2f proj = apxCtrl.Game.Camera.Project(seg.objectHolding.GetWorldTranslation());
+                      //  Vector2f proj = apxCtrl.Game.Camera.Project(seg.objectHolding.GetWorldTranslation());
                     }
                 }
                 else if (camMode == SceneEditorGame.CamModes.Rotate)
                 {
-                    rotateAxis = Vector3f.UNIT_Y;
+                    rotateAxis.Set(Vector3f.UnitY);
                 }
             }
             else if (e.KeyCode == Keys.Z)
@@ -710,12 +710,12 @@ namespace ApexEditor
                     }
                     if (seg.objectHolding != null)
                     {
-                        Vector2f proj = apxCtrl.Game.Camera.Project(seg.objectHolding.GetWorldTranslation());
+                      //  Vector2f proj = apxCtrl.Game.Camera.Project(seg.objectHolding.GetWorldTranslation());
                     }
                 }
                 else if (camMode == SceneEditorGame.CamModes.Rotate)
                 {
-                    rotateAxis = Vector3f.UNIT_Z;
+                    rotateAxis.Set(Vector3f.UnitZ);
                 }
             }
 

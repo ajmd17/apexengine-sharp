@@ -113,6 +113,7 @@
     <Compile Include="Rendering\Shaders\Unshaded.cs" />
     <Compile Include="Rendering\Shaders\WaterShader.cs" />
     <Compile Include="Rendering\Texture2D.cs" />
+    <Compile Include="Rendering\Triangle.cs" />
     <Compile Include="Rendering\Util\MeshUtil.cs" />
     <Compile Include="Rendering\PostProcess\Filters\DefaultPostFilter.cs" />
     <Compile Include="Rendering\PostProcess\PostFilter.cs" />

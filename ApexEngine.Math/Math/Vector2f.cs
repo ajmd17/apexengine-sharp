@@ -2,9 +2,14 @@
 {
     public class Vector2f
     {
-        public static Vector2f UNIT_X = new Vector2f(1.0f, 0.0f);
-        public static Vector2f UNIT_Y = new Vector2f(0.0f, 1.0f);
-        public static Vector2f UNIT_XY = new Vector2f(1.0f, 1.0f);
+        public static readonly Vector2f UnitX = new Vector2f(1.0f, 0.0f);
+
+        public static readonly Vector2f UnitY = new Vector2f(0.0f, 1.0f);
+
+        public static readonly Vector2f One = new Vector2f(1.0f, 1.0f);
+
+        public static readonly Vector2f Zero = new Vector2f(0.0f, 0.0f);
+        
         public float x, y;
 
         public Vector2f()
@@ -17,14 +22,14 @@
             Set(other);
         }
 
-        public Vector2f(float _x, float _y)
+        public Vector2f(float x, float y)
         {
-            Set(_x, _y);
+            Set(x, y);
         }
 
-        public Vector2f(float _xy)
+        public Vector2f(float xy)
         {
-            Set(_xy);
+            Set(xy);
         }
 
         public Vector2f Set(Vector2f other)
@@ -34,17 +39,17 @@
             return this;
         }
 
-        public Vector2f Set(float _x, float _y)
+        public Vector2f Set(float x, float y)
         {
-            this.x = _x;
-            this.y = _y;
+            this.x = x;
+            this.y = y;
             return this;
         }
 
-        public Vector2f Set(float _xy)
+        public Vector2f Set(float xy)
         {
-            this.x = _xy;
-            this.y = _xy;
+            this.x = xy;
+            this.y = xy;
             return this;
         }
 

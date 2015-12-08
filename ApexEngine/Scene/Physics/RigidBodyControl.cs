@@ -107,7 +107,7 @@ namespace ApexEngine.Scene.Physics
                 ttransform.SetRotation(g_obj.GetUpdatedWorldRotation());
                 ttransform.SetScale(g_obj.GetUpdatedWorldScale());
                 Matrix4f matrix = ttransform.GetMatrix();
-                BoundingBox tmpBB = m.CreateBoundingBox(matrix);
+                BoundingBox tmpBB = m.CreateBoundingBox();
                 matrices.Add(matrix);
                 boundingBox.Extend(tmpBB);
             }
@@ -194,8 +194,8 @@ namespace ApexEngine.Scene.Physics
         public void Reinit()
         {
             body.Shape = CreateShape();
-            origin.Set(GameObject.GetUpdatedWorldTranslation());
-            body.Position = new JVector(origin.x, origin.y, origin.z);
+       //     origin.Set(GameObject.GetUpdatedWorldTranslation());
+      //      body.Position = new JVector(origin.x, origin.y, origin.z);
         }
 
         public override void Init()

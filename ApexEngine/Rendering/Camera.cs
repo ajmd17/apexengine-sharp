@@ -63,23 +63,35 @@ namespace ApexEngine.Rendering
             vec.MultiplyStore(projMatrix.Invert());
             vec.MultiplyStore(viewMatrix.Invert());
 
+            vec.SubtractStore(Translation);
+
             return vec;
         }
 
-        public Vector2f Project(Vector3f location)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>
+        /// Returns a new ray which can be used to intersect objects in the scene.
+        /// </returns>
+        public Ray GetCameraRay()
         {
-            Vector2f vec = new Vector2f();
-            Vector3f vec3 = new Vector3f(location);
-            System.Console.WriteLine(vec3);
+            return new Ray(direction.Multiply(1000), translation);
+        }
 
-            vec3.MultiplyStore(viewMatrix);
-            vec3.MultiplyStore(projMatrix);
-            
+        /// <summary>
+        /// </summary>
+        /// <returns>
+        /// Returns a new ray which can be used to intersect objects in the scene.
+        /// </returns>
+        public Ray GetCameraRay(int mx, int my)
+        {
+            Vector3f origin = Translation;
+            Vector3f unprojected = Unproject(mx, my);
+            unprojected.MultiplyStore(1000f);
 
-            vec.x = (vec3.x * width)/-2f;
-            vec.y = (vec3.y * height)/2f;
-
-            return vec;
+            Ray ray = new Ray(unprojected, origin);
+            return ray;
         }
 
         public bool Enabled

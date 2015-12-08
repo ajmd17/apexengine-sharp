@@ -97,8 +97,8 @@ namespace ApexEngine.Rendering.Cameras
                 magX *= -0.1f;
                 magY *= -0.1f;
                 dirCrossY.Set(direction);
-                dirCrossY.CrossStore(Vector3f.UNIT_Y);
-                Rotate(Vector3f.UNIT_Y, magX);
+                dirCrossY.CrossStore(Vector3f.UnitY);
+                Rotate(Vector3f.UnitY, magX);
                 Rotate(dirCrossY, magY);
                 inputManager.SetMousePosition(halfWidth, halfHeight);
             }
@@ -113,8 +113,8 @@ namespace ApexEngine.Rendering.Cameras
                 magX *= -0.1f;
                 magY *= -0.1f;
                 dirCrossY.Set(direction);
-                dirCrossY.CrossStore(Vector3f.UNIT_Y);
-                Rotate(Vector3f.UNIT_Y, magX);
+                dirCrossY.CrossStore(Vector3f.UnitY);
+                Rotate(Vector3f.UnitY, magX);
                 Rotate(dirCrossY, magY);
                 inputManager.SetMousePosition(halfWidth, halfHeight);
             }

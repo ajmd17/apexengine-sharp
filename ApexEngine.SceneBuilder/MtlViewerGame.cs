@@ -33,7 +33,7 @@ namespace ApexEditor
             if (rotate)
             {
                 rotTime += 1f;
-                rot.SetFromAxis(Vector3f.UNIT_Y, rotTime);
+                rot.SetFromAxis(Vector3f.UnitY, rotTime);
                 rootNode.GetChild(0).SetLocalRotation(rot);
             }
         }

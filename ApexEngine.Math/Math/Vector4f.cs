@@ -2,14 +2,24 @@
 {
     public class Vector4f
     {
-        public static Vector4f UNIT_XW = new Vector4f(1.0f, 0.0f, 0.0f, 1.0f);
-        public static Vector4f UNIT_YW = new Vector4f(0.0f, 1.0f, 0.0f, 1.0f);
-        public static Vector4f UNIT_ZW = new Vector4f(0.0f, 0.0f, 1.0f, 1.0f);
-        public static Vector4f UNIT_X = new Vector4f(1.0f, 0.0f, 0.0f, 0.0f);
-        public static Vector4f UNIT_Y = new Vector4f(0.0f, 1.0f, 0.0f, 0.0f);
-        public static Vector4f UNIT_Z = new Vector4f(0.0f, 0.0f, 1.0f, 0.0f);
-        public static Vector4f UNIT_W = new Vector4f(0.0f, 0.0f, 0.0f, 1.0f);
-        public static Vector4f UNIT_XYZW = new Vector4f(1.0f, 1.0f, 1.0f, 1.0f);
+        public static readonly Vector4f UnitXW = new Vector4f(1.0f, 0.0f, 0.0f, 1.0f);
+
+        public static readonly Vector4f UnitYW = new Vector4f(0.0f, 1.0f, 0.0f, 1.0f);
+
+        public static readonly Vector4f UnitZW = new Vector4f(0.0f, 0.0f, 1.0f, 1.0f);
+
+        public static readonly Vector4f UnitX = new Vector4f(1.0f, 0.0f, 0.0f, 0.0f);
+
+        public static readonly Vector4f UnitY = new Vector4f(0.0f, 1.0f, 0.0f, 0.0f);
+
+        public static readonly Vector4f UnitZ = new Vector4f(0.0f, 0.0f, 1.0f, 0.0f);
+
+        public static readonly Vector4f UnitW = new Vector4f(0.0f, 0.0f, 0.0f, 1.0f);
+
+        public static readonly Vector4f One = new Vector4f(1.0f);
+
+        public static readonly Vector4f Zero = new Vector4f(0.0f);
+
         public float x, y, z, w;
 
         public Vector4f()
@@ -22,14 +32,19 @@
             Set(other);
         }
 
-        public Vector4f(float _x, float _y, float _z, float _w)
+        public Vector4f(float x, float y, float z, float w)
         {
-            Set(_x, _y, _z, _w);
+            Set(x, y, z, w);
         }
 
-        public Vector4f(float _xyzw)
+        public Vector4f(float xyzw)
         {
-            Set(_xyzw);
+            Set(xyzw);
+        }
+
+        public Vector4f(Vector3f other)
+        {
+            Set(other);
         }
 
         public Vector4f Set(Vector4f other)
@@ -41,21 +56,30 @@
             return this;
         }
 
-        public Vector4f Set(float _x, float _y, float _z, float _w)
+        public Vector4f Set(float x, float y, float z, float w)
         {
-            this.x = _x;
-            this.y = _y;
-            this.z = _z;
-            this.w = _w;
+            this.x = x;
+            this.y = y;
+            this.z = z;
+            this.w = w;
             return this;
         }
 
-        public Vector4f Set(float _xyzw)
+        public Vector4f Set(float xyzw)
         {
-            this.x = _xyzw;
-            this.y = _xyzw;
-            this.z = _xyzw;
-            this.w = _xyzw;
+            this.x = xyzw;
+            this.y = xyzw;
+            this.z = xyzw;
+            this.w = xyzw;
+            return this;
+        }
+
+        public Vector4f Set(Vector3f other)
+        {
+            this.x = other.x;
+            this.y = other.y;
+            this.z = other.z;
+            this.w = 1.0f;
             return this;
         }
 
@@ -229,6 +253,11 @@
         public float Distance(Vector4f other)
         {
             return (float)System.Math.Sqrt(DistanceSqr(other));
+        }
+
+        public Vector3f ToVector3f()
+        {
+            return new Vector3f(this);
         }
 
         public override int GetHashCode()

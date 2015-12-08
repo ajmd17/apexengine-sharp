@@ -111,7 +111,7 @@ namespace ApexEngine.Rendering.Shadows
                 centerPos.AddStore(frustumCornersWS[i]);
             }
             centerPos.DivideStore(8f);
-            newView.SetToLookAt(tmpVec.Set(centerPos).SubtractStore(lightDirection), centerPos, Vector3f.UNIT_Y);
+            newView.SetToLookAt(tmpVec.Set(centerPos).SubtractStore(lightDirection), centerPos, Vector3f.UnitY);
             Transform(ref frustumCornersWS, ref frustumCornersLS, ref newView);
             maxes.Set(float.MinValue, float.MinValue, float.MinValue);
             mins.Set(float.MaxValue, float.MaxValue, float.MaxValue);

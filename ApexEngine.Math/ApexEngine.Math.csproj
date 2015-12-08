@@ -42,11 +42,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Math\BoundingBox.cs" />
+    <Compile Include="Math\Color3f.cs" />
+    <Compile Include="Math\Color4f.cs" />
     <Compile Include="Math\MathUtil.cs" />
     <Compile Include="Math\Matrix.cs" />
     <Compile Include="Math\Matrix3f.cs" />
     <Compile Include="Math\Matrix4f.cs" />
     <Compile Include="Math\Quaternion.cs" />
+    <Compile Include="Math\Ray.cs" />
     <Compile Include="Math\Transform.cs" />
     <Compile Include="Math\Vector2f.cs" />
     <Compile Include="Math\Vector3f.cs" />

@@ -2,11 +2,18 @@
 {
     public class Vector3f
     {
-        public static Vector3f ZERO = new Vector3f(0.0f, 0.0f, 0.0f);
-        public static Vector3f UNIT_X = new Vector3f(1.0f, 0.0f, 0.0f);
-        public static Vector3f UNIT_Y = new Vector3f(0.0f, 1.0f, 0.0f);
-        public static Vector3f UNIT_Z = new Vector3f(0.0f, 0.0f, 1.0f);
-        public static Vector3f UNIT_XYZ = new Vector3f(1.0f, 1.0f, 1.0f);
+        public static readonly Vector3f Zero = new Vector3f(0.0f, 0.0f, 0.0f);
+
+        public static readonly Vector3f UnitX = new Vector3f(1.0f, 0.0f, 0.0f);
+
+        public static readonly Vector3f UnitY = new Vector3f(0.0f, 1.0f, 0.0f);
+
+        public static readonly Vector3f UnitZ = new Vector3f(0.0f, 0.0f, 1.0f);
+
+        public static readonly Vector3f One = new Vector3f(1.0f, 1.0f, 1.0f);
+
+        public static readonly Vector3f NaN = new Vector3f(float.NaN);
+
         public float x, y, z;
 
         private static Matrix4f tmpRot = new Matrix4f();
@@ -39,14 +46,19 @@
             Set(other);
         }
 
-        public Vector3f(float _x, float _y, float _z)
+        public Vector3f(float x, float y, float z)
         {
-            Set(_x, _y, _z);
+            Set(x, y, z);
         }
 
-        public Vector3f(float _xyz)
+        public Vector3f(float xyz)
         {
-            Set(_xyz);
+            Set(xyz);
+        }
+
+        public Vector3f(Vector4f other)
+        {
+            Set(other);
         }
 
         public Vector3f Set(Vector3f other)
@@ -57,19 +69,27 @@
             return this;
         }
 
-        public Vector3f Set(float _x, float _y, float _z)
+        public Vector3f Set(float x, float y, float z)
         {
-            this.x = _x;
-            this.y = _y;
-            this.z = _z;
+            this.x = x;
+            this.y = y;
+            this.z = z;
             return this;
         }
 
-        public Vector3f Set(float _xyz)
+        public Vector3f Set(float xyz)
         {
-            this.x = _xyz;
-            this.y = _xyz;
-            this.z = _xyz;
+            this.x = xyz;
+            this.y = xyz;
+            this.z = xyz;
+            return this;
+        }
+
+        public Vector3f Set(Vector4f other)
+        {
+            this.x = other.x;
+            this.y = other.y;
+            this.z = other.z;
             return this;
         }
 
@@ -289,6 +309,11 @@
         public float Distance(Vector3f other)
         {
             return (float)System.Math.Sqrt(DistanceSqr(other));
+        }
+
+        public Vector4f ToVector4f()
+        {
+            return new Vector4f(this);
         }
 
         public override int GetHashCode()

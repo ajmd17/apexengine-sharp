@@ -62,8 +62,8 @@ namespace ApexEngine.Plugins.PagingSystem
                     yLoc = GetHeight(parentNode.GetWorldTranslation().x + translation.x + xLoc, parentNode.GetWorldTranslation().z + translation.z + zLoc);
                     //	Vec3f norm = getNormal(parentNode, translation.x + x * 4, translation.z + z * 4);
 
-                    GameObject entity = CreateEntity(new Vector3f(xLoc, yLoc, zLoc), Vector3f.ZERO);
-                    entity.SetLocalRotation(new Quaternion().SetFromAxis(Vector3f.UNIT_Y, (float)RandomDouble(0, 359)));
+                    GameObject entity = CreateEntity(new Vector3f(xLoc, yLoc, zLoc), Vector3f.Zero);
+                    entity.SetLocalRotation(new Quaternion().SetFromAxis(Vector3f.UnitY, (float)RandomDouble(0, 359)));
                     //  n.AddChild(CreateEntity(new Vector3f(x * mult, y, z * mult), Vector3f.ZERO));
                       n.AddChild(entity);
                 }

@@ -74,6 +74,7 @@ namespace ApexEngine.Demos
                          loadedApx.GetChildNode(0).GetChildGeom(0).UpdateShaderProperties();
                          Console.WriteLine(loadedApx.GetChildNode(0).GetChildGeom(0).ShaderProperties);*/
 
+
                  Node terrainModel = (Node)AssetManager.LoadModel(AssetManager.GetAppPath() + "\\models\\landscape\\landscape.obj");
                  Geometry terrainGeom = terrainModel.GetChildGeom(0);
                  terrainGeom.SetShader(typeof(Terrain.TerrainShader));
@@ -98,8 +99,7 @@ namespace ApexEngine.Demos
 
                  PhysicsWorld.AddObject(terrainModel, 0f);
                  
-
-               
+            
 
 
             /* ApexEngine.Terrain.SimplexTerrain.SimplexTerrainComponent terrain = new ApexEngine.Terrain.SimplexTerrain.SimplexTerrainComponent(PhysicsWorld);

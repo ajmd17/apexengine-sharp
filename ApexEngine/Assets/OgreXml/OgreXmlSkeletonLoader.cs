@@ -10,26 +10,29 @@ namespace ApexEngine.Assets.OgreXml
     public class OgreXmlSkeletonLoader : AssetLoader
     {
         private static OgreXmlSkeletonLoader instance = new OgreXmlSkeletonLoader();
+
         public static OgreXmlSkeletonLoader GetInstance()
         {
             return instance;
         }
+
         string keyframeBoneName = "";
         float keyframeBoneTime = 0f, keyframeBoneAngle = 0f;
-        Vector3f keyframeBoneTrans = new Vector3f(Vector3f.ZERO), keyframeBoneAxis = new Vector3f(Vector3f.ZERO);
+        Vector3f keyframeBoneTrans = new Vector3f(Vector3f.Zero), keyframeBoneAxis = new Vector3f(Vector3f.Zero);
         public Skeleton skeleton = new Skeleton();
         private string lastElement = "";
         private float bindAngle = 0f;
-        private Vector3f bindAxis = new Vector3f(Vector3f.ZERO);
+        private Vector3f bindAxis = new Vector3f(Vector3f.Zero);
         int boneIdx = 0;
+
         public override void ResetLoader()
         {
             skeleton = new Skeleton();
-            bindAxis = new Vector3f(Vector3f.ZERO);
+            bindAxis = new Vector3f(Vector3f.Zero);
             bindAngle = 0f;
             lastElement = "";
-            keyframeBoneTrans = new Vector3f(Vector3f.ZERO);
-            keyframeBoneAxis = new Vector3f(Vector3f.ZERO);
+            keyframeBoneTrans = new Vector3f(Vector3f.Zero);
+            keyframeBoneAxis = new Vector3f(Vector3f.Zero);
             keyframeBoneTime = 0f;
             keyframeBoneAngle = 0f;
             keyframeBoneName = "";
@@ -139,9 +142,9 @@ namespace ApexEngine.Assets.OgreXml
                                 .AddKeyframe(keyf = new Keyframe(keyframeBoneTime, keyframeBoneTrans, keyframeBoneAxis, keyframeBoneAngle));
                         }
                         keyframeBoneAngle = 0f;
-                        keyframeBoneAxis = new Vector3f(Vector3f.ZERO);
+                        keyframeBoneAxis = new Vector3f(Vector3f.Zero);
                         keyframeBoneTime = 0f;
-                        keyframeBoneTrans = new Vector3f(Vector3f.ZERO);
+                        keyframeBoneTrans = new Vector3f(Vector3f.Zero);
                     }
                     else if (xmlReader.Name == "track")
                     {

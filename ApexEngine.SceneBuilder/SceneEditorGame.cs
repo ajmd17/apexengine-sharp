@@ -101,10 +101,67 @@ namespace ApexEditor
             {
                 if (!holding)
                 {
-                    Vector3f origin = Camera.Translation;
-                    Vector3f unprojected = Camera.Unproject(InputManager.GetMouseX(), InputManager.GetMouseY());
-                    unprojected.SubtractStore(cam.Translation);
-                    Vector3f direction = unprojected.Multiply(1000f);
+                    Ray ray = cam.GetCameraRay(InputManager.GetMouseX(), InputManager.GetMouseY());
+
+                    Dictionary<Vector3f, GameObject> intersections = new Dictionary<Vector3f, GameObject>();
+                    Vector3f closestIntersection = new Vector3f(float.MaxValue);
+                    float minDistance = float.MaxValue;
+                    List<GameObject> objectList = ApexEngine.Rendering.Util.MeshUtil.GatherObjects(rootNode);
+                    foreach (GameObject g in objectList)
+                    {
+                        if (objectHolding == null || g != objectHolding)
+                        {
+                            if (g.HasController(typeof(ApexEngine.Scene.Physics.RigidBodyControl)))
+                            {
+                                Vector3f intersection = g.GetWorldBoundingBox().Intersect(ray);
+                                if (intersection != null && !intersections.ContainsKey(intersection))
+                                {
+                                    intersections.Add(intersection, g);
+                                }
+                            }
+                        }
+                    }
+
+                    if (intersections.Count == 0)
+                        objectHolding = null;
+
+                    foreach (Vector3f i in intersections.Keys)
+                    {
+                        float dist = i.Distance(Camera.Translation);
+                        if (dist < minDistance)
+                        {
+                            minDistance = dist;
+                            closestIntersection.Set(i);
+                        }
+                    }
+
+                    GameObject hitObject = null;
+                    
+                    if (intersections.TryGetValue(closestIntersection, out hitObject))
+                    {
+                        if (hitObject != null)
+                        {
+                            if (hitObject.HasController(typeof(ApexEngine.Scene.Physics.RigidBodyControl)))
+                            {
+                                // needs rigid body control or else the node is "locked"
+                                // also we need this to test for intersection in the physics world
+                                objectHolding = hitObject;
+                                foreach (Geometry g in axisArrows)
+                                {
+                                    g.SetLocalTranslation((!centered ? objectHolding.GetLocalTranslation() : objectHolding.GetLocalTranslation().Add(objectHolding.GetLocalBoundingBox().Center.Subtract(new Vector3f(0f, objectHolding.GetLocalBoundingBox().Center.Y, 0f)))));
+                                    g.UpdateTransform();
+                                }
+                            }
+                            else
+                            {
+                                objectHolding = null;
+                            }
+                        }
+                    }
+                    holdTime = 0f;
+                    holding = true;
+                    /*
+                    
                     GameObject hitObject;
                     PhysicsWorld.Raycast(origin, direction, out hitObject);
                     objectHolding = hitObject;
@@ -117,7 +174,7 @@ namespace ApexEditor
                             g.SetLocalTranslation((!centered ? objectHolding.GetLocalTranslation() : objectHolding.GetLocalTranslation().Add(objectHolding.GetLocalBoundingBox().Center.Subtract(new Vector3f(0f, objectHolding.GetLocalBoundingBox().Center.Y, 0f)))));
                             g.UpdateTransform();
                         }
-                    }
+                    }*/
                 }
             })));
             InputManager.AddMouseEvent(new ApexEngine.Input.MouseEvent(OpenTK.Input.MouseButton.Left, true, new Action(() => 

@@ -93,6 +93,89 @@ namespace ApexEngine.Math
             return Set(new Vector3f(0), new Vector3f(0));
         }
 
+        /// <summary>
+        /// Get the intersection point between the bounding box and a ray.
+        /// </summary>
+        /// <param name="box"></param>
+        /// <returns></returns>
+        public Vector3f Intersect(Ray ray)
+        {
+            const float epsilon = 1e-6f;
+            float tMin = float.NaN, tMax = float.NaN;
+
+            if (System.Math.Abs(ray.Direction.X) < epsilon)
+            {
+                if (ray.Position.X < Min.X || ray.Position.X > Max.X)
+                    return Vector3f.NaN;
+            }
+            else
+            {
+                tMin = (Min.X - ray.Position.X) / ray.Direction.X;
+                tMax = (Max.X - ray.Position.X) / ray.Direction.X;
+
+                if (tMin > tMax)
+                {
+                    float temp = tMin;
+                    tMin = tMax;
+                    tMax = temp;
+                }
+            }
+
+            if (System.Math.Abs(ray.Direction.Y) < epsilon)
+            {
+                if (ray.Position.Y < Min.Y || ray.Position.Y > Max.Y)
+                    return Vector3f.NaN;
+            }
+            else
+            {
+                float tMinY = (Min.Y - ray.Position.Y) / ray.Direction.Y;
+                float tMaxY = (Max.Y - ray.Position.Y) / ray.Direction.Y;
+
+                if (tMinY > tMaxY)
+                {
+                    float temp = tMinY;
+                    tMinY = tMaxY;
+                    tMaxY = temp;
+                }
+
+                if ((tMin != float.NaN && tMin > tMaxY) || (tMax != float.NaN && tMinY > tMax))
+                    return Vector3f.NaN;
+
+                if (tMin == float.NaN || tMinY > tMin) tMin = tMinY;
+                if (tMax == float.NaN || tMaxY < tMax) tMax = tMaxY;
+            }
+
+            if (System.Math.Abs(ray.Direction.Z) < epsilon)
+            {
+                if (ray.Position.Z < Min.Z || ray.Position.Z > Max.Z)
+                    return Vector3f.NaN;
+            }
+            else
+            {
+                float tMinZ = (Min.Z - ray.Position.Z) / ray.Direction.Z;
+                float tMaxZ = (Max.Z - ray.Position.Z) / ray.Direction.Z;
+
+                if (tMinZ > tMaxZ)
+                {
+                    float temp = tMinZ;
+                    tMinZ = tMaxZ;
+                    tMaxZ = temp;
+                }
+
+                if ((tMin != float.NaN && tMin > tMaxZ) || (tMax != float.NaN && tMinZ > tMax))
+                    return Vector3f.NaN;
+
+                if (tMin == float.NaN || tMinZ > tMin) tMin = tMinZ;
+                if (tMax == float.NaN || tMaxZ < tMax) tMax = tMaxZ;
+            }
+
+            if ((tMin == float.NaN && tMin < 0) && tMax > 0) return Vector3f.NaN;
+
+            if (tMin < 0) return Vector3f.NaN;
+
+            return ray.Position.Add(ray.Direction.Multiply(tMin));
+        }
+
         public override int GetHashCode()
         {
             int hash = 17;

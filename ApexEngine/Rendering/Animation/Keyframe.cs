@@ -5,7 +5,8 @@ namespace ApexEngine.Rendering.Animation
     public class Keyframe
     {
         private float time;
-        private Vector3f translation = new Vector3f(Vector3f.ZERO);
+
+        private Vector3f translation = new Vector3f(Vector3f.Zero);
         private Quaternion rotation = new Quaternion();
         private Quaternion tmpRot = new Quaternion();
         private Vector3f tmpVec = new Vector3f();
