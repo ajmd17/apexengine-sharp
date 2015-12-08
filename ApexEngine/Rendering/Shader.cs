@@ -157,7 +157,6 @@ namespace ApexEngine.Rendering
             SetUniform(APEX_PROJECTIONMATRIX, projectionMatrix);
             SetUniform(APEX_CAMERAPOSITION, cam.Translation);
             SetUniform(APEX_CAMERADIRECTION, cam.Direction);
-            SetUniform(APEX_ELAPSEDTIME, RenderManager.ElapsedTime);
         }
 
         private static void SetDefaultValues()
@@ -220,7 +219,7 @@ namespace ApexEngine.Rendering
             GL.GetShader(shader, ShaderParameter.CompileStatus, out status);
             if (status != 1)
             {
-                Console.WriteLine("Shader compiler error!\nType: " + type.ToString() + "\nName: " + this.GetType().ToString() + "\n\n" +
+                Console.WriteLine("Shader compiler error!\nType: " + type.ToString() + "\nName: " + this.GetType().ToString() + "\n\n"/* + "Source code:\n" + code + "\n\n"*/ + 
                            info + "\n" + "Status Code: " + status.ToString());
             }
         }

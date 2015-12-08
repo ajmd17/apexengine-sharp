@@ -38,37 +38,37 @@ namespace ApexEngine.Rendering
 
         public void Use()
         {
-            RenderManager.renderer.BindFramebuffer(FramebufferTarget.Framebuffer, framebufferID);
+            RenderManager.Renderer.BindFramebuffer(FramebufferTarget.Framebuffer, framebufferID);
         }
 
         public static void Clear()
         {
-            RenderManager.renderer.BindFramebuffer(FramebufferTarget.Framebuffer, 0);
+            RenderManager.Renderer.BindFramebuffer(FramebufferTarget.Framebuffer, 0);
         }
 
         public void Init()
         {
-            if (framebufferID == 0) RenderManager.renderer.GenFramebuffers(1, out framebufferID);
-            if (colorTextureID == 0) RenderManager.renderer.GenTextures(1, out colorTextureID);
-            if (depthTextureID == 0) RenderManager.renderer.GenTextures(1, out depthTextureID);
+            if (framebufferID == 0) RenderManager.Renderer.GenFramebuffers(1, out framebufferID);
+            if (colorTextureID == 0) RenderManager.Renderer.GenTextures(1, out colorTextureID);
+            if (depthTextureID == 0) RenderManager.Renderer.GenTextures(1, out depthTextureID);
 
             Use();
-            RenderManager.renderer.BindTexture(TextureTarget.Texture2D, colorTextureID);
-            RenderManager.renderer.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba16, width, height, 0, OpenTK.Graphics.OpenGL.PixelFormat.Rgba, PixelType.Int, IntPtr.Zero);
-            RenderManager.renderer.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Nearest);
-            RenderManager.renderer.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Nearest);
-            RenderManager.renderer.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.ClampToEdge);
-            RenderManager.renderer.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.ClampToEdge);
-            RenderManager.renderer.FramebufferTexture2D(FramebufferTarget.Framebuffer, FramebufferAttachment.ColorAttachment0, TextureTarget.Texture2D, colorTextureID, 0);
+            RenderManager.Renderer.BindTexture(TextureTarget.Texture2D, colorTextureID);
+            RenderManager.Renderer.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba16, width, height, 0, OpenTK.Graphics.OpenGL.PixelFormat.Rgba, PixelType.Int, IntPtr.Zero);
+            RenderManager.Renderer.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Nearest);
+            RenderManager.Renderer.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Nearest);
+            RenderManager.Renderer.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.ClampToEdge);
+            RenderManager.Renderer.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.ClampToEdge);
+            RenderManager.Renderer.FramebufferTexture2D(FramebufferTarget.Framebuffer, FramebufferAttachment.ColorAttachment0, TextureTarget.Texture2D, colorTextureID, 0);
 
-            RenderManager.renderer.BindRenderbuffer(RenderbufferTarget.Renderbuffer, depthTextureID);
-            RenderManager.renderer.BindTexture(TextureTarget.Texture2D, depthTextureID);
-            RenderManager.renderer.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.DepthComponent32, width, height, 0, OpenTK.Graphics.OpenGL.PixelFormat.DepthComponent, PixelType.Int, IntPtr.Zero);
-            RenderManager.renderer.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Nearest);
-            RenderManager.renderer.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Nearest);
-            RenderManager.renderer.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.ClampToEdge);
-            RenderManager.renderer.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.ClampToEdge);
-            RenderManager.renderer.FramebufferTexture2D(FramebufferTarget.Framebuffer, FramebufferAttachment.DepthAttachment, TextureTarget.Texture2D, depthTextureID, 0);
+            RenderManager.Renderer.BindRenderbuffer(RenderbufferTarget.Renderbuffer, depthTextureID);
+            RenderManager.Renderer.BindTexture(TextureTarget.Texture2D, depthTextureID);
+            RenderManager.Renderer.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.DepthComponent32f, width, height, 0, OpenTK.Graphics.OpenGL.PixelFormat.DepthComponent, PixelType.Int, IntPtr.Zero);
+            RenderManager.Renderer.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Nearest);
+            RenderManager.Renderer.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Nearest);
+            RenderManager.Renderer.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.ClampToEdge);
+            RenderManager.Renderer.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.ClampToEdge);
+            RenderManager.Renderer.FramebufferTexture2D(FramebufferTarget.Framebuffer, FramebufferAttachment.DepthAttachment, TextureTarget.Texture2D, depthTextureID, 0);
             Clear();
 
             if (colorTexture == null) colorTexture = new Texture2D(colorTextureID);

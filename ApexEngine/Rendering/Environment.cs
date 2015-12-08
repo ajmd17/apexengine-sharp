@@ -15,9 +15,17 @@ namespace ApexEngine.Rendering
         private float[] shadowMapSplits = new float[4];
         private bool shadowsEnabled = false;
 
-        private float fogStart = 40f;
-        private float fogEnd = 170f;
+        private float fogStart = 30f;
+        private float fogEnd = 70;
         private Vector4f fogColor = new Vector4f(0.3f, 0.3f, 0.3f, 1.0f);
+
+        private float elapsedTime = 0f;
+
+        public float ElapsedTime
+        {
+            get { return elapsedTime; }
+            set { elapsedTime = value; }
+        }
 
         public float FogStart
         {

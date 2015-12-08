@@ -15,6 +15,7 @@ namespace ApexEngine.Rendering.Cameras
         private InputManager inputManager = null;
         protected CameraMode camMode = CameraMode.DragMode;
         protected bool mouseCaptured = false, mouseDragging = false;
+        private Vector3f dirCrossY = new Vector3f();
         private float oldX = 0, oldY = 0, magX = 0, magY = 0;
 
         public DefaultCamera(InputManager inputManager)
@@ -95,7 +96,8 @@ namespace ApexEngine.Rendering.Cameras
                 oldY = magY;
                 magX *= -0.1f;
                 magY *= -0.1f;
-                Vector3f dirCrossY = direction.Cross(Vector3f.UNIT_Y);
+                dirCrossY.Set(direction);
+                dirCrossY.CrossStore(Vector3f.UNIT_Y);
                 Rotate(Vector3f.UNIT_Y, magX);
                 Rotate(dirCrossY, magY);
                 inputManager.SetMousePosition(halfWidth, halfHeight);
@@ -110,7 +112,8 @@ namespace ApexEngine.Rendering.Cameras
                 oldY = magY;
                 magX *= -0.1f;
                 magY *= -0.1f;
-                Vector3f dirCrossY = direction.Cross(Vector3f.UNIT_Y);
+                dirCrossY.Set(direction);
+                dirCrossY.CrossStore(Vector3f.UNIT_Y);
                 Rotate(Vector3f.UNIT_Y, magX);
                 Rotate(dirCrossY, magY);
                 inputManager.SetMousePosition(halfWidth, halfHeight);

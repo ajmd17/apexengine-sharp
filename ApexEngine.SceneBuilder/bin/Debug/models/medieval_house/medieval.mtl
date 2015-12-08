@@ -1,0 +1,297 @@
+# Blender MTL File: 'Blacksmith1Upload.blend'
+# Material Count: 27
+
+newmtl Bark
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.099602 0.099602 0.099602
+Ks 0.015789 0.015789 0.015789
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Users\User\Downloads\medieval\textures\Bark.jpg
+
+newmtl Brick
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.005263 0.005263 0.005263
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Users\User\Downloads\medieval\textures\GreyBricks.jpg
+
+newmtl BrownLeather
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.038018 0.007890 0.002705
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Users\User\Downloads\medieval\textures\BrownLeather.jpg
+
+newmtl ChoppedWood
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 1
+map_Kd C:\Users\User\Downloads\medieval\textures\ChoppedWood.jpg
+
+newmtl Coal
+Ns 354.901961
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.010513 0.020951
+Ks 0.173611 0.173611 0.173611
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Users\User\Downloads\medieval\textures\Lava.jpg
+
+newmtl DoorType1_2
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 1
+map_Kd C:\Users\User\Downloads\medieval\textures\DoorType1_1.jpg
+
+newmtl GreyBrick
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 1
+map_Kd C:\Users\User\Downloads\medieval\textures\GreyBricks.jpg
+
+newmtl GreyBrick2
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 1
+map_Kd C:\Users\User\Downloads\medieval\textures\GreyBricks2.jpg
+
+newmtl GreyStone2
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 1
+map_Kd C:\Users\User\Downloads\medieval\textures\GreyStone2.jpg
+
+newmtl HotIron
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.131579 0.131579 0.131579
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Users\User\Downloads\medieval\textures\WroughtIronHot.jpg
+
+newmtl Iron
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.164268 0.164268 0.164268
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Users\User\Downloads\medieval\textures\Iron.jpg
+
+newmtl LogEdge
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 1
+map_Kd C:\Users\User\Downloads\medieval\textures\TreeLogEdge.jpg
+
+newmtl LogEdgeWeathered
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 1
+map_Kd C:\Users\User\Downloads\medieval\textures\TreeLogEdgeWeathered.jpg
+
+newmtl LogEdgeWeathered_Wood.jpg
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 1
+map_Kd C:\Users\User\Downloads\medieval\textures\Wood.jpg
+
+newmtl LogEdgeWeathered_Wood.jpg.002
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 1
+map_Kd C:\Users\User\Downloads\medieval\textures\Wood.jpg
+
+newmtl None
+Ns 0
+Ka 0.000000 0.000000 0.000000
+Kd 0.8 0.8 0.8
+Ks 0.8 0.8 0.8
+d 1
+illum 2
+map_Kd C:\Users\User\Downloads\medieval\textures\Wood.jpg
+
+newmtl OakBark
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.099602 0.099602 0.099602
+Ks 0.015789 0.015789 0.015789
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Users\User\Downloads\medieval\textures\OakBark.jpg
+
+newmtl Plaster
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 1
+map_Kd C:\Users\User\Downloads\medieval\textures\PlasterLarge.jpg
+
+newmtl RoofTiles
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 1
+map_Kd C:\Users\User\Downloads\medieval\textures\RoofTiles.jpg
+
+newmtl RustedMetal
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.047368 0.047368 0.047368
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Users\User\Downloads\medieval\textures\Rusted Metal.jpg
+
+newmtl RustedMetal_Rusted_Metal.jpg.001
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.047368 0.047368 0.047368
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Users\User\Downloads\medieval\textures\Rusted Metal.jpg
+
+newmtl Sandstone
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.078947 0.078947 0.078947
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Users\User\Downloads\medieval\textures\Sandstone.jpg
+
+newmtl Stone
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 1
+map_Kd C:\Users\User\Downloads\medieval\textures\Stone.jpg
+
+newmtl WindowBlue1
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.025000 0.025000 0.025000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Users\User\Downloads\medieval\textures\WindowBlue1.jpg
+
+newmtl WindowBlue2
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.025000 0.025000 0.025000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Users\User\Downloads\medieval\textures\WindowsBlue2.jpg
+
+newmtl Wood
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 1
+map_Kd C:\Users\User\Downloads\medieval\textures\Wood.jpg
+
+newmtl WroughtIron
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.152073 0.152073 0.152073
+Ks 0.047368 0.047368 0.047368
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Users\User\Downloads\medieval\textures\WroughtIron.jpg

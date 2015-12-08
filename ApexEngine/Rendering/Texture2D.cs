@@ -36,32 +36,32 @@ namespace ApexEngine.Rendering
 
         public static void Clear()
         {
-            RenderManager.renderer.BindTexture(TextureTarget.Texture2D, 0);
+            RenderManager.Renderer.BindTexture(TextureTarget.Texture2D, 0);
         }
 
         public override void Use()
         {
-            RenderManager.renderer.BindTexture(TextureTarget.Texture2D, id);
+            RenderManager.Renderer.BindTexture(TextureTarget.Texture2D, id);
         }
 
         public void SetWrap(int s, int t)
         {
             Use();
-            RenderManager.renderer.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, Convert.ToInt32(TextureWrapMode.Repeat));
-            RenderManager.renderer.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, Convert.ToInt32(TextureWrapMode.Repeat));
+            RenderManager.Renderer.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, Convert.ToInt32(TextureWrapMode.Repeat));
+            RenderManager.Renderer.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, Convert.ToInt32(TextureWrapMode.Repeat));
         }
 
         public override void SetFilter(int min, int mag)
         {
             Use();
-            RenderManager.renderer.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, min);
-            RenderManager.renderer.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, mag);
+            RenderManager.Renderer.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, min);
+            RenderManager.Renderer.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, mag);
         }
 
         public override void GenerateMipmap()
         {
             Use();
-            RenderManager.renderer.GenerateMipmap(GenerateMipmapTarget.Texture2D);
+            RenderManager.Renderer.GenerateMipmap(GenerateMipmapTarget.Texture2D);
         }
 
         public override string ToString()

@@ -33,7 +33,7 @@ namespace ApexEngine.Rendering
                 Bitmap bmp = new Bitmap(filepaths[i]);
                 BitmapData bmp_data = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
 
-                RenderManager.renderer.TexImage2D(TextureTarget.TextureCubeMapPositiveX + i, 0, PixelInternalFormat.Rgba8, bmp_data.Width, bmp_data.Height, 0,
+                RenderManager.Renderer.TexImage2D(TextureTarget.TextureCubeMapPositiveX + i, 0, PixelInternalFormat.Rgba8, bmp_data.Width, bmp_data.Height, 0,
                     OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, bmp_data.Scan0);
 
                 bmp.UnlockBits(bmp_data);

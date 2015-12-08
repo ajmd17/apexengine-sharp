@@ -20,7 +20,7 @@ namespace ApexEngine.Rendering.PostProcess.Filters
         private RenderManager rm;
         private Vector2f resolution = new Vector2f();
 
-        public SSAOFilter(NormalMapRenderer normalMapRenderer) : base((string)textLoader.Load(AppDomain.CurrentDomain.BaseDirectory + "\\shaders\\post\\ssao.frag"))
+        public SSAOFilter(NormalMapRenderer normalMapRenderer) : base(new ShaderProperties().SetProperty("NO_GI", true), (string)textLoader.Load(AppDomain.CurrentDomain.BaseDirectory + "\\shaders\\post\\ssao.frag"))
         {
             this.normalMapRenderer = normalMapRenderer;
             noiseTex = Texture.LoadTexture(AppDomain.CurrentDomain.BaseDirectory + "\\textures\\noise_ssao.png");

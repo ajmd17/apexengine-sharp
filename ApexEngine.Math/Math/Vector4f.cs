@@ -231,6 +231,31 @@
             return (float)System.Math.Sqrt(DistanceSqr(other));
         }
 
+        public override int GetHashCode()
+        {
+            int hash = 17;
+
+            hash = hash * 23 + x.GetHashCode();
+            hash = hash * 23 + y.GetHashCode();
+            hash = hash * 23 + z.GetHashCode();
+            hash = hash * 23 + w.GetHashCode();
+
+            return hash;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Vector4f))
+                return false;
+
+            Vector4f vobj = (Vector4f)obj;
+
+            if (vobj.x == x && vobj.y == y && vobj.z == z && vobj.w == w)
+                return true;
+
+            return false;
+        }
+
         public override string ToString()
         {
             return "[" + x + ", " + y + ", " + z + ", " + w + "]";

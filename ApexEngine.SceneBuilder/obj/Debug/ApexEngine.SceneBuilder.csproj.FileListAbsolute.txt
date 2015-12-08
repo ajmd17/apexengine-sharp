@@ -4,7 +4,6 @@ C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBui
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBuilder\bin\Debug\ApexEngine.exe
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBuilder\bin\Debug\ApexEngine.Math.dll
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBuilder\bin\Debug\ApexEngine.Terrain.dll
-C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBuilder\bin\Debug\OpenTK.dll
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBuilder\bin\Debug\OpenTK.GLControl.dll
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBuilder\bin\Debug\Jitter.dll
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBuilder\bin\Debug\ApexEngine.Math.pdb
@@ -27,3 +26,6 @@ C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBui
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBuilder\obj\Debug\ApexEngine.SceneBuilder.csproj.GenerateResource.Cache
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBuilder\obj\Debug\SceneEditor.exe
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBuilder\obj\Debug\SceneEditor.pdb
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBuilder\obj\Debug\ApexEditor.frmSimplify.resources
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBuilder\bin\Debug\System.Net.Http.dll
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBuilder\obj\Debug\ApexEditor.frmCtrls.resources

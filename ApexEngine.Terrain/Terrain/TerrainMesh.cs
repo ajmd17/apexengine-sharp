@@ -115,9 +115,13 @@ namespace ApexEngine.Terrain
                 {
 
                     // POSITION
-                    vertexArray[idx++] = new Vertex(new Vector3f(scale.x * (x-(widthPitch/2)), heights[hIdx++] * scale.y, scale.z * (z - (heightPitch / 2))), 
-                                                    new Vector2f((float)-x / (float)widthPitch, (float)-z / (float)heightPitch),
-                                                    new Vector3f());
+                     vertexArray[idx++] = new Vertex(new Vector3f(scale.x * (x-(widthPitch/2)), heights[hIdx++] * scale.y, scale.z * (z - (heightPitch / 2))), 
+                                                     new Vector2f((float)-x / (float)widthPitch, (float)-z / (float)heightPitch),
+                                                     new Vector3f());
+
+                   /* vertexArray[idx++] = new Vertex(new Vector3f(scale.x * x, heights[hIdx++] * scale.y, scale.z * z),
+                                                       new Vector2f((float)-x / (float)widthPitch, (float)-z / (float)heightPitch),
+                                                       new Vector3f());*/
                 }
             }
         }

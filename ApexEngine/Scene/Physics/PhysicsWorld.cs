@@ -108,33 +108,14 @@ namespace ApexEngine.Scene.Physics
             if (rbc != null && world.RigidBodies.Contains(rbc.Body))
             {
                 world.RemoveBody(rbc.Body);
-                gameObject.RemoveController(rbc);
             }
+            gameObject.RemoveController(rbc);
+            rbc = null;
         }
 
         public void Update()
         {
-            world.Step(0.01f, true);
-           // dynamicWorld.StepSimulation(0.01f);
-           /* int numManifolds = dynamicWorld.Dispatcher.NumManifolds;
-            for (int i = 0; i < numManifolds; i++)
-            {
-                PersistentManifold contactManifold = dynamicWorld.Dispatcher.GetManifoldByIndexInternal(i);
-                CollisionObject obA = contactManifold.Body0 as CollisionObject;
-                CollisionObject obB = contactManifold.Body1 as CollisionObject;
-
-                int numContacts = contactManifold.NumContacts;
-                for (int j = 0; j < numContacts; j++)
-                {
-                    ManifoldPoint pt = contactManifold.GetContactPoint(j);
-                    if (pt.Distance < 0.0f)
-                    {
-                        Vector3 ptA = pt.PositionWorldOnA;
-                        Vector3 ptB = pt.PositionWorldOnB;
-                        Vector3 normalOnB = pt.NormalWorldOnB;
-                    }
-                }
-            }*/
+            world.Step(0.01f, false);
         }
 
         public void DrawDebug()

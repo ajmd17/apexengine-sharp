@@ -1,5 +1,7 @@
 #version 330
 
+#ifdef DEFAULT
+
 #include <lighting>
 #include <apex3d>
 #include <material>
@@ -57,9 +59,6 @@ void main()
 			n = normalize((v_tangent * normalsTexture.x) + (v_bitangent * normalsTexture.y) + (n * normalsTexture.z));
 		}
 		float ndotl = clamp(LambertDirectional(n, l), 0.0, 1.0);
-		#ifdef OREN_NAYAR
-			ndotl = clamp(OrenNayarDirectional(n, l, normalize(Apex_CameraPosition), Material_Roughness), 0.0, 1.0);
-		#endif
 		float specularity;
 		
 		if (Env_ShadowsEnabled == 1)
@@ -108,12 +107,8 @@ void main()
 		float fresnel;
 		//fresnel = Fresnel(n, v_position.xyz, Apex_CameraPosition, l, Material_Roughness);
 		fresnel = max(1.0 - dot(n, v), 0.0);
-		fresnel = pow(fresnel, 5.0);
+		fresnel = pow(fresnel, 2.0);
 		reflection = vec3(fresnel);
-		#ifdef ENV_MAP
-			vec4 envMap = texture(Material_EnvironmentMap, refVec, Material_Roughness*4.0);
-			reflection *= Material_Metalness*envMap.rgb;
-		#endif
 		specular += reflection;
 		specular *= Env_DirectionalLight.color.xyz;
 		
@@ -148,6 +143,8 @@ void main()
 		vec4 lightSum = vec4(ambient + diffuse + specular, diffuseTexture.a);
 		lightSum = CalculateFog(lightSum, Env_FogColor, v_position.xyz, Apex_CameraPosition, Env_FogStart, Env_FogEnd);
 		gl_FragColor = lightSum;
+		
+		
 	}
 	else
 	{
@@ -157,3 +154,30 @@ void main()
 	}
 	gl_FragColor.rgb = pow(gl_FragColor.rgb, vec3(1.0/2.2));
 }
+
+#endif
+
+#ifdef NORMALS
+
+#include <material>
+
+varying vec4 v_normal;
+varying vec2 v_texCoord0;
+
+void main()
+{
+	vec2 texCoord = vec2(v_texCoord0.x, -v_texCoord0.y);
+	if (Material_HasDiffuseMap == 1)
+	{
+		vec4 diffuseTexture;
+		diffuseTexture = pow(texture2D(Material_DiffuseMap, texCoord), vec4(2.2, 2.2, 2.2, 1.0));
+		if (diffuseTexture.a < Material_AlphaDiscard)
+		{
+			discard;
+		}
+	}
+
+	gl_FragColor = vec4(v_normal.xyz*vec3(0.5)+vec3(0.5), 1.0);
+}
+
+#endif

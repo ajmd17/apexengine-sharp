@@ -7,6 +7,7 @@ using ApexEngine.Math;
 using ApexEngine.Scene;
 using ApexEngine.Scene.Physics;
 using ApexEngine.Rendering;
+using ApexEngine.Scene.Components;
 
 namespace ApexEngine.Terrain.SimplexTerrain
 {
@@ -27,7 +28,9 @@ namespace ApexEngine.Terrain.SimplexTerrain
         public override void RemovePhysics()
         {
             if (physicsWorld != null)
+            {
                 physicsWorld.RemoveObject(this);
+            }
         }
 
         public override void Create()
@@ -36,7 +39,7 @@ namespace ApexEngine.Terrain.SimplexTerrain
             hm = new SimplexTerrainMesh((SimplexTerrainComponent)parentT, x, z, scale, chunkSize);
             Geometry geom = new Geometry();
             geom.Mesh = hm;
-            geom.SetShader(ShaderManager.GetShader(typeof(TerrainShader)));
+            geom.SetShader(typeof(TerrainShader));
             AddChild(geom);
         }
     }

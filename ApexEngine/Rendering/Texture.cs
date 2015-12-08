@@ -14,7 +14,13 @@ namespace ApexEngine.Rendering
 
         public static Texture LoadTexture(string path)
         {
-            Bitmap bmp = new Bitmap(path);
+            Bitmap bmp = null;
+            if (path.EndsWith(".tga"))
+            {
+                bmp = ApexEngine.Assets.Util.TargaImage.LoadTargaImage(path);
+            }
+            else
+                bmp = new Bitmap(path);
             BitmapData bmp_data = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
             
             Texture2D tex = new Texture2D(GenTextureID());
@@ -22,7 +28,7 @@ namespace ApexEngine.Rendering
             tex.Use();
             tex.SetWrap(Convert.ToInt32(TextureWrapMode.Repeat), Convert.ToInt32(TextureWrapMode.Repeat));
             tex.SetFilter((int)TextureMinFilter.LinearMipmapLinear, (int)TextureMagFilter.Linear);
-            RenderManager.renderer.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba8, bmp_data.Width, bmp_data.Height, 0,
+            RenderManager.Renderer.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba8, bmp_data.Width, bmp_data.Height, 0,
                 OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, bmp_data.Scan0);
             tex.GenerateMipmap();
             tex.Width = bmp.Width;
@@ -56,7 +62,7 @@ namespace ApexEngine.Rendering
 
         public static void ActiveTextureSlot(int slot)
         {
-            RenderManager.renderer.ActiveTexture(TextureUnit.Texture0 + slot);
+            RenderManager.Renderer.ActiveTexture(TextureUnit.Texture0 + slot);
         }
 
         public abstract void Use();

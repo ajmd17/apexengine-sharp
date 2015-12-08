@@ -173,6 +173,7 @@ namespace ApexEngine.Assets.OgreXml
                 }
 
             }
+            xmlReader.Close();
             List<Vertex> vertices = new List<Vertex>();
             if (!useSubmeshes)
             {
@@ -234,6 +235,7 @@ namespace ApexEngine.Assets.OgreXml
             {
                 res.AddController(animControl);
             }
+            ResetLoader();
             return res;
         }
     }

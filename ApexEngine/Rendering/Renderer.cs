@@ -19,6 +19,23 @@ namespace ApexEngine.Rendering
         public abstract void FramebufferTexture2D(FramebufferTarget framebuffer, FramebufferAttachment attachment, TextureTarget target, int texID, int level);
 
         #endif
+        /// <summary>
+        /// Generate required buffers for the mesh
+        /// </summary>
+        /// <param name="mesh"></param>
+        public abstract void CreateMesh(Mesh mesh);
+
+        /// <summary>
+        /// Upload mesh data to the GPU
+        /// </summary>
+        /// <param name="mesh"></param>
+        public abstract void UploadMesh(Mesh mesh);
+
+        /// <summary>
+        /// Render the mesh
+        /// </summary>
+        /// <param name="mesh"></param>
+        public abstract void RenderMesh(Mesh mesh);
 
         public abstract void GenTextures(int n, out int textures);
 

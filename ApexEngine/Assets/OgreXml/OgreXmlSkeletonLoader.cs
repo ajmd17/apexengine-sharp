@@ -24,10 +24,10 @@ namespace ApexEngine.Assets.OgreXml
         int boneIdx = 0;
         public override void ResetLoader()
         {
+            skeleton = new Skeleton();
             bindAxis = new Vector3f(Vector3f.ZERO);
             bindAngle = 0f;
             lastElement = "";
-            skeleton = new Skeleton();
             keyframeBoneTrans = new Vector3f(Vector3f.ZERO);
             keyframeBoneAxis = new Vector3f(Vector3f.ZERO);
             keyframeBoneTime = 0f;
@@ -149,6 +149,8 @@ namespace ApexEngine.Assets.OgreXml
                     }
                 }
             }
+            xmlReader.Close();
+
             return skeleton;
         }
     }

@@ -66,6 +66,22 @@ namespace ApexEngine.Rendering
             return vec;
         }
 
+        public Vector2f Project(Vector3f location)
+        {
+            Vector2f vec = new Vector2f();
+            Vector3f vec3 = new Vector3f(location);
+            System.Console.WriteLine(vec3);
+
+            vec3.MultiplyStore(viewMatrix);
+            vec3.MultiplyStore(projMatrix);
+            
+
+            vec.x = (vec3.x * width)/-2f;
+            vec.y = (vec3.y * height)/2f;
+
+            return vec;
+        }
+
         public bool Enabled
         {
             get { return enabled; }

@@ -1,5 +1,6 @@
 ﻿using ApexEngine.Math;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ApexEngine.Rendering.Util
@@ -166,6 +167,10 @@ namespace ApexEngine.Rendering.Util
             bool inIfStatement = false;
             String ifStatementText = "";
             bool removing = false;
+            List<string> ifdefs = new List<string>();
+            List<string> ifndefs = new List<string>();
+            string currentIfDef = "";
+
             for (int i = 0; i < lines.Length; i++)
             {
                 string line = lines[i];
@@ -173,6 +178,113 @@ namespace ApexEngine.Rendering.Util
                 {
                     inIfStatement = true;
                     ifStatementText = lines[i].Trim().Substring(7);
+                    ifdefs.Add("!" + ifStatementText);
+                    currentIfDef = "!" + ifStatementText;
+
+                    bool remove = !(properties.GetBool(ifStatementText));
+
+                    int num_ifdefs = 0;
+                    int num_endifs = 0;
+
+                    for (int j = i; j < lines.Length; j++)
+                    {
+
+                        if (lines[j].Trim().StartsWith("#ifdef") || lines[j].Trim().StartsWith("#ifndef"))
+                        {
+                            num_ifdefs++;
+                        }
+                        else if (lines[j].Trim().StartsWith("#endif"))
+                        {
+                            num_endifs++;
+
+                            if (num_endifs >= num_ifdefs)
+                            {
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            if (remove)
+                            {
+                                lines[j] = "";
+                            }
+                        }
+                    }
+
+                    lines[i] = "";
+                }
+                else if (lines[i].Trim().StartsWith("#ifndef"))
+                {
+                    inIfStatement = true;
+                    ifStatementText = lines[i].Trim().Substring(8);
+                    ifdefs.Add("!" + ifStatementText);
+                    currentIfDef = "!" + ifStatementText;
+
+                    bool remove = (properties.GetBool(ifStatementText));
+
+                    int num_ifdefs = 0;
+                    int num_endifs = 0;
+
+                    for (int j = i; j < lines.Length; j++)
+                    {
+
+                        if (lines[j].Trim().StartsWith("#ifdef") || lines[j].Trim().StartsWith("#ifndef"))
+                        {
+                            num_ifdefs++;
+                        }
+                        else if (lines[j].Trim().StartsWith("#endif"))
+                        {
+                            num_endifs++;
+
+                            if (num_endifs >= num_ifdefs)
+                            {
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            if (remove)
+                            {
+                                lines[j] = "";
+                            }
+                        }
+                    }
+                    lines[i] = "";
+                }
+                else if (lines[i].Trim().StartsWith("#endif"))
+                {
+                    lines[i] = "";
+                }
+                if (lines[i] != "")
+                    res += lines[i] + "\n";
+            }
+            foreach (var val in properties.values)
+            {
+                res = res.Replace("$" + val.Key, GetValueString(val.Key, val.Value));
+            }
+         //   Console.WriteLine(res);
+            return res;
+        }
+
+        public static string FormatShaderProperties_old(string origCode, ShaderProperties properties)
+        {
+            string res = "";
+            string[] lines = origCode.Split('\n');
+            bool inIfStatement = false;
+            String ifStatementText = "";
+            bool removing = false;
+            List<string> ifdefs = new List<string>();
+            List<string> ifndefs = new List<string>();
+            string currentIfDef = "";
+            for (int i = 0; i < lines.Length; i++)
+            {
+                string line = lines[i];
+                if (line.Trim().StartsWith("#ifdef"))
+                {
+                    inIfStatement = true;
+                    ifStatementText = lines[i].Trim().Substring(7);
+                    ifdefs.Add(ifStatementText);
+                    currentIfDef = ifStatementText;
                     if (properties.GetBool(ifStatementText) == true)
                         removing = false;
                     else
@@ -183,10 +295,12 @@ namespace ApexEngine.Rendering.Util
                 {
                     inIfStatement = true;
                     ifStatementText = lines[i].Trim().Substring(8);
-                    if (properties.GetBool(ifStatementText) == false)
-                        removing = false;
-                    else
-                        removing = true;
+                     if (properties.GetBool(ifStatementText) == false)
+                          removing = false;
+                      else
+                          removing = true;
+                    ifdefs.Add("!" + ifStatementText);
+                    currentIfDef = "!" + ifStatementText;
                     lines[i] = "";
                 }
                 else if (lines[i].Trim().StartsWith("#endif"))

@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApexEngine.Plugins", "ApexE
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApexEngine.Math", "ApexEngine.Math\ApexEngine.Math.csproj", "{A3E4F805-3271-4F83-BDE0-180543845BA7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jitter", "..\..\..\jitterphysics\trunk\Jitter\Jitter.csproj", "{AA03EF1A-94F7-4D30-AB14-2092863FF923}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -70,6 +72,14 @@ Global
 		{A3E4F805-3271-4F83-BDE0-180543845BA7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A3E4F805-3271-4F83-BDE0-180543845BA7}.Release|x86.ActiveCfg = Release|Any CPU
 		{A3E4F805-3271-4F83-BDE0-180543845BA7}.Release|x86.Build.0 = Release|Any CPU
+		{AA03EF1A-94F7-4D30-AB14-2092863FF923}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA03EF1A-94F7-4D30-AB14-2092863FF923}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA03EF1A-94F7-4D30-AB14-2092863FF923}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AA03EF1A-94F7-4D30-AB14-2092863FF923}.Debug|x86.Build.0 = Debug|Any CPU
+		{AA03EF1A-94F7-4D30-AB14-2092863FF923}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA03EF1A-94F7-4D30-AB14-2092863FF923}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA03EF1A-94F7-4D30-AB14-2092863FF923}.Release|x86.ActiveCfg = Release|Any CPU
+		{AA03EF1A-94F7-4D30-AB14-2092863FF923}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

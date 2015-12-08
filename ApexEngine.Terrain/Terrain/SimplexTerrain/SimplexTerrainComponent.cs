@@ -51,7 +51,7 @@ namespace ApexEngine.Terrain.SimplexTerrain
             terrainMaterial.SetValue(TerrainMaterial.TEXTURE_NORMAL_SLOPE, dirt_nrm);
             terrainMaterial.SetValue(Material.MATERIAL_CASTSHADOWS, false);
             terrainMaterial.SetValue(Material.SHININESS, 0.1f);
-            terrainMaterial.SetValue(Material.ROUGHNESS, 0.4f);
+            terrainMaterial.SetValue(Material.ROUGHNESS, 0.1f);
         }
 
         public double getNoise(int x, int y)
@@ -79,15 +79,7 @@ namespace ApexEngine.Terrain.SimplexTerrain
         public override void Init()
         {
         }
-
-        public override void OnAddChunk(TerrainChunkNode chunk)
-        {
-        }
-
-        public override void OnRemoveChunk(TerrainChunkNode chunk)
-        {
-        }
-
+            
         public override TerrainChunkNode CreateNewChunk(PhysicsWorld physicsWorld, TerrainComponent parentT, int x, int z, Vector3f scale, int chunkSize, TerrainChunkNode[] neighbors)
         {
             return new SimplexTerrainChunkNode(physicsWorld, (SimplexTerrainComponent)parentT, x, z, scale, chunkSize, (SimplexTerrainChunkNode[])neighbors);

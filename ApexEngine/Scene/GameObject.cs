@@ -39,13 +39,25 @@ namespace ApexEngine.Scene
             parent = null;
         }
 
+        public abstract BoundingBox GetWorldBoundingBox();
+
+        public abstract BoundingBox GetLocalBoundingBox();
+
+        public abstract void UpdateWorldBoundingBox();
+
+        public abstract void UpdateLocalBoundingBox();
+
         public void AddController(Components.Controller ctrl)
         {
-            if (!controls.Contains(ctrl))
+            if (!HasController(ctrl.GetType()))
             {
                 controls.Add(ctrl);
                 ctrl.GameObject = this;
                 ctrl.Init();
+            }
+            else
+            {
+                throw new Exception("Cannot add two controllers of the same type!");
             }
         }
 
@@ -245,13 +257,15 @@ namespace ApexEngine.Scene
             updateNeeded = true;
         }
 
-        public virtual void Update(Rendering.RenderManager renderManager)
+        public virtual void Update (Rendering.RenderManager renderManager)
         {
             this.renderManager = renderManager;
             if (updateNeeded)
             {
                 UpdateTransform();
                 UpdateParents();
+                UpdateWorldBoundingBox();
+                UpdateLocalBoundingBox();
                 updateNeeded = false;
             }
             for (int i = 0; i < controls.Count; i++)
@@ -268,14 +282,14 @@ namespace ApexEngine.Scene
             if (!HasController(typeof(Physics.RigidBodyControl)))
             {
                 worldTransform.SetTranslation(worldTrans);
-                worldTransform.SetRotation(worldRot);
-                worldTransform.SetScale(worldScale);
             }
             else
             {
                 Vector3f diff = GetPhysicsOrigin().Subtract(worldTrans);
                 SetPhysicsTranslation(GetPhysicsTranslation().Subtract(diff));
             }
+            worldTransform.SetRotation(worldRot);
+            worldTransform.SetScale(worldScale);
 
             worldMatrix = worldTransform.GetMatrix();
         }
@@ -309,15 +323,20 @@ namespace ApexEngine.Scene
         public virtual void SetWorldTransformPhysics(Vector3f trans, Quaternion rot, Vector3f scl)
         {
             worldTransform.SetTranslation(trans);
-            worldTransform.SetRotation(rot);
-            worldTransform.SetScale(scl);
+          //  worldTransform.SetRotation(localRotation);
+          //  worldTransform.SetScale(scl);
             worldMatrix = worldTransform.GetMatrix();
+
+            UpdateWorldBoundingBox();
+            UpdateLocalBoundingBox();
         }
 
         public bool AttachedToRoot
         {
             get { return attachedToRoot; }
         }
+
+        public abstract GameObject Clone();
 
         protected bool CalcAttachedToRoot()
         {

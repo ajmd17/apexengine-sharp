@@ -8,17 +8,19 @@ namespace ApexEngine.Math
         private Vector3f max = new Vector3f(float.MinValue), min = new Vector3f(float.MaxValue), center = new Vector3f();
         public Vector3f dimension = new Vector3f();
         private Transform transform = new Transform();
-        private bool updateNeeded = false;
         private Vector3f worldExtent = new Vector3f(float.NaN);
         private Vector3f[] corners = new Vector3f[8];
 
         public BoundingBox()
         {
-            //Clear();
+            for (int i = 0; i < corners.Length; i++)
+                corners[i] = new Vector3f();
         }
 
         public BoundingBox(Vector3f dimMin, Vector3f dimMax)
         {
+            for (int i = 0; i < corners.Length; i++)
+                corners[i] = new Vector3f();
             CreateBoundingBox(dimMin, dimMax);
         }
 
@@ -50,14 +52,14 @@ namespace ApexEngine.Math
 
         private void UpdateCorners()
         {
-            corners[0] = new Vector3f(max.x, max.y, max.z);
-            corners[1] = new Vector3f(min.x, max.y, max.z);
-            corners[2] = new Vector3f(min.x, max.y, min.z);
-            corners[3] = new Vector3f(max.x, max.y, min.z);
-            corners[4] = new Vector3f(max.x, min.y, max.z);
-            corners[5] = new Vector3f(min.x, min.y, max.z);
-            corners[6] = new Vector3f(min.x, min.y, min.z);
-            corners[7] = new Vector3f(max.x, min.y, min.z);
+            corners[0].Set(max.x, max.y, max.z);
+            corners[1].Set(min.x, max.y, max.z);
+            corners[2].Set(min.x, max.y, min.z);
+            corners[3].Set(max.x, max.y, min.z);
+            corners[4].Set(max.x, min.y, max.z);
+            corners[5].Set(min.x, min.y, max.z);
+            corners[6].Set(min.x, min.y, min.z);
+            corners[7].Set(max.x, min.y, min.z);
         }
 
         public BoundingBox CreateBoundingBox(Vector3f minimum, Vector3f maximum)
@@ -67,7 +69,7 @@ namespace ApexEngine.Math
 
         public BoundingBox Extend(BoundingBox b)
         {
-            return Extend(b.Min).Extend(b.Max);
+             return Extend(b.Min).Extend(b.Max);
         }
 
         public BoundingBox Extend(Vector3f point)
@@ -77,22 +79,47 @@ namespace ApexEngine.Math
 
         public BoundingBox Set(Vector3f minimum, Vector3f maximum)
         {
-            // min.Set(minimum.x < maximum.x ? minimum.x : maximum.x, minimum.y < maximum.y ? minimum.y : maximum.y,
-            //     minimum.z < maximum.z ? minimum.z : maximum.z);
-            //max.Set(minimum.x > maximum.x ? minimum.x : maximum.x, minimum.y > maximum.y ? minimum.y : maximum.y,
-            //     minimum.z > maximum.z ? minimum.z : maximum.z);
             min.Set(minimum);
             max.Set(maximum);
             center.Set(min).AddStore(max).MultiplyStore(0.5f);
             dimension.Set(max).SubtractStore(min).MultiplyStore(0.5f);
             UpdateCorners();
-            updateNeeded = true;
+
             return this;
         }
 
         public BoundingBox Clear()
         {
             return Set(new Vector3f(0), new Vector3f(0));
+        }
+
+        public override int GetHashCode()
+        {
+            int hash = 17;
+
+            hash = hash * 23 + Max.GetHashCode();
+            hash = hash * 23 + Min.GetHashCode();
+
+            return hash;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is BoundingBox))
+                return false;
+
+            BoundingBox bb_obj = (BoundingBox)obj;
+
+            if (bb_obj.Max.Equals(Max) && bb_obj.Min.Equals(Min))
+                return true;
+
+            return false;
+        }
+
+        public override string ToString()
+        {
+            string str = "Max: " + Max.ToString() + "\nMin: " + Min.ToString();
+            return str;
         }
     }
 }

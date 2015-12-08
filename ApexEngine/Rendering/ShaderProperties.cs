@@ -7,6 +7,19 @@ namespace ApexEngine.Rendering
     {
         public Dictionary<string, object> values = new Dictionary<string, object>();
 
+        public ShaderProperties()
+        {
+
+        }
+
+        public ShaderProperties(ShaderProperties other)
+        {
+            foreach (string str in other.values.Keys)
+            {
+                values.Add(str, other.values[str]);
+            }
+        }
+
         public override bool Equals(object obj)
         {
             if (obj == null)

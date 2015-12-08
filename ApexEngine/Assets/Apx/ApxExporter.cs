@@ -150,7 +150,7 @@ namespace ApexEngine.Assets.Apx
             writer.WriteAttributeString("x", geom.GetLocalRotation().x.ToString());
             writer.WriteAttributeString("y", geom.GetLocalRotation().y.ToString());
             writer.WriteAttributeString("z", geom.GetLocalRotation().z.ToString());
-            writer.WriteAttributeString("w", geom.GetLocalRotation().z.ToString());
+            writer.WriteAttributeString("w", geom.GetLocalRotation().w.ToString());
             writer.WriteEndElement();
             writer.WriteEndElement();
             if (geom.Mesh != null)

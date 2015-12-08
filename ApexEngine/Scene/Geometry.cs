@@ -1,4 +1,5 @@
-﻿using ApexEngine.Rendering;
+﻿using ApexEngine.Math;
+using ApexEngine.Rendering;
 using System;
 using System.Linq;
 
@@ -7,14 +8,13 @@ namespace ApexEngine.Scene
     public class Geometry : GameObject
     {
         protected ShaderProperties g_shaderProperties = new ShaderProperties();
-        protected Material material;
         protected Mesh mesh;
         protected Shader shader, depthShader, normalsShader;
+        protected BoundingBox worldBoundingBox, localBoundingBox;
 
         public Geometry()
             : base()
         {
-            material = new Material();
         }
 
         public Geometry(Mesh mesh) : this()
@@ -25,6 +25,40 @@ namespace ApexEngine.Scene
         public Geometry(Mesh mesh, Shader shader) : this(mesh)
         {
             this.shader = shader;
+        }
+
+        public override BoundingBox GetWorldBoundingBox()
+        {
+            if (worldBoundingBox == null)
+            {
+                worldBoundingBox = new BoundingBox();
+                UpdateWorldBoundingBox();
+            }
+            return worldBoundingBox;
+        }
+
+        public override BoundingBox GetLocalBoundingBox()
+        {
+            if (localBoundingBox == null)
+            {
+                localBoundingBox = new BoundingBox();
+                UpdateLocalBoundingBox();
+            }
+            return localBoundingBox;
+        }
+
+        public override void UpdateWorldBoundingBox()
+        {
+            if (worldBoundingBox != null)
+                if (mesh != null)
+                    worldBoundingBox = mesh.CreateBoundingBox(GetWorldMatrix());
+        }
+        
+        public override void UpdateLocalBoundingBox()
+        {
+            if (localBoundingBox != null)
+                if (mesh != null)
+                    localBoundingBox = mesh.CreateBoundingBox();
         }
 
         public ShaderProperties ShaderProperties
@@ -47,32 +81,41 @@ namespace ApexEngine.Scene
 
         public Material Material
         {
-            get { return material; }
-            set { material = value; }
+            get { return mesh.Material; }
+            set { if (mesh != null) { mesh.Material = value; }  }
+        }
+
+        public void SetDefaultShader()
+        {
+            if (mesh.GetSkeleton() != null)
+            {
+                Shader shader;
+                g_shaderProperties.SetProperty("SKINNING", true).SetProperty("NUM_BONES", mesh.GetSkeleton().GetNumBones());
+                ShaderProperties p = new ShaderProperties(g_shaderProperties);
+                p.SetProperty("DEFAULT", true);
+                shader = ShaderManager.GetShader(typeof(Rendering.Shaders.DefaultShader), p);
+                SetShader(shader);
+            }
+            else
+            {
+                Shader shader;
+                ShaderProperties p = new ShaderProperties(g_shaderProperties);
+                p.SetProperty("DEFAULT", true);
+                shader = ShaderManager.GetShader(typeof(Rendering.Shaders.DefaultShader), p);
+                SetShader(shader);
+            }
         }
 
         public void Render(Rendering.Environment environment, Camera cam)
         {
             if (shader == null)
             {
-                if (mesh.GetSkeleton() != null)
-                {
-                    Shader shader;
-                    g_shaderProperties.SetProperty("SKINNING", true).SetProperty("NUM_BONES", mesh.GetSkeleton().GetNumBones());
-                    shader = ShaderManager.GetShader(typeof(Rendering.Shaders.DefaultShader), g_shaderProperties);
-                    SetShader(shader);
-                }
-                else
-                {
-                    Shader shader;
-                    shader = ShaderManager.GetShader(typeof(Rendering.Shaders.DefaultShader), g_shaderProperties);
-                    SetShader(shader);
-                }
+                SetDefaultShader();
             }
             if (mesh != null)
             {
                 shader.Use();
-                shader.ApplyMaterial(material);
+                shader.ApplyMaterial(Material);
                 shader.SetTransforms(GetWorldMatrix(), cam.ViewMatrix, cam.ProjectionMatrix);
                 shader.Update(environment, cam, mesh);
                 shader.Render(mesh);
@@ -145,12 +188,28 @@ namespace ApexEngine.Scene
 
         public void SetShader(Type shaderType)
         {
-            SetShader(ShaderManager.GetShader(shaderType));
+            SetShader(ShaderManager.GetShader(shaderType, new ShaderProperties().SetProperty("DEFAULT", true)));
         }
 
         public void SetShader(Type shaderType, ShaderProperties properties)
         {
-            SetShader(ShaderManager.GetShader(shaderType, properties));
+            ShaderProperties p = new ShaderProperties(properties);
+            p.SetProperty("DEFAULT", true);
+            SetShader(ShaderManager.GetShader(shaderType, p));
+        }
+
+        public override GameObject Clone()
+        {
+            Geometry res = new Geometry();
+            res.SetLocalTranslation(this.GetLocalTranslation());
+            res.SetLocalScale(this.GetLocalScale());
+            res.SetLocalRotation(this.GetLocalRotation());
+            res.Mesh = this.mesh.Clone();
+            res.shader = this.shader;
+            res.depthShader = this.depthShader;
+            res.normalsShader = this.normalsShader;
+            res.ShaderProperties = this.ShaderProperties;
+            return res;
         }
     }
 }

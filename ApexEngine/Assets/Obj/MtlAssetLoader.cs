@@ -15,6 +15,8 @@ namespace ApexEngine.Assets.Obj
             return instance;
         }
         private List<Material> materials = new List<Material>();
+        private List<string> matNames = new List<string>();
+
         public MtlAssetLoader() : base("mtl")
         { }
         public static string[] RemoveEmptyStrings(string[] data)
@@ -49,6 +51,7 @@ namespace ApexEngine.Assets.Obj
                 {
                     string name = tokens[1];
                     materials.Add(new Material());
+                    
                     materials[materials.Count - 1].SetName(name);
                 }
                 else if (tokens[0] == "Ka") // ambient color
@@ -91,7 +94,7 @@ namespace ApexEngine.Assets.Obj
                 {
                     string spec = tokens[1];
                     float spec_f = float.Parse(spec);
-                    materials[materials.Count - 1].SetValue(Material.SPECULAR_EXPONENT, spec_f / 4f);
+                    materials[materials.Count - 1].SetValue(Material.SHININESS, spec_f / 1000.0f);
                 }
                 else if (tokens[0].ToLower() == "map_kd") // diffuse map
                 {
@@ -126,12 +129,14 @@ namespace ApexEngine.Assets.Obj
                     }
                 }
             }
+            reader.Close();
             return materials;
         }
 
         public override void ResetLoader()
         {
             materials.Clear();
+            matNames.Clear();
         }
     }
 }

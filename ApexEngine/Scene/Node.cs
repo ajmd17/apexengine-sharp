@@ -1,11 +1,13 @@
 ﻿using ApexEngine.Math;
 using System.Collections.Generic;
+using System;
 
 namespace ApexEngine.Scene
 {
     public class Node : GameObject
     {
         protected List<GameObject> children = new List<GameObject>();
+        protected BoundingBox worldBoundingBox, localBoundingBox;
 
         public Node() : base()
         {
@@ -14,6 +16,51 @@ namespace ApexEngine.Scene
         public Node(string name)
             : base(name)
         {
+        }
+
+        public override BoundingBox GetWorldBoundingBox()
+        {
+            if (worldBoundingBox == null)
+            {
+                worldBoundingBox = new BoundingBox();
+                UpdateWorldBoundingBox();
+            }
+            return worldBoundingBox;
+        }
+
+        public override BoundingBox GetLocalBoundingBox()
+        {
+            if (localBoundingBox == null)
+            {
+                localBoundingBox = new BoundingBox();
+                UpdateLocalBoundingBox();
+            }
+            return localBoundingBox;
+        }
+
+        public override void UpdateWorldBoundingBox()
+        {
+            if (worldBoundingBox != null)
+            {
+                worldBoundingBox.Clear();
+                foreach (GameObject child in children)
+                {
+                    worldBoundingBox.Extend(child.GetWorldBoundingBox());
+                }
+            }
+        }
+
+        public override void UpdateLocalBoundingBox()
+        {
+
+            if (localBoundingBox != null)
+            {
+                localBoundingBox.Clear();
+                foreach (GameObject child in children)
+                {
+                    localBoundingBox.Extend(child.GetLocalBoundingBox());
+                }
+            }
         }
 
         public List<GameObject> Children
@@ -94,6 +141,19 @@ namespace ApexEngine.Scene
             {
                 children[i].SetUpdateNeeded();
             }
+        }
+
+        public override GameObject Clone()
+        {
+            Node res = new Node(this.name);
+            res.SetLocalTranslation(this.GetLocalTranslation());
+            res.SetLocalScale(this.GetLocalScale());
+            res.SetLocalRotation(this.GetLocalRotation());
+            for (int i = 0; i< children.Count; i++)
+            {
+                res.AddChild(children[i].Clone());
+            }
+            return res;
         }
     }
 }

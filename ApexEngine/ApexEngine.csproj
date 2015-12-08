@@ -41,9 +41,6 @@
     </StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Jitter">
-      <HintPath>..\..\..\..\..\Downloads\Jitter 0.1.7.0 Binaries\bin\Release\Jitter.dll</HintPath>
-    </Reference>
     <Reference Include="OpenTK, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\OpenTK\1.1\Binaries\OpenTK\Release\OpenTK.dll</HintPath>
@@ -69,6 +66,7 @@
     <Compile Include="Assets\OgreXml\OgreXmlModelLoader.cs" />
     <Compile Include="Assets\OgreXml\OgreXmlSkeletonLoader.cs" />
     <Compile Include="Assets\ShaderTextLoader.cs" />
+    <Compile Include="Assets\Util\TargaImage.cs" />
     <Compile Include="Assets\TextLoader.cs" />
     <Compile Include="Assets\TextureLoader.cs" />
     <Compile Include="Assets\Util\BoneAssign.cs" />
@@ -107,10 +105,13 @@
     <Compile Include="Rendering\PostProcess\Filters\DepthVisualizerFilter.cs" />
     <Compile Include="Rendering\PostProcess\Filters\GammaCorrectionFilter.cs" />
     <Compile Include="Rendering\NormalMapRenderer.cs" />
+    <Compile Include="Rendering\PostProcess\Filters\SSRFilter.cs" />
     <Compile Include="Rendering\Renderer.cs" />
+    <Compile Include="Rendering\Shaders\GrassShader.cs" />
     <Compile Include="Rendering\Shaders\NormalsShader.cs" />
     <Compile Include="Rendering\PostProcess\Filters\SSAOFilter.cs" />
     <Compile Include="Rendering\Shaders\Unshaded.cs" />
+    <Compile Include="Rendering\Shaders\WaterShader.cs" />
     <Compile Include="Rendering\Texture2D.cs" />
     <Compile Include="Rendering\Util\MeshUtil.cs" />
     <Compile Include="Rendering\PostProcess\Filters\DefaultPostFilter.cs" />
@@ -181,6 +182,10 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\jitterphysics\trunk\Jitter\Jitter.csproj">
+      <Project>{aa03ef1a-94f7-4d30-ab14-2092863ff923}</Project>
+      <Name>Jitter</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ApexEngine.Math\ApexEngine.Math.csproj">
       <Project>{a3e4f805-3271-4f83-bde0-180543845ba7}</Project>
       <Name>ApexEngine.Math</Name>

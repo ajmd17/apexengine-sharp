@@ -194,6 +194,29 @@
             return (float)System.Math.Sqrt(DistanceSqr(other));
         }
 
+        public override int GetHashCode()
+        {
+            int hash = 17;
+
+            hash = hash * 23 + x.GetHashCode();
+            hash = hash * 23 + y.GetHashCode();
+
+            return hash;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Vector2f))
+                return false;
+
+            Vector2f vobj = (Vector2f)obj;
+
+            if (vobj.x == x && vobj.y == y)
+                return true;
+
+            return false;
+        }
+
         public override string ToString()
         {
             return "[" + x + ", " + y + "]";

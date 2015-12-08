@@ -29,7 +29,7 @@ namespace ApexEngine.Rendering
         private Vector4f backgroundColor = new Vector4f(0.39f, 0.58f, 0.93f, 1.0f);
         private Action userRender;
 
-        public static Renderer renderer;
+        private static Renderer renderer;
 
         public enum Bucket
         {
@@ -45,6 +45,12 @@ namespace ApexEngine.Rendering
             this.userRender = userRender;
             postProcessor = new PostProcessor(this, cam);
             depthFbo = new Framebuffer(cam.Width, cam.Height);
+        }
+
+        public static Renderer Renderer
+        {
+            get { return renderer; }
+            set { renderer = value; }
         }
 
         public static void CheckGLError()
@@ -166,7 +172,13 @@ namespace ApexEngine.Rendering
                 if (geometries[i].AttachedToRoot && geometries[i].Material.Bucket == bucket)
                 {
                     if (geometries[i].DepthShader == null)
-                        geometries[i].DepthShader = ShaderManager.GetShader(typeof(Shaders.DepthShader));
+                    {
+                        if (geometries[i].GetShader() == null)
+                            geometries[i].SetDefaultShader();
+                        ShaderProperties p = new ShaderProperties(geometries[i].ShaderProperties);
+                        p.SetProperty("DEPTH", true);
+                        geometries[i].DepthShader = ShaderManager.GetShader(typeof(Shaders.DepthShader), p);
+                    }
                     if (renderMode == DepthRenderMode.Shadow && geometries[i].Material.GetBool(Material.MATERIAL_CASTSHADOWS))
                     {
                         geometries[i].DepthShader.Use();
@@ -190,7 +202,14 @@ namespace ApexEngine.Rendering
                 if (geometries[i].AttachedToRoot && geometries[i].Material.Bucket == bucket)
                 {
                     if (geometries[i].NormalsShader == null)
-                        geometries[i].NormalsShader = ShaderManager.GetShader(typeof(Shaders.NormalsShader));
+                    {
+                        if (geometries[i].GetShader() == null)
+                            geometries[i].SetDefaultShader();
+                        ShaderProperties p = new ShaderProperties(geometries[i].ShaderProperties);
+                        p.SetProperty("NORMALS", true);
+                        geometries[i].NormalsShader = ShaderManager.GetShader(geometries[i].GetShader().GetType(), p);
+
+                    }
 
                     geometries[i].NormalsShader.Use();
                     geometries[i].NormalsShader.ApplyMaterial(geometries[i].Material);

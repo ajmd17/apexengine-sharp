@@ -23,6 +23,30 @@ namespace ApexEngine.Rendering.Util
             return meshes;
         }
 
+        public static List<Mesh> GatherMeshes(GameObject gameObject, List<Matrix4f> worldTransforms)
+        {
+            List<Mesh> meshes = new List<Mesh>();
+            if (worldTransforms == null)
+                worldTransforms = new List<Matrix4f>();
+
+            if (gameObject is Node)
+            {
+                GatherMeshes((Node)gameObject, meshes, worldTransforms);
+            }
+            else if (gameObject is Geometry)
+            {
+                meshes.Add(((Geometry)gameObject).Mesh);
+                Transform ttransform = new Transform();
+                ttransform.SetTranslation(gameObject.GetUpdatedWorldTranslation());
+                ttransform.SetRotation(gameObject.GetUpdatedWorldRotation());
+                ttransform.SetScale(gameObject.GetUpdatedWorldScale());
+                Matrix4f matrix = ttransform.GetMatrix();
+                worldTransforms.Add(matrix);
+            }
+
+            return meshes;
+        }
+
         private static void GatherMeshes(Node node, List<Mesh> meshes)
         {
             foreach (GameObject child in node.Children)
@@ -34,6 +58,27 @@ namespace ApexEngine.Rendering.Util
                 else if (child is Geometry)
                 {
                     meshes.Add(((Geometry)child).Mesh);
+                }
+            }
+        }
+
+        private static void GatherMeshes(Node node, List<Mesh> meshes, List<Matrix4f> worldTransforms)
+        {
+            foreach (GameObject child in node.Children)
+            {
+                if (child is Node)
+                {
+                    GatherMeshes((Node)child, meshes, worldTransforms);
+                }
+                else if (child is Geometry)
+                {
+                    meshes.Add(((Geometry)child).Mesh);
+                    Transform ttransform = new Transform();
+                    ttransform.SetTranslation(child.GetUpdatedWorldTranslation());
+                     ttransform.SetRotation(child.GetUpdatedWorldRotation());
+                     ttransform.SetScale(child.GetUpdatedWorldScale());
+                    Matrix4f matrix = ttransform.GetMatrix();
+                    worldTransforms.Add(matrix);
                 }
             }
         }
@@ -88,6 +133,7 @@ namespace ApexEngine.Rendering.Util
             {
                 if (child is Node)
                 {
+                    objs.Add(child);
                     GatherObjects((Node)child, objs);
                 }
                 else if (child is Geometry)
@@ -105,19 +151,46 @@ namespace ApexEngine.Rendering.Util
             Mesh mesh = geom.Mesh;
             if (mesh.BoundingBox == null)
                 mesh.BoundingBox = mesh.CreateBoundingBox();
+            Vector3f difference = geom.GetLocalTranslation().Subtract(mesh.BoundingBox.Center);
             for (int i = 0; i < mesh.indices.Count; i++)
             {
-                mesh.vertices[mesh.indices[i]].SetPosition(mesh.vertices[mesh.indices[i]].GetPosition().Subtract(mesh.BoundingBox.Center));
+                mesh.vertices[mesh.indices[i]].SetPosition(mesh.vertices[mesh.indices[i]].GetPosition().Add(difference));
             }
             mesh.SetVertices(mesh.vertices, mesh.indices);
             if (geom.GetController(typeof(Scene.Physics.RigidBodyControl)) != null)
             {
                 Scene.Physics.RigidBodyControl rbc = (Scene.Physics.RigidBodyControl)geom.GetController(typeof(Scene.Physics.RigidBodyControl));
-                //rbc.Init();
-               // rbc.Offset = mesh.BoundingBox.Center;
-                rbc.Reinit();
+
             }
-            mesh.BoundingBox = mesh.CreateBoundingBox();
+            geom.SetLocalTranslation(mesh.BoundingBox.Center);
+        }
+
+        public static Mesh MergeMeshes(GameObject gameObject)
+        {
+            List<Mesh> meshes;
+            List<Matrix4f> transforms = new List<Matrix4f>();
+            meshes = GatherMeshes(gameObject, transforms);
+            return MergeMeshes(meshes, transforms);
+        }
+
+        public static Mesh MergeMeshes(List<Mesh> meshes, List<Matrix4f> transforms)
+        {
+            Mesh resMesh = new Mesh();
+            List<Vertex> finalVertices = new List<Vertex>();
+            for (int m = 0; m < meshes.Count; m++)
+            {
+                for (int i  = 0; i < meshes[m].indices.Count; i++)
+                {
+                    Vertex vertex = meshes[m].vertices[meshes[m].indices[i]];
+                    Vertex newVert = new Vertex(vertex);
+                    newVert.SetPosition(vertex.GetPosition().Multiply(transforms[m]));
+                    
+                    finalVertices.Add(newVert);
+                }
+            }
+            resMesh.SetVertices(finalVertices);
+            resMesh.Material = meshes[0].Material;
+            return resMesh;
         }
 
 

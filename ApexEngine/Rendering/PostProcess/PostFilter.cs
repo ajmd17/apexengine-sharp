@@ -14,6 +14,10 @@ namespace ApexEngine.Rendering.PostProcess
         {
         }
 
+        public PostFilter(ShaderProperties properties, string fs_code) : this(new PostShader(properties, fs_code))
+        {
+        }
+
         public PostFilter(Shader shader)
         {
             if (shader is PostShader)

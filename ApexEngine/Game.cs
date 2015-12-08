@@ -1,5 +1,6 @@
 ﻿using ApexEngine.Assets;
 using ApexEngine.Input;
+using ApexEngine.Math;
 using ApexEngine.Rendering;
 using ApexEngine.Rendering.Cameras;
 using ApexEngine.Scene;
@@ -23,6 +24,7 @@ namespace ApexEngine
         protected List<GameComponent> components = new List<GameComponent>();
         private Rendering.Environment environment = new Rendering.Environment();
         private PhysicsWorld physicsWorld;
+        Vector3f tmpVec = new Vector3f();
 
         public Game()
         {
@@ -139,9 +141,12 @@ namespace ApexEngine
 
         public void UpdateInternal()
         {
+            inputManager.MOUSE_X = inputManager.WINDOW_X - OpenTK.Input.Mouse.GetCursorState().X + (inputManager.SCREEN_WIDTH / 2);
+            inputManager.MOUSE_Y = inputManager.WINDOW_Y - OpenTK.Input.Mouse.GetCursorState().Y + (inputManager.SCREEN_HEIGHT / 2);
+            MoveToOrigin();
             foreach (GameComponent cmp in components)
                 cmp.Update();
-            RenderManager.ElapsedTime += 0.01f;
+            environment.ElapsedTime += 0.1f;
             cam.Update();
             physicsWorld.Update();
             rootNode.Update(renderManager);
@@ -151,6 +156,48 @@ namespace ApexEngine
         public void RenderInternal()
         {
             renderManager.Render(Environment, cam);
+        }
+
+        private void MoveToOrigin()
+        {
+            float maxDist = 25;
+            Vector3f position = cam.Translation;
+            if (position.x > maxDist)
+            {
+                rootNode.GetLocalTranslation().AddStore(tmpVec.Set(-maxDist, 0, 0));
+                rootNode.SetUpdateNeeded();
+                cam.Translation.Set(0, position.y, position.z);
+                cam.UpdateCamera();
+                cam.UpdateMatrix();
+                rootNode.Update(renderManager);
+            }
+            if (position.z > maxDist)
+            {
+                rootNode.GetLocalTranslation().AddStore(tmpVec.Set(0, 0, -maxDist));
+                rootNode.SetUpdateNeeded();
+                cam.Translation.Set(position.x, position.y, 0);
+                cam.UpdateCamera();
+                cam.UpdateMatrix();
+                rootNode.Update(renderManager);
+            }
+            if (position.x < -maxDist)
+            {
+                rootNode.GetLocalTranslation().AddStore(tmpVec.Set(maxDist, 0, 0));
+                rootNode.SetUpdateNeeded();
+                cam.Translation.Set(0, position.y, position.z);
+                cam.UpdateCamera();
+                cam.UpdateMatrix();
+                rootNode.Update(renderManager);
+            }
+            if (position.z < -maxDist)
+            {
+                rootNode.GetLocalTranslation().AddStore(tmpVec.Set(0, 0, maxDist));
+                rootNode.SetUpdateNeeded();
+                cam.Translation.Set(position.x, position.y, 0);
+                cam.UpdateCamera();
+                cam.UpdateMatrix();
+                rootNode.Update(renderManager);
+            }
         }
 
         public abstract void Init();

@@ -35,7 +35,6 @@ namespace ApexEngine.Terrain
                 {
                     chunk.RemovePhysics();
                     hasPhysics = false;
-                    Console.WriteLine("Remove physics");
                 }
                 component.OnRemoveChunk(chunk);
             }
@@ -57,7 +56,7 @@ namespace ApexEngine.Terrain
 
                     pageState = TerrainComponent.PageState.Unloaded;
                 }
-                unloadTime += 0.1f;////GameTime.getDeltaTime();
+                unloadTime += 1f;////GameTime.getDeltaTime();
             }
         }
     }

@@ -9,9 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ApexEditor</RootNamespace>
     <AssemblyName>SceneEditor</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -96,11 +97,23 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmCtrls.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCtrls.Designer.cs">
+      <DependentUpon>frmCtrls.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMatEditor.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmMatEditor.Designer.cs">
       <DependentUpon>frmMatEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSimplify.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSimplify.Designer.cs">
+      <DependentUpon>frmSimplify.cs</DependentUpon>
     </Compile>
     <Compile Include="GameTest.cs" />
     <Compile Include="metro\ImageEx.cs" />
@@ -114,6 +127,7 @@
     <Compile Include="metro\metroToolStripRenderer.cs" />
     <Compile Include="metro\MetroUI.cs" />
     <Compile Include="MtlViewerGame.cs" />
+    <Compile Include="MyRenderUtil.cs" />
     <Compile Include="NormalMapGenerator\BlurPostFilter.cs" />
     <Compile Include="NormalMapGenerator\NormalMapShader.cs" />
     <Compile Include="NormalMapGenerator\NrmGenerator.cs">
@@ -143,8 +157,14 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmCtrls.resx">
+      <DependentUpon>frmCtrls.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmMatEditor.resx">
       <DependentUpon>frmMatEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSimplify.resx">
+      <DependentUpon>frmSimplify.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NormalMapGenerator\NrmGenerator.resx">
       <DependentUpon>NrmGenerator.cs</DependentUpon>

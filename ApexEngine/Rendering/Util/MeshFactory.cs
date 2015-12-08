@@ -13,10 +13,10 @@ namespace ApexEngine.Rendering.Util
         {
             Mesh mesh = new Mesh();
             List<Vertex> vertices = new List<Vertex>();
-            vertices.Add(new Vertex(new Vector3f(-1f, -1f, 0), new Vector2f(0, 0)));
-            vertices.Add(new Vertex(new Vector3f(1, -1f, 0), new Vector2f(1f, 0)));
-            vertices.Add(new Vertex(new Vector3f(1f, 1f, 0), new Vector2f(1f, 1f)));
-            vertices.Add(new Vertex(new Vector3f(-1f, 1f, 0), new Vector2f(0, 1f)));
+            vertices.Add(new Vertex(new Vector3f(-1f, -1f, 0), new Vector2f(0, 0), new Vector3f(0, 0, 1)));
+            vertices.Add(new Vertex(new Vector3f(1, -1f, 0), new Vector2f(1f, 0), new Vector3f(0, 0, 1)));
+            vertices.Add(new Vertex(new Vector3f(1f, 1f, 0), new Vector2f(1f, 1f), new Vector3f(0, 0, 1)));
+            vertices.Add(new Vertex(new Vector3f(-1f, 1f, 0), new Vector2f(0, 1f), new Vector3f(0, 0, 1)));
             mesh.SetVertices(vertices);
             mesh.PrimitiveType = BeginMode.TriangleFan;
             return mesh;

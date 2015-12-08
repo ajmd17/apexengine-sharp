@@ -41,9 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Math\BoundingBox.cs" />
     <Compile Include="Math\MathUtil.cs" />
+    <Compile Include="Math\Matrix.cs" />
+    <Compile Include="Math\Matrix3f.cs" />
     <Compile Include="Math\Matrix4f.cs" />
     <Compile Include="Math\Quaternion.cs" />
     <Compile Include="Math\Transform.cs" />

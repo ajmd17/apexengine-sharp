@@ -197,9 +197,9 @@ namespace ModernUISample.metro
         /// </summary>
         public MetroStyle()
         {
-            BaseFont = new Font("Arial", 10f);
-            BoldFont = new Font("Arial", 10f, FontStyle.Bold);
-            LightFont = new Font("Arial", 8f, FontStyle.Regular);
+            BaseFont = SystemFonts.MenuFont;
+            BoldFont = SystemFonts.MenuFont;
+            LightFont = SystemFonts.MenuFont;
 
             DarkStyle = false;
         }

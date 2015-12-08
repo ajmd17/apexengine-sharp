@@ -27,8 +27,11 @@ namespace ApexEngine.Rendering.Cameras
 
         public override void UpdateMatrix()
         {
+            tmp.Set(translation);
+            tmp.AddStore(direction);
+            
             rotation.SetToLookAt(direction, up);
-            viewMatrix.SetToLookAt(translation, tmp.Set(translation).AddStore(direction), up);
+            viewMatrix.SetToLookAt(translation, tmp, up);
             projMatrix.SetToProjection(fov, width, height, 0.05f, far);
             viewProjMatrix.Set(projMatrix);
             viewProjMatrix.MultiplyStore(viewMatrix);

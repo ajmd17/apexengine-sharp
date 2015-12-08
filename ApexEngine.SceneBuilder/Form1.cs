@@ -14,6 +14,7 @@ using ApexEngine.Rendering;
 using ApexEditor.NormalMapGenerator;
 using ApexEngine.Scene.Components;
 using ApexEngine.Math;
+using ApexEngine.Rendering.Animation;
 
 namespace ApexEditor
 {
@@ -24,6 +25,7 @@ namespace ApexEditor
         frmMatEditor matEditor;
         private ApexEngine.Rendering.Shadows.ShadowMappingComponent shadowCpt;
         private SceneEditorGame.CamModes camMode = SceneEditorGame.CamModes.Freelook;
+        private Vector3f rotateAxis = Vector3f.UNIT_X;
 
 
 
@@ -64,6 +66,7 @@ namespace ApexEditor
 
 
             contextMenuStrip1.Renderer = new metroToolStripRenderer();
+            metroMenuStrip2.Renderer = new metroToolStripRenderer();
 
             
 
@@ -77,8 +80,37 @@ namespace ApexEditor
             ApexEngineControl orthoTopCtrl = new ApexEngineControl(orthoTop);
             orthoTopCtrl.Dock = DockStyle.Fill;
             pnlOrthoTop.Controls.Add(orthoTopCtrl);*/
+            apxCtrl.MouseWheel += new MouseEventHandler(MouseScroll);
 
         }
+
+        float rot;
+
+        private void MouseScroll(object sender, MouseEventArgs e)
+        {
+            float diff = ((float)e.Delta)*0.1f;
+            SceneEditorGame seg = (SceneEditorGame)apxCtrl.Game;
+
+            /* if (camMode == SceneEditorGame.CamModes.Grab)
+             {
+                 if (seg.objectHolding != null)
+                 {
+                  //   Vector3f ctrans = new Vector3f(seg.objectHolding.GetWorldTranslation());
+
+                  //   ctrans.AddStore(seg.Camera.Direction.Multiply(diff));
+                     seg.objectHolding.SetLocalTranslation(seg.Camera.Translation.Add(seg.Camera.Direction.Multiply(diff)));
+                 }
+             }*/
+            if (camMode == SceneEditorGame.CamModes.Rotate)
+            {
+                if (seg.objectHolding != null)
+                {
+                    seg.objectHolding.SetLocalRotation(seg.objectHolding.GetLocalRotation().Multiply(new Quaternion().SetFromAxis(rotateAxis, diff)));
+                    Console.WriteLine(seg.objectHolding.GetLocalRotation());
+                }
+            }
+        }
+
         private void fileToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
@@ -100,14 +132,35 @@ namespace ApexEditor
                 TreeNode newNode = new TreeNode(obj.Name + " (Geometry)");
                 Geometry geom = (Geometry)obj;
                 newNode.Tag = geom;
-                TreeNode matNode = new TreeNode(geom.Material.GetName());
+                TreeNode matNode = new TreeNode(geom.Material.GetName() + " (Material)");
                 matNode.Tag = geom.Material;
+                matNode.ImageIndex = 2;
+                matNode.SelectedImageIndex = 2;
                 newNode.Nodes.Add(matNode);
                 newNode.ImageIndex = 1;
+                newNode.SelectedImageIndex = 1;
+
+                if (geom.Mesh != null)
+                {
+                    if (geom.Mesh.GetSkeleton() != null)
+                    {
+                        TreeNode skeletonNode = new TreeNode(obj.Name + " (Skeleton)");
+                        skeletonNode.Tag = geom.Mesh.GetSkeleton();
+                        for (int i = 0; i < geom.Mesh.GetSkeleton().GetNumBones(); i++)
+                        {
+                            TreeNode boneNode = new TreeNode(geom.Mesh.GetSkeleton().GetBone(i).Name + " (Bone)");
+                            boneNode.Tag = geom.Mesh.GetSkeleton().GetBone(i);
+                            skeletonNode.Nodes.Add(boneNode);
+                        }
+                        newNode.Nodes.Add(skeletonNode);
+                    }
+                }
+
                 if (parent == null)
                     treeView1.Nodes.Add(newNode);
                 else
                     parent.Nodes.Add(newNode);
+                
             }
             else if (obj is Node)
             {
@@ -115,6 +168,7 @@ namespace ApexEditor
                 Node n = (Node)obj;
                 newNode.Tag = n;
                 newNode.ImageIndex = 0;
+                newNode.SelectedImageIndex = 0;
                 if (parent == null)
                     treeView1.Nodes.Add(newNode);
                 else
@@ -209,9 +263,11 @@ namespace ApexEditor
         {
             if (e.Node.Tag != null)
             {
+                propertyGrid1.SelectedObject = e.Node.Tag;
                 if (e.Node.Tag is GameObject)
                 {
-                    propertyGrid1.SelectedObject = e.Node.Tag;
+                    SceneEditorGame seg = (SceneEditorGame)apxCtrl.Game;
+                    seg.objectHolding = (GameObject)e.Node.Tag;
                 }
             }
         }
@@ -225,24 +281,34 @@ namespace ApexEditor
         {
             if (treeView1.SelectedNode != null)
             {
-                if (treeView1.SelectedNode.Tag is GameObject)
+                if (treeView1.SelectedNode.Tag is GameObject && !(treeView1.SelectedNode.Tag is Bone))
                 {
                     if (treeView1.SelectedNode.Tag != apxCtrl.Game.RootNode)
                     {
                         GameObject selectedObj = (GameObject)treeView1.SelectedNode.Tag;
-                        if (selectedObj.HasController(typeof(ApexEngine.Scene.Physics.RigidBodyControl)))
+                        List<GameObject> objsAttached = ApexEngine.Rendering.Util.MeshUtil.GatherObjects(selectedObj);
+                        for (int i = 0; i < objsAttached.Count; i++)
                         {
-                            apxCtrl.Game.PhysicsWorld.RemoveObject(selectedObj);
+                            apxCtrl.Game.PhysicsWorld.RemoveObject(objsAttached[i]);
+                            if (objsAttached[i] is Geometry)
+                            {
+                                Geometry geom = (Geometry)objsAttached[i];
+                                geom.Mesh.vertices.Clear();
+                                geom.Mesh.indices.Clear();
+                                geom.Mesh = null;
+                            }
+                            objsAttached[i] = null; 
                         }
-                        if (selectedObj is Node)
-                        {
-                            List<GameObject> childObjs = ApexEngine.Rendering.Util.MeshUtil.GatherObjects(selectedObj);
-                            foreach (GameObject g in childObjs)
-                                apxCtrl.Game.PhysicsWorld.RemoveObject(g);
-                        }
+                        apxCtrl.Game.PhysicsWorld.RemoveObject(selectedObj);
                         selectedObj.GetParent().RemoveChild(selectedObj);
-                        treeView1.Nodes.Remove(treeView1.SelectedNode);
+                        selectedObj = null;
+                        System.GC.Collect();
                     }
+                    treeView1.Nodes.Remove(treeView1.SelectedNode);
+                    treeView1.SelectedNode.Tag = null;
+                }
+                else if (treeView1.SelectedNode.Tag is Bone)
+                {
                 }
                 else if (treeView1.SelectedNode.Tag is Material)
                 {
@@ -256,7 +322,9 @@ namespace ApexEditor
         {
             if (treeView1.SelectedNode != null)
             {
-                if (treeView1.SelectedNode.Tag == apxCtrl.Game.RootNode)
+                
+
+                if (treeView1.SelectedNode.Tag == apxCtrl.Game.RootNode ||  (treeView1.SelectedNode.Tag is Bone))
                 {
                     contextMenuStrip1.Items[0].Enabled = false;
                 }
@@ -268,13 +336,15 @@ namespace ApexEditor
                 if (treeView1.SelectedNode.Tag is Geometry)
                 {
                     setToOriginToolStripMenuItem.Enabled = true;
+                    modifyToolStripMenuItem.Enabled = true;
                 }
                 else
                 {
                     setToOriginToolStripMenuItem.Enabled = false;
+                    modifyToolStripMenuItem.Enabled = false;
                 }
 
-                if (treeView1.SelectedNode.Tag is Node)
+                if (treeView1.SelectedNode.Tag is Node && !(treeView1.SelectedNode.Tag is Bone))
                 {
                     lockToolStripMenuItem.Enabled = true;
                     if (((Node)treeView1.SelectedNode.Tag).HasController(typeof(ApexEngine.Scene.Physics.RigidBodyControl)))
@@ -303,7 +373,7 @@ namespace ApexEditor
         {
             if (treeView1.SelectedNode != null)
             {
-                if (treeView1.SelectedNode.Tag != apxCtrl.Game.RootNode)
+                if (treeView1.SelectedNode.Tag != apxCtrl.Game.RootNode && treeView1.SelectedNode.Tag is GameObject)
                 {
                     GameObject selectedObj = (GameObject)treeView1.SelectedNode.Tag;
                     saveFileDialog1.FileName = selectedObj.Name;
@@ -455,7 +525,8 @@ namespace ApexEditor
             {
                 if (!lockToolStripMenuItem.Checked)
                 {
-                    foreach (GameObject child in ((Node)go).Children)
+                    List<GameObject> absChildren = ApexEngine.Rendering.Util.MeshUtil.GatherObjects(go);
+                    foreach (GameObject child in absChildren)
                     {
                         if (child.HasController(typeof(ApexEngine.Scene.Physics.RigidBodyControl)))
                         {
@@ -518,6 +589,164 @@ namespace ApexEditor
         private void checkBox3_Click(object sender, EventArgs e)
         {
             SetCamMode(SceneEditorGame.CamModes.Rotate);
+        }
+
+        private void simplifyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void simplifyMeshToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (treeView1.SelectedNode.Tag is Geometry)
+            {
+                Geometry geom = (Geometry)treeView1.SelectedNode.Tag;
+                frmSimplify f_simp = new frmSimplify(geom.Mesh);
+                if (f_simp.ShowDialog() == DialogResult.OK)
+                {
+                    geom.Mesh = f_simp.NewMesh;
+                }
+            }
+        }
+
+        private void Form1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+        }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            SceneEditorGame seg = (SceneEditorGame)apxCtrl.Game;
+            if (e.KeyCode == Keys.C)
+            {
+                seg.Centered = !seg.Centered;
+                Console.WriteLine("Centered: " + seg.Centered);
+                checkBox4.Checked = seg.Centered;
+                if (seg.Centered)
+                {
+                 //   if (seg.objectHolding != null)
+                //    {
+                 //       Vector3f diff = seg.objectHolding.GetLocalTranslation().Subtract(objectHolding.)
+                   // }
+
+
+                    if (seg.objectHolding != null)
+                        seg.objectHolding.SetLocalTranslation(seg.objectHolding.GetLocalTranslation().Subtract(seg.objectHolding.GetLocalBoundingBox().Center.Subtract(new Vector3f(0f, seg.objectHolding.GetLocalBoundingBox().Center.Y, 0f))));
+                }
+                else
+                {
+                    if (seg.objectHolding != null)
+                        seg.objectHolding.SetLocalTranslation(seg.objectHolding.GetLocalTranslation().Add(seg.objectHolding.GetLocalBoundingBox().Center.Subtract(new Vector3f(0f, seg.objectHolding.GetLocalBoundingBox().Center.Y, 0f))));
+                }
+            }
+            else if (e.KeyCode == Keys.F)
+            {
+                this.SetCamMode(SceneEditorGame.CamModes.Freelook);
+            }
+            else if (e.KeyCode == Keys.G)
+            {
+                this.SetCamMode(SceneEditorGame.CamModes.Grab);
+            }
+            else if (e.KeyCode == Keys.R)
+            {
+                this.SetCamMode(SceneEditorGame.CamModes.Rotate);
+            }
+            else if (e.KeyCode == Keys.X)
+            {
+                if (camMode == SceneEditorGame.CamModes.Grab)
+                {
+                    seg.MovingX = !seg.MovingX;
+                    seg.MovingY = false;
+                    seg.MovingZ = false;
+                    if (!seg.MovingX)
+                    {
+                        seg.lastMouseX = seg.InputManager.GetMouseX();
+                        seg.lastMouseY = seg.InputManager.GetMouseY();
+                    }
+                    if (seg.objectHolding != null)
+                    {
+                        seg.offsetLoc.Set(seg.objectHolding.GetWorldTranslation());
+                        Vector2f proj = apxCtrl.Game.Camera.Project(seg.objectHolding.GetWorldTranslation());
+                    }
+                }
+                else if (camMode == SceneEditorGame.CamModes.Rotate)
+                {
+                    rotateAxis = Vector3f.UNIT_X;
+                }
+            }
+            else if (e.KeyCode == Keys.Y)
+            {
+                if (camMode == SceneEditorGame.CamModes.Grab)
+                {
+                    seg.MovingY = !seg.MovingY;
+                    seg.MovingX = false;
+                    seg.MovingZ = false;
+                    if (!seg.MovingY)
+                    {
+                        seg.lastMouseX = seg.InputManager.GetMouseX();
+                        seg.lastMouseY = seg.InputManager.GetMouseY();
+                    }
+                    if (seg.objectHolding != null)
+                    {
+                        seg.offsetLoc.Set(seg.objectHolding.GetWorldTranslation());
+                        Vector2f proj = apxCtrl.Game.Camera.Project(seg.objectHolding.GetWorldTranslation());
+                    }
+                }
+                else if (camMode == SceneEditorGame.CamModes.Rotate)
+                {
+                    rotateAxis = Vector3f.UNIT_Y;
+                }
+            }
+            else if (e.KeyCode == Keys.Z)
+            {
+                if (camMode == SceneEditorGame.CamModes.Grab)
+                {
+                    seg.MovingZ = !seg.MovingZ;
+                    seg.MovingY = false;
+                    seg.MovingX = false;
+                    if (!seg.MovingZ)
+                    {
+                        seg.lastMouseX = seg.InputManager.GetMouseX();
+                        seg.lastMouseY = seg.InputManager.GetMouseY();
+                    }
+                    if (seg.objectHolding != null)
+                    {
+                        Vector2f proj = apxCtrl.Game.Camera.Project(seg.objectHolding.GetWorldTranslation());
+                    }
+                }
+                else if (camMode == SceneEditorGame.CamModes.Rotate)
+                {
+                    rotateAxis = Vector3f.UNIT_Z;
+                }
+            }
+
+        }
+
+        private void controlsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new frmCtrls().ShowDialog();
+        }
+
+        private void checkBox4_CheckedChanged(object sender, EventArgs e)
+        {
+            SceneEditorGame seg = (SceneEditorGame)apxCtrl.Game;
+            seg.Centered = checkBox4.Checked ;
+
+        }
+
+        private void propertyGrid1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pnlGameView_Scroll(object sender, ScrollEventArgs e)
+        {
+        }
+
+        private void renderboundingBoxesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            SceneEditorGame seg = (SceneEditorGame)apxCtrl.Game;
+            seg.BoundingBoxes = renderboundingBoxesToolStripMenuItem.Checked;
         }
     }
 }

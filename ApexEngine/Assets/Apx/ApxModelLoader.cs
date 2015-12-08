@@ -1,22 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml;
+﻿using ApexEngine.Assets.Util;
 using ApexEngine.Math;
-using ApexEngine.Scene;
 using ApexEngine.Rendering;
 using ApexEngine.Rendering.Animation;
-using ApexEngine.Assets.Util;
+using ApexEngine.Scene;
+using System;
+using System.Collections.Generic;
+using System.Xml;
+
 namespace ApexEngine.Assets.Apx
 {
     public class ApxModelLoader : AssetLoader
     {
         private static ApxModelLoader instance = new ApxModelLoader();
+
         public static ApxModelLoader GetInstance()
         {
             return instance;
         }
+
         private static Vector2f ParseVector2(string str)
         {
             string replace = str.Replace("[", "").Replace("]", "");
@@ -28,6 +29,7 @@ namespace ApexEngine.Assets.Apx
 
             return new Vector2f(x, y);
         }
+
         private static Vector3f ParseVector3(string str)
         {
             string replace = str.Replace("[", "").Replace("]", "");
@@ -40,6 +42,7 @@ namespace ApexEngine.Assets.Apx
 
             return new Vector3f(x, y, z);
         }
+
         private static Vector4f ParseVector4(string str)
         {
             string replace = str.Replace("[", "").Replace("]", "");
@@ -53,32 +56,35 @@ namespace ApexEngine.Assets.Apx
 
             return new Vector4f(x, y, z, w);
         }
-        List<Node> nodes = new List<Node>();
-        List<Geometry> geoms = new List<Geometry>();
-        List<Mesh> meshes = new List<Mesh>();
-        List<Material> mats = new List<Material>();
-        Dictionary<Geometry, Material> geomMats = new Dictionary<Geometry, Material>();
 
-        List<int> skeletonAssigns = new List<int>();
-        List<Skeleton> skeletons = new List<Skeleton>();
-        List<List<Bone>> bones = new List<List<Bone>>();
-        List<List<BoneAssign>> boneAssigns = new List<List<BoneAssign>>();
-        List<Animation> animations = new List<Animation>();
-        bool hasAnimations = false;
+        private List<Node> nodes = new List<Node>();
+        private List<Geometry> geoms = new List<Geometry>();
+        private List<Mesh> meshes = new List<Mesh>();
+        private List<Material> mats = new List<Material>();
+        private Dictionary<Geometry, Material> geomMats = new Dictionary<Geometry, Material>();
 
-        List<List<Vector3f>> positions = new List<List<Vector3f>>();
-        List<List<Vector3f>> normals = new List<List<Vector3f>>();
-        List<List<Vector2f>> texcoords0 = new List<List<Vector2f>>();
-        List<List<Vector2f>> texcoords1 = new List<List<Vector2f>>();
-        List<List<Vertex>> vertices = new List<List<Vertex>>();
-        List<List<int>> faces = new List<List<int>>();
+        private List<int> skeletonAssigns = new List<int>();
+        private List<Skeleton> skeletons = new List<Skeleton>();
+        private List<List<Bone>> bones = new List<List<Bone>>();
+        private List<List<BoneAssign>> boneAssigns = new List<List<BoneAssign>>();
+        private List<Animation> animations = new List<Animation>();
+        private bool hasAnimations = false;
 
-        bool node = false, geom = false;
+        private List<List<Vector3f>> positions = new List<List<Vector3f>>();
+        private List<List<Vector3f>> normals = new List<List<Vector3f>>();
+        private List<List<Vector2f>> texcoords0 = new List<List<Vector2f>>();
+        private List<List<Vector2f>> texcoords1 = new List<List<Vector2f>>();
+        private List<List<Vertex>> vertices = new List<List<Vertex>>();
+        private List<List<int>> faces = new List<List<int>>();
 
-        Node lastNode = null;
-        public ApxModelLoader() : base ("apx")
+        private bool node = false, geom = false;
+
+        private Node lastNode = null;
+
+        public ApxModelLoader() : base("apx")
         {
         }
+
         public override void ResetLoader()
         {
             nodes.Clear();
@@ -102,6 +108,7 @@ namespace ApexEngine.Assets.Apx
             geom = false;
             lastNode = null;
         }
+
         private void EndModel()
         {
             if (skeletons.Count > 0)
@@ -124,7 +131,7 @@ namespace ApexEngine.Assets.Apx
                 {
                     for (int j = 0; j < animations.Count; j++)
                     {
-                         skeletons[0].AddAnimation(animations[j]);
+                        skeletons[0].AddAnimation(animations[j]);
                     }
                     nodes[0].AddController(new AnimationController(skeletons[0]));
                 }
@@ -149,7 +156,7 @@ namespace ApexEngine.Assets.Apx
 
                 if (tc1.Count > 0)
                     stride++;
-                for (int j = 0; j < cFaces.Count; j+=stride)
+                for (int j = 0; j < cFaces.Count; j += stride)
                 {
                     Vertex v = new Vertex(cPos[cFaces[j]]);
                     if (cNorm.Count > 0)
@@ -192,11 +199,12 @@ namespace ApexEngine.Assets.Apx
                         material = geomMats[parent];
                     else
                         material = new Material();
-                    parent.Material = material;
                     parent.Mesh = mesh;
+                    parent.Material = material;
                 }
             }
         }
+
         public override object Load(string filePath)
         {
             XmlReader xmlReader = XmlReader.Create(filePath);
@@ -373,7 +381,7 @@ namespace ApexEngine.Assets.Apx
 
                         float x = float.Parse(xmlReader.GetAttribute("x"));
                         float y = float.Parse(xmlReader.GetAttribute("y"));
-                       
+
                         Vector2f tc = new Vector2f(x, y);
                         tc0.Add(tc);
                     }
@@ -394,7 +402,7 @@ namespace ApexEngine.Assets.Apx
                     else if (xmlReader.Name == ApxExporter.TOKEN_FACE)
                     {
                         List<int> fList = faces[faces.Count - 1];
-                        for (int i =  0; i < 3; i++)
+                        for (int i = 0; i < 3; i++)
                         {
                             string val = xmlReader.GetAttribute("i" + i.ToString());
                             if (val != "")
@@ -463,7 +471,7 @@ namespace ApexEngine.Assets.Apx
                         if (skel.Count > 0)
                         {
                             Bone lastBone = skel[skel.Count - 1];
-                         //   lastBone.SetBindAxisAngle(new Vector3f(x, y, z), w);
+                            //   lastBone.SetBindAxisAngle(new Vector3f(x, y, z), w);
                             lastBone.SetBindRotation(new Quaternion(x, y, z, w));
                         }
                     }
@@ -570,19 +578,20 @@ namespace ApexEngine.Assets.Apx
                     }
                     else if (xmlReader.Name == ApxExporter.TOKEN_SKELETON)
                     {
-                        
                     }
                     else if (xmlReader.Name == ApxExporter.TOKEN_MODEL)
                     {
                         // end of model, load in meshes
-                       EndModel();
+                        EndModel();
                     }
                 } // end element
             }
+            xmlReader.Close();
             Node finalNode = new Node();
             foreach (Node n in nodes)
                 if (n.GetParent() == null)
                     finalNode.AddChild(n);
+            this.ResetLoader();
             return finalNode;
         }
     }

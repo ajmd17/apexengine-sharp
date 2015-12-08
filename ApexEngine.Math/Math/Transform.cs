@@ -80,5 +80,22 @@
         {
             return scale;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Transform))
+                return false;
+
+            Transform tobj = (Transform)obj;
+
+            if (!tobj.GetTranslation().Equals(translation))
+                return false;
+            if (!tobj.GetRotation().Equals(rotation))
+                return false;
+            if (!tobj.GetScale().Equals(scale))
+                return false;
+
+            return true;
+        }
     }
 }

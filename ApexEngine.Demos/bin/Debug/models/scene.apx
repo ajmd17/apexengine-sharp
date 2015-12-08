@@ -1,0 +1,2075 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<model>
+  <node name="">
+    <translation x="0" y="0" z="0" />
+    <scale x="1" y="1" z="1" />
+    <rotation x="0" y="0" z="0" w="1" />
+    <node name="">
+      <translation x="0" y="0" z="0" />
+      <scale x="1" y="1" z="1" />
+      <rotation x="0" y="0" z="0" w="1" />
+      <node name="lightmap_scene">
+        <translation x="0" y="0" z="0" />
+        <scale x="1" y="1" z="1" />
+        <rotation x="0" y="0" z="0" w="1" />
+        <geom name="None">
+          <translation x="-0.9742799" y="2" z="-5.353439">
+            <scale x="1" y="1" z="1" />
+            <rotation x="0" y="0" z="0" w="1" />
+          </translation>
+          <mesh has_positions="True" has_normals="True" has_texcoords="True">
+            <vertices>
+              <position x="-0.7041656" y="-1.84008" z="-1.700013" />
+              <position x="4.768372E-07" y="1.84008" z="-4.768372E-07" />
+              <position x="-0.3589785" y="-1.84008" z="-1.804724" />
+              <position x="4.768372E-07" y="-1.84008" z="-1.84008" />
+              <position x="0.3589814" y="-1.84008" z="-1.804724" />
+              <position x="-1.022292" y="-1.84008" z="-1.529971" />
+              <position x="-1.301131" y="-1.84008" z="-1.301134" />
+              <position x="-1.529969" y="-1.84008" z="-1.022295" />
+              <position x="-1.700011" y="-1.84008" z="-0.7041705" />
+              <position x="-1.804723" y="-1.84008" z="-0.3589833" />
+              <position x="-1.84008" y="-1.84008" z="-2.384186E-06" />
+              <position x="-1.804724" y="-1.84008" z="0.3589797" />
+              <position x="-1.700013" y="-1.84008" z="0.7041667" />
+              <position x="-1.529971" y="-1.84008" z="1.022292" />
+              <position x="-1.301134" y="-1.84008" z="1.301132" />
+              <position x="-1.022295" y="-1.84008" z="1.52997" />
+              <position x="-0.7041686" y="-1.84008" z="1.700012" />
+              <position x="-0.3589826" y="-1.84008" z="1.804723" />
+              <position x="-4.768372E-07" y="-1.84008" z="1.84008" />
+              <position x="0.3589814" y="-1.84008" z="1.804723" />
+              <position x="0.7041674" y="-1.84008" z="1.700012" />
+              <position x="1.022293" y="-1.84008" z="1.52997" />
+              <position x="1.301132" y="-1.84008" z="1.301133" />
+              <position x="1.52997" y="-1.84008" z="1.022293" />
+              <position x="1.700011" y="-1.84008" z="0.7041676" />
+              <position x="1.804724" y="-1.84008" z="0.3589816" />
+              <position x="1.84008" y="-1.84008" z="-4.768372E-07" />
+              <position x="1.804723" y="-1.84008" z="-0.3589823" />
+              <position x="1.700011" y="-1.84008" z="-0.7041686" />
+              <position x="1.52997" y="-1.84008" z="-1.022293" />
+              <position x="1.301132" y="-1.84008" z="-1.301133" />
+              <position x="1.022293" y="-1.84008" z="-1.52997" />
+              <position x="0.7041683" y="-1.84008" z="-1.700012" />
+              <normal x="-0.3307" y="-0.5033" z="-0.7983" />
+              <normal x="0" y="1" z="0" />
+              <normal x="-0.1686" y="-0.5033" z="-0.8475" />
+              <normal x="0" y="-0.5033" z="-0.8641" />
+              <normal x="0.1686" y="-0.5033" z="-0.8475" />
+              <normal x="-0.4801" y="-0.5033" z="-0.7185" />
+              <normal x="-0.611" y="-0.5033" z="-0.611" />
+              <normal x="-0.7185" y="-0.5033" z="-0.4801" />
+              <normal x="-0.7983" y="-0.5033" z="-0.3307" />
+              <normal x="-0.8475" y="-0.5033" z="-0.1686" />
+              <normal x="-0.8641" y="-0.5033" z="0" />
+              <normal x="-0.8475" y="-0.5033" z="0.1686" />
+              <normal x="-0.7983" y="-0.5033" z="0.3307" />
+              <normal x="-0.7185" y="-0.5033" z="0.4801" />
+              <normal x="-0.611" y="-0.5033" z="0.611" />
+              <normal x="-0.4801" y="-0.5033" z="0.7185" />
+              <normal x="-0.3307" y="-0.5033" z="0.7983" />
+              <normal x="-0.1686" y="-0.5033" z="0.8475" />
+              <normal x="0" y="-0.5033" z="0.8641" />
+              <normal x="0.1686" y="-0.5033" z="0.8475" />
+              <normal x="0.3307" y="-0.5033" z="0.7983" />
+              <normal x="0.4801" y="-0.5033" z="0.7185" />
+              <normal x="0.611" y="-0.5033" z="0.611" />
+              <normal x="0.7185" y="-0.5033" z="0.4801" />
+              <normal x="0.7983" y="-0.5033" z="0.3307" />
+              <normal x="0.8475" y="-0.5033" z="0.1686" />
+              <normal x="0.8641" y="-0.5033" z="0" />
+              <normal x="0.8475" y="-0.5033" z="-0.1686" />
+              <normal x="0.7983" y="-0.5033" z="-0.3307" />
+              <normal x="0.7185" y="-0.5033" z="-0.4801" />
+              <normal x="0.611" y="-0.5033" z="-0.611" />
+              <normal x="0.4801" y="-0.5033" z="-0.7185" />
+              <normal x="0.3307" y="-0.5033" z="-0.7983" />
+              <uv0 x="0.829853" y="0.641126" />
+              <uv0 x="0.860063" y="0.848697" />
+              <uv0 x="0.812998" y="0.645161" />
+              <uv0 x="0.795827" y="0.650462" />
+              <uv0 x="0.779001" y="0.656826" />
+              <uv0 x="0.845745" y="0.638513" />
+              <uv0 x="0.860063" y="0.637421" />
+              <uv0 x="0.845745" y="0.423" />
+              <uv0 x="0.860063" y="0.212816" />
+              <uv0 x="0.860063" y="0.424092" />
+              <uv0 x="0.829853" y="0.420387" />
+              <uv0 x="0.812998" y="0.416353" />
+              <uv0 x="0.795827" y="0.411051" />
+              <uv0 x="0.779001" y="0.404687" />
+              <uv0 x="0.763166" y="0.397505" />
+              <uv0 x="0.74893" y="0.38978" />
+              <uv0 x="0.736841" y="0.38181" />
+              <uv0 x="0.74893" y="0.034825" />
+              <uv0 x="0.860063" y="0.211789" />
+              <uv0 x="0.736841" y="0.042795" />
+              <uv0 x="0.763166" y="0.0271" />
+              <uv0 x="0.779001" y="0.019918" />
+              <uv0 x="0.795827" y="0.013554" />
+              <uv0 x="0.812998" y="0.008253" />
+              <uv0 x="0.829853" y="0.004218" />
+              <uv0 x="0.845745" y="0.001605" />
+              <uv0 x="0.860063" y="0.000514" />
+              <uv0 x="0.74893" y="0.45943" />
+              <uv0 x="0.860063" y="0.636394" />
+              <uv0 x="0.736841" y="0.4674" />
+              <uv0 x="0.763166" y="0.451706" />
+              <uv0 x="0.779001" y="0.444523" />
+              <uv0 x="0.795827" y="0.438159" />
+              <uv0 x="0.812998" y="0.432858" />
+              <uv0 x="0.829853" y="0.428823" />
+              <uv0 x="0.845745" y="0.42621" />
+              <uv0 x="0.860063" y="0.425119" />
+              <uv0 x="0.74893" y="0.671733" />
+              <uv0 x="0.736841" y="0.679703" />
+              <uv0 x="0.763166" y="0.664008" />
+              <uv0 x="0.033637" y="0.92536" />
+              <uv0 x="0.020905" y="0.912258" />
+              <uv0 x="0.010902" y="0.896853" />
+              <uv0 x="0.004012" y="0.879735" />
+              <uv0 x="0.000499" y="0.861563" />
+              <uv0 x="0.000499" y="0.843035" />
+              <uv0 x="0.004012" y="0.824863" />
+              <uv0 x="0.010902" y="0.807745" />
+              <uv0 x="0.020905" y="0.792339" />
+              <uv0 x="0.033637" y="0.779238" />
+              <uv0 x="0.048608" y="0.768944" />
+              <uv0 x="0.065242" y="0.761854" />
+              <uv0 x="0.082901" y="0.758239" />
+              <uv0 x="0.100907" y="0.758239" />
+              <uv0 x="0.118566" y="0.761854" />
+              <uv0 x="0.135201" y="0.768944" />
+              <uv0 x="0.150171" y="0.779238" />
+              <uv0 x="0.162903" y="0.792339" />
+              <uv0 x="0.172906" y="0.807745" />
+              <uv0 x="0.179796" y="0.824863" />
+              <uv0 x="0.183309" y="0.843035" />
+              <uv0 x="0.183309" y="0.861563" />
+              <uv0 x="0.179796" y="0.879735" />
+              <uv0 x="0.172906" y="0.896853" />
+              <uv0 x="0.162903" y="0.912258" />
+              <uv0 x="0.150171" y="0.925359" />
+              <uv0 x="0.135201" y="0.935653" />
+              <uv0 x="0.118566" y="0.942744" />
+              <uv0 x="0.100907" y="0.946358" />
+              <uv0 x="0.082901" y="0.946358" />
+              <uv0 x="0.065242" y="0.942744" />
+              <uv0 x="0.048608" y="0.935653" />
+            </vertices>
+            <faces>
+              <face i0="0/0/0" i1="1/1/1" i2="2/2/2" />
+              <face i0="3/3/3" i1="1/1/1" i2="4/4/4" />
+              <face i0="5/5/5" i1="1/1/1" i2="0/0/0" />
+              <face i0="6/6/6" i1="1/1/1" i2="5/5/5" />
+              <face i0="7/7/7" i1="1/1/8" i2="6/6/9" />
+              <face i0="8/8/10" i1="1/1/8" i2="7/7/7" />
+              <face i0="9/9/11" i1="1/1/8" i2="8/8/10" />
+              <face i0="10/10/12" i1="1/1/8" i2="9/9/11" />
+              <face i0="11/11/13" i1="1/1/8" i2="10/10/12" />
+              <face i0="12/12/14" i1="1/1/8" i2="11/11/13" />
+              <face i0="13/13/15" i1="1/1/8" i2="12/12/14" />
+              <face i0="14/14/16" i1="1/1/8" i2="13/13/15" />
+              <face i0="15/15/17" i1="1/1/18" i2="14/14/19" />
+              <face i0="16/16/20" i1="1/1/18" i2="15/15/17" />
+              <face i0="17/17/21" i1="1/1/18" i2="16/16/20" />
+              <face i0="18/18/22" i1="1/1/18" i2="17/17/21" />
+              <face i0="19/19/23" i1="1/1/18" i2="18/18/22" />
+              <face i0="20/20/24" i1="1/1/18" i2="19/19/23" />
+              <face i0="21/21/25" i1="1/1/18" i2="20/20/24" />
+              <face i0="22/22/26" i1="1/1/18" i2="21/21/25" />
+              <face i0="23/23/27" i1="1/1/28" i2="22/22/29" />
+              <face i0="24/24/30" i1="1/1/28" i2="23/23/27" />
+              <face i0="25/25/31" i1="1/1/28" i2="24/24/30" />
+              <face i0="26/26/32" i1="1/1/28" i2="25/25/31" />
+              <face i0="27/27/33" i1="1/1/28" i2="26/26/32" />
+              <face i0="28/28/34" i1="1/1/28" i2="27/27/33" />
+              <face i0="29/29/35" i1="1/1/28" i2="28/28/34" />
+              <face i0="30/30/36" i1="1/1/28" i2="29/29/35" />
+              <face i0="31/31/37" i1="1/1/1" i2="30/30/38" />
+              <face i0="32/32/39" i1="1/1/1" i2="31/31/37" />
+              <face i0="2/2/2" i1="1/1/1" i2="3/3/3" />
+              <face i0="4/4/4" i1="1/1/1" i2="32/32/39" />
+              <face i0="3/3/40" i1="4/4/41" i2="32/32/42" />
+              <face i0="3/3/40" i1="32/32/42" i2="31/31/43" />
+              <face i0="3/3/40" i1="31/31/43" i2="30/30/44" />
+              <face i0="3/3/40" i1="30/30/44" i2="29/29/45" />
+              <face i0="3/3/40" i1="29/29/45" i2="28/28/46" />
+              <face i0="3/3/40" i1="28/28/46" i2="27/27/47" />
+              <face i0="3/3/40" i1="27/27/47" i2="26/26/48" />
+              <face i0="3/3/40" i1="26/26/48" i2="25/25/49" />
+              <face i0="3/3/40" i1="25/25/49" i2="24/24/50" />
+              <face i0="3/3/40" i1="24/24/50" i2="23/23/51" />
+              <face i0="3/3/40" i1="23/23/51" i2="22/22/52" />
+              <face i0="3/3/40" i1="22/22/52" i2="21/21/53" />
+              <face i0="3/3/40" i1="21/21/53" i2="20/20/54" />
+              <face i0="3/3/40" i1="20/20/54" i2="19/19/55" />
+              <face i0="3/3/40" i1="19/19/55" i2="18/18/56" />
+              <face i0="3/3/40" i1="18/18/56" i2="17/17/57" />
+              <face i0="3/3/40" i1="17/17/57" i2="16/16/58" />
+              <face i0="3/3/40" i1="16/16/58" i2="15/15/59" />
+              <face i0="3/3/40" i1="15/15/59" i2="14/14/60" />
+              <face i0="3/3/40" i1="14/14/60" i2="13/13/61" />
+              <face i0="3/3/40" i1="13/13/61" i2="12/12/62" />
+              <face i0="3/3/40" i1="12/12/62" i2="11/11/63" />
+              <face i0="3/3/40" i1="11/11/63" i2="10/10/64" />
+              <face i0="3/3/40" i1="10/10/64" i2="9/9/65" />
+              <face i0="3/3/40" i1="9/9/65" i2="8/8/66" />
+              <face i0="3/3/40" i1="8/8/66" i2="7/7/67" />
+              <face i0="3/3/40" i1="7/7/67" i2="6/6/68" />
+              <face i0="3/3/40" i1="6/6/68" i2="5/5/69" />
+              <face i0="3/3/40" i1="5/5/69" i2="0/0/70" />
+              <face i0="3/3/40" i1="0/0/70" i2="2/2/71" />
+            </faces>
+          </mesh>
+          <material bucket="Opaque">
+            <material_property name="diffuse" type="vec4" value="[1, 0, 0, 1]" />
+            <material_property name="specular" type="vec4" value="[0.8, 0.8, 0.8, 1]" />
+            <material_property name="ambient" type="vec4" value="[0, 0, 0, 0]" />
+            <material_property name="spec_technique" type="int" value="1" />
+            <material_property name="per_pixel_lighting" type="int" value="1" />
+            <material_property name="shininess" type="float" value="0.5" />
+            <material_property name="roughness" type="float" value="0.2" />
+            <material_property name="metalness" type="float" value="0" />
+            <material_property name="spec_exponent" type="float" value="0" />
+            <material_property name="blendmode" type="int" value="0" />
+            <material_property name="cast_shadows" type="int" value="1" />
+            <material_property name="depthmask" type="boolean" value="True" />
+            <material_property name="depthtest" type="boolean" value="True" />
+            <material_property name="alpha_discard" type="float" value="0.1" />
+            <material_property name="cullenable" type="boolean" value="True" />
+            <material_property name="cullface" type="int" value="0" />
+            <material_property name="matname" type="string" value="None" />
+          </material>
+        </geom>
+        <geom name="None">
+          <translation x="-4.150717" y="0.05411863" z="4.705674">
+            <scale x="1" y="1" z="1" />
+            <rotation x="0" y="0" z="0" w="1" />
+          </translation>
+          <mesh has_positions="True" has_normals="True" has_texcoords="True">
+            <vertices>
+              <position x="-1.457842" y="1.457842" z="1.457842" />
+              <position x="-1.457842" y="1.457842" z="-1.457842" />
+              <position x="-1.457842" y="-1.457841" z="-1.457842" />
+              <position x="-1.457842" y="-1.457841" z="1.457842" />
+              <position x="1.457841" y="1.457842" z="-1.457842" />
+              <position x="1.457841" y="-1.457841" z="-1.457842" />
+              <position x="1.457841" y="1.457842" z="1.457842" />
+              <position x="1.457841" y="-1.457841" z="1.457842" />
+              <normal x="-1" y="0" z="0" />
+              <normal x="0" y="0" z="-1" />
+              <normal x="1" y="0" z="0" />
+              <normal x="0" y="0" z="1" />
+              <normal x="0" y="-1" z="0" />
+              <normal x="0" y="1" z="0" />
+              <uv0 x="0.477376" y="0.908002" />
+              <uv0 x="0.477376" y="0.758239" />
+              <uv0 x="0.615815" y="0.758239" />
+              <uv0 x="0.615815" y="0.908002" />
+              <uv0 x="0.736841" y="0.999486" />
+              <uv0 x="0.736841" y="0.849724" />
+              <uv0 x="0.875281" y="0.849724" />
+              <uv0 x="0.875281" y="0.999486" />
+              <uv0 x="0.861061" y="0.301065" />
+              <uv0 x="0.861061" y="0.151303" />
+              <uv0 x="0.999501" y="0.151303" />
+              <uv0 x="0.999501" y="0.301065" />
+              <uv0 x="0.999501" y="0.000514" />
+              <uv0 x="0.999501" y="0.150276" />
+              <uv0 x="0.861061" y="0.150276" />
+              <uv0 x="0.861061" y="0.000514" />
+              <uv0 x="0.184307" y="0.758239" />
+              <uv0 x="0.329843" y="0.758239" />
+              <uv0 x="0.329843" y="0.908002" />
+              <uv0 x="0.184307" y="0.908002" />
+              <uv0 x="0.330842" y="0.908002" />
+              <uv0 x="0.330842" y="0.758239" />
+              <uv0 x="0.476377" y="0.758239" />
+              <uv0 x="0.476377" y="0.908002" />
+            </vertices>
+            <faces>
+              <face i0="0/0/0" i1="1/0/1" i2="2/0/2" />
+              <face i0="0/0/0" i1="2/0/2" i2="3/0/3" />
+              <face i0="1/1/4" i1="4/1/5" i2="5/1/6" />
+              <face i0="1/1/4" i1="5/1/6" i2="2/1/7" />
+              <face i0="4/2/8" i1="6/2/9" i2="7/2/10" />
+              <face i0="4/2/8" i1="7/2/10" i2="5/2/11" />
+              <face i0="6/3/12" i1="0/3/13" i2="3/3/14" />
+              <face i0="6/3/12" i1="3/3/14" i2="7/3/15" />
+              <face i0="3/4/16" i1="2/4/17" i2="5/4/18" />
+              <face i0="3/4/16" i1="5/4/18" i2="7/4/19" />
+              <face i0="6/5/20" i1="4/5/21" i2="1/5/22" />
+              <face i0="6/5/20" i1="1/5/22" i2="0/5/23" />
+            </faces>
+          </mesh>
+          <material bucket="Opaque">
+            <material_property name="diffuse" type="vec4" value="[0.8, 0.8, 0.8, 1]" />
+            <material_property name="specular" type="vec4" value="[0.8, 0.8, 0.8, 1]" />
+            <material_property name="ambient" type="vec4" value="[0, 0, 0, 0]" />
+            <material_property name="spec_technique" type="int" value="1" />
+            <material_property name="per_pixel_lighting" type="int" value="1" />
+            <material_property name="shininess" type="float" value="0.5" />
+            <material_property name="roughness" type="float" value="0.2" />
+            <material_property name="metalness" type="float" value="0" />
+            <material_property name="spec_exponent" type="float" value="0" />
+            <material_property name="blendmode" type="int" value="0" />
+            <material_property name="cast_shadows" type="int" value="1" />
+            <material_property name="depthmask" type="boolean" value="True" />
+            <material_property name="depthtest" type="boolean" value="True" />
+            <material_property name="alpha_discard" type="float" value="0.1" />
+            <material_property name="cullenable" type="boolean" value="True" />
+            <material_property name="cullface" type="int" value="0" />
+            <material_property name="matname" type="string" value="None" />
+          </material>
+        </geom>
+        <geom name="None">
+          <translation x="-10.7259" y="1.153801" z="-2.698997">
+            <scale x="1" y="2" z="1" />
+            <rotation x="0" y="0" z="0" w="1" />
+          </translation>
+          <mesh has_positions="True" has_normals="True" has_texcoords="True">
+            <vertices>
+              <position x="-12.84896" y="0" z="12.84896" />
+              <position x="12.84896" y="0" z="12.84896" />
+              <position x="12.84896" y="0" z="-12.84896" />
+              <position x="-12.84896" y="0" z="-12.84896" />
+              <normal x="0" y="1" z="0" />
+              <uv0 x="0.000499" y="0.757212" />
+              <uv0 x="0.000499" y="0.000514" />
+              <uv0 x="0.735843" y="0.000514" />
+              <uv0 x="0.735843" y="0.757212" />
+            </vertices>
+            <faces>
+              <face i0="0/0/0" i1="1/0/1" i2="2/0/2" />
+              <face i0="0/0/0" i1="2/0/2" i2="3/0/3" />
+            </faces>
+          </mesh>
+          <material bucket="Opaque">
+            <material_property name="diffuse" type="vec4" value="[0.8, 0.8, 0.8, 1]" />
+            <material_property name="specular" type="vec4" value="[0.8, 0.8, 0.8, 1]" />
+            <material_property name="ambient" type="vec4" value="[0, 0, 0, 0]" />
+            <material_property name="spec_technique" type="int" value="1" />
+            <material_property name="per_pixel_lighting" type="int" value="1" />
+            <material_property name="shininess" type="float" value="0.5" />
+            <material_property name="roughness" type="float" value="0.2" />
+            <material_property name="metalness" type="float" value="0" />
+            <material_property name="spec_exponent" type="float" value="0" />
+            <material_property name="blendmode" type="int" value="0" />
+            <material_property name="cast_shadows" type="int" value="1" />
+            <material_property name="depthmask" type="boolean" value="True" />
+            <material_property name="depthtest" type="boolean" value="True" />
+            <material_property name="alpha_discard" type="float" value="0.1" />
+            <material_property name="cullenable" type="boolean" value="True" />
+            <material_property name="cullface" type="int" value="0" />
+            <material_property name="matname" type="string" value="None" />
+          </material>
+        </geom>
+        <geom name="None">
+          <translation x="-5.715334" y="0.05169106" z="-1.778318">
+            <scale x="1" y="1" z="1" />
+            <rotation x="0" y="0" z="0" w="1" />
+          </translation>
+          <mesh has_positions="True" has_normals="True" has_texcoords="True">
+            <vertices>
+              <position x="1" y="-1" z="-1" />
+              <position x="1" y="-1" z="0.9999995" />
+              <position x="-1" y="-1" z="0.9999995" />
+              <position x="-1" y="-1" z="-1" />
+              <position x="1" y="1" z="-0.9999995" />
+              <position x="-1" y="1" z="-1" />
+              <position x="-1" y="1" z="0.9999995" />
+              <position x="1" y="1" z="1" />
+              <normal x="0" y="-1" z="0" />
+              <normal x="0" y="1" z="0" />
+              <normal x="1" y="0" z="0" />
+              <normal x="0" y="0" z="1" />
+              <normal x="-1" y="0" z="0" />
+              <normal x="0" y="0" z="-1" />
+              <uv0 x="0.616813" y="0.964724" />
+              <uv0 x="0.616813" y="0.861995" />
+              <uv0 x="0.716643" y="0.861995" />
+              <uv0 x="0.716643" y="0.964724" />
+              <uv0 x="0.716643" y="0.758239" />
+              <uv0 x="0.716643" y="0.860968" />
+              <uv0 x="0.616813" y="0.860968" />
+              <uv0 x="0.616813" y="0.758239" />
+              <uv0 x="0.956023" y="0.71609" />
+              <uv0 x="0.861061" y="0.71609" />
+              <uv0 x="0.861061" y="0.613361" />
+              <uv0 x="0.956023" y="0.613361" />
+              <uv0 x="0.956023" y="0.612334" />
+              <uv0 x="0.861061" y="0.612334" />
+              <uv0 x="0.861061" y="0.509605" />
+              <uv0 x="0.956023" y="0.509605" />
+              <uv0 x="0.956023" y="0.508578" />
+              <uv0 x="0.861061" y="0.508578" />
+              <uv0 x="0.861061" y="0.405849" />
+              <uv0 x="0.956023" y="0.405849" />
+              <uv0 x="0.956023" y="0.404822" />
+              <uv0 x="0.861061" y="0.404822" />
+              <uv0 x="0.861061" y="0.302093" />
+              <uv0 x="0.956023" y="0.302093" />
+            </vertices>
+            <faces>
+              <face i0="0/0/0" i1="1/0/1" i2="2/0/2" />
+              <face i0="0/0/0" i1="2/0/2" i2="3/0/3" />
+              <face i0="4/1/4" i1="5/1/5" i2="6/1/6" />
+              <face i0="4/1/4" i1="6/1/6" i2="7/1/7" />
+              <face i0="0/2/8" i1="4/2/9" i2="7/2/10" />
+              <face i0="0/2/8" i1="7/2/10" i2="1/2/11" />
+              <face i0="1/3/12" i1="7/3/13" i2="6/3/14" />
+              <face i0="1/3/12" i1="6/3/14" i2="2/3/15" />
+              <face i0="2/4/16" i1="6/4/17" i2="5/4/18" />
+              <face i0="2/4/16" i1="5/4/18" i2="3/4/19" />
+              <face i0="4/5/20" i1="0/5/21" i2="3/5/22" />
+              <face i0="4/5/20" i1="3/5/22" i2="5/5/23" />
+            </faces>
+          </mesh>
+          <material bucket="Opaque">
+            <material_property name="diffuse" type="vec4" value="[0.8, 0.8, 0.8, 1]" />
+            <material_property name="specular" type="vec4" value="[0.8, 0.8, 0.8, 1]" />
+            <material_property name="ambient" type="vec4" value="[0, 0, 0, 0]" />
+            <material_property name="spec_technique" type="int" value="1" />
+            <material_property name="per_pixel_lighting" type="int" value="1" />
+            <material_property name="shininess" type="float" value="0.5" />
+            <material_property name="roughness" type="float" value="0.2" />
+            <material_property name="metalness" type="float" value="0" />
+            <material_property name="spec_exponent" type="float" value="0" />
+            <material_property name="blendmode" type="int" value="0" />
+            <material_property name="cast_shadows" type="int" value="1" />
+            <material_property name="depthmask" type="boolean" value="True" />
+            <material_property name="depthtest" type="boolean" value="True" />
+            <material_property name="alpha_discard" type="float" value="0.1" />
+            <material_property name="cullenable" type="boolean" value="True" />
+            <material_property name="cullface" type="int" value="0" />
+            <material_property name="matname" type="string" value="None" />
+          </material>
+        </geom>
+      </node>
+      <node name="domino">
+        <translation x="-0.7621441" y="1.205955" z="-3.155843" />
+        <scale x="1" y="1" z="1" />
+        <rotation x="0" y="0" z="0" w="1" />
+        <geom name="Material.001">
+          <translation x="0" y="0" z="0">
+            <scale x="1" y="1" z="1" />
+            <rotation x="0" y="0" z="0" w="1" />
+          </translation>
+          <mesh has_positions="True" has_normals="True" has_texcoords="True">
+            <vertices>
+              <position x="-0.191667" y="-1.916666" z="-0.833333" />
+              <position x="-0.2" y="-1.666666" z="-0.833333" />
+              <position x="-0.191667" y="-1.666667" z="-0.958333" />
+              <position x="-0.185185" y="-1.851852" z="-0.925926" />
+              <position x="0.166667" y="-1.916666" z="-0.958333" />
+              <position x="0.166667" y="-1.666667" z="-1" />
+              <position x="0.191667" y="-1.666667" z="-0.958333" />
+              <position x="0.185185" y="-1.851852" z="-0.925926" />
+              <position x="0.191667" y="-1.166667" z="-0.958333" />
+              <position x="0.191667" y="-1.916667" z="0.833334" />
+              <position x="0.2" y="-1.666667" z="0.833334" />
+              <position x="0.191667" y="-1.666667" z="0.958333" />
+              <position x="0.185185" y="-1.851852" z="0.925926" />
+              <position x="0.191667" y="-1.166667" z="0.958333" />
+              <position x="-0.166667" y="-1.666666" z="1" />
+              <position x="-0.166667" y="-1.166667" z="1" />
+              <position x="-0.191667" y="-1.166667" z="0.958333" />
+              <position x="-0.191667" y="-1.666667" z="0.958333" />
+              <position x="-0.166667" y="-1.916666" z="0.958333" />
+              <position x="-0.185185" y="-1.851852" z="0.925926" />
+              <position x="0.191667" y="-1.916666" z="-0.833334" />
+              <position x="0.166667" y="-2" z="-0.833334" />
+              <position x="-0.191667" y="1.916667" z="-0.833333" />
+              <position x="-0.166667" y="2" z="-0.833333" />
+              <position x="-0.166667" y="1.916667" z="-0.958333" />
+              <position x="-0.185185" y="1.851852" z="-0.925926" />
+              <position x="-0.166666" y="2" z="0.833333" />
+              <position x="-0.166667" y="2" z="0.416667" />
+              <position x="-0.191667" y="1.916667" z="0.416667" />
+              <position x="-0.191667" y="1.916667" z="0.833333" />
+              <position x="-0.104167" y="2" z="0.625" />
+              <position x="-0.116667" y="2" z="0.25" />
+              <position x="-0.166667" y="2" z="-0.166667" />
+              <position x="-0.116667" y="2" z="-0.083333" />
+              <position x="-0.116667" y="2" z="-0.416667" />
+              <position x="-0.166667" y="2" z="-0.416667" />
+              <position x="-0.191667" y="1.916667" z="-0.083333" />
+              <position x="-0.191667" y="1.916667" z="-0.416667" />
+              <position x="0.083333" y="2" z="-0.083333" />
+              <position x="0.133333" y="2" z="-0.083333" />
+              <position x="0.133333" y="2" z="-0.416667" />
+              <position x="0.083333" y="2" z="-0.416667" />
+              <position x="0.1125" y="2" z="0.583333" />
+              <position x="0.133333" y="2" z="0.25" />
+              <position x="0.083333" y="2" z="0.25" />
+              <position x="-0.016667" y="2" z="0.583333" />
+              <position x="0.016667" y="2" z="0.333333" />
+              <position x="-0.05" y="2" z="0.375" />
+              <position x="-0.016667" y="2" z="-0.833333" />
+              <position x="-0.016667" y="1.916667" z="-0.958333" />
+              <position x="-0.083333" y="1.916667" z="-0.958333" />
+              <position x="-0.083333" y="2" z="-0.833333" />
+              <position x="-0.058333" y="2" z="0.020833" />
+              <position x="0.016667" y="2" z="0.083333" />
+              <position x="-0.016667" y="2" z="-0.291667" />
+              <position x="-0.066667" y="2" z="-0.416667" />
+              <position x="0.116667" y="2" z="-0.833333" />
+              <position x="0.083333" y="2" z="-0.666667" />
+              <position x="0.166667" y="2" z="-0.833334" />
+              <position x="0.166667" y="1.916667" z="-0.958333" />
+              <position x="0.083333" y="1.916667" z="-0.958333" />
+              <position x="0.05" y="2" z="-0.833333" />
+              <position x="-0.05" y="2" z="-0.666667" />
+              <position x="0.025" y="2" z="-0.583333" />
+              <position x="0.166667" y="-2" z="0.583333" />
+              <position x="0.110417" y="-2" z="0.541667" />
+              <position x="0.116667" y="-2" z="0.208333" />
+              <position x="0.166667" y="-2" z="0.25" />
+              <position x="0.166667" y="-2" z="-0.083333" />
+              <position x="0.116667" y="-2" z="-0.083333" />
+              <position x="0.116667" y="-2" z="-0.416667" />
+              <position x="0.166667" y="-2" z="-0.416667" />
+              <position x="0.191667" y="-1.916667" z="0.416667" />
+              <position x="0.191667" y="-1.916667" z="-0.083333" />
+              <position x="0.191667" y="-1.916667" z="-0.416667" />
+              <position x="-0.083333" y="-2" z="-0.083333" />
+              <position x="-0.133333" y="-2" z="-0.083333" />
+              <position x="-0.133333" y="-2" z="-0.416667" />
+              <position x="-0.083333" y="-2" z="-0.416667" />
+              <position x="0.025" y="-2" z="0.520833" />
+              <position x="0.05" y="-2" z="0.166667" />
+              <position x="-0.05" y="-2" z="-0.833333" />
+              <position x="-0.116667" y="-2" z="-0.833333" />
+              <position x="-0.116667" y="-1.916667" z="-0.958333" />
+              <position x="-0.066667" y="-1.916667" z="-0.958333" />
+              <position x="-0.016667" y="-2" z="0.083333" />
+              <position x="0.016667" y="-2" z="-0.291667" />
+              <position x="0.066667" y="-2" z="-0.416667" />
+              <position x="0.066667" y="-2" z="-0.083333" />
+              <position x="-0.083333" y="-2" z="-0.666667" />
+              <position x="-0.166667" y="-2" z="-0.833334" />
+              <position x="0.016667" y="-2" z="-0.833333" />
+              <position x="0.033333" y="-1.916667" z="-0.958333" />
+              <position x="0.083333" y="-1.916667" z="-0.958333" />
+              <position x="0.083333" y="-2" z="-0.833333" />
+              <position x="0.058333" y="-2" z="-0.666667" />
+              <position x="-0.025" y="-2" z="-0.583333" />
+              <position x="-0.016667" y="-1.916667" z="-0.958333" />
+              <position x="-0.016667" y="-1.666667" z="1" />
+              <position x="-0.016667" y="-1.166667" z="1" />
+              <position x="-0.083333" y="-1.166667" z="1" />
+              <position x="-0.083333" y="-1.666667" z="1" />
+              <position x="-0.016667" y="-1.916667" z="0.958333" />
+              <position x="-0.083333" y="-1.916667" z="0.958333" />
+              <position x="-0.058333" y="-0.5" z="1" />
+              <position x="0.016667" y="-0.5" z="1" />
+              <position x="0.016667" y="0.166667" z="1" />
+              <position x="-0.033333" y="0.25" z="1" />
+              <position x="0.116667" y="0.208333" z="1" />
+              <position x="0.066667" y="0.166667" z="1" />
+              <position x="0.1" y="-0.458333" z="1" />
+              <position x="-0.016667" y="1.125" z="1" />
+              <position x="-0.083333" y="1.333333" z="1" />
+              <position x="-0.083333" y="0.833333" z="1" />
+              <position x="-0.166667" y="0" z="1" />
+              <position x="-0.166667" y="-0.5" z="1" />
+              <position x="-0.133333" y="-0.5" z="1" />
+              <position x="-0.133333" y="0.166667" z="1" />
+              <position x="-0.083333" y="0.166667" z="1" />
+              <position x="-0.166667" y="1.166667" z="1" />
+              <position x="-0.133333" y="0.833333" z="1" />
+              <position x="-0.166667" y="1.666667" z="1" />
+              <position x="-0.191667" y="1.666666" z="0.958333" />
+              <position x="-0.191667" y="0.833333" z="0.958333" />
+              <position x="-0.166667" y="0.5" z="1" />
+              <position x="0.2" y="-1.666665" z="-0.833333" />
+              <position x="0.2" y="-1.666667" z="-0.416667" />
+              <position x="-0.191667" y="-0.166667" z="0.958333" />
+              <position x="-0.191667" y="-0.666667" z="0.958333" />
+              <position x="0.2" y="-1.166667" z="-0.583333" />
+              <position x="0.2" y="-1.333333" z="-0.333333" />
+              <position x="0.2" y="-1.666667" z="0.083333" />
+              <position x="0.2" y="-1.166667" z="0.166667" />
+              <position x="0.2" y="-1.166667" z="0.416667" />
+              <position x="0.2" y="-1.666667" z="0.416667" />
+              <position x="0.2" y="-1.166667" z="-0.083333" />
+              <position x="0.191667" y="-1.916667" z="0.166667" />
+              <position x="0.2" y="-0.5" z="-0.583333" />
+              <position x="0.2" y="0.208333" z="-0.583333" />
+              <position x="0.2" y="0.166667" z="-0.229167" />
+              <position x="0.2" y="-0.541667" z="-0.25" />
+              <position x="0.2" y="1.125" z="-0.583333" />
+              <position x="0.2" y="1.333333" z="-0.25" />
+              <position x="0.2" y="0.833333" z="-0.25" />
+              <position x="0.2" y="-0.5" z="0.083333" />
+              <position x="0.2" y="0" z="0.083333" />
+              <position x="0.2" y="0.166667" z="0.416667" />
+              <position x="0.2" y="-0.5" z="0.416667" />
+              <position x="0.2" y="1.125" z="0.083333" />
+              <position x="0.2" y="1.333333" z="0.416667" />
+              <position x="0.2" y="0.833333" z="0.416667" />
+              <position x="0.2" y="-0.333333" z="0.666667" />
+              <position x="0.2" y="-0.166667" z="0.833333" />
+              <position x="0.2" y="-0.833333" z="0.833333" />
+              <position x="0.2" y="-0.833333" z="0.666667" />
+              <position x="0.2" y="1.166667" z="0.833333" />
+              <position x="0.2" y="0.833333" z="0.666667" />
+              <position x="0.2" y="1.666667" z="0.833334" />
+              <position x="0.191667" y="1.666666" z="0.958333" />
+              <position x="0.191667" y="0.833333" z="0.958333" />
+              <position x="0.2" y="0.5" z="0.833333" />
+              <position x="0.2" y="0.166667" z="0.666667" />
+              <position x="0.191667" y="0.166667" z="0.958333" />
+              <position x="0.191667" y="-0.5" z="0.958333" />
+              <position x="-0.116667" y="-1.666667" z="-1" />
+              <position x="-0.110417" y="-1.125" z="-1" />
+              <position x="-0.05" y="-1.333333" z="-1" />
+              <position x="-0.066667" y="-1.666667" z="-1" />
+              <position x="0.033333" y="-1.666667" z="-1" />
+              <position x="0.004167" y="-1.083333" z="-1" />
+              <position x="0.083333" y="-1.166667" z="-1" />
+              <position x="0.083333" y="-1.666667" z="-1" />
+              <position x="-0.016667" y="-1.666667" z="-1" />
+              <position x="0.016667" y="0.833333" z="-1" />
+              <position x="0.016667" y="1.333333" z="-1" />
+              <position x="0.083333" y="1.333333" z="-1" />
+              <position x="0.083333" y="0.833333" z="-1" />
+              <position x="0.058333" y="-0.5" z="-1" />
+              <position x="-0.016667" y="-0.5" z="-1" />
+              <position x="-0.029167" y="0.25" z="-1" />
+              <position x="0.0625" y="0.083333" z="-1" />
+              <position x="0.166667" y="-0.166667" z="-1" />
+              <position x="0.191667" y="-0.166667" z="-0.958333" />
+              <position x="0.191667" y="-0.666667" z="-0.958333" />
+              <position x="0.166667" y="-0.833333" z="-1" />
+              <position x="0.166667" y="1.166667" z="-1" />
+              <position x="0.133333" y="0.833333" z="-1" />
+              <position x="0.166667" y="1.666667" z="-1" />
+              <position x="0.191667" y="1.666666" z="-0.958333" />
+              <position x="0.191667" y="0.833333" z="-0.958333" />
+              <position x="0.166667" y="0.5" z="-1" />
+              <position x="0.133333" y="-0.166667" z="-1" />
+              <position x="0.133333" y="-0.666667" z="-1" />
+              <position x="-0.2" y="-1.666667" z="0.583333" />
+              <position x="-0.2" y="-1.041667" z="0.541667" />
+              <position x="-0.2" y="-1.166667" z="0.25" />
+              <position x="-0.2" y="-1.666667" z="0.25" />
+              <position x="-0.191667" y="-1.916667" z="0.583333" />
+              <position x="-0.191667" y="-1.916667" z="0.25" />
+              <position x="-0.2" y="-1.666667" z="-0.083333" />
+              <position x="-0.2" y="-1.25" z="-0.083333" />
+              <position x="-0.2" y="-1.333333" z="-0.416667" />
+              <position x="-0.2" y="-1.666667" z="-0.416667" />
+              <position x="-0.191667" y="-1.916667" z="-0.083333" />
+              <position x="-0.191667" y="-1.916667" z="-0.416667" />
+              <position x="-0.2" y="-0.083333" z="-0.020833" />
+              <position x="-0.2" y="-0.166667" z="-0.416667" />
+              <position x="-0.2" y="-0.833333" z="-0.416667" />
+              <position x="-0.2" y="-0.75" z="-0.083333" />
+              <position x="-0.2" y="0.708333" z="0.541667" />
+              <position x="-0.2" y="1.666668" z="0.833333" />
+              <position x="-0.2" y="1.333333" z="0.291667" />
+              <position x="-0.2" y="-0.5" z="0.666667" />
+              <position x="-0.2" y="0.166667" z="0.666667" />
+              <position x="-0.2" y="-0.166667" z="0.416667" />
+              <position x="-0.2" y="-0.5" z="0.208333" />
+              <position x="-0.2" y="1.125" z="-0.083333" />
+              <position x="-0.2" y="1.333333" z="-0.416667" />
+              <position x="-0.2" y="0.583333" z="-0.416667" />
+              <position x="-0.2" y="0" z="-0.833333" />
+              <position x="-0.2" y="-0.5" z="-0.833333" />
+              <position x="-0.2" y="-0.5" z="-0.666667" />
+              <position x="-0.2" y="0.166667" z="-0.666667" />
+              <position x="-0.2" y="1.166667" z="-0.833333" />
+              <position x="-0.2" y="0.833333" z="-0.666667" />
+              <position x="-0.2" y="1.666667" z="-0.833334" />
+              <position x="-0.191667" y="1.666666" z="-0.958333" />
+              <position x="-0.191667" y="0.833333" z="-0.958333" />
+              <position x="-0.2" y="0.5" z="-0.833333" />
+              <position x="-0.191667" y="0.166667" z="-0.958333" />
+              <position x="-0.191667" y="-0.5" z="-0.958333" />
+              <position x="-0.2" y="1.666667" z="-0.583333" />
+              <position x="-0.2" y="1.666667" z="-0.25" />
+              <position x="-0.2" y="0.333333" z="0.25" />
+              <position x="-0.2" y="0.833333" z="0.25" />
+              <position x="-0.2" y="0.416667" z="-0.083333" />
+              <position x="-0.2" y="1.666667" z="0.083333" />
+              <position x="-0.2" y="1.666667" z="0.416667" />
+              <position x="-0.191667" y="1.916667" z="0.166667" />
+              <position x="-0.2" y="-0.166667" z="0.833333" />
+              <position x="-0.2" y="-0.666667" z="0.833333" />
+              <position x="-0.2" y="0.833333" z="0.833333" />
+              <position x="-0.2" y="0.333333" z="0.833333" />
+              <position x="-0.191667" y="0.333333" z="0.958333" />
+              <position x="-0.185185" y="1.851852" z="0.925926" />
+              <position x="-0.2" y="-1.166667" z="0.833333" />
+              <position x="-0.2" y="-1.666667" z="0.833333" />
+              <position x="-0.191667" y="-1.916667" z="0.833333" />
+              <position x="0.191667" y="0.333333" z="-0.958333" />
+              <position x="0.116667" y="0.333333" z="-1" />
+              <position x="0.185185" y="1.851852" z="-0.925926" />
+              <position x="0.116667" y="1.666667" z="-1" />
+              <position x="0.05" y="1.666667" z="-1" />
+              <position x="-0.066667" y="-0.5" z="-1" />
+              <position x="-0.1" y="-0.125" z="-1" />
+              <position x="-0.05" y="0.833333" z="-1" />
+              <position x="-0.033333" y="1.333333" z="-1" />
+              <position x="-0.104167" y="1.229167" z="-1" />
+              <position x="-0.016667" y="1.666667" z="-1" />
+              <position x="-0.083333" y="1.666667" z="-1" />
+              <position x="0.033333" y="1.916667" z="-0.958333" />
+              <position x="-0.166667" y="0.166667" z="-1" />
+              <position x="-0.166667" y="-0.333333" z="-1" />
+              <position x="-0.166667" y="-0.833333" z="-1" />
+              <position x="-0.166667" y="0.833333" z="-1" />
+              <position x="-0.116667" y="0.416667" z="-1" />
+              <position x="-0.166667" y="1.666666" z="-1" />
+              <position x="-0.166667" y="-1.916667" z="-0.958333" />
+              <position x="-0.166666" y="-1.666667" z="-1" />
+              <position x="-0.191667" y="-1.166667" z="-0.958333" />
+              <position x="0.191667" y="1.916667" z="0.583333" />
+              <position x="0.2" y="1.666667" z="0.583333" />
+              <position x="0.2" y="1.666667" z="0.25" />
+              <position x="0.191667" y="1.916667" z="0.25" />
+              <position x="0.191667" y="1.916667" z="0.833333" />
+              <position x="0.185185" y="1.851852" z="0.925926" />
+              <position x="0.2" y="1.666667" z="-0.083333" />
+              <position x="0.2" y="1.666667" z="-0.416667" />
+              <position x="0.191667" y="1.916667" z="-0.416667" />
+              <position x="0.191667" y="1.916667" z="-0.083333" />
+              <position x="0.2" y="0.5" z="0.166667" />
+              <position x="0.2" y="-0.166667" z="-0.833333" />
+              <position x="0.2" y="-0.666667" z="-0.833333" />
+              <position x="0.2" y="0.833333" z="-0.833333" />
+              <position x="0.2" y="0.333333" z="-0.833333" />
+              <position x="0.2" y="1.666667" z="-0.833334" />
+              <position x="0.191667" y="1.916667" z="-0.833334" />
+              <position x="0.2" y="-1.666667" z="-0.166667" />
+              <position x="0.2" y="-1.166667" z="-0.833333" />
+              <position x="-0.116667" y="1.916667" z="0.958333" />
+              <position x="-0.116667" y="1.666667" z="1" />
+              <position x="-0.05" y="1.666667" z="1" />
+              <position x="-0.05" y="1.916667" z="0.958333" />
+              <position x="-0.166667" y="1.916667" z="0.958333" />
+              <position x="0.016667" y="1.666667" z="1" />
+              <position x="0.066667" y="1.666667" z="1" />
+              <position x="0.083333" y="1.916667" z="0.958333" />
+              <position x="0.016667" y="1.916667" z="0.958333" />
+              <position x="0.05" y="-1" z="1" />
+              <position x="0.05" y="0.833333" z="1" />
+              <position x="0.104167" y="1.229167" z="1" />
+              <position x="0.033333" y="1.333333" z="1" />
+              <position x="0.166667" y="0.166667" z="1" />
+              <position x="0.166667" y="-0.333333" z="1" />
+              <position x="0.166667" y="0.833333" z="1" />
+              <position x="0.166667" y="-0.833333" z="1" />
+              <position x="0.166667" y="1.666666" z="1" />
+              <position x="0.166667" y="1.916667" z="0.958333" />
+              <position x="0.033333" y="-1.666667" z="1" />
+              <position x="0.083333" y="-1.666667" z="1" />
+              <position x="0.104167" y="-1.25" z="1" />
+              <position x="0.116667" y="1.666667" z="1" />
+              <position x="0.05" y="-1.916667" z="0.958333" />
+              <position x="0.166667" y="-1.666666" z="1" />
+              <position x="0.166667" y="-1.916667" z="0.958333" />
+              <position x="-0.033333" y="-2" z="-0.25" />
+              <position x="-0.166667" y="-2" z="-0.583333" />
+              <position x="-0.166667" y="-2" z="-0.25" />
+              <position x="-0.016667" y="-2" z="0.333333" />
+              <position x="-0.083333" y="-2" z="0.25" />
+              <position x="-0.133333" y="-2" z="0.166667" />
+              <position x="-0.122917" y="-2" z="0.520833" />
+              <position x="-0.166667" y="-2" z="0.416667" />
+              <position x="-0.166667" y="-2" z="0.083333" />
+              <position x="-0.016667" y="-2" z="0.833333" />
+              <position x="0.05" y="-2" z="0.833333" />
+              <position x="-0.083333" y="-2" z="0.833333" />
+              <position x="-0.041667" y="-2" z="0.583333" />
+              <position x="-0.166667" y="-2" z="0.833334" />
+              <position x="0.116667" y="-2" z="0.833333" />
+              <position x="0.166667" y="-2" z="0.833333" />
+              <position x="0.116667" y="-1.916667" z="0.958333" />
+              <position x="0.033333" y="2" z="-0.25" />
+              <position x="0.166667" y="2" z="-0.583333" />
+              <position x="0.166667" y="2" z="-0.25" />
+              <position x="0.166667" y="2" z="0.25" />
+              <position x="0.166667" y="2" z="0" />
+              <position x="0.016667" y="2" z="0.833333" />
+              <position x="-0.05" y="2" z="0.833333" />
+              <position x="0.083333" y="2" z="0.833333" />
+              <position x="0.041667" y="2" z="0.583333" />
+              <position x="0.166667" y="2" z="0.833333" />
+              <position x="0.166667" y="2" z="0.583333" />
+              <position x="-0.166667" y="2" z="0.083333" />
+              <position x="-0.116667" y="2" z="0.833333" />
+              <position x="-0.116667" y="2" z="-0.666667" />
+              <position x="-0.133333" y="-1.166667" z="1" />
+              <position x="0.133333" y="-1.166667" z="-1" />
+              <position x="-0.2" y="-1.166667" z="-0.666667" />
+              <position x="-0.2" y="-1.166667" z="-0.833333" />
+              <normal x="-0.9823" y="-0.17" z="-0.0782" />
+              <normal x="-0.9991" y="-0.0183" z="-0.0366" />
+              <normal x="-0.9557" y="-0.034" z="-0.2924" />
+              <normal x="-0.9612" y="-0.1068" z="-0.2541" />
+              <normal x="0.517" y="-0.4748" z="-0.7122" />
+              <normal x="0.4965" y="-0.073" z="-0.865" />
+              <normal x="0.9557" y="-0.034" z="-0.2924" />
+              <normal x="0.9612" y="-0.1068" z="-0.2541" />
+              <normal x="0.9543" y="0" z="-0.2988" />
+              <normal x="0.9823" y="-0.17" z="0.0782" />
+              <normal x="0.9991" y="-0.0183" z="0.0366" />
+              <normal x="0.9557" y="-0.034" z="0.2924" />
+              <normal x="0.9612" y="-0.1068" z="0.2541" />
+              <normal x="0.9543" y="0" z="0.2988" />
+              <normal x="-0.4965" y="-0.073" z="0.865" />
+              <normal x="-0.4927" y="0" z="0.8702" />
+              <normal x="-0.9543" y="0" z="0.2988" />
+              <normal x="-0.9557" y="-0.034" z="0.2924" />
+              <normal x="-0.517" y="-0.4748" z="0.7122" />
+              <normal x="-0.9612" y="-0.1068" z="0.2541" />
+              <normal x="0.9823" y="-0.17" z="-0.0782" />
+              <normal x="0.5522" y="-0.799" z="-0.2381" />
+              <normal x="-0.9823" y="0.17" z="-0.0782" />
+              <normal x="-0.5522" y="0.799" z="-0.2381" />
+              <normal x="-0.517" y="0.4748" z="-0.7122" />
+              <normal x="-0.9612" y="0.1068" z="-0.2541" />
+              <normal x="-0.5522" y="0.799" z="0.2381" />
+              <normal x="-0.5969" y="0.8023" z="0" />
+              <normal x="-0.9868" y="0.1617" z="0" />
+              <normal x="-0.9823" y="0.17" z="0.0782" />
+              <normal x="0" y="1" z="0" />
+              <normal x="0" y="0.9571" z="-0.2898" />
+              <normal x="0" y="0.543" z="-0.8397" />
+              <normal x="0.5522" y="0.799" z="-0.2381" />
+              <normal x="0.517" y="0.4748" z="-0.7122" />
+              <normal x="0.5969" y="-0.8023" z="0" />
+              <normal x="0" y="-1" z="0" />
+              <normal x="0.9868" y="-0.1617" z="0" />
+              <normal x="0" y="-0.9571" z="-0.2898" />
+              <normal x="0" y="-0.543" z="-0.8397" />
+              <normal x="-0.5522" y="-0.799" z="-0.2381" />
+              <normal x="0" y="-0.0825" z="0.9966" />
+              <normal x="0" y="0" z="1" />
+              <normal x="0" y="-0.543" z="0.8397" />
+              <normal x="-0.4965" y="0.073" z="0.865" />
+              <normal x="-0.9557" y="0.034" z="0.2924" />
+              <normal x="0.9991" y="-0.0183" z="-0.0366" />
+              <normal x="0.9998" y="-0.0166" z="0" />
+              <normal x="1" y="0" z="0" />
+              <normal x="0.9994" y="0" z="0.0333" />
+              <normal x="0.9991" y="0.0183" z="0.0366" />
+              <normal x="0.9557" y="0.034" z="0.2924" />
+              <normal x="0" y="-0.0825" z="-0.9966" />
+              <normal x="0" y="0" z="-1" />
+              <normal x="0.4927" y="0" z="-0.8702" />
+              <normal x="0.4965" y="0.073" z="-0.865" />
+              <normal x="0.9557" y="0.034" z="-0.2924" />
+              <normal x="-0.9998" y="-0.0166" z="0" />
+              <normal x="-1" y="0" z="0" />
+              <normal x="-0.9868" y="-0.1617" z="0" />
+              <normal x="-0.9991" y="0.0183" z="0.0366" />
+              <normal x="-0.9994" y="0" z="-0.0333" />
+              <normal x="-0.9991" y="0.0183" z="-0.0366" />
+              <normal x="-0.9557" y="0.034" z="-0.2924" />
+              <normal x="-0.9543" y="0" z="-0.2988" />
+              <normal x="-0.9998" y="0.0166" z="0" />
+              <normal x="-0.9994" y="0" z="0.0333" />
+              <normal x="-0.9612" y="0.1068" z="0.2541" />
+              <normal x="-0.9991" y="-0.0183" z="0.0366" />
+              <normal x="-0.9823" y="-0.17" z="0.0782" />
+              <normal x="0.9612" y="0.1068" z="-0.2541" />
+              <normal x="0" y="0.0825" z="-0.9966" />
+              <normal x="-0.4927" y="0" z="-0.8702" />
+              <normal x="-0.4965" y="0.073" z="-0.865" />
+              <normal x="-0.517" y="-0.4748" z="-0.7122" />
+              <normal x="-0.4965" y="-0.073" z="-0.865" />
+              <normal x="0.9868" y="0.1617" z="0" />
+              <normal x="0.9998" y="0.0166" z="0" />
+              <normal x="0.9823" y="0.17" z="0.0782" />
+              <normal x="0.9612" y="0.1068" z="0.2541" />
+              <normal x="0.9994" y="0" z="-0.0333" />
+              <normal x="0.9991" y="0.0183" z="-0.0366" />
+              <normal x="0.9823" y="0.17" z="-0.0782" />
+              <normal x="0" y="0.543" z="0.8397" />
+              <normal x="0" y="0.0825" z="0.9966" />
+              <normal x="-0.517" y="0.4748" z="0.7122" />
+              <normal x="0.4927" y="0" z="0.8702" />
+              <normal x="0.4965" y="0.073" z="0.865" />
+              <normal x="0.517" y="0.4748" z="0.7122" />
+              <normal x="0.4965" y="-0.073" z="0.865" />
+              <normal x="0.517" y="-0.4748" z="0.7122" />
+              <normal x="-0.5969" y="-0.8023" z="0" />
+              <normal x="0" y="-0.9571" z="0.2898" />
+              <normal x="-0.5522" y="-0.799" z="0.2381" />
+              <normal x="0.5522" y="-0.799" z="0.2381" />
+              <normal x="0.5969" y="0.8023" z="0" />
+              <normal x="0" y="0.9571" z="0.2898" />
+              <normal x="0.5522" y="0.799" z="0.2381" />
+              <uv0 x="0.880985" y="0.061867" />
+              <uv0 x="0.880985" y="0.119015" />
+              <uv0 x="0.938133" y="0.119015" />
+              <uv0 x="0.923317" y="0.076683" />
+              <uv0 x="0.968449" y="0.103402" />
+              <uv0 x="0.968449" y="0.119234" />
+              <uv0 x="0.984281" y="0.119234" />
+              <uv0 x="0.980176" y="0.107506" />
+              <uv0 x="0.040678" y="0.478978" />
+              <uv0 x="0.043205" y="0.484032" />
+              <uv0 x="0.043205" y="0.478978" />
+              <uv0 x="0.119015" y="0.061867" />
+              <uv0 x="0.119015" y="0.119015" />
+              <uv0 x="0.061867" y="0.119015" />
+              <uv0 x="0.076683" y="0.076683" />
+              <uv0 x="0.061867" y="0.23331" />
+              <uv0 x="0.014441" y="0.496696" />
+              <uv0 x="0.014441" y="0.499566" />
+              <uv0 x="0.013006" y="0.499566" />
+              <uv0 x="0.013006" y="0.496696" />
+              <uv0 x="0.034294" y="0.140664" />
+              <uv0 x="0.034294" y="0.153631" />
+              <uv0 x="0.021327" y="0.153631" />
+              <uv0 x="0.024689" y="0.144026" />
+              <uv0 x="0.035545" y="0.527526" />
+              <uv0 x="0.034861" y="0.527526" />
+              <uv0 x="0.034861" y="0.528211" />
+              <uv0 x="0.035368" y="0.528033" />
+              <uv0 x="0.017749" y="0.523959" />
+              <uv0 x="0.020404" y="0.523959" />
+              <uv0 x="0.020404" y="0.526613" />
+              <uv0 x="0.018437" y="0.525925" />
+              <uv0 x="0.015703" y="0.509642" />
+              <uv0 x="0.015703" y="0.509725" />
+              <uv0 x="0.019156" y="0.573635" />
+              <uv0 x="0.018887" y="0.575247" />
+              <uv0 x="0.017813" y="0.57453" />
+              <uv0 x="0.017813" y="0.577038" />
+              <uv0 x="0.018887" y="0.57668" />
+              <uv0 x="0.018887" y="0.578113" />
+              <uv0 x="0.017813" y="0.578113" />
+              <uv0 x="0.015678" y="0.509825" />
+              <uv0 x="0.015703" y="0.509891" />
+              <uv0 x="0.023187" y="0.57668" />
+              <uv0 x="0.024262" y="0.57668" />
+              <uv0 x="0.024262" y="0.578113" />
+              <uv0 x="0.023187" y="0.578113" />
+              <uv0 x="0.023814" y="0.573814" />
+              <uv0 x="0.024262" y="0.575247" />
+              <uv0 x="0.023187" y="0.575247" />
+              <uv0 x="0.021037" y="0.573814" />
+              <uv0 x="0.021754" y="0.574889" />
+              <uv0 x="0.020321" y="0.57471" />
+              <uv0 x="0.002653" y="0.499358" />
+              <uv0 x="0.00259" y="0.499382" />
+              <uv0 x="0.020141" y="0.576232" />
+              <uv0 x="0.021754" y="0.575964" />
+              <uv0 x="0.021037" y="0.577576" />
+              <uv0 x="0.019962" y="0.578113" />
+              <uv0 x="0.023903" y="0.579905" />
+              <uv0 x="0.023187" y="0.579188" />
+              <uv0 x="0.024978" y="0.579905" />
+              <uv0 x="0.00278" y="0.499358" />
+              <uv0 x="0.02247" y="0.579905" />
+              <uv0 x="0.021037" y="0.579905" />
+              <uv0 x="0.020321" y="0.579188" />
+              <uv0 x="0.021933" y="0.57883" />
+              <uv0 x="0.034861" y="0.519771" />
+              <uv0 x="0.033321" y="0.519999" />
+              <uv0 x="0.033492" y="0.521824" />
+              <uv0 x="0.034861" y="0.521596" />
+              <uv0 x="0.019604" y="0.579905" />
+              <uv0 x="0.034861" y="0.523421" />
+              <uv0 x="0.033492" y="0.523421" />
+              <uv0 x="0.033492" y="0.525245" />
+              <uv0 x="0.034861" y="0.525245" />
+              <uv0 x="0.035545" y="0.520684" />
+              <uv0 x="0.035545" y="0.518403" />
+              <uv0 x="0.035545" y="0.523421" />
+              <uv0 x="0.035545" y="0.525245" />
+              <uv0 x="0.028018" y="0.523421" />
+              <uv0 x="0.02665" y="0.523421" />
+              <uv0 x="0.02665" y="0.525245" />
+              <uv0 x="0.028018" y="0.525245" />
+              <uv0 x="0.030983" y="0.520113" />
+              <uv0 x="0.031668" y="0.522052" />
+              <uv0 x="0.024537" y="0.523116" />
+              <uv0 x="0.029843" y="0.522508" />
+              <uv0 x="0.030755" y="0.524561" />
+              <uv0 x="0.032124" y="0.525245" />
+              <uv0 x="0.032124" y="0.523421" />
+              <uv0 x="0.027106" y="0.527526" />
+              <uv0 x="0.028018" y="0.526614" />
+              <uv0 x="0.025737" y="0.527526" />
+              <uv0 x="0.024618" y="0.523116" />
+              <uv0 x="0.024698" y="0.523147" />
+              <uv0 x="0.028931" y="0.527526" />
+              <uv0 x="0.030755" y="0.527526" />
+              <uv0 x="0.031896" y="0.526614" />
+              <uv0 x="0.029615" y="0.526158" />
+              <uv0 x="0.023052" y="0.496696" />
+              <uv0 x="0.023052" y="0.499566" />
+              <uv0 x="0.019225" y="0.499566" />
+              <uv0 x="0.019225" y="0.496696" />
+              <uv0 x="0.03258" y="0.527526" />
+              <uv0 x="0.024588" y="0.522908" />
+              <uv0 x="0.024542" y="0.522925" />
+              <uv0 x="0.02066" y="0.503393" />
+              <uv0 x="0.024965" y="0.503393" />
+              <uv0 x="0.024965" y="0.50722" />
+              <uv0 x="0.022095" y="0.507698" />
+              <uv0 x="0.030705" y="0.507459" />
+              <uv0 x="0.027835" y="0.50722" />
+              <uv0 x="0.029748" y="0.503632" />
+              <uv0 x="0.023052" y="0.512721" />
+              <uv0 x="0.019225" y="0.513917" />
+              <uv0 x="0.019225" y="0.511046" />
+              <uv0 x="0.014441" y="0.506263" />
+              <uv0 x="0.014441" y="0.503393" />
+              <uv0 x="0.016355" y="0.503393" />
+              <uv0 x="0.016355" y="0.50722" />
+              <uv0 x="0.019225" y="0.50722" />
+              <uv0 x="0.014441" y="0.51296" />
+              <uv0 x="0.016355" y="0.511046" />
+              <uv0 x="0.014441" y="0.51583" />
+              <uv0 x="0.013006" y="0.51583" />
+              <uv0 x="0.013006" y="0.511046" />
+              <uv0 x="0.014441" y="0.509133" />
+              <uv0 x="0.690493" y="0.119015" />
+              <uv0 x="0.690493" y="0.061867" />
+              <uv0 x="0.013006" y="0.505306" />
+              <uv0 x="0.013006" y="0.502436" />
+              <uv0 x="0.76669" y="0.23331" />
+              <uv0 x="0.652394" y="0.195212" />
+              <uv0 x="0.461901" y="0.119015" />
+              <uv0 x="0.423803" y="0.23331" />
+              <uv0 x="0.309507" y="0.23331" />
+              <uv0 x="0.309507" y="0.119015" />
+              <uv0 x="0.538099" y="0.23331" />
+              <uv0 x="0.423803" y="0.061867" />
+              <uv0 x="0.309507" y="0.061867" />
+              <uv0 x="0.76669" y="0.385704" />
+              <uv0 x="0.76669" y="0.547623" />
+              <uv0 x="0.604771" y="0.538099" />
+              <uv0 x="0.614296" y="0.37618" />
+              <uv0 x="0.538099" y="0.061867" />
+              <uv0 x="0.76669" y="0.757165" />
+              <uv0 x="0.614296" y="0.804788" />
+              <uv0 x="0.614296" y="0.690493" />
+              <uv0 x="0.461901" y="0.385704" />
+              <uv0 x="0.461901" y="0.5" />
+              <uv0 x="0.309507" y="0.538099" />
+              <uv0 x="0.309507" y="0.385704" />
+              <uv0 x="0.461901" y="0.757165" />
+              <uv0 x="0.309507" y="0.804788" />
+              <uv0 x="0.309507" y="0.690493" />
+              <uv0 x="0.195212" y="0.423803" />
+              <uv0 x="0.119015" y="0.461901" />
+              <uv0 x="0.119015" y="0.309507" />
+              <uv0 x="0.195212" y="0.309507" />
+              <uv0 x="0.119015" y="0.76669" />
+              <uv0 x="0.195212" y="0.690493" />
+              <uv0 x="0.119015" y="0.880985" />
+              <uv0 x="0.061867" y="0.880985" />
+              <uv0 x="0.061867" y="0.690493" />
+              <uv0 x="0.119015" y="0.614296" />
+              <uv0 x="0.195212" y="0.538099" />
+              <uv0 x="0.061867" y="0.538099" />
+              <uv0 x="0.061867" y="0.385704" />
+              <uv0 x="0.012039" y="0.478978" />
+              <uv0 x="0.012671" y="0.484453" />
+              <uv0 x="0.018778" y="0.482348" />
+              <uv0 x="0.017093" y="0.478978" />
+              <uv0 x="0.024456" y="0.522683" />
+              <uv0 x="0.027201" y="0.478978" />
+              <uv0 x="0.024253" y="0.484874" />
+              <uv0 x="0.032255" y="0.484032" />
+              <uv0 x="0.032255" y="0.478978" />
+              <uv0 x="0.024638" y="0.522683" />
+              <uv0 x="0.024698" y="0.522713" />
+              <uv0 x="0.025517" y="0.504248" />
+              <uv0 x="0.025517" y="0.509302" />
+              <uv0 x="0.032255" y="0.509302" />
+              <uv0 x="0.032255" y="0.504248" />
+              <uv0 x="0.029728" y="0.490771" />
+              <uv0 x="0.022147" y="0.490771" />
+              <uv0 x="0.020884" y="0.498352" />
+              <uv0 x="0.030149" y="0.496667" />
+              <uv0 x="0.953753" y="0.543674" />
+              <uv0 x="0.95387" y="0.543674" />
+              <uv0 x="0.95387" y="0.54344" />
+              <uv0 x="0.953753" y="0.543361" />
+              <uv0 x="0.040678" y="0.507617" />
+              <uv0 x="0.037309" y="0.504248" />
+              <uv0 x="0.040678" y="0.512671" />
+              <uv0 x="0.953753" y="0.544301" />
+              <uv0 x="0.95387" y="0.544536" />
+              <uv0 x="0.95387" y="0.544144" />
+              <uv0 x="0.040678" y="0.500879" />
+              <uv0 x="0.037309" y="0.49414" />
+              <uv0 x="0.040678" y="0.49414" />
+              <uv0 x="0.040678" y="0.487401" />
+              <uv0 x="0.037309" y="0.489086" />
+              <uv0 x="0.23331" y="0.119015" />
+              <uv0 x="0.25236" y="0.261884" />
+              <uv0 x="0.385704" y="0.23331" />
+              <uv0 x="0.385704" y="0.119015" />
+              <uv0 x="0.23331" y="0.061867" />
+              <uv0 x="0.385704" y="0.061867" />
+              <uv0 x="0.538099" y="0.119015" />
+              <uv0 x="0.538099" y="0.214261" />
+              <uv0 x="0.690493" y="0.195212" />
+              <uv0 x="0.509525" y="0.480951" />
+              <uv0 x="0.690493" y="0.461901" />
+              <uv0 x="0.690493" y="0.309507" />
+              <uv0 x="0.538099" y="0.328557" />
+              <uv0 x="0.25236" y="0.661919" />
+              <uv0 x="0.366655" y="0.804788" />
+              <uv0 x="0.195212" y="0.385704" />
+              <uv0 x="0.309507" y="0.461901" />
+              <uv0 x="0.404754" y="0.385704" />
+              <uv0 x="0.538099" y="0.757165" />
+              <uv0 x="0.690493" y="0.804788" />
+              <uv0 x="0.690493" y="0.633345" />
+              <uv0 x="0.880985" y="0.5" />
+              <uv0 x="0.880985" y="0.385704" />
+              <uv0 x="0.804788" y="0.385704" />
+              <uv0 x="0.804788" y="0.538099" />
+              <uv0 x="0.880985" y="0.76669" />
+              <uv0 x="0.804788" y="0.690493" />
+              <uv0 x="0.880985" y="0.880985" />
+              <uv0 x="0.938133" y="0.880985" />
+              <uv0 x="0.938133" y="0.690493" />
+              <uv0 x="0.880985" y="0.614296" />
+              <uv0 x="0.938133" y="0.538099" />
+              <uv0 x="0.938133" y="0.385704" />
+              <uv0 x="0.880985" y="0.938133" />
+              <uv0 x="0.923317" y="0.923317" />
+              <uv0 x="0.76669" y="0.880985" />
+              <uv0 x="0.614296" y="0.880985" />
+              <uv0 x="0.690493" y="0.938133" />
+              <uv0 x="0.385704" y="0.576197" />
+              <uv0 x="0.385704" y="0.690493" />
+              <uv0 x="0.538099" y="0.595246" />
+              <uv0 x="0.461901" y="0.880985" />
+              <uv0 x="0.309507" y="0.880985" />
+              <uv0 x="0.309507" y="0.938133" />
+              <uv0 x="0.423803" y="0.938133" />
+              <uv0 x="0.061867" y="0.461901" />
+              <uv0 x="0.119015" y="0.347606" />
+              <uv0 x="0.061867" y="0.347606" />
+              <uv0 x="0.538099" y="0.938133" />
+              <uv0 x="0.119015" y="0.690493" />
+              <uv0 x="0.119015" y="0.576197" />
+              <uv0 x="0.061867" y="0.576197" />
+              <uv0 x="0.119015" y="0.938133" />
+              <uv0 x="0.076683" y="0.923317" />
+              <uv0 x="0.119015" y="0.23331" />
+              <uv0 x="0.953753" y="0.543988" />
+              <uv0 x="0.95387" y="0.543909" />
+              <uv0 x="0.035624" y="0.499194" />
+              <uv0 x="0.995475" y="0.561659" />
+              <uv0 x="0.992818" y="0.561659" />
+              <uv0 x="0.992818" y="0.564315" />
+              <uv0 x="0.994786" y="0.563627" />
+              <uv0 x="0.017093" y="0.490771" />
+              <uv0 x="0.013724" y="0.494561" />
+              <uv0 x="0.018778" y="0.504248" />
+              <uv0 x="0.020463" y="0.509302" />
+              <uv0 x="0.013303" y="0.508249" />
+              <uv0 x="0.015409" y="0.512671" />
+              <uv0 x="0.022147" y="0.512671" />
+              <uv0 x="0.006986" y="0.497509" />
+              <uv0 x="0.006986" y="0.492455" />
+              <uv0 x="0.004459" y="0.490771" />
+              <uv0 x="0.004459" y="0.497509" />
+              <uv0 x="0.006986" y="0.487401" />
+              <uv0 x="0.006986" y="0.504248" />
+              <uv0 x="0.004459" y="0.504248" />
+              <uv0 x="0.020404" y="0.502724" />
+              <uv0 x="0.020404" y="0.497415" />
+              <uv0 x="0.017749" y="0.500954" />
+              <uv0 x="0.012039" y="0.500036" />
+              <uv0 x="0.006986" y="0.512671" />
+              <uv0 x="0.004459" y="0.512671" />
+              <uv0 x="0.002511" y="0.499358" />
+              <uv0 x="0.022147" y="0.478978" />
+              <uv0 x="0.024396" y="0.522683" />
+              <uv0 x="0.006986" y="0.478978" />
+              <uv0 x="0.004459" y="0.478978" />
+              <uv0 x="0.004459" y="0.484032" />
+              <uv0 x="0.017749" y="0.488567" />
+              <uv0 x="0.020404" y="0.488567" />
+              <uv0 x="0.020404" y="0.485913" />
+              <uv0 x="0.018437" y="0.486601" />
+              <uv0 x="0.017749" y="0.493876" />
+              <uv0 x="0.23331" y="0.938133" />
+              <uv0 x="0.23331" y="0.880985" />
+              <uv0 x="0.385704" y="0.880985" />
+              <uv0 x="0.385704" y="0.938133" />
+              <uv0 x="0.538099" y="0.880985" />
+              <uv0 x="0.690493" y="0.880985" />
+              <uv0 x="0.423803" y="0.614296" />
+              <uv0 x="0.938133" y="0.461901" />
+              <uv0 x="0.880985" y="0.461901" />
+              <uv0 x="0.880985" y="0.347606" />
+              <uv0 x="0.938133" y="0.347606" />
+              <uv0 x="0.880985" y="0.690493" />
+              <uv0 x="0.880985" y="0.576197" />
+              <uv0 x="0.938133" y="0.576197" />
+              <uv0 x="0.576197" y="0.119015" />
+              <uv0 x="0.880985" y="0.23331" />
+              <uv0 x="0.938133" y="0.23331" />
+              <uv0 x="0.013006" y="0.508176" />
+              <uv0 x="0.016856" y="0.576484" />
+              <uv0 x="0.016829" y="0.576484" />
+              <uv0 x="0.016955" y="0.576471" />
+              <uv0 x="0.026878" y="0.500523" />
+              <uv0 x="0.026878" y="0.511046" />
+              <uv0 x="0.029988" y="0.513319" />
+              <uv0 x="0.025922" y="0.513917" />
+              <uv0 x="0.027835" y="0.51583" />
+              <uv0 x="0.024965" y="0.51583" />
+              <uv0 x="0.033575" y="0.50722" />
+              <uv0 x="0.033575" y="0.50435" />
+              <uv0 x="0.03501" y="0.503393" />
+              <uv0 x="0.03501" y="0.50722" />
+              <uv0 x="0.033575" y="0.511046" />
+              <uv0 x="0.03501" y="0.511046" />
+              <uv0 x="0.967034" y="0.309343" />
+              <uv0 x="0.967034" y="0.288721" />
+              <uv0 x="0.977345" y="0.302469" />
+              <uv0 x="0.033575" y="0.51583" />
+              <uv0 x="0.03501" y="0.51583" />
+              <uv0 x="0.966852" y="0.919071" />
+              <uv0 x="0.966852" y="0.916748" />
+              <uv0 x="0.969176" y="0.916748" />
+              <uv0 x="0.968573" y="0.918469" />
+              <uv0 x="0.025922" y="0.496696" />
+              <uv0 x="0.028792" y="0.496696" />
+              <uv0 x="0.029988" y="0.499088" />
+              <uv0 x="0.030705" y="0.51583" />
+              <uv0 x="0.987829" y="0.135308" />
+              <uv0 x="0.973251" y="0.135308" />
+              <uv0 x="0.973251" y="0.12073" />
+              <uv0 x="0.98405" y="0.12451" />
+              <uv0 x="0.033575" y="0.496696" />
+              <uv0 x="0.03501" y="0.496696" />
+              <uv0 x="0.03501" y="0.499566" />
+              <uv0 x="0.033575" y="0.50148" />
+              <uv0 x="0.967034" y="0.254352" />
+              <uv0 x="0.977345" y="0.274974" />
+              <uv0 x="0.029387" y="0.524333" />
+              <uv0 x="0.025737" y="0.528211" />
+              <uv0 x="0.025053" y="0.527526" />
+              <uv0 x="0.02523" y="0.528033" />
+              <uv0 x="0.025737" y="0.526158" />
+              <uv0 x="0.025737" y="0.524333" />
+              <uv0 x="0.025053" y="0.525245" />
+              <uv0 x="0.024396" y="0.523116" />
+              <uv0 x="0.029843" y="0.52114" />
+              <uv0 x="0.028018" y="0.521596" />
+              <uv0 x="0.02665" y="0.522052" />
+              <uv0 x="0.026935" y="0.520113" />
+              <uv0 x="0.025737" y="0.520684" />
+              <uv0 x="0.025737" y="0.522508" />
+              <uv0 x="0.025053" y="0.521596" />
+              <uv0 x="0.025053" y="0.523421" />
+              <uv0 x="0.031668" y="0.518403" />
+              <uv0 x="0.029843" y="0.518403" />
+              <uv0 x="0.028018" y="0.518403" />
+              <uv0 x="0.029159" y="0.519771" />
+              <uv0 x="0.025053" y="0.518403" />
+              <uv0 x="0.025737" y="0.518403" />
+              <uv0 x="0.025737" y="0.517718" />
+              <uv0 x="0.02523" y="0.517896" />
+              <uv0 x="0.021327" y="0.179566" />
+              <uv0 x="0.025053" y="0.519771" />
+              <uv0 x="0.035545" y="0.522052" />
+              <uv0 x="0.02468" y="0.522925" />
+              <uv0 x="0.034861" y="0.518403" />
+              <uv0 x="0.033492" y="0.518403" />
+              <uv0 x="0.034861" y="0.517718" />
+              <uv0 x="0.035368" y="0.517896" />
+              <uv0 x="0.022112" y="0.577397" />
+              <uv0 x="0.992818" y="0.556345" />
+              <uv0 x="0.992818" y="0.54926" />
+              <uv0 x="0.995475" y="0.552803" />
+              <uv0 x="0.953048" y="0.547578" />
+              <uv0 x="0.953048" y="0.547662" />
+              <uv0 x="0.024978" y="0.575247" />
+              <uv0 x="0.025516" y="0.575247" />
+              <uv0 x="0.025516" y="0.57668" />
+              <uv0 x="0.024978" y="0.576322" />
+              <uv0 x="0.016928" y="0.576291" />
+              <uv0 x="0.953048" y="0.547512" />
+              <uv0 x="0.016964" y="0.576291" />
+              <uv0 x="0.020321" y="0.572739" />
+              <uv0 x="0.021754" y="0.572739" />
+              <uv0 x="0.023187" y="0.572739" />
+              <uv0 x="0.022291" y="0.573814" />
+              <uv0 x="0.98711" y="0.117887" />
+              <uv0 x="0.973971" y="0.117887" />
+              <uv0 x="0.973971" y="0.104748" />
+              <uv0 x="0.983703" y="0.108155" />
+              <uv0 x="0.024978" y="0.572739" />
+              <uv0 x="0.025516" y="0.572739" />
+              <uv0 x="0.025516" y="0.573814" />
+              <uv0 x="0.024978" y="0.573814" />
+              <uv0 x="0.017813" y="0.575964" />
+              <uv0 x="0.016829" y="0.576291" />
+              <uv0 x="0.018887" y="0.572739" />
+              <uv0 x="0.017813" y="0.572739" />
+              <uv0 x="0.018887" y="0.579188" />
+              <uv0 x="0.017813" y="0.579905" />
+              <uv0 x="0.015703" y="0.509974" />
+              <uv0 x="0.024799" y="0.523116" />
+              <uv0 x="0.016355" y="0.499566" />
+              <uv0 x="0.037309" y="0.484032" />
+              <uv0 x="0.024799" y="0.522713" />
+              <uv0 x="0.804788" y="0.23331" />
+              <uv0 x="0.95387" y="0.543205" />
+              <uv0 x="0.030705" y="0.495261" />
+              <uv0 x="0.020404" y="0.511572" />
+              <uv0 x="0.020404" y="0.51865" />
+              <uv0 x="0.017749" y="0.515111" />
+              <uv0 x="0.020404" y="0.500954" />
+              <uv0 x="0.020404" y="0.506263" />
+              <uv0 x="0.017749" y="0.504493" />
+              <uv0 x="0.035624" y="0.512671" />
+              <uv0 x="0.028886" y="0.512671" />
+              <uv0 x="0.017312" y="0.51583" />
+              <uv0 x="0.021138" y="0.51583" />
+              <uv0 x="0.026878" y="0.495261" />
+              <uv0 x="0.024978" y="0.57883" />
+              <uv0 x="0.024978" y="0.577397" />
+              <uv0 x="0.992818" y="0.543947" />
+              <uv0 x="0.995475" y="0.545718" />
+              <uv0 x="0.992818" y="0.535091" />
+              <uv0 x="0.995475" y="0.531549" />
+              <uv0 x="0.992818" y="0.526235" />
+            </vertices>
+            <faces>
+              <face i0="0/0/0" i1="1/1/1" i2="2/2/2" />
+              <face i0="0/0/0" i1="2/2/2" i2="3/3/3" />
+              <face i0="4/4/4" i1="5/5/5" i2="6/6/6" />
+              <face i0="4/4/4" i1="6/6/6" i2="7/7/7" />
+              <face i0="5/5/8" i1="8/8/9" i2="6/6/10" />
+              <face i0="9/9/11" i1="10/10/12" i2="11/11/13" />
+              <face i0="9/9/11" i1="11/11/13" i2="12/12/14" />
+              <face i0="10/10/12" i1="13/13/15" i2="11/11/13" />
+              <face i0="14/14/16" i1="15/15/17" i2="16/16/18" />
+              <face i0="14/14/16" i1="16/16/18" i2="17/17/19" />
+              <face i0="18/18/20" i1="14/14/21" i2="17/17/22" />
+              <face i0="18/18/20" i1="17/17/22" i2="19/19/23" />
+              <face i0="20/20/24" i1="21/21/25" i2="4/4/26" />
+              <face i0="20/20/24" i1="4/4/26" i2="7/7/27" />
+              <face i0="22/22/28" i1="23/23/29" i2="24/24/30" />
+              <face i0="22/22/28" i1="24/24/30" i2="25/25/31" />
+              <face i0="26/26/32" i1="27/27/33" i2="28/28/33" />
+              <face i0="26/26/32" i1="28/28/33" i2="29/29/32" />
+              <face i0="30/30/34" i1="31/30/35" i2="27/27/36" />
+              <face i0="32/27/37" i1="33/30/38" i2="34/30/39" />
+              <face i0="32/27/37" i1="34/30/39" i2="35/27/40" />
+              <face i0="36/28/41" i1="32/27/41" i2="35/27/42" />
+              <face i0="36/28/41" i1="35/27/42" i2="37/28/42" />
+              <face i0="38/30/43" i1="39/30/44" i2="40/30/45" />
+              <face i0="38/30/43" i1="40/30/45" i2="41/30/46" />
+              <face i0="42/30/47" i1="43/30/48" i2="44/30/49" />
+              <face i0="45/30/50" i1="46/30/51" i2="47/30/52" />
+              <face i0="47/30/52" i1="30/30/34" i2="45/30/50" />
+              <face i0="48/31/53" i1="49/32/53" i2="50/32/54" />
+              <face i0="48/31/53" i1="50/32/54" i2="51/31/54" />
+              <face i0="52/30/55" i1="53/30/56" i2="54/30/57" />
+              <face i0="54/30/57" i1="55/30/58" i2="52/30/55" />
+              <face i0="56/31/59" i1="57/30/60" i2="58/33/61" />
+              <face i0="56/31/62" i1="59/34/62" i2="60/32/53" />
+              <face i0="56/31/59" i1="61/31/63" i2="57/30/60" />
+              <face i0="48/31/64" i1="62/30/65" i2="63/30/66" />
+              <face i0="64/35/67" i1="65/36/68" i2="66/36/69" />
+              <face i0="64/35/67" i1="66/36/69" i2="67/35/70" />
+              <face i0="48/31/64" i1="51/31/71" i2="62/30/65" />
+              <face i0="68/35/72" i1="69/36/73" i2="70/36/74" />
+              <face i0="68/35/72" i1="70/36/74" i2="71/35/75" />
+              <face i0="64/35/67" i1="72/37/76" i2="9/9/77" />
+              <face i0="73/37/78" i1="68/35/72" i2="71/35/75" />
+              <face i0="73/37/78" i1="71/35/75" i2="74/37/79" />
+              <face i0="75/36/80" i1="76/36/81" i2="77/36/82" />
+              <face i0="75/36/80" i1="77/36/82" i2="78/36/83" />
+              <face i0="79/36/84" i1="80/36/85" i2="65/36/68" />
+              <face i0="81/38/86" i1="82/38/86" i2="83/39/86" />
+              <face i0="81/38/86" i1="83/39/86" i2="84/39/86" />
+              <face i0="80/36/85" i1="85/36/87" i2="86/36/88" />
+              <face i0="86/36/88" i1="87/36/89" i2="88/36/90" />
+              <face i0="82/38/91" i1="89/36/92" i2="90/40/93" />
+              <face i0="91/38/94" i1="92/39/94" i2="93/39/95" />
+              <face i0="91/38/94" i1="93/39/95" i2="94/38/95" />
+              <face i0="82/38/91" i1="81/38/96" i2="89/36/92" />
+              <face i0="91/38/97" i1="95/36/98" i2="96/36/99" />
+              <face i0="91/38/94" i1="97/39/94" i2="92/39/94" />
+              <face i0="98/41/100" i1="99/42/101" i2="100/42/102" />
+              <face i0="98/41/100" i1="100/42/102" i2="101/41/103" />
+              <face i0="91/38/97" i1="94/38/104" i2="95/36/98" />
+              <face i0="102/43/105" i1="98/41/105" i2="101/41/106" />
+              <face i0="102/43/105" i1="101/41/106" i2="103/43/106" />
+              <face i0="104/42/107" i1="105/42/108" i2="106/42/109" />
+              <face i0="104/42/107" i1="106/42/109" i2="107/42/110" />
+              <face i0="108/42/111" i1="109/42/112" i2="110/42/113" />
+              <face i0="111/42/114" i1="112/42/115" i2="113/42/116" />
+              <face i0="114/15/117" i1="115/15/118" i2="116/42/119" />
+              <face i0="114/15/117" i1="116/42/119" i2="117/42/120" />
+              <face i0="107/42/110" i1="118/42/121" i2="104/42/107" />
+              <face i0="119/15/122" i1="120/42/123" i2="121/44/124" />
+              <face i0="119/15/122" i1="122/45/125" i2="123/16/126" />
+              <face i0="119/15/122" i1="124/15/127" i2="120/42/123" />
+              <face i0="125/46/1" i1="126/47/128" i2="74/37/129" />
+              <face i0="125/46/1" i1="74/37/129" i2="20/20/0" />
+              <face i0="127/16/130" i1="128/16/131" i2="115/15/118" />
+              <face i0="129/48/132" i1="130/48/133" i2="126/47/128" />
+              <face i0="131/47/134" i1="132/48/135" i2="133/48/136" />
+              <face i0="131/47/134" i1="133/48/136" i2="134/47/137" />
+              <face i0="131/47/134" i1="135/48/138" i2="132/48/135" />
+              <face i0="136/37/139" i1="131/47/134" i2="134/47/137" />
+              <face i0="136/37/139" i1="134/47/137" i2="72/37/140" />
+              <face i0="137/48/141" i1="138/48/142" i2="139/48/143" />
+              <face i0="137/48/141" i1="139/48/143" i2="140/48/144" />
+              <face i0="131/47/134" i1="136/37/139" i2="73/37/145" />
+              <face i0="141/48/146" i1="142/48/147" i2="143/48/148" />
+              <face i0="144/48/149" i1="145/48/150" i2="146/48/151" />
+              <face i0="144/48/149" i1="146/48/151" i2="147/48/152" />
+              <face i0="148/48/153" i1="149/48/154" i2="150/48/155" />
+              <face i0="151/48/156" i1="152/49/157" i2="153/49/158" />
+              <face i0="151/48/156" i1="153/49/158" i2="154/48/159" />
+              <face i0="155/49/160" i1="156/48/161" i2="157/50/162" />
+              <face i0="155/49/160" i1="158/51/163" i2="159/13/164" />
+              <face i0="155/49/160" i1="160/49/165" i2="156/48/161" />
+              <face i0="152/49/157" i1="151/48/156" i2="161/48/166" />
+              <face i0="152/49/157" i1="162/13/167" i2="163/13/168" />
+              <face i0="164/52/169" i1="165/53/170" i2="166/53/171" />
+              <face i0="164/52/169" i1="166/53/171" i2="167/52/172" />
+              <face i0="83/39/173" i1="164/52/173" i2="167/52/173" />
+              <face i0="83/39/173" i1="167/52/173" i2="84/39/173" />
+              <face i0="168/52/174" i1="169/53/175" i2="170/53/176" />
+              <face i0="168/52/174" i1="170/53/176" i2="171/52/177" />
+              <face i0="92/39/178" i1="168/52/178" i2="171/52/179" />
+              <face i0="92/39/178" i1="171/52/179" i2="93/39/179" />
+              <face i0="172/52/178" i1="168/52/178" i2="92/39/178" />
+              <face i0="172/52/178" i1="92/39/178" i2="97/39/178" />
+              <face i0="173/53/180" i1="174/53/181" i2="175/53/182" />
+              <face i0="173/53/180" i1="175/53/182" i2="176/53/183" />
+              <face i0="177/53/184" i1="178/53/185" i2="179/53/186" />
+              <face i0="177/53/184" i1="179/53/186" i2="180/53/187" />
+              <face i0="181/54/188" i1="182/8/189" i2="183/8/190" />
+              <face i0="181/54/188" i1="183/8/190" i2="184/54/191" />
+              <face i0="185/54/192" i1="186/53/193" i2="187/55/194" />
+              <face i0="185/54/195" i1="188/56/196" i2="189/8/197" />
+              <face i0="185/54/192" i1="190/54/198" i2="186/53/193" />
+              <face i0="191/53/199" i1="181/54/200" i2="184/54/201" />
+              <face i0="191/53/199" i1="184/54/201" i2="192/53/202" />
+              <face i0="193/57/203" i1="194/58/204" i2="195/58/205" />
+              <face i0="193/57/203" i1="195/58/205" i2="196/57/206" />
+              <face i0="197/59/207" i1="193/57/203" i2="196/57/206" />
+              <face i0="197/59/207" i1="196/57/206" i2="198/59/208" />
+              <face i0="199/57/209" i1="200/58/210" i2="201/58/211" />
+              <face i0="199/57/209" i1="201/58/211" i2="202/57/128" />
+              <face i0="203/59/145" i1="199/57/209" i2="202/57/128" />
+              <face i0="203/59/145" i1="202/57/128" i2="204/59/129" />
+              <face i0="205/58/212" i1="206/58/213" i2="207/58/214" />
+              <face i0="205/58/212" i1="207/58/214" i2="208/58/215" />
+              <face i0="209/58/216" i1="210/60/162" i2="211/58/217" />
+              <face i0="212/58/218" i1="213/58/166" i2="214/58/219" />
+              <face i0="214/58/219" i1="215/58/220" i2="194/58/204" />
+              <face i0="216/58/221" i1="217/58/222" i2="218/58/223" />
+              <face i0="219/61/224" i1="220/61/225" i2="221/58/226" />
+              <face i0="219/61/224" i1="221/58/226" i2="222/58/227" />
+              <face i0="223/61/228" i1="224/58/229" i2="225/62/230" />
+              <face i0="223/61/228" i1="226/63/231" i2="227/64/232" />
+              <face i0="223/61/228" i1="228/61/233" i2="224/58/229" />
+              <face i0="220/61/225" i1="219/61/224" i2="229/64/234" />
+              <face i0="220/61/225" i1="229/64/234" i2="230/64/235" />
+              <face i0="218/58/223" i1="217/58/222" i2="225/62/230" />
+              <face i0="218/58/223" i1="225/62/230" i2="224/58/229" />
+              <face i0="206/58/213" i1="222/58/227" i2="221/58/226" />
+              <face i0="218/58/223" i1="224/58/229" i2="222/58/227" />
+              <face i0="228/61/233" i1="222/58/227" i2="224/58/229" />
+              <face i0="228/61/233" i1="227/64/232" i2="229/64/234" />
+              <face i0="228/61/233" i1="219/61/224" i2="222/58/227" />
+              <face i0="226/63/231" i1="225/62/230" i2="22/22/236" />
+              <face i0="226/63/231" i1="22/22/236" i2="25/25/237" />
+              <face i0="231/65/238" i1="232/65/239" i2="37/28/240" />
+              <face i0="37/28/240" i1="22/22/236" i2="231/65/238" />
+              <face i0="225/62/230" i1="231/65/238" i2="22/22/236" />
+              <face i0="233/58/241" i1="234/58/242" i2="216/58/221" />
+              <face i0="233/58/241" i1="216/58/221" i2="235/58/243" />
+              <face i0="205/58/212" i1="208/58/215" i2="215/58/220" />
+              <face i0="235/58/243" i1="218/58/223" i2="206/58/213" />
+              <face i0="235/58/243" i1="206/58/213" i2="205/58/212" />
+              <face i0="205/58/212" i1="214/58/219" i2="233/58/241" />
+              <face i0="236/65/244" i1="237/65/245" i2="28/28/246" />
+              <face i0="236/65/244" i1="28/28/246" i2="238/28/247" />
+              <face i0="127/16/248" i1="239/66/157" i2="240/66/249" />
+              <face i0="127/16/248" i1="240/66/249" i2="128/16/250" />
+              <face i0="238/28/247" i1="36/28/251" i2="236/65/244" />
+              <face i0="36/28/251" i1="37/28/240" i2="232/65/239" />
+              <face i0="239/66/157" i1="213/58/166" i2="212/58/218" />
+              <face i0="241/66/252" i1="242/66/253" i2="243/16/254" />
+              <face i0="241/66/252" i1="243/16/254" i2="123/16/164" />
+              <face i0="242/66/253" i1="241/66/252" i2="209/58/216" />
+              <face i0="242/66/253" i1="209/58/216" i2="213/58/166" />
+              <face i0="243/16/254" i1="242/66/253" i2="239/66/157" />
+              <face i0="243/16/254" i1="239/66/157" i2="127/16/248" />
+              <face i0="210/60/162" i1="241/66/252" i2="123/16/164" />
+              <face i0="210/60/162" i1="123/16/164" i2="122/45/163" />
+              <face i0="209/58/216" i1="234/58/242" i2="233/58/241" />
+              <face i0="29/29/255" i1="210/60/162" i2="122/45/163" />
+              <face i0="29/29/255" i1="122/45/163" i2="244/67/256" />
+              <face i0="237/65/245" i1="210/60/162" i2="29/29/255" />
+              <face i0="237/65/245" i1="29/29/255" i2="28/28/246" />
+              <face i0="196/57/206" i1="195/58/205" i2="200/58/210" />
+              <face i0="196/57/206" i1="200/58/210" i2="199/57/209" />
+              <face i0="237/65/245" i1="211/58/217" i2="210/60/162" />
+              <face i0="198/59/208" i1="196/57/206" i2="199/57/209" />
+              <face i0="198/59/208" i1="199/57/209" i2="203/59/145" />
+              <face i0="195/58/205" i1="215/58/220" i2="208/58/215" />
+              <face i0="195/58/205" i1="208/58/215" i2="200/58/210" />
+              <face i0="208/58/215" i1="207/58/214" i2="201/58/211" />
+              <face i0="208/58/215" i1="201/58/211" i2="200/58/210" />
+              <face i0="245/66/257" i1="246/68/12" i2="17/17/13" />
+              <face i0="245/66/257" i1="17/17/13" i2="16/16/15" />
+              <face i0="246/68/12" i1="245/66/257" i2="194/58/204" />
+              <face i0="246/68/12" i1="194/58/204" i2="193/57/203" />
+              <face i0="247/69/11" i1="246/68/12" i2="193/57/203" />
+              <face i0="247/69/11" i1="193/57/203" i2="197/59/207" />
+              <face i0="17/17/13" i1="246/68/12" i2="247/69/11" />
+              <face i0="17/17/13" i1="247/69/11" i2="19/19/14" />
+              <face i0="240/66/249" i1="245/66/257" i2="16/16/15" />
+              <face i0="240/66/249" i1="16/16/15" i2="128/16/250" />
+              <face i0="245/66/257" i1="240/66/249" i2="212/58/218" />
+              <face i0="245/66/257" i1="212/58/218" i2="194/58/204" />
+              <face i0="190/54/258" i1="248/8/259" i2="182/8/189" />
+              <face i0="190/54/258" i1="182/8/189" i2="181/54/188" />
+              <face i0="194/58/204" i1="215/58/220" i2="195/58/205" />
+              <face i0="191/53/199" i1="192/53/202" i2="177/53/184" />
+              <face i0="249/53/260" i1="180/53/187" i2="176/53/183" />
+              <face i0="176/53/183" i1="186/53/193" i2="249/53/260" />
+              <face i0="249/53/260" i1="191/53/199" i2="180/53/187" />
+              <face i0="190/54/198" i1="249/53/260" i2="186/53/193" />
+              <face i0="190/54/258" i1="189/8/197" i2="248/8/259" />
+              <face i0="249/53/260" i1="190/54/198" i2="181/54/200" />
+              <face i0="249/53/260" i1="181/54/200" i2="191/53/199" />
+              <face i0="176/53/183" i1="175/53/182" i2="187/55/194" />
+              <face i0="176/53/183" i1="187/55/194" i2="186/53/193" />
+              <face i0="188/56/261" i1="187/55/262" i2="59/34/263" />
+              <face i0="188/56/261" i1="59/34/263" i2="250/70/264" />
+              <face i0="251/71/62" i1="252/71/53" i2="60/32/53" />
+              <face i0="60/32/53" i1="59/34/62" i2="251/71/62" />
+              <face i0="187/55/62" i1="251/71/62" i2="59/34/62" />
+              <face i0="178/53/185" i1="253/53/265" i2="254/53/266" />
+              <face i0="178/53/185" i1="254/53/266" i2="179/53/186" />
+              <face i0="255/53/267" i1="256/53/268" i2="174/53/181" />
+              <face i0="255/53/267" i1="174/53/181" i2="173/53/180" />
+              <face i0="255/53/267" i1="173/53/180" i2="179/53/186" />
+              <face i0="173/53/180" i1="176/53/183" i2="180/53/187" />
+              <face i0="255/53/267" i1="257/53/269" i2="256/53/268" />
+              <face i0="258/71/53" i1="259/71/54" i2="50/32/54" />
+              <face i0="258/71/53" i1="50/32/54" i2="49/32/53" />
+              <face i0="259/71/270" i1="258/71/271" i2="256/53/268" />
+              <face i0="259/71/270" i1="256/53/268" i2="257/53/269" />
+              <face i0="252/71/53" i1="258/71/53" i2="49/32/53" />
+              <face i0="252/71/53" i1="49/32/53" i2="260/32/53" />
+              <face i0="261/72/272" i1="262/72/273" i2="230/64/274" />
+              <face i0="261/72/272" i1="230/64/274" i2="229/64/275" />
+              <face i0="260/32/53" i1="60/32/53" i2="252/71/53" />
+              <face i0="262/72/273" i1="254/53/266" i2="165/53/170" />
+              <face i0="262/72/273" i1="165/53/170" i2="263/72/276" />
+              <face i0="264/72/277" i1="261/72/272" i2="229/64/275" />
+              <face i0="264/72/277" i1="229/64/275" i2="227/64/278" />
+              <face i0="262/72/279" i1="263/72/280" i2="230/64/281" />
+              <face i0="261/72/272" i1="264/72/277" i2="257/53/269" />
+              <face i0="261/72/272" i1="257/53/269" i2="265/53/282" />
+              <face i0="266/73/283" i1="264/72/277" i2="227/64/278" />
+              <face i0="266/73/283" i1="227/64/278" i2="226/63/284" />
+              <face i0="265/53/282" i1="254/53/266" i2="261/72/272" />
+              <face i0="265/53/282" i1="255/53/267" i2="179/53/186" />
+              <face i0="24/24/30" i1="266/73/29" i2="226/63/28" />
+              <face i0="24/24/30" i1="226/63/28" i2="25/25/31" />
+              <face i0="259/71/54" i1="266/73/285" i2="24/24/285" />
+              <face i0="259/71/54" i1="24/24/285" i2="50/32/54" />
+              <face i0="167/52/173" i1="172/52/178" i2="97/39/178" />
+              <face i0="167/52/173" i1="97/39/178" i2="84/39/173" />
+              <face i0="166/53/171" i1="169/53/175" i2="172/52/286" />
+              <face i0="169/53/175" i1="165/53/170" i2="253/53/265" />
+              <face i0="169/53/175" i1="253/53/265" i2="178/53/185" />
+              <face i0="267/74/287" i1="268/75/287" i2="164/52/173" />
+              <face i0="267/74/287" i1="164/52/173" i2="83/39/173" />
+              <face i0="169/53/175" i1="178/53/185" i2="177/53/184" />
+              <face i0="268/75/288" i1="2/2/289" i2="269/64/290" />
+              <face i0="268/75/288" i1="165/53/170" i2="164/52/169" />
+              <face i0="2/2/291" i1="268/75/292" i2="267/74/293" />
+              <face i0="2/2/291" i1="267/74/293" i2="3/3/294" />
+              <face i0="147/48/152" i1="146/48/151" i2="161/48/166" />
+              <face i0="147/48/152" i1="161/48/166" i2="151/48/156" />
+              <face i0="263/72/276" i1="269/64/290" i2="230/64/274" />
+              <face i0="263/72/280" i1="268/75/292" i2="269/64/295" />
+              <face i0="146/48/151" i1="150/48/155" i2="156/48/161" />
+              <face i0="146/48/151" i1="156/48/161" i2="161/48/166" />
+              <face i0="151/48/156" i1="154/48/159" i2="147/48/152" />
+              <face i0="150/48/155" i1="149/48/154" i2="157/50/162" />
+              <face i0="150/48/155" i1="157/50/162" i2="156/48/161" />
+              <face i0="160/49/165" i1="161/48/166" i2="156/48/161" />
+              <face i0="160/49/165" i1="159/13/164" i2="162/13/167" />
+              <face i0="160/49/165" i1="152/49/157" i2="161/48/166" />
+              <face i0="270/76/296" i1="271/77/297" i2="272/77/298" />
+              <face i0="270/76/296" i1="272/77/298" i2="273/76/299" />
+              <face i0="274/78/255" i1="157/50/162" i2="271/77/297" />
+              <face i0="274/78/255" i1="271/77/297" i2="270/76/296" />
+              <face i0="158/51/163" i1="157/50/162" i2="274/78/255" />
+              <face i0="158/51/163" i1="274/78/255" i2="275/79/256" />
+              <face i0="140/48/144" i1="139/48/143" i2="145/48/150" />
+              <face i0="140/48/144" i1="145/48/150" i2="144/48/149" />
+              <face i0="276/77/300" i1="277/77/301" i2="278/76/240" />
+              <face i0="276/77/300" i1="278/76/240" i2="279/76/251" />
+              <face i0="143/48/148" i1="148/48/153" i2="139/48/143" />
+              <face i0="139/48/143" i1="148/48/153" i2="280/48/302" />
+              <face i0="280/48/302" i1="150/48/155" i2="146/48/151" />
+              <face i0="272/77/298" i1="276/77/300" i2="279/76/251" />
+              <face i0="272/77/298" i1="279/76/251" i2="273/76/299" />
+              <face i0="182/8/303" i1="281/80/304" i2="282/80/305" />
+              <face i0="182/8/303" i1="282/80/305" i2="183/8/306" />
+              <face i0="281/80/304" i1="138/48/142" i2="137/48/141" />
+              <face i0="283/80/307" i1="284/80/308" i2="248/8/309" />
+              <face i0="283/80/307" i1="248/8/309" i2="189/8/232" />
+              <face i0="284/80/308" i1="283/80/307" i2="141/48/146" />
+              <face i0="284/80/308" i1="141/48/146" i2="138/48/142" />
+              <face i0="248/8/309" i1="284/80/308" i2="281/80/304" />
+              <face i0="248/8/309" i1="281/80/304" i2="182/8/303" />
+              <face i0="285/81/230" i1="283/80/307" i2="189/8/232" />
+              <face i0="285/81/230" i1="189/8/232" i2="188/56/231" />
+              <face i0="138/48/142" i1="143/48/148" i2="139/48/143" />
+              <face i0="286/82/236" i1="285/81/230" i2="188/56/231" />
+              <face i0="286/82/236" i1="188/56/231" i2="250/70/237" />
+              <face i0="278/76/240" i1="277/77/301" i2="285/81/230" />
+              <face i0="278/76/240" i1="285/81/230" i2="286/82/236" />
+              <face i0="287/47/310" i1="126/47/128" i2="130/48/133" />
+              <face i0="287/47/310" i1="130/48/133" i2="135/48/138" />
+              <face i0="126/47/128" i1="287/47/310" i2="73/37/145" />
+              <face i0="126/47/128" i1="73/37/145" i2="74/37/129" />
+              <face i0="287/47/310" i1="131/47/134" i2="73/37/145" />
+              <face i0="132/48/135" i1="144/48/149" i2="147/48/152" />
+              <face i0="132/48/135" i1="147/48/152" i2="133/48/136" />
+              <face i0="140/48/144" i1="144/48/149" i2="135/48/138" />
+              <face i0="135/48/138" i1="130/48/133" i2="140/48/144" />
+              <face i0="288/80/311" i1="125/46/1" i2="6/6/2" />
+              <face i0="288/80/311" i1="6/6/2" i2="8/8/312" />
+              <face i0="6/6/2" i1="125/46/1" i2="20/20/0" />
+              <face i0="6/6/2" i1="20/20/0" i2="7/7/3" />
+              <face i0="288/80/311" i1="129/48/132" i2="125/46/1" />
+              <face i0="282/80/305" i1="288/80/311" i2="8/8/312" />
+              <face i0="282/80/305" i1="8/8/312" i2="183/8/306" />
+              <face i0="288/80/311" i1="282/80/305" i2="137/48/141" />
+              <face i0="288/80/311" i1="137/48/141" i2="129/48/132" />
+              <face i0="104/42/107" i1="118/42/121" i2="117/42/120" />
+              <face i0="104/42/107" i1="117/42/120" i2="116/42/119" />
+              <face i0="140/48/144" i1="130/48/133" i2="129/48/132" />
+              <face i0="118/42/121" i1="113/42/116" i2="120/42/123" />
+              <face i0="118/42/121" i1="120/42/123" i2="117/42/120" />
+              <face i0="124/15/127" i1="243/16/313" i2="127/16/130" />
+              <face i0="124/15/127" i1="127/16/130" i2="114/15/117" />
+              <face i0="124/15/127" i1="117/42/120" i2="120/42/123" />
+              <face i0="124/15/127" i1="123/16/126" i2="243/16/313" />
+              <face i0="113/42/116" i1="112/42/115" i2="121/44/124" />
+              <face i0="113/42/116" i1="121/44/124" i2="120/42/123" />
+              <face i0="124/15/127" i1="114/15/117" i2="117/42/120" />
+              <face i0="289/83/314" i1="290/84/314" i2="291/84/314" />
+              <face i0="289/83/314" i1="291/84/314" i2="292/83/314" />
+              <face i0="293/85/315" i1="121/44/315" i2="290/84/314" />
+              <face i0="293/85/315" i1="290/84/314" i2="289/83/314" />
+              <face i0="122/45/28" i1="121/44/29" i2="293/85/30" />
+              <face i0="122/45/28" i1="293/85/30" i2="244/67/31" />
+              <face i0="105/42/108" i1="110/42/113" i2="109/42/112" />
+              <face i0="105/42/108" i1="109/42/112" i2="106/42/109" />
+              <face i0="294/84/314" i1="295/84/316" i2="296/83/316" />
+              <face i0="294/84/314" i1="296/83/316" i2="297/83/314" />
+              <face i0="105/42/108" i1="298/42/317" i2="110/42/113" />
+              <face i0="299/42/318" i1="111/42/114" i2="106/42/109" />
+              <face i0="106/42/109" i1="111/42/114" i2="107/42/110" />
+              <face i0="107/42/110" i1="113/42/116" i2="118/42/121" />
+              <face i0="299/42/318" i1="300/42/319" i2="301/42/320" />
+              <face i0="295/84/321" i1="294/84/322" i2="301/42/320" />
+              <face i0="295/84/321" i1="301/42/320" i2="300/42/319" />
+              <face i0="291/84/314" i1="294/84/314" i2="297/83/314" />
+              <face i0="291/84/314" i1="297/83/314" i2="292/83/314" />
+              <face i0="302/86/323" i1="303/86/324" i2="163/13/325" />
+              <face i0="302/86/323" i1="163/13/325" i2="162/13/326" />
+              <face i0="303/86/324" i1="302/86/323" i2="108/42/111" />
+              <face i0="303/86/324" i1="108/42/111" i2="110/42/113" />
+              <face i0="304/86/327" i1="302/86/323" i2="162/13/326" />
+              <face i0="304/86/327" i1="162/13/326" i2="159/13/328" />
+              <face i0="303/86/329" i1="305/86/330" i2="163/13/331" />
+              <face i0="302/86/323" i1="304/86/327" i2="300/42/319" />
+              <face i0="302/86/323" i1="300/42/319" i2="108/42/111" />
+              <face i0="306/87/332" i1="304/86/327" i2="159/13/328" />
+              <face i0="306/87/332" i1="159/13/328" i2="158/51/333" />
+              <face i0="108/42/111" i1="299/42/318" i2="109/42/112" />
+              <face i0="307/88/334" i1="306/87/335" i2="158/51/336" />
+              <face i0="307/88/334" i1="158/51/336" i2="275/79/337" />
+              <face i0="308/41/338" i1="309/41/339" i2="310/42/340" />
+              <face i0="308/41/338" i1="310/42/340" i2="298/42/317" />
+              <face i0="306/87/332" i1="311/84/341" i2="300/42/319" />
+              <face i0="311/84/341" i1="295/84/321" i2="300/42/319" />
+              <face i0="308/41/338" i1="298/42/317" i2="99/42/101" />
+              <face i0="308/41/338" i1="99/42/101" i2="98/41/100" />
+              <face i0="312/43/105" i1="308/41/105" i2="98/41/105" />
+              <face i0="312/43/105" i1="98/41/105" i2="102/43/105" />
+              <face i0="11/11/342" i1="313/89/343" i2="314/90/344" />
+              <face i0="11/11/342" i1="314/90/344" i2="12/12/345" />
+              <face i0="99/42/101" i1="105/42/108" i2="104/42/107" />
+              <face i0="313/89/346" i1="11/11/347" i2="13/13/348" />
+              <face i0="78/36/83" i1="77/36/82" i2="90/40/93" />
+              <face i0="78/36/83" i1="90/40/93" i2="89/36/92" />
+              <face i0="305/86/349" i1="13/13/348" i2="163/13/325" />
+              <face i0="305/86/349" i1="110/42/113" i2="310/42/340" />
+              <face i0="305/86/330" i1="313/89/350" i2="13/13/351" />
+              <face i0="86/36/88" i1="96/36/99" i2="95/36/98" />
+              <face i0="96/36/99" i1="315/36/352" i2="78/36/83" />
+              <face i0="78/36/83" i1="89/36/92" i2="96/36/99" />
+              <face i0="81/38/96" i1="96/36/99" i2="89/36/92" />
+              <face i0="81/38/86" i1="84/39/86" i2="97/39/94" />
+              <face i0="81/38/96" i1="91/38/97" i2="96/36/99" />
+              <face i0="267/74/353" i1="90/40/93" i2="0/0/354" />
+              <face i0="267/74/353" i1="0/0/354" i2="3/3/355" />
+              <face i0="316/91/356" i1="317/91/357" i2="204/59/358" />
+              <face i0="204/59/358" i1="0/0/354" i2="316/91/356" />
+              <face i0="90/40/93" i1="316/91/356" i2="0/0/354" />
+              <face i0="82/38/86" i1="90/40/359" i2="267/74/359" />
+              <face i0="82/38/86" i1="267/74/359" i2="83/39/86" />
+              <face i0="80/36/85" i1="79/36/84" i2="318/36/360" />
+              <face i0="80/36/85" i1="318/36/360" i2="85/36/87" />
+              <face i0="319/36/361" i1="320/36/362" i2="76/36/81" />
+              <face i0="319/36/361" i1="76/36/81" i2="75/36/80" />
+              <face i0="319/36/361" i1="75/36/80" i2="85/36/87" />
+              <face i0="75/36/80" i1="78/36/83" i2="315/36/352" />
+              <face i0="319/36/361" i1="321/36/363" i2="320/36/362" />
+              <face i0="322/91/364" i1="323/91/365" i2="320/36/362" />
+              <face i0="322/91/364" i1="320/36/362" i2="321/36/363" />
+              <face i0="198/59/366" i1="203/59/367" i2="323/91/365" />
+              <face i0="324/92/105" i1="325/92/105" i2="312/43/105" />
+              <face i0="324/92/105" i1="312/43/105" i2="102/43/105" />
+              <face i0="203/59/367" i1="204/59/358" i2="317/91/357" />
+              <face i0="326/92/106" i1="324/92/105" i2="102/43/105" />
+              <face i0="326/92/106" i1="102/43/105" i2="103/43/106" />
+              <face i0="79/36/84" i1="65/36/68" i2="325/92/368" />
+              <face i0="324/92/369" i1="326/92/370" i2="321/36/363" />
+              <face i0="324/92/369" i1="321/36/363" i2="327/36/371" />
+              <face i0="328/93/106" i1="326/92/106" i2="103/43/106" />
+              <face i0="328/93/106" i1="103/43/106" i2="18/18/106" />
+              <face i0="327/36/371" i1="79/36/84" i2="324/92/369" />
+              <face i0="327/36/371" i1="319/36/361" i2="318/36/360" />
+              <face i0="247/69/372" i1="328/93/373" i2="18/18/374" />
+              <face i0="247/69/372" i1="18/18/374" i2="19/19/375" />
+              <face i0="67/35/70" i1="66/36/69" i2="69/36/73" />
+              <face i0="67/35/70" i1="69/36/73" i2="68/35/72" />
+              <face i0="247/69/22" i1="197/59/376" i2="328/93/21" />
+              <face i0="197/59/377" i1="198/59/366" i2="322/91/364" />
+              <face i0="136/37/378" i1="67/35/70" i2="68/35/72" />
+              <face i0="136/37/378" i1="68/35/72" i2="73/37/78" />
+              <face i0="66/36/69" i1="80/36/85" i2="88/36/90" />
+              <face i0="66/36/69" i1="88/36/90" i2="69/36/73" />
+              <face i0="67/35/70" i1="136/37/378" i2="72/37/76" />
+              <face i0="69/36/73" i1="88/36/90" i2="87/36/89" />
+              <face i0="69/36/73" i1="87/36/89" i2="70/36/74" />
+              <face i0="329/92/379" i1="330/94/379" i2="314/90/379" />
+              <face i0="329/92/379" i1="314/90/379" i2="331/43/379" />
+              <face i0="330/94/380" i1="329/92/381" i2="65/36/68" />
+              <face i0="330/94/380" i1="65/36/68" i2="64/35/67" />
+              <face i0="314/90/382" i1="330/94/380" i2="9/9/77" />
+              <face i0="314/90/382" i1="9/9/77" i2="12/12/383" />
+              <face i0="330/94/380" i1="64/35/67" i2="9/9/77" />
+              <face i0="325/92/105" i1="329/92/379" i2="331/43/379" />
+              <face i0="325/92/105" i1="331/43/379" i2="312/43/105" />
+              <face i0="61/31/53" i1="260/32/53" i2="49/32/53" />
+              <face i0="61/31/53" i1="49/32/53" i2="48/31/53" />
+              <face i0="54/30/57" i1="63/30/66" i2="62/30/65" />
+              <face i0="63/30/66" i1="332/30/384" i2="41/30/46" />
+              <face i0="41/30/46" i1="57/30/60" i2="63/30/66" />
+              <face i0="61/31/63" i1="63/30/66" i2="57/30/60" />
+              <face i0="61/31/53" i1="60/32/53" i2="260/32/53" />
+              <face i0="41/30/46" i1="40/30/45" i2="58/33/61" />
+              <face i0="41/30/46" i1="58/33/61" i2="57/30/60" />
+              <face i0="61/31/63" i1="48/31/64" i2="63/30/66" />
+              <face i0="59/34/263" i1="58/33/262" i2="286/82/261" />
+              <face i0="59/34/263" i1="286/82/261" i2="250/70/264" />
+              <face i0="333/95/385" i1="334/95/386" i2="278/76/387" />
+              <face i0="278/76/388" i1="286/82/389" i2="333/95/388" />
+              <face i0="58/33/262" i1="333/95/385" i2="286/82/261" />
+              <face i0="52/30/55" i1="47/30/52" i2="46/30/51" />
+              <face i0="52/30/55" i1="46/30/51" i2="53/30/56" />
+              <face i0="44/30/49" i1="43/30/48" i2="39/30/44" />
+              <face i0="44/30/49" i1="39/30/44" i2="38/30/43" />
+              <face i0="44/30/49" i1="38/30/43" i2="53/30/56" />
+              <face i0="38/30/43" i1="41/30/46" i2="332/30/384" />
+              <face i0="335/95/390" i1="273/76/391" i2="279/76/392" />
+              <face i0="335/95/390" i1="279/76/392" i2="336/95/393" />
+              <face i0="43/30/48" i1="335/95/390" i2="336/95/393" />
+              <face i0="43/30/48" i1="336/95/393" i2="39/30/44" />
+              <face i0="337/96/394" i1="338/96/394" i2="292/83/394" />
+              <face i0="337/96/394" i1="292/83/394" i2="297/83/394" />
+              <face i0="279/76/395" i1="278/76/388" i2="334/95/395" />
+              <face i0="339/96/396" i1="337/96/394" i2="297/83/394" />
+              <face i0="339/96/396" i1="297/83/394" i2="296/83/396" />
+              <face i0="45/30/50" i1="30/30/34" i2="338/96/397" />
+              <face i0="337/96/398" i1="339/96/399" i2="42/30/47" />
+              <face i0="337/96/398" i1="42/30/47" i2="340/30/400" />
+              <face i0="341/97/396" i1="339/96/396" i2="296/83/396" />
+              <face i0="341/97/396" i1="296/83/396" i2="307/88/396" />
+              <face i0="340/30/400" i1="45/30/50" i2="337/96/398" />
+              <face i0="340/30/400" i1="44/30/49" i2="46/30/51" />
+              <face i0="274/78/401" i1="341/97/402" i2="307/88/403" />
+              <face i0="274/78/401" i1="307/88/403" i2="275/79/404" />
+              <face i0="341/97/405" i1="274/78/406" i2="270/76/407" />
+              <face i0="341/97/405" i1="270/76/407" i2="342/95/408" />
+              <face i0="342/95/408" i1="270/76/407" i2="273/76/391" />
+              <face i0="342/95/408" i1="273/76/391" i2="335/95/390" />
+              <face i0="341/97/405" i1="342/95/408" i2="42/30/47" />
+              <face i0="42/30/47" i1="342/95/408" i2="335/95/390" />
+              <face i0="42/30/47" i1="335/95/390" i2="43/30/48" />
+              <face i0="27/27/33" i1="343/27/41" i2="238/28/41" />
+              <face i0="27/27/33" i1="238/28/41" i2="28/28/33" />
+              <face i0="31/30/35" i1="33/30/38" i2="343/27/409" />
+              <face i0="33/30/38" i1="52/30/55" i2="55/30/58" />
+              <face i0="33/30/38" i1="55/30/58" i2="34/30/39" />
+              <face i0="31/30/35" i1="47/30/52" i2="52/30/55" />
+              <face i0="344/96/394" i1="26/26/410" i2="293/85/410" />
+              <face i0="344/96/394" i1="293/85/410" i2="289/83/394" />
+              <face i0="293/85/293" i1="26/26/292" i2="29/29/291" />
+              <face i0="293/85/293" i1="29/29/291" i2="244/67/294" />
+              <face i0="344/96/411" i1="30/30/34" i2="26/26/412" />
+              <face i0="338/96/394" i1="344/96/394" i2="289/83/394" />
+              <face i0="338/96/394" i1="289/83/394" i2="292/83/394" />
+              <face i0="35/27/40" i1="34/30/39" i2="345/30/413" />
+              <face i0="35/27/40" i1="345/30/413" i2="23/23/414" />
+              <face i0="37/28/42" i1="35/27/42" i2="23/23/415" />
+              <face i0="37/28/42" i1="23/23/415" i2="22/22/415" />
+              <face i0="34/30/39" i1="55/30/58" i2="62/30/65" />
+              <face i0="34/30/39" i1="62/30/65" i2="345/30/413" />
+              <face i0="51/31/54" i1="50/32/54" i2="24/24/285" />
+              <face i0="51/31/54" i1="24/24/285" i2="23/23/285" />
+              <face i0="51/31/71" i1="345/30/413" i2="62/30/65" />
+              <face i0="74/37/79" i1="71/35/75" i2="21/21/25" />
+              <face i0="74/37/79" i1="21/21/25" i2="20/20/24" />
+              <face i0="51/31/71" i1="23/23/414" i2="345/30/413" />
+              <face i0="21/21/416" i1="94/38/95" i2="93/39/95" />
+              <face i0="21/21/416" i1="93/39/95" i2="4/4/416" />
+              <face i0="95/36/98" i1="21/21/25" i2="70/36/74" />
+              <face i0="101/41/103" i1="100/42/102" i2="346/42/417" />
+              <face i0="101/41/103" i1="346/42/417" i2="14/14/16" />
+              <face i0="103/43/106" i1="101/41/106" i2="14/14/106" />
+              <face i0="103/43/106" i1="14/14/106" i2="18/18/106" />
+              <face i0="100/42/102" i1="104/42/107" i2="116/42/119" />
+              <face i0="100/42/102" i1="116/42/119" i2="346/42/417" />
+              <face i0="115/15/118" i1="15/15/17" i2="346/42/417" />
+              <face i0="115/15/118" i1="346/42/417" i2="116/42/119" />
+              <face i0="15/15/17" i1="115/15/118" i2="128/16/131" />
+              <face i0="15/15/17" i1="128/16/131" i2="16/16/18" />
+              <face i0="72/37/140" i1="134/47/137" i2="10/10/12" />
+              <face i0="72/37/140" i1="10/10/12" i2="9/9/11" />
+              <face i0="171/52/177" i1="170/53/176" i2="347/53/418" />
+              <face i0="171/52/177" i1="347/53/418" i2="5/5/8" />
+              <face i0="154/48/159" i1="10/10/12" i2="133/48/136" />
+              <face i0="153/49/158" i1="163/13/168" i2="13/13/15" />
+              <face i0="93/39/179" i1="171/52/179" i2="5/5/419" />
+              <face i0="93/39/179" i1="5/5/419" i2="4/4/419" />
+              <face i0="170/53/176" i1="177/53/184" i2="192/53/202" />
+              <face i0="170/53/176" i1="192/53/202" i2="347/53/418" />
+              <face i0="202/57/128" i1="201/58/211" i2="348/58/420" />
+              <face i0="202/57/128" i1="348/58/420" i2="1/1/1" />
+              <face i0="184/54/201" i1="347/53/418" i2="192/53/202" />
+              <face i0="184/54/191" i1="183/8/190" i2="8/8/421" />
+              <face i0="184/54/201" i1="5/5/8" i2="347/53/418" />
+              <face i0="204/59/129" i1="202/57/128" i2="1/1/1" />
+              <face i0="204/59/129" i1="1/1/1" i2="0/0/0" />
+              <face i0="220/61/225" i1="349/61/311" i2="348/58/420" />
+              <face i0="220/61/225" i1="348/58/420" i2="221/58/226" />
+              <face i0="207/58/214" i1="221/58/226" i2="348/58/420" />
+              <face i0="349/61/311" i1="220/61/225" i2="230/64/235" />
+              <face i0="349/61/311" i1="230/64/235" i2="269/64/312" />
+              <face i0="349/61/311" i1="1/1/1" i2="348/58/420" />
+              <face i0="15/15/17" i1="14/14/16" i2="346/42/417" />
+              <face i0="27/27/36" i1="26/26/412" i2="30/30/34" />
+              <face i0="32/27/37" i1="343/27/409" i2="33/30/38" />
+              <face i0="343/27/41" i1="32/27/41" i2="36/28/41" />
+              <face i0="340/30/400" i1="42/30/47" i2="44/30/49" />
+              <face i0="61/31/53" i1="56/31/62" i2="60/32/53" />
+              <face i0="64/35/67" i1="67/35/70" i2="72/37/76" />
+              <face i0="327/36/371" i1="321/36/363" i2="319/36/361" />
+              <face i0="86/36/88" i1="88/36/90" i2="80/36/85" />
+              <face i0="309/41/339" i1="313/89/346" i2="310/42/340" />
+              <face i0="331/43/379" i1="309/41/379" i2="312/43/105" />
+              <face i0="313/89/346" i1="309/41/339" i2="331/43/422" />
+              <face i0="108/42/111" i1="300/42/319" i2="299/42/318" />
+              <face i0="107/42/110" i1="111/42/114" i2="113/42/116" />
+              <face i0="124/15/423" i1="119/15/424" i2="123/16/425" />
+              <face i0="115/15/426" i1="114/15/427" i2="127/16/428" />
+              <face i0="126/47/128" i1="125/46/1" i2="129/48/132" />
+              <face i0="138/48/142" i1="141/48/146" i2="143/48/148" />
+              <face i0="280/48/302" i1="148/48/153" i2="150/48/155" />
+              <face i0="160/49/165" i1="155/49/160" i2="159/13/164" />
+              <face i0="152/49/157" i1="163/13/168" i2="153/49/158" />
+              <face i0="168/52/174" i1="172/52/286" i2="169/53/175" />
+              <face i0="265/53/282" i1="257/53/269" i2="255/53/267" />
+              <face i0="254/53/266" i1="253/53/265" i2="165/53/170" />
+              <face i0="190/54/386" i1="185/54/385" i2="189/8/387" />
+              <face i0="209/58/216" i1="211/58/217" i2="234/58/242" />
+              <face i0="214/58/219" i1="194/58/204" i2="212/58/218" />
+              <face i0="235/58/243" i1="216/58/221" i2="218/58/223" />
+              <face i0="228/61/233" i1="223/61/228" i2="227/64/232" />
+              <face i0="206/58/213" i1="221/58/226" i2="207/58/214" />
+              <face i0="218/58/223" i1="222/58/227" i2="206/58/213" />
+              <face i0="228/61/233" i1="229/64/234" i2="219/61/224" />
+              <face i0="217/58/222" i1="231/65/238" i2="225/62/230" />
+              <face i0="232/65/239" i1="231/65/238" i2="217/58/222" />
+              <face i0="223/61/228" i1="225/62/230" i2="226/63/231" />
+              <face i0="215/58/220" i1="214/58/219" i2="205/58/212" />
+              <face i0="233/58/241" i1="235/58/243" i2="205/58/212" />
+              <face i0="234/58/242" i1="211/58/217" i2="216/58/221" />
+              <face i0="211/58/217" i1="236/65/244" i2="216/58/221" />
+              <face i0="237/65/245" i1="236/65/244" i2="211/58/217" />
+              <face i0="232/65/239" i1="236/65/244" i2="36/28/251" />
+              <face i0="216/58/221" i1="232/65/239" i2="217/58/222" />
+              <face i0="236/65/244" i1="232/65/239" i2="216/58/221" />
+              <face i0="239/66/157" i1="212/58/218" i2="240/66/249" />
+              <face i0="242/66/253" i1="213/58/166" i2="239/66/157" />
+              <face i0="209/58/216" i1="233/58/241" i2="214/58/219" />
+              <face i0="209/58/216" i1="214/58/219" i2="213/58/166" />
+              <face i0="241/66/252" i1="210/60/162" i2="209/58/216" />
+              <face i0="177/53/184" i1="180/53/187" i2="191/53/199" />
+              <face i0="175/53/182" i1="251/71/429" i2="187/55/194" />
+              <face i0="252/71/430" i1="251/71/429" i2="175/53/182" />
+              <face i0="185/54/385" i1="187/55/262" i2="188/56/261" />
+              <face i0="180/53/187" i1="179/53/186" i2="173/53/180" />
+              <face i0="256/53/268" i1="258/71/271" i2="174/53/181" />
+              <face i0="174/53/181" i1="252/71/430" i2="175/53/182" />
+              <face i0="258/71/271" i1="252/71/430" i2="174/53/181" />
+              <face i0="262/72/273" i1="261/72/272" i2="254/53/266" />
+              <face i0="265/53/282" i1="179/53/186" i2="254/53/266" />
+              <face i0="264/72/277" i1="266/73/283" i2="257/53/269" />
+              <face i0="266/73/283" i1="259/71/270" i2="257/53/269" />
+              <face i0="172/52/286" i1="167/52/172" i2="166/53/171" />
+              <face i0="169/53/175" i1="166/53/171" i2="165/53/170" />
+              <face i0="169/53/175" i1="177/53/184" i2="170/53/176" />
+              <face i0="263/72/276" i1="165/53/170" i2="268/75/288" />
+              <face i0="160/49/165" i1="162/13/167" i2="152/49/157" />
+              <face i0="149/48/154" i1="271/77/297" i2="157/50/162" />
+              <face i0="272/77/298" i1="271/77/297" i2="149/48/154" />
+              <face i0="155/49/160" i1="157/50/162" i2="158/51/163" />
+              <face i0="280/48/302" i1="146/48/151" i2="145/48/150" />
+              <face i0="280/48/302" i1="145/48/150" i2="139/48/143" />
+              <face i0="143/48/148" i1="142/48/147" i2="148/48/153" />
+              <face i0="142/48/147" i1="276/77/300" i2="148/48/153" />
+              <face i0="277/77/301" i1="276/77/300" i2="142/48/147" />
+              <face i0="148/48/153" i1="272/77/298" i2="149/48/154" />
+              <face i0="276/77/300" i1="272/77/298" i2="148/48/153" />
+              <face i0="281/80/304" i1="137/48/141" i2="282/80/305" />
+              <face i0="284/80/308" i1="138/48/142" i2="281/80/304" />
+              <face i0="283/80/307" i1="285/81/230" i2="141/48/146" />
+              <face i0="141/48/146" i1="277/77/301" i2="142/48/147" />
+              <face i0="285/81/230" i1="277/77/301" i2="141/48/146" />
+              <face i0="287/47/310" i1="135/48/138" i2="131/47/134" />
+              <face i0="132/48/135" i1="135/48/138" i2="144/48/149" />
+              <face i0="129/48/132" i1="137/48/141" i2="140/48/144" />
+              <face i0="112/42/115" i1="290/84/431" i2="121/44/124" />
+              <face i0="291/84/432" i1="290/84/431" i2="112/42/115" />
+              <face i0="119/15/424" i1="121/44/29" i2="122/45/28" />
+              <face i0="106/42/109" i1="109/42/112" i2="299/42/318" />
+              <face i0="1/1/1" i1="349/61/311" i2="269/64/312" />
+              <face i0="1/1/1" i1="269/64/312" i2="2/2/2" />
+              <face i0="299/42/318" i1="301/42/320" i2="111/42/114" />
+              <face i0="301/42/320" i1="294/84/322" i2="111/42/114" />
+              <face i0="111/42/114" i1="291/84/432" i2="112/42/115" />
+              <face i0="294/84/322" i1="291/84/432" i2="111/42/114" />
+              <face i0="303/86/324" i1="110/42/113" i2="305/86/349" />
+              <face i0="304/86/327" i1="306/87/332" i2="300/42/319" />
+              <face i0="306/87/316" i1="307/88/316" i2="311/84/316" />
+              <face i0="296/83/316" i1="311/84/316" i2="307/88/316" />
+              <face i0="311/84/316" i1="296/83/316" i2="295/84/316" />
+              <face i0="309/41/339" i1="308/41/338" i2="312/43/433" />
+              <face i0="298/42/317" i1="105/42/108" i2="99/42/101" />
+              <face i0="99/42/101" i1="104/42/107" i2="100/42/102" />
+              <face i0="314/90/379" i1="313/89/379" i2="331/43/379" />
+              <face i0="305/86/349" i1="310/42/340" i2="313/89/346" />
+              <face i0="310/42/340" i1="110/42/113" i2="298/42/317" />
+              <face i0="86/36/88" i1="95/36/98" i2="87/36/89" />
+              <face i0="315/36/352" i1="96/36/99" i2="86/36/88" />
+              <face i0="81/38/86" i1="97/39/94" i2="91/38/94" />
+              <face i0="77/36/161" i1="316/91/160" i2="90/40/162" />
+              <face i0="317/91/357" i1="316/91/356" i2="77/36/82" />
+              <face i0="85/36/87" i1="318/36/360" i2="319/36/361" />
+              <face i0="315/36/352" i1="85/36/87" i2="75/36/80" />
+              <face i0="315/36/352" i1="86/36/88" i2="85/36/87" />
+              <face i0="323/91/365" i1="322/91/364" i2="198/59/366" />
+              <face i0="320/36/362" i1="323/91/365" i2="76/36/81" />
+              <face i0="317/91/357" i1="323/91/365" i2="203/59/367" />
+              <face i0="76/36/81" i1="317/91/357" i2="77/36/82" />
+              <face i0="323/91/365" i1="317/91/357" i2="76/36/81" />
+              <face i0="325/92/368" i1="324/92/369" i2="79/36/84" />
+              <face i0="327/36/371" i1="318/36/360" i2="79/36/84" />
+              <face i0="326/92/370" i1="328/93/373" i2="321/36/363" />
+              <face i0="322/91/364" i1="328/93/373" i2="197/59/377" />
+              <face i0="328/93/373" i1="322/91/364" i2="321/36/363" />
+              <face i0="66/36/69" i1="65/36/68" i2="80/36/85" />
+              <face i0="329/92/381" i1="325/92/368" i2="65/36/68" />
+              <face i0="54/30/57" i1="62/30/65" i2="55/30/58" />
+              <face i0="332/30/384" i1="63/30/66" i2="54/30/57" />
+              <face i0="40/30/45" i1="333/95/434" i2="58/33/61" />
+              <face i0="334/95/435" i1="333/95/434" i2="40/30/45" />
+              <face i0="56/31/62" i1="58/33/62" i2="59/34/62" />
+              <face i0="53/30/56" i1="46/30/51" i2="44/30/49" />
+              <face i0="332/30/384" i1="53/30/56" i2="38/30/43" />
+              <face i0="332/30/384" i1="54/30/57" i2="53/30/56" />
+              <face i0="334/95/386" i1="336/95/436" i2="279/76/437" />
+              <face i0="39/30/44" i1="334/95/435" i2="40/30/45" />
+              <face i0="336/95/393" i1="334/95/435" i2="39/30/44" />
+              <face i0="338/96/397" i1="337/96/398" i2="45/30/50" />
+              <face i0="340/30/400" i1="46/30/51" i2="45/30/50" />
+              <face i0="339/96/399" i1="341/97/405" i2="42/30/47" />
+              <face i0="343/27/409" i1="27/27/36" i2="31/30/35" />
+              <face i0="238/28/41" i1="343/27/41" i2="36/28/41" />
+              <face i0="31/30/35" i1="52/30/55" i2="33/30/38" />
+              <face i0="344/96/411" i1="338/96/397" i2="30/30/34" />
+              <face i0="30/30/34" i1="47/30/52" i2="31/30/35" />
+              <face i0="71/35/75" i1="70/36/74" i2="21/21/25" />
+              <face i0="70/36/74" i1="87/36/89" i2="95/36/98" />
+              <face i0="95/36/98" i1="94/38/104" i2="21/21/25" />
+              <face i0="134/47/137" i1="133/48/136" i2="10/10/12" />
+              <face i0="133/48/136" i1="147/48/152" i2="154/48/159" />
+              <face i0="153/49/158" i1="13/13/15" i2="10/10/12" />
+              <face i0="154/48/159" i1="153/49/158" i2="10/10/12" />
+              <face i0="184/54/438" i1="8/8/439" i2="5/5/440" />
+              <face i0="207/58/214" i1="348/58/420" i2="201/58/211" />
+            </faces>
+          </mesh>
+          <material bucket="Opaque">
+            <material_property name="diffuse" type="vec4" value="[0.64, 0.64, 0.64, 1]" />
+            <material_property name="specular" type="vec4" value="[0.5, 0.5, 0.5, 1]" />
+            <material_property name="ambient" type="vec4" value="[0, 0, 0, 0]" />
+            <material_property name="spec_technique" type="int" value="1" />
+            <material_property name="per_pixel_lighting" type="int" value="1" />
+            <material_property name="shininess" type="float" value="0.5" />
+            <material_property name="roughness" type="float" value="0.2" />
+            <material_property name="metalness" type="float" value="0" />
+            <material_property name="spec_exponent" type="float" value="24.01961" />
+            <material_property name="blendmode" type="int" value="0" />
+            <material_property name="cast_shadows" type="int" value="1" />
+            <material_property name="depthmask" type="boolean" value="True" />
+            <material_property name="depthtest" type="boolean" value="True" />
+            <material_property name="alpha_discard" type="float" value="0.1" />
+            <material_property name="cullenable" type="boolean" value="True" />
+            <material_property name="cullface" type="int" value="0" />
+            <material_property name="matname" type="string" value="Material.001" />
+            <material_property name="diffuse_map" type="texture" value="C:\Users\User\Documents\Game Engine\TestLib\res\models\domino\15074-illustration-of-a-domino-tile-pv.png" />
+          </material>
+        </geom>
+      </node>
+    </node>
+  </node>
+</model>

@@ -60,13 +60,13 @@ namespace ApexEngine.Terrain.ModelTerrain
         public override void Init()
         {
         }
-
+        /*
         public override void OnAddChunk(TerrainChunkNode chunk)
         {
         }
 
         public override void OnRemoveChunk(TerrainChunkNode chunk)
         {
-        }
+        }*/
     }
 }

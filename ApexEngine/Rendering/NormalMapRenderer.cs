@@ -42,7 +42,7 @@ namespace ApexEngine.Rendering
             }
             fbo.Capture();
 
-            RenderManager.renderer.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+            RenderManager.Renderer.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
             renderManager.RenderBucketNormals(env, cam, RenderManager.Bucket.Opaque);
             renderManager.RenderBucketNormals(env, cam, RenderManager.Bucket.Transparent);

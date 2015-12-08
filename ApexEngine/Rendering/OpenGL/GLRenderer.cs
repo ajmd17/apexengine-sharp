@@ -26,7 +26,85 @@ namespace ApexEngine.Rendering.OpenGL
             GL.FramebufferTexture2D(framebuffer, attachment, target, texID, level);
         }
 
-        #endif
+#endif
+        public override void CreateMesh(Mesh mesh)
+        {
+            GL.GenBuffers(1, out mesh.vbo);
+            GL.GenBuffers(1, out mesh.ibo);
+        }
+
+        public override void UploadMesh(Mesh mesh)
+        {
+            mesh.size = mesh.indices.Count;
+            float[] vertexBuffer = Util.MeshUtil.CreateFloatBuffer(mesh);
+            int[] indexBuffer = new int[mesh.indices.Count];
+            for (int i = 0; i < mesh.indices.Count; i++)
+            {
+                indexBuffer[i] = mesh.indices[i];
+            }
+            GL.BindBuffer(BufferTarget.ArrayBuffer, mesh.vbo);
+            GL.BufferData(BufferTarget.ArrayBuffer, (IntPtr)(vertexBuffer.Length * sizeof(float)), vertexBuffer, BufferUsageHint.StaticDraw);
+            GL.BindBuffer(BufferTarget.ElementArrayBuffer, mesh.ibo);
+            GL.BufferData(BufferTarget.ElementArrayBuffer, (IntPtr)(indexBuffer.Length * sizeof(int)), indexBuffer, BufferUsageHint.StaticDraw);
+        }
+
+        public override void RenderMesh(Mesh mesh)
+        {
+            GL.BindBuffer(BufferTarget.ArrayBuffer, mesh.vbo);
+            if (mesh.GetAttributes().HasAttribute(VertexAttributes.POSITIONS))
+            {
+                GL.EnableVertexAttribArray(0);
+                GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, mesh.vertexSize * sizeof(float), mesh.GetAttributes().GetPositionOffset());
+            }
+            if (mesh.GetAttributes().HasAttribute(VertexAttributes.TEXCOORDS0))
+            {
+                GL.EnableVertexAttribArray(1);
+                GL.VertexAttribPointer(1, 2, VertexAttribPointerType.Float, false, mesh.vertexSize * sizeof(float), mesh.GetAttributes().GetTexCoord0Offset());
+            }
+            if (mesh.GetAttributes().HasAttribute(VertexAttributes.TEXCOORDS1))
+            {
+                GL.EnableVertexAttribArray(2);
+                GL.VertexAttribPointer(2, 2, VertexAttribPointerType.Float, false, mesh.vertexSize * sizeof(float), mesh.GetAttributes().GetTexCoord1Offset());
+            }
+            if (mesh.GetAttributes().HasAttribute(VertexAttributes.NORMALS))
+            {
+                GL.EnableVertexAttribArray(3);
+                GL.VertexAttribPointer(3, 3, VertexAttribPointerType.Float, false, mesh.vertexSize * sizeof(float), mesh.GetAttributes().GetNormalOffset());
+            }
+            if (mesh.GetAttributes().HasAttribute(VertexAttributes.TANGENTS))
+            {
+                GL.EnableVertexAttribArray(4);
+                GL.VertexAttribPointer(4, 3, VertexAttribPointerType.Float, false, mesh.vertexSize * sizeof(float), mesh.GetAttributes().GetTangentOffset());
+            }
+            if (mesh.GetAttributes().HasAttribute(VertexAttributes.BITANGENTS))
+            {
+                GL.EnableVertexAttribArray(5);
+                GL.VertexAttribPointer(5, 3, VertexAttribPointerType.Float, false, mesh.vertexSize * sizeof(float), mesh.GetAttributes().GetBitangentOffset());
+            }
+            if (mesh.GetAttributes().HasAttribute(VertexAttributes.BONEWEIGHTS))
+            {
+                GL.EnableVertexAttribArray(6);
+                GL.VertexAttribPointer(6, 4, VertexAttribPointerType.Float, false, mesh.vertexSize * sizeof(float), mesh.GetAttributes().GetBoneWeightOffset());
+            }
+            if (mesh.GetAttributes().HasAttribute(VertexAttributes.BONEINDICES))
+            {
+                GL.EnableVertexAttribArray(7);
+                GL.VertexAttribPointer(7, 4, VertexAttribPointerType.Float, false, mesh.vertexSize * sizeof(float), mesh.GetAttributes().GetBoneIndexOffset());
+            }
+
+            GL.BindBuffer(BufferTarget.ElementArrayBuffer, mesh.ibo);
+            GL.DrawElements(mesh.primitiveType, mesh.size, DrawElementsType.UnsignedInt, 0);
+
+            if (mesh.GetAttributes().HasAttribute(VertexAttributes.POSITIONS)) GL.DisableVertexAttribArray(0);
+            if (mesh.GetAttributes().HasAttribute(VertexAttributes.TEXCOORDS0)) GL.DisableVertexAttribArray(1);
+            if (mesh.GetAttributes().HasAttribute(VertexAttributes.TEXCOORDS1)) GL.DisableVertexAttribArray(2);
+            if (mesh.GetAttributes().HasAttribute(VertexAttributes.NORMALS)) GL.DisableVertexAttribArray(3);
+            if (mesh.GetAttributes().HasAttribute(VertexAttributes.TANGENTS)) GL.DisableVertexAttribArray(4);
+            if (mesh.GetAttributes().HasAttribute(VertexAttributes.BITANGENTS)) GL.DisableVertexAttribArray(5);
+            if (mesh.GetAttributes().HasAttribute(VertexAttributes.BONEWEIGHTS)) GL.DisableVertexAttribArray(6);
+            if (mesh.GetAttributes().HasAttribute(VertexAttributes.BONEINDICES)) GL.DisableVertexAttribArray(7);
+        }
+
 
         public override void GenTextures(int n, out int textures)
         {

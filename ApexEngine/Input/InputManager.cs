@@ -5,7 +5,7 @@ namespace ApexEngine.Input
 {
     public class InputManager
     {
-        public int SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_X, WINDOW_Y;
+        public int SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_X, WINDOW_Y, MOUSE_X, MOUSE_Y;
         private List<KeyboardEvent> keyEvts = new List<KeyboardEvent>();
         private List<MouseEvent> mouseEvts = new List<MouseEvent>();
         public List<OpenTK.Input.Key> keysdown = new List<OpenTK.Input.Key>();
@@ -23,12 +23,12 @@ namespace ApexEngine.Input
 
         public int GetMouseX()
         {
-            return (WINDOW_X - System.Windows.Forms.Cursor.Position.X) + (SCREEN_WIDTH / 2);
+            return MOUSE_X; 
         }
 
         public int GetMouseY()
         {
-            return (WINDOW_Y - System.Windows.Forms.Cursor.Position.Y) + (SCREEN_HEIGHT / 2);
+            return MOUSE_Y;
         }
 
         public void MouseButtonDown(OpenTK.Input.MouseButton btn)

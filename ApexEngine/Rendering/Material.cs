@@ -37,6 +37,7 @@ namespace ApexEngine.Rendering
         private Vector4f tmpVec4 = new Vector4f();
         public Dictionary<string, object> values = new Dictionary<string, object>();
         protected RenderManager.Bucket bucket = RenderManager.Bucket.Opaque;
+        private Shader shader, depthShader, normalsShader;
 
         public Material()
         {
@@ -183,6 +184,38 @@ namespace ApexEngine.Rendering
                 return (Vector4f)obj;
             }
             return tmpVec4;
+        }
+
+        public Shader Shader
+        {
+            get { return shader; }
+            set { shader = value; }
+        }
+
+        public Shader DepthShader
+        {
+            get { return depthShader; }
+            set { depthShader = value; }
+        }
+
+        public Shader NormalsShader
+        {
+            get { return normalsShader; }
+            set { normalsShader = value; }
+        }
+
+        public Material Clone()
+        {
+            Material res = new Material();
+            res.Bucket = this.Bucket;
+            res.Shader = this.Shader;
+            res.DepthShader = this.DepthShader;
+            res.NormalsShader = this.NormalsShader;
+            foreach (string str in values.Keys)
+            {
+                res.SetValue(str, values[str]);
+            }
+            return res;
         }
     }
 }

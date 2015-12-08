@@ -3,6 +3,9 @@
     public class Quaternion
     {
         public float x, y, z, w;
+        private Vector3f tempZ = new Vector3f();
+        private Vector3f tempX = new Vector3f();
+        private Vector3f tempY = new Vector3f();
 
         public Quaternion()
         {
@@ -326,9 +329,6 @@
 
         public Quaternion SetToLookAt(Vector3f dir, Vector3f up)
         {
-            Vector3f tempZ = new Vector3f();
-            Vector3f tempX = new Vector3f();
-            Vector3f tempY = new Vector3f();
             tempZ.Set(dir);
             tempZ.NormalizeStore();
             tempX.Set(up);
@@ -341,6 +341,19 @@
                             tempY.x, tempY.y, tempY.z,
                             tempZ.x, tempZ.y, tempZ.z);
             return this;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Quaternion))
+                return false;
+
+            Quaternion vobj = (Quaternion)obj;
+
+            if (vobj.x == x && vobj.y == y && vobj.z == z && vobj.w == w)
+                return true;
+
+            return false;
         }
 
         public override string ToString()

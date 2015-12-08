@@ -2,9 +2,16 @@
 
 namespace ApexEngine.Math
 {
-    public class Matrix4f
+    public class Matrix4f : Matrix
     {
         private static Matrix4f tmpMat = new Matrix4f();
+        private static Matrix4f tmpMat2 = new Matrix4f();
+
+        private static Vector3f tempVec = new Vector3f();
+        private static Vector3f tempVec2 = new Vector3f();
+        private static Vector3f l_vez = new Vector3f();
+        private static Vector3f l_vex = new Vector3f();
+        private static Vector3f l_vey = new Vector3f();
 
         public const int m00 = 0, m01 = 1, m02 = 2, m03 = 3,
                          m10 = 4, m11 = 5, m12 = 6, m13 = 7,
@@ -26,9 +33,13 @@ namespace ApexEngine.Math
             this.Set(m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33);
         }
 
-        public Matrix4f(Matrix4f other)
+        public Matrix4f(Matrix other) : base(other)
         {
-            this.Set(other);
+        }
+
+        public override float[] GetValues()
+        {
+            return values;
         }
 
         public float[] GetInvertedValues()
@@ -85,12 +96,23 @@ namespace ApexEngine.Math
             return this;
         }
 
-        public Matrix4f Set(Matrix4f other)
+        public Matrix4f Set(Matrix other)
         {
-            for (int i = 0; i < values.Length; i++)
+            if (other.GetValues().Length >= GetValues().Length)
             {
-                values[i] = other.values[i];
+                for (int i = 0; i < GetValues().Length; i++)
+                {
+                    GetValues()[i] = other.GetValues()[i];
+                }
             }
+            else if (other.GetValues().Length < GetValues().Length)
+            {
+                for (int i = 0; i < other.GetValues().Length; i++)
+                {
+                    GetValues()[i] = other.GetValues()[i];
+                }
+            }
+
             return this;
         }
 
@@ -269,17 +291,6 @@ namespace ApexEngine.Math
             return this;
         }
 
-        public override string ToString()
-        {
-            string res = "[";
-            res += values[Matrix4f.m00] + ", " + values[Matrix4f.m10] + ", " + values[Matrix4f.m20] + ", " + values[Matrix4f.m30] + "\n";
-            res += values[Matrix4f.m01] + ", " + values[Matrix4f.m11] + ", " + values[Matrix4f.m21] + ", " + values[Matrix4f.m31] + "\n";
-            res += values[Matrix4f.m02] + ", " + values[Matrix4f.m12] + ", " + values[Matrix4f.m22] + ", " + values[Matrix4f.m31] + "\n";
-            res += values[Matrix4f.m03] + ", " + values[Matrix4f.m13] + ", " + values[Matrix4f.m23] + ", " + values[Matrix4f.m33];
-            res += "]";
-            return res;
-        }
-
         public Matrix4f SetToTranslation(Vector3f v)
         {
             this.SetToIdentity();
@@ -439,9 +450,6 @@ namespace ApexEngine.Math
         {
             this.SetToIdentity();
 
-            Vector3f l_vez = new Vector3f();
-            Vector3f l_vex = new Vector3f();
-            Vector3f l_vey = new Vector3f();
             l_vez.Set(dir);
             l_vez.NormalizeStore();
             l_vex.Set(dir);
@@ -470,15 +478,14 @@ namespace ApexEngine.Math
         public Matrix4f SetToLookAt(Vector3f pos, Vector3f target, Vector3f up)
         {
             this.SetToIdentity();
-
-            Matrix4f lookAt = new Matrix4f(), res = new Matrix4f();
-            Vector3f tempVec = new Vector3f();
             tempVec.Set(target);
             tempVec.SubtractStore(pos);
-            tmpMat.SetToTranslation(pos.Multiply(-1f));
-            lookAt.SetToLookAt(tempVec, up);
+            tempVec2.Set(pos);
+            tempVec2.MultiplyStore(-1);
+            tmpMat.SetToTranslation(tempVec2);
+            tmpMat2.SetToLookAt(tempVec, up);
             this.Set(tmpMat);
-            this.MultiplyStore(lookAt);
+            this.MultiplyStore(tmpMat2);
             return this;
         }
 
@@ -510,6 +517,43 @@ namespace ApexEngine.Math
             values[m33] = 1;
 
             return this;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Matrix4f))
+                return false;
+
+            Matrix4f m_obj = (Matrix4f)obj;
+
+            for (int i = 0; i < values.Length; i++)
+            {
+                if (values[i] != m_obj.values[i])
+                    return false;
+            }
+
+            return true;
+        }
+
+        public override int GetHashCode()
+        {
+            int hash = 17;
+
+            for (int i = 0; i < values.Length; i++)
+                hash = hash * 23 + values[i].GetHashCode();
+
+            return hash;
+        }
+
+        public override string ToString()
+        {
+            string res = "[";
+            res += values[Matrix4f.m00] + ", " + values[Matrix4f.m10] + ", " + values[Matrix4f.m20] + ", " + values[Matrix4f.m30] + "\n";
+            res += values[Matrix4f.m01] + ", " + values[Matrix4f.m11] + ", " + values[Matrix4f.m21] + ", " + values[Matrix4f.m31] + "\n";
+            res += values[Matrix4f.m02] + ", " + values[Matrix4f.m12] + ", " + values[Matrix4f.m22] + ", " + values[Matrix4f.m31] + "\n";
+            res += values[Matrix4f.m03] + ", " + values[Matrix4f.m13] + ", " + values[Matrix4f.m23] + ", " + values[Matrix4f.m33];
+            res += "]";
+            return res;
         }
     }
 }

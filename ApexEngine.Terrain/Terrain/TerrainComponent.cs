@@ -16,18 +16,19 @@ namespace ApexEngine.Terrain
             Unloaded
         }
 
-        protected int chunkSize = 32;
+        protected int chunkSize = 64;
         protected PhysicsWorld physicsWorld;
         protected List<HeightInfo> heightmaps;
         protected Material terrainMaterial = new TerrainMaterial();
         protected List<Vector2f> queue = new List<Vector2f>();
         protected Vector3f scale = new Vector3f(1);
-        private float updateTime = 6, maxUpdateTime = 6f, queueTime = 6, maxQueueTime = 6f;
+        private float updateTime = 6, maxUpdateTime = 6f, queueTime = 2, maxQueueTime = 2f;
         private Vector2f v2cp = new Vector2f();
         private Vector3f cp = new Vector3f();
         private float maxDist = 1.8f;
         private Vector3f wt = new Vector3f();
         private Vector2f tmpCenter = new Vector2f();
+        protected EventArgs e = null;
 
         public TerrainComponent()
         {
@@ -128,9 +129,9 @@ namespace ApexEngine.Terrain
 
         public override void Update()
         {
-            if (queue.Count > 0)
-            {
-                if (queueTime > maxQueueTime)
+           // if (queueTime > maxQueueTime)
+         //   {
+                if (queue.Count > 0)
                 {
                     Vector2f v = queue[0];
                     int x = (int)v.x;
@@ -139,23 +140,17 @@ namespace ApexEngine.Terrain
                     queue.Remove(v);
                     queueTime = 0f;
                 }
-                queueTime += 0.1f;
-            }
+           // }
+          //  queueTime += 1f;
             if (updateTime > maxUpdateTime)
             {
-                /* cp.Set(cam.Translation)
-                     .SubtractStore(new Vector3f((chunkSize * scale.x) / 2))
-                     .SubtractStore(rootNode.GetWorldTranslation())
-                     .MultiplyStore(1f / (((int)chunkSize - 1) * (scale.x)));*/
 
                 cp.Set(cam.Translation);
                 cp.SubtractStore(rootNode.GetWorldTranslation());
                 cp.MultiplyStore(1f / (((int)chunkSize - 1) * (scale.x)));
 
-
-
                 v2cp.Set(cp.x, cp.z);
-                Console.WriteLine(rootNode.Children.Count);
+
                 for (int i = heightmaps.Count - 1; i > -1; i--)
                 {
                     HeightInfo hinf = heightmaps[i];
@@ -170,21 +165,37 @@ namespace ApexEngine.Terrain
                         {
                             foreach (Vector2f v2 in hinf.neighbors)
                             {
-                                AddChunk((int)v2.x, (int)v2.y);
+                                // AddChunk((int)v2.x, (int)v2.y);
+
+                                AddToQueue(new Vector2f((int)v2.x, (int)v2.y));
                             }
                         }
+                        hinf.UpdateChunk();
                     }
                     else if (hinf.pageState == PageState.Unloading)
                     {
+                        hinf.UpdateChunk();
                     }
                     else if (hinf.pageState == PageState.Unloaded)
                     {
-                        rootNode.RemoveChild(hinf.chunk);
-                        heightmaps.Remove(hinf);
-                        hinf.chunk.hm = null;
-                        hinf.chunk = null;
+                        if (hinf != null)
+                        {
+                            hinf.UpdateChunk();
+                            rootNode.RemoveChild(hinf.chunk);
+                            heightmaps.Remove(hinf);
+                            hinf.neighbors = null;
+                            hinf.midpoint = null;
+                            hinf.position = null;
+                            hinf.chunk.hm.vertices.Clear();
+                            hinf.chunk.hm.indices.Clear();
+                            hinf.chunk.hm.vertices = null;
+                            hinf.chunk.hm.indices = null;
+                            hinf.chunk.hm = null;
+                            hinf.chunk = null;
+                            hinf = null;
+                        }
+                        
                     }
-                    hinf.UpdateChunk();
                 }
                 AddChunk((int)cp.x, (int)cp.z);
                 updateTime = 0f;
@@ -247,9 +258,29 @@ namespace ApexEngine.Terrain
 
         public abstract void ApplyTerrainMaterial(TerrainChunkNode chunk);
 
-        public abstract void OnAddChunk(TerrainChunkNode chunk);
+        public void OnAddChunk(TerrainChunkNode chunk)
+        {
+            if (this.ChunkAdded != null)
+            {
+                ChunkAdded(chunk, e);
+            }
+        }
 
-        public abstract void OnRemoveChunk(TerrainChunkNode chunk);
+        public void OnRemoveChunk(TerrainChunkNode chunk)
+        {
+            if (this.ChunkRemoved != null)
+            {
+                ChunkRemoved(chunk, e);
+            }
+        }
+
+        public event ChunkAddedHandler ChunkAdded;
+
+        public delegate void ChunkAddedHandler(TerrainChunkNode t, EventArgs e);
+
+        public event ChunkRemovedHandler ChunkRemoved;
+
+        public delegate void ChunkRemovedHandler(TerrainChunkNode t, EventArgs e);
 
         public abstract Material GetMaterial();
     }

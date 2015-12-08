@@ -21,9 +21,14 @@ namespace ApexEditor
         private float holdTime = 0f;
         private bool holding = false;
         private bool renderPhysicsDebug = true;
-        private GameObject objectHolding = null;
+        public GameObject objectHolding = null;
+        private bool centered = false;
         private Geometry[] axisArrows = null;
+        private bool movingX = false, movingY = false, movingZ = false;
         private CamModes camMode = CamModes.Freelook;
+        public Vector3f offsetLoc = new Vector3f();
+        public int lastMouseX = 0, lastMouseY = 0;
+        private bool boundingBoxes = false;
 
         public enum CamModes
         {
@@ -31,6 +36,36 @@ namespace ApexEditor
             Grab,
             Rotate
         };
+
+        public bool BoundingBoxes
+        {
+            get { return boundingBoxes; }
+            set { boundingBoxes = value; }
+        }
+
+        public bool MovingX
+        {
+            get { return movingX; }
+            set { movingX = value; }
+        }
+
+        public bool MovingY
+        {
+            get { return movingY; }
+            set { movingY = value; }
+        }
+
+        public bool MovingZ
+        {
+            get { return movingZ; }
+            set { movingZ = value; }
+        }
+
+        public bool Centered
+        {
+            get { return centered; }
+            set { centered = value; }
+        }
 
         public CamModes CamMode
         {
@@ -46,6 +81,7 @@ namespace ApexEditor
 
         public override void Init()
         {
+
             ShadowMappingComponent smc;
             RenderManager.AddComponent(smc = new ShadowMappingComponent(cam, Environment));
             smc.RenderMode = ShadowMappingComponent.ShadowRenderMode.Forward;
@@ -78,7 +114,7 @@ namespace ApexEditor
                     {
                         foreach (Geometry g in axisArrows)
                         {
-                            g.SetLocalTranslation(hitObject.GetLocalTranslation());
+                            g.SetLocalTranslation((!centered ? objectHolding.GetLocalTranslation() : objectHolding.GetLocalTranslation().Add(objectHolding.GetLocalBoundingBox().Center.Subtract(new Vector3f(0f, objectHolding.GetLocalBoundingBox().Center.Y, 0f)))));
                             g.UpdateTransform();
                         }
                     }
@@ -103,9 +139,37 @@ namespace ApexEditor
                 GL.Disable(EnableCap.PolygonOffsetFill);
                 GL.Enable(EnableCap.CullFace);
             }
+            if (boundingBoxes)
+            {
+                for (int i = 0; i < RenderManager.GeometryList.Count; i++)
+                {
+                    RenderBoundingBox(RenderManager.GeometryList[i].GetWorldBoundingBox());
+                }
+            }
             if (camMode == CamModes.Grab)
                 foreach (Geometry g in axisArrows)
                     g.Render(Environment, Camera);
+        }
+
+        private void RenderBoundingBox(BoundingBox boundingBox)
+        {
+            GL.Enable(EnableCap.PolygonOffsetLine);
+            GL.PolygonOffset(15.0f, 100.0f);
+            GL.MatrixMode(MatrixMode.Modelview);
+            GL.LoadMatrix(cam.ViewMatrix.GetInvertedValues());
+            GL.MatrixMode(MatrixMode.Projection);
+            GL.LoadMatrix(cam.ProjectionMatrix.GetInvertedValues());
+            GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line);
+
+            GL.LineWidth(1.5f);
+            GL.Begin(PrimitiveType.Triangles);
+
+            GL.Color3(1.0f, 0.0f, 0.0f);
+            MyRenderUtil.RenderBoundingBox(boundingBox);
+            
+
+            GL.End();
+            GL.Disable(EnableCap.PolygonOffsetLine);
         }
 
         public override void Update()
@@ -127,12 +191,26 @@ namespace ApexEditor
                     {
                         if (camMode == CamModes.Grab)
                         {
-                            objectHolding.SetLocalTranslation(rayHit);
-
-                            foreach (Geometry g in axisArrows)
+                            if (!centered)
                             {
-                                g.SetLocalTranslation(objectHolding.GetLocalTranslation());
-                                g.UpdateTransform();
+                                objectHolding.SetLocalTranslation(rayHit);
+                                foreach (Geometry g in axisArrows)
+                                {
+                                    g.SetLocalTranslation(objectHolding.GetLocalTranslation());
+                                    g.UpdateTransform();
+                                }
+                            }
+                            else if (centered)
+                            {
+                                Vector3f offset = new Vector3f(objectHolding.GetLocalBoundingBox().Center);
+                                objectHolding.SetLocalTranslation(rayHit.Subtract(offset));
+                                Console.WriteLine(objectHolding.GetLocalBoundingBox().Center);
+
+                                foreach (Geometry g in axisArrows)
+                                {
+                                    g.SetLocalTranslation(objectHolding.GetLocalTranslation().Add(offset));
+                                    g.UpdateTransform();
+                                }
                             }
                         }
                     }
@@ -140,6 +218,79 @@ namespace ApexEditor
             }
             else
                 cam.Enabled = false;
+
+            if (camMode == CamModes.Grab)
+            {
+                float scalar = 25.0f;
+               /* if (movingX)
+                {
+                    if (objectHolding != null)
+                    {
+                        Vector3f currentTrans = new Vector3f(objectHolding.GetWorldTranslation());
+                        Vector3f unprojected = Camera.Unproject(InputManager.GetMouseX(), InputManager.GetMouseY());
+                        unprojected.SubtractStore(cam.Translation);
+                        // currentTrans.X = (offsetLoc.x + startMouse - InputManager.GetMouseX()) / 20f;
+
+                        unprojected.MultiplyStore(scalar);
+
+                        currentTrans.x = unprojected.x;
+
+                        foreach (Geometry g in axisArrows)
+                        {
+                            g.SetLocalTranslation(unprojected);
+                            g.UpdateTransform();
+                        }
+
+                        objectHolding.SetLocalTranslation(unprojected);
+                    }
+
+                }
+                else if (movingY)
+                {
+                    if (objectHolding != null)
+                    {
+                        Vector3f currentTrans = new Vector3f(objectHolding.GetWorldTranslation());
+                        Vector3f unprojected = Camera.Unproject(InputManager.GetMouseX(), InputManager.GetMouseY());
+                        unprojected.SubtractStore(cam.Translation);
+                        // currentTrans.Y = (offsetLoc.y + startMouse - InputManager.GetMouseX())/20f;//offsetLoc.y + unprojected.Y * scalar;
+
+                        unprojected.MultiplyStore(scalar);
+
+                        currentTrans.y = unprojected.y;
+
+                        foreach (Geometry g in axisArrows)
+                        {
+                            g.SetLocalTranslation(unprojected);
+                            g.UpdateTransform();
+                        }
+
+                        objectHolding.SetLocalTranslation(unprojected);
+                    }
+
+                }
+                else if (movingZ)
+                {
+                    if (objectHolding != null)
+                    {
+                        Vector3f currentTrans = new Vector3f(objectHolding.GetWorldTranslation());
+                        Vector3f unprojected = Camera.Unproject(InputManager.GetMouseX(), InputManager.GetMouseY());
+                        unprojected.SubtractStore(cam.Translation);
+
+                        unprojected.MultiplyStore(scalar);
+
+                        currentTrans.z = unprojected.z;
+
+                        foreach (Geometry g in axisArrows)
+                        {
+                            g.SetLocalTranslation(unprojected);
+                            g.UpdateTransform();
+                        }
+
+                        objectHolding.SetLocalTranslation(unprojected);
+                    }
+
+                }*/
+            }
 
             if (InputManager.IsMouseButtonDown(OpenTK.Input.MouseButton.Right))
             {

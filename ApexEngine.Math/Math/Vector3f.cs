@@ -8,7 +8,8 @@
         public static Vector3f UNIT_Z = new Vector3f(0.0f, 0.0f, 1.0f);
         public static Vector3f UNIT_XYZ = new Vector3f(1.0f, 1.0f, 1.0f);
         public float x, y, z;
-        private Matrix4f tmpRot = new Matrix4f();
+
+        private static Matrix4f tmpRot = new Matrix4f();
 
         public float X
         {
@@ -288,6 +289,30 @@
         public float Distance(Vector3f other)
         {
             return (float)System.Math.Sqrt(DistanceSqr(other));
+        }
+
+        public override int GetHashCode()
+        {
+            int hash = 17;
+
+            hash = hash * 23 + x.GetHashCode();
+            hash = hash * 23 + y.GetHashCode();
+            hash = hash * 23 + z.GetHashCode();
+
+            return hash;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Vector3f))
+                return false;
+
+            Vector3f vobj = (Vector3f)obj;
+
+            if (vobj.x == x && vobj.y == y && vobj.z == z)
+                return true;
+
+            return false;
         }
 
         public override string ToString()

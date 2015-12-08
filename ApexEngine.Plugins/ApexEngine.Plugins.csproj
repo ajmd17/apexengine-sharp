@@ -45,6 +45,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PagingSystem\GrassPopulator.cs" />
+    <Compile Include="PagingSystem\Paging.cs" />
+    <Compile Include="PagingSystem\Populator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RaytracerFilter.cs" />
   </ItemGroup>
@@ -52,6 +55,10 @@
     <ProjectReference Include="..\ApexEngine.Math\ApexEngine.Math.csproj">
       <Project>{a3e4f805-3271-4f83-bde0-180543845ba7}</Project>
       <Name>ApexEngine.Math</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ApexEngine.Terrain\ApexEngine.Terrain.csproj">
+      <Project>{98da8bb8-d4ea-48d5-a014-7db65979b0ea}</Project>
+      <Name>ApexEngine.Terrain</Name>
     </ProjectReference>
     <ProjectReference Include="..\ApexEngine\ApexEngine.csproj">
       <Project>{de1bfc80-78c3-4583-9d74-e29f423152a0}</Project>

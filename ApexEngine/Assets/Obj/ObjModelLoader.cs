@@ -30,6 +30,7 @@ namespace ApexEngine.Assets.Obj
             return instance;
         }
         protected List<string> names = new List<string>();
+        protected List<string> namesMtl = new List<string>();
         protected List<List<ObjIndex>> objIndices = new List<List<ObjIndex>>();
         protected List<Vector3f> positions = new List<Vector3f>();
         protected List<Vector3f> normals = new List<Vector3f>();
@@ -37,6 +38,7 @@ namespace ApexEngine.Assets.Obj
         protected List<Material> materials = new List<Material>();
         protected List<Material> mtlOrder = new List<Material>();
         protected bool hasTexCoords = false, hasNormals = false;
+
         public override void ResetLoader()
         {
             objIndices.Clear();
@@ -46,6 +48,7 @@ namespace ApexEngine.Assets.Obj
             positions.Clear();
             normals.Clear();
             names.Clear();
+            namesMtl.Clear();
             materials.Clear();
             mtlOrder.Clear();
         }
@@ -60,8 +63,20 @@ namespace ApexEngine.Assets.Obj
         }
         private void NewMesh(string name)
         {
+            int counter = 0;
+
+            string nm = name;
+
+            while (names.Contains(nm))
+            {
+                counter++;
+                nm = name + "_" + counter.ToString();
+            }
             objIndices.Add(new List<ObjIndex>());
-            names.Add(name);
+            names.Add((counter == 0 ? name : name + "_" + counter.ToString()));
+            namesMtl.Add(name);
+            
+            
         }
         private ObjIndex ParseObjIndex(string token)
         {
@@ -164,6 +179,7 @@ namespace ApexEngine.Assets.Obj
                 }
                 
             }
+            reader.Close();
             for (int i = 0; i < objIndices.Count; i++)
             {
                 List<ObjIndex> c_idx = objIndices[i];
@@ -181,19 +197,10 @@ namespace ApexEngine.Assets.Obj
                 Geometry geom = new Geometry();
                 geom.Name = names[i];
                 geom.Mesh = mesh;
-           //     if (mtlOrder.Count > i)
-                geom.Material = MaterialWithName(geom.Name);
+                geom.Material = MaterialWithName(namesMtl[i]);
                 node.AddChild(geom);
             }
-            objIndices.Clear();
-            hasTexCoords = false;
-            hasNormals = false;
-            texCoords.Clear();
-            positions.Clear();
-            normals.Clear();
-            names.Clear();
-            materials.Clear();
-            mtlOrder.Clear();
+            ResetLoader();
             return node;
         }
     }
