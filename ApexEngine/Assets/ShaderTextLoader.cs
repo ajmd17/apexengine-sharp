@@ -17,9 +17,9 @@
         {
         }
 
-        public override object Load(string filePath)
+        public override object Load(LoadedAsset asset)
         {
-            string res = ApexEngine.Rendering.Util.ShaderUtil.FormatShaderIncludes(filePath, System.IO.File.ReadAllText(filePath));
+            string res = ApexEngine.Rendering.Util.ShaderUtil.FormatShaderIncludes(asset.FilePath, System.IO.File.ReadAllText(asset.FilePath));
             return res;
         }
     }

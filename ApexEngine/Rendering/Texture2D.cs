@@ -1,17 +1,10 @@
-﻿using OpenTK.Graphics.OpenGL;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ApexEngine.Rendering
+﻿namespace ApexEngine.Rendering
 {
     public class Texture2D : Texture
     {
         protected string texturePath = "";
         protected int width, height;
-       
+
         public Texture2D(int id) : base(id)
         {
         }
@@ -36,32 +29,30 @@ namespace ApexEngine.Rendering
 
         public static void Clear()
         {
-            RenderManager.Renderer.BindTexture(TextureTarget.Texture2D, 0);
+            RenderManager.Renderer.BindTexture2D(0);
         }
 
         public override void Use()
         {
-            RenderManager.Renderer.BindTexture(TextureTarget.Texture2D, id);
+            RenderManager.Renderer.BindTexture2D(id);
         }
 
         public void SetWrap(int s, int t)
         {
             Use();
-            RenderManager.Renderer.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, Convert.ToInt32(TextureWrapMode.Repeat));
-            RenderManager.Renderer.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, Convert.ToInt32(TextureWrapMode.Repeat));
+            RenderManager.Renderer.TextureWrap2D(WrapMode.Repeat, WrapMode.Repeat);
         }
 
         public override void SetFilter(int min, int mag)
         {
             Use();
-            RenderManager.Renderer.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, min);
-            RenderManager.Renderer.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, mag);
+            RenderManager.Renderer.TextureFilter2D(min, mag);
         }
 
         public override void GenerateMipmap()
         {
             Use();
-            RenderManager.Renderer.GenerateMipmap(GenerateMipmapTarget.Texture2D);
+            RenderManager.Renderer.GenerateMipmap2D();
         }
 
         public override string ToString()

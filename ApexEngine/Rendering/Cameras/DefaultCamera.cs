@@ -29,7 +29,7 @@ namespace ApexEngine.Rendering.Cameras
         {
             this.fov = fov;
             this.inputManager = inputManager;
-            KeyboardEvent evt_mouseRelease = new KeyboardEvent(OpenTK.Input.Key.AltLeft, () =>
+            KeyboardEvent evt_mouseRelease = new KeyboardEvent(InputManager.KeyboardKey.LeftAlt, () =>
             {
                 CenterMouse();
                 mouseCaptured = !mouseCaptured;
@@ -38,7 +38,7 @@ namespace ApexEngine.Rendering.Cameras
                     inputManager.SetMouseVisible(!mouseCaptured);
             });
             inputManager.AddKeyboardEvent(evt_mouseRelease);
-            MouseEvent evt_mouseClick = new MouseEvent(OpenTK.Input.MouseButton.Left, false, () =>
+            MouseEvent evt_mouseClick = new MouseEvent(ApexEngine.Input.InputManager.MouseButton.Left, false, () =>
             {
                 CenterMouse();
                 mouseDragging = true;
@@ -49,7 +49,7 @@ namespace ApexEngine.Rendering.Cameras
                 //     ApexEngine.Input.Input.SetMouseVisible(!mouseCaptured);
             });
             inputManager.AddMouseEvent(evt_mouseClick);
-            MouseEvent evt_mouseUp = new MouseEvent(OpenTK.Input.MouseButton.Left, true, () =>
+            MouseEvent evt_mouseUp = new MouseEvent(ApexEngine.Input.InputManager.MouseButton.Left, true, () =>
             {
                 CenterMouse();
                 mouseDragging = false;
@@ -122,27 +122,27 @@ namespace ApexEngine.Rendering.Cameras
 
         protected void KeyboardInput()
         {
-            if (inputManager.IsKeyDown(OpenTK.Input.Key.W))
+            if (inputManager.IsKeyDown(InputManager.KeyboardKey.W))
             {
                 // forwards
                 translation.x += direction.x * 0.1f;
                 translation.y += direction.y * 0.1f;
                 translation.z += direction.z * 0.1f;
             }
-            if (inputManager.IsKeyDown(OpenTK.Input.Key.S))
+            if (inputManager.IsKeyDown(InputManager.KeyboardKey.S))
             {
                 // backwards
                 translation.x += direction.x * -0.1f;
                 translation.y += direction.y * -0.1f;
                 translation.z += direction.z * -0.1f;
             }
-            if (inputManager.IsKeyDown(OpenTK.Input.Key.A))
+            if (inputManager.IsKeyDown(InputManager.KeyboardKey.A))
             {
                 // left
                 translation.x += 0.1f * (float)System.Math.Sin(MathUtil.ToRadians(yaw + 90));
                 translation.z -= 0.1f * (float)System.Math.Cos(MathUtil.ToRadians(yaw + 90));
             }
-            if (inputManager.IsKeyDown(OpenTK.Input.Key.D))
+            if (inputManager.IsKeyDown(InputManager.KeyboardKey.D))
             {
                 // left
                 translation.x += 0.1f * (float)System.Math.Sin(MathUtil.ToRadians(yaw - 90));

@@ -4,11 +4,6 @@ using ApexEngine.Scene.Components;
 using ApexEngine.Math;
 using System.Collections.Generic;
 using System;
-#if OPENGL
-using OpenTK.Graphics.OpenGL;
-#else
-using OpenTK.Graphics.ES20;
-#endif
 
 namespace ApexEngine.Rendering
 {
@@ -51,15 +46,6 @@ namespace ApexEngine.Rendering
         {
             get { return renderer; }
             set { renderer = value; }
-        }
-
-        public static void CheckGLError()
-        {
-            ErrorCode ec = GL.GetError();
-            if (ec != 0)
-            {
-                throw new System.Exception(ec.ToString());
-            }
         }
 
         public Vector4f BackgroundColor
@@ -130,7 +116,7 @@ namespace ApexEngine.Rendering
         {
             toSaveTo.Use();
 
-            renderer.CopyTexSubImage2D(TextureTarget.Texture2D, 0, 0, 0, 0, 0, cam.Width, cam.Height);
+            Renderer.CopyScreenToTexture2D(cam.Width, cam.Height);
 
             Texture2D.Clear();
         }
@@ -145,7 +131,7 @@ namespace ApexEngine.Rendering
             }
             depthFbo.Capture();
 
-            renderer.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+            renderer.Clear(true, true, false);
 
             RenderBucketDepth(env, cam, Bucket.Opaque, DepthRenderMode.Depth);
             RenderBucketDepth(env, cam, Bucket.Transparent, DepthRenderMode.Depth);
@@ -230,7 +216,7 @@ namespace ApexEngine.Rendering
            // RenderDepthTexture(env, cam);
 
             renderer.ClearColor(backgroundColor.x, backgroundColor.y, backgroundColor.z, backgroundColor.w);
-            renderer.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+            renderer.Clear(true, true, false);
 
             foreach (RenderComponent rc in components)
             {

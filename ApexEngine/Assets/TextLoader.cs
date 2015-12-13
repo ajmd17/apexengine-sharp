@@ -17,9 +17,9 @@
         {
         }
 
-        public override object Load(string filePath)
+        public override object Load(LoadedAsset asset)
         {
-            string res = System.IO.File.ReadAllText(filePath);
+            string res = System.IO.File.ReadAllText(asset.FilePath);
             return res;
         }
     }

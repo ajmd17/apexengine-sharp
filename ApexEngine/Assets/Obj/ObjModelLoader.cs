@@ -123,12 +123,12 @@ namespace ApexEngine.Assets.Obj
             }
             return new Material().SetName(name);
         }
-        public override object Load(string filePath)
+        public override object Load(LoadedAsset asset)
         {
             Node node = new Node();
-            string modelName = Path.GetFileNameWithoutExtension(filePath);
+            string modelName = Path.GetFileNameWithoutExtension(asset.FilePath);
             node.Name = modelName;
-            StreamReader reader = File.OpenText(filePath);
+            StreamReader reader = File.OpenText(asset.FilePath);
             string line;
             while ((line = reader.ReadLine()) != null )
             {
@@ -162,9 +162,9 @@ namespace ApexEngine.Assets.Obj
                 else if (tokens[0] == "mtllib")
                 {
                     string libLoc = tokens[1];
-                    string parentPath = System.IO.Directory.GetParent(filePath).ToString();
+                    string parentPath = System.IO.Directory.GetParent(asset.FilePath).ToString();
                     string mtlPath = parentPath + "\\" + libLoc;
-                    materials = (List<Material>)MtlAssetLoader.GetInstance().Load(mtlPath);
+                    materials = (List<Material>)AssetManager.Load(mtlPath, MtlAssetLoader.GetInstance());
                 }
                 else if (tokens[0] == "usemtl")
                 {

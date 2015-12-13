@@ -5,6 +5,11 @@ namespace ApexEngine
 {
     public class TestGame : Game
     {
+        public TestGame() : base(new ApexEngine.Rendering.OpenGL.GLRenderer())
+        {
+
+        }
+
         public override void Init()
         {
             Environment.AmbientLight.Color.Set(0.3f, 0.1f, 0.1f, 1.0f);

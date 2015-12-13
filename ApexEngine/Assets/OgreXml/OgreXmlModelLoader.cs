@@ -101,10 +101,10 @@ namespace ApexEngine.Assets.OgreXml
                 outVerts.Add(v);
             }
         }
-        public override object Load(string filePath)
+        public override object Load(LoadedAsset asset)
         {
 
-            XmlReader xmlReader = XmlReader.Create(filePath);
+            XmlReader xmlReader = XmlReader.Create(asset.FilePath);
             while (xmlReader.Read())
             {
                 if (xmlReader.NodeType == XmlNodeType.Element)
@@ -149,9 +149,9 @@ namespace ApexEngine.Assets.OgreXml
                     }
                     else if (xmlReader.Name == "skeletonlink")
                     {
-                        string parentPath = System.IO.Directory.GetParent(filePath).ToString();
+                        string parentPath = System.IO.Directory.GetParent(asset.FilePath).ToString();
                         string skeletonPath = parentPath + "\\" + xmlReader.GetAttribute(0) + ".xml";
-                        skeleton = (Skeleton)OgreXmlSkeletonLoader.GetInstance().Load(skeletonPath);
+                        skeleton = (Skeleton)AssetManager.Load(skeletonPath, OgreXmlSkeletonLoader.GetInstance());
                     }
                     else if (xmlReader.Name == "vertexboneassignment" || xmlReader.Name == "boneassignment")
                     {

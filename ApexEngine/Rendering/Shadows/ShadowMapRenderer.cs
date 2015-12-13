@@ -1,7 +1,5 @@
 ﻿using ApexEngine.Math;
-using ApexEngine.Rendering;
 using ApexEngine.Rendering.Cameras;
-using OpenTK.Graphics.OpenGL;
 
 namespace ApexEngine.Rendering.Shadows
 {
@@ -151,29 +149,20 @@ namespace ApexEngine.Rendering.Shadows
             s_cam.InverseViewProjectionMatrix.Set(s_cam.ViewProjectionMatrix);
             s_cam.InverseViewProjectionMatrix.InvertStore();
         }
-        
+
         public void Render()
         {
-          //  GL.Enable(EnableCap.PolygonOffsetFill);
-          //  GL.PolygonOffset(1f, 40f);
-
             Update();
             Capture();
-            
-            //Shader.FrontFace = FrontFaceDirection.Cw;
             rm.RenderBucketDepth(environment, s_cam, RenderManager.Bucket.Opaque, RenderManager.DepthRenderMode.Shadow);
             rm.RenderBucketDepth(environment, s_cam, RenderManager.Bucket.Transparent, RenderManager.DepthRenderMode.Shadow);
-            //Shader.FrontFace = FrontFaceDirection.Ccw;
-
             Release();
-
-          //  GL.Disable(EnableCap.PolygonOffsetFill);
         }
 
         public void Capture()
         {
             fbo.Capture();
-            GL.Clear(ClearBufferMask.DepthBufferBit);
+            RenderManager.Renderer.Clear(false, true, false);
         }
 
         public void Release()

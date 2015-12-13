@@ -1,6 +1,7 @@
 ﻿using ApexEngine.Assets;
 using ApexEngine.Math;
 using ApexEngine.Plugins.PagingSystem;
+using ApexEngine.Plugins.Skydome;
 using ApexEngine.Rendering;
 using ApexEngine.Rendering.Cameras;
 using ApexEngine.Rendering.Shaders;
@@ -14,10 +15,15 @@ namespace ApexEngine.Demos
 {
     public class TestGame : Game
     {
+        public TestGame() : base(new Rendering.OpenGL.GLRenderer())
+        {
+
+        }
+
         public override void Init()
         {
             Environment.AmbientLight.Color.Set(0.2f, 0.15f, 0.1f, 1.0f);
-            Environment.DirectionalLight.Direction.Set(1f, 1, 1f);
+            Environment.DirectionalLight.Direction.Set(0.1f, 1, 0.1f);
             Environment.DirectionalLight.Color.Set(1.0f, 0.9f, 0.8f, 1.0f);
             ((PerspectiveCamera)Camera).FieldOfView = 75;
             /*
@@ -98,8 +104,8 @@ namespace ApexEngine.Demos
                  rootNode.AddChild(terrainModel);
 
                  PhysicsWorld.AddObject(terrainModel, 0f);
-                 
-            
+
+            AddComponent(new SkydomeComponent());
 
 
             /* ApexEngine.Terrain.SimplexTerrain.SimplexTerrainComponent terrain = new ApexEngine.Terrain.SimplexTerrain.SimplexTerrainComponent(PhysicsWorld);
@@ -109,9 +115,9 @@ namespace ApexEngine.Demos
 
 
 
-            /*ShadowMappingComponent smc;
+            ShadowMappingComponent smc;
             RenderManager.AddComponent(smc = new ShadowMappingComponent(cam, Environment));
-            smc.RenderMode = ShadowMappingComponent.ShadowRenderMode.Forward;*/
+            smc.RenderMode = ShadowMappingComponent.ShadowRenderMode.Forward;
 
             /*  Rendering.NormalMapRenderer nmr;
               RenderManager.AddComponent(nmr = new Rendering.NormalMapRenderer(Environment, Camera));
@@ -131,10 +137,10 @@ namespace ApexEngine.Demos
 
             GrassPopulator grassPop;
             rootNode.AddController(grassPop = new GrassPopulator(PhysicsWorld, cam));
-            grassPop.GenPatches(6, 5, 32f);
+            grassPop.GenPatches(6, 5, 64);
 
 
-          /*  Rendering.NormalMapRenderer nmr;
+            /*Rendering.NormalMapRenderer nmr;
             RenderManager.AddComponent(nmr = new Rendering.NormalMapRenderer(Environment, Camera));
             RenderManager.PostProcessor.PostFilters.Add(new Rendering.PostProcess.Filters.SSAOFilter(nmr));*/
 

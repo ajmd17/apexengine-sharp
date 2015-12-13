@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ApexEngine.Assets;
+using System;
 
 namespace ApexEngine.Rendering.Shaders
 {
@@ -7,8 +8,8 @@ namespace ApexEngine.Rendering.Shaders
         private static Assets.ShaderTextLoader textLoader = Assets.ShaderTextLoader.GetInstance();
 
         public NormalsShader(ShaderProperties properties)
-            : base(properties, (string)textLoader.Load(AppDomain.CurrentDomain.BaseDirectory + "\\shaders\\normals.vert"),
-                  (string)textLoader.Load(AppDomain.CurrentDomain.BaseDirectory + "\\shaders\\normals.frag"))
+            : base(properties, (string)AssetManager.Load(AppDomain.CurrentDomain.BaseDirectory + "\\shaders\\normals.vert"),
+                  (string)AssetManager.Load(AppDomain.CurrentDomain.BaseDirectory + "\\shaders\\normals.frag"))
         {
         }
 

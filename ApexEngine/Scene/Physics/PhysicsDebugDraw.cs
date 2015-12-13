@@ -53,9 +53,9 @@ namespace ApexEngine.Scene.Physics
             GL.Begin(PrimitiveType.Triangles);
 
             GL.Color4(0.0f, 1.0f, 0.0f, 1.0f);
-            GL.Vertex3(pos1.X, pos1.Y, pos1.Z);
-            GL.Vertex3(pos2.X, pos2.Y, pos2.Z);
-            GL.Vertex3(pos3.X, pos3.Y, pos3.Z);
+            RenderManager.Renderer.DrawVertex(pos1.X, pos1.Y, pos1.Z);
+            RenderManager.Renderer.DrawVertex(pos2.X, pos2.Y, pos2.Z);
+            RenderManager.Renderer.DrawVertex(pos3.X, pos3.Y, pos3.Z);
 
             GL.End();
         }

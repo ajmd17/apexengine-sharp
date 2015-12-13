@@ -32,13 +32,14 @@ namespace ApexEngine.Assets.Obj
             string[] res = result.ToArray();
             return res;
         }
-        public override object Load(string filePath)
+        public override object Load(LoadedAsset asset)
         {
-            if (!File.Exists(filePath))
+            if (!File.Exists(asset.FilePath))
             {
                 return materials;
             }
-            StreamReader reader = File.OpenText(filePath);
+
+            StreamReader reader = File.OpenText(asset.FilePath);
             string line;
             while ((line = reader.ReadLine()) != null)
             {
@@ -99,7 +100,7 @@ namespace ApexEngine.Assets.Obj
                 else if (tokens[0].ToLower() == "map_kd") // diffuse map
                 {
                     string texName = tokens[tokens.Length - 1];
-                    string parentPath = System.IO.Directory.GetParent(filePath).ToString();
+                    string parentPath = System.IO.Directory.GetParent(asset.FilePath).ToString();
                     string texPath = parentPath + "\\" + texName;
                     if (File.Exists(texPath))
                     {
@@ -115,7 +116,7 @@ namespace ApexEngine.Assets.Obj
                 else if (tokens[0].ToLower() == "map_bump") // normal map
                 {
                     string texName = tokens[tokens.Length - 1];
-                    string parentPath = System.IO.Directory.GetParent(filePath).ToString();
+                    string parentPath = System.IO.Directory.GetParent(asset.FilePath).ToString();
                     string texPath = parentPath + "\\" + texName;
                     if (File.Exists(texPath))
                     {

@@ -8,7 +8,7 @@ namespace ApexEngine.Rendering
         protected Vector3f direction = new Vector3f(0, 0, 1);
         protected Vector3f up = new Vector3f(0, 1, 0);
         protected int width = 512, height = 512;
-        protected float near = 0.0f, far = 150.0f;
+        protected float near = 0.6f, far = 150.0f;
         protected Matrix4f viewMatrix = new Matrix4f(), projMatrix = new Matrix4f(), viewProjMatrix = new Matrix4f(), invViewProjMatrix = new Matrix4f();
         private Vector3f tmpVec = new Vector3f();
         protected bool enabled = true;
@@ -21,6 +21,12 @@ namespace ApexEngine.Rendering
         {
             this.width = width;
             this.height = height;
+        }
+
+        public bool Enabled
+        {
+            get { return enabled; }
+            set { enabled = value; }
         }
 
         public Matrix4f ViewMatrix
@@ -49,7 +55,7 @@ namespace ApexEngine.Rendering
 
         public Vector3f Unproject(Vector2f mouseXY)
         {
-            return Unproject(mouseXY.x, mouseXY.y);
+            return Unproject(mouseXY.X, mouseXY.Y);
         }
 
         public Vector3f Unproject(float mouseX, float mouseY)
@@ -92,12 +98,6 @@ namespace ApexEngine.Rendering
 
             Ray ray = new Ray(unprojected, origin);
             return ray;
-        }
-
-        public bool Enabled
-        {
-            get { return enabled; }
-            set { enabled = value; }
         }
 
         public Vector3f Translation

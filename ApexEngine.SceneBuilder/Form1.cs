@@ -221,7 +221,7 @@ namespace ApexEditor
             DialogResult result = openFileDialog1.ShowDialog();
             if (result == DialogResult.OK)
             {
-                List<GameObject> objs = ApexEngine.Rendering.Util.MeshUtil.GatherObjects(apxCtrl.Game.RootNode);
+                List<GameObject> objs = ApexEngine.Rendering.Util.RenderUtil.GatherObjects(apxCtrl.Game.RootNode);
                 foreach (GameObject g in objs)
                     apxCtrl.Game.PhysicsWorld.RemoveObject(g);
 
@@ -286,7 +286,7 @@ namespace ApexEditor
                     if (treeView1.SelectedNode.Tag != apxCtrl.Game.RootNode)
                     {
                         GameObject selectedObj = (GameObject)treeView1.SelectedNode.Tag;
-                        List<GameObject> objsAttached = ApexEngine.Rendering.Util.MeshUtil.GatherObjects(selectedObj);
+                        List<GameObject> objsAttached = ApexEngine.Rendering.Util.RenderUtil.GatherObjects(selectedObj);
                         for (int i = 0; i < objsAttached.Count; i++)
                         {
                             apxCtrl.Game.PhysicsWorld.RemoveObject(objsAttached[i]);
@@ -525,7 +525,7 @@ namespace ApexEditor
             {
                 if (!lockToolStripMenuItem.Checked)
                 {
-                    List<GameObject> absChildren = ApexEngine.Rendering.Util.MeshUtil.GatherObjects(go);
+                    List<GameObject> absChildren = ApexEngine.Rendering.Util.RenderUtil.GatherObjects(go);
                     foreach (GameObject child in absChildren)
                     {
                         if (child.HasController(typeof(ApexEngine.Scene.Physics.RigidBodyControl)))

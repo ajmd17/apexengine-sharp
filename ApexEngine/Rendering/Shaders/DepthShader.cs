@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using ApexEngine.Assets;
+using System;
 
 namespace ApexEngine.Rendering.Shaders
 {
@@ -10,8 +8,8 @@ namespace ApexEngine.Rendering.Shaders
         private static Assets.ShaderTextLoader textLoader = Assets.ShaderTextLoader.GetInstance();
 
         public DepthShader(ShaderProperties properties)
-            : base(properties, (string)textLoader.Load(AppDomain.CurrentDomain.BaseDirectory + "\\shaders\\depth.vert"),
-                  (string)textLoader.Load(AppDomain.CurrentDomain.BaseDirectory + "\\shaders\\depth.frag"))
+            : base(properties, (string)AssetManager.Load(AppDomain.CurrentDomain.BaseDirectory + "\\shaders\\depth.vert"),
+                  (string)AssetManager.Load(AppDomain.CurrentDomain.BaseDirectory + "\\shaders\\depth.frag"))
         {
         }
     }

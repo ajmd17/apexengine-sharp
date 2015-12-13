@@ -205,9 +205,9 @@ namespace ApexEngine.Assets.Apx
             }
         }
 
-        public override object Load(string filePath)
+        public override object Load(LoadedAsset asset)
         {
-            XmlReader xmlReader = XmlReader.Create(filePath);
+            XmlReader xmlReader = XmlReader.Create(asset.FilePath);
             while (xmlReader.Read())
             {
                 if (xmlReader.NodeType == XmlNodeType.Element)
@@ -273,7 +273,7 @@ namespace ApexEngine.Assets.Apx
                         else if (type == ApxExporter.TOKEN_TYPE_TEXTURE)
                         {
                             string texPath = val;
-                            string parentPath = System.IO.Directory.GetParent(filePath).ToString();
+                            string parentPath = System.IO.Directory.GetParent(asset.FilePath).ToString();
                             string finalTexPath = parentPath + "\\" + texPath;
                             if (System.IO.File.Exists(finalTexPath))
                             {

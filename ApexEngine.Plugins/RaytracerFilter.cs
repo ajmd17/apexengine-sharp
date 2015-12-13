@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ApexEngine;
 using ApexEngine.Rendering;
 using ApexEngine.Rendering.PostProcess;
+using ApexEngine.Assets;
 
 namespace ApexEngine.Plugins
 {
@@ -13,7 +14,7 @@ namespace ApexEngine.Plugins
     {
         private float time = 0f;
         private static Assets.ShaderTextLoader textLoader = Assets.ShaderTextLoader.GetInstance();
-        public RaytracerFilter() : base((string)textLoader.Load(AppDomain.CurrentDomain.BaseDirectory + "\\shaders\\post\\raytracer2.frag"))
+        public RaytracerFilter() : base((string)AssetManager.Load(AppDomain.CurrentDomain.BaseDirectory + "\\shaders\\post\\raytracer2.frag"))
         {
            
         }

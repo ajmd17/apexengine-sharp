@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ApexEngine.Assets;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,7 @@ namespace ApexEngine.Rendering.PostProcess.Filters
         private NormalMapRenderer normalMapRenderer;
         private Texture normalMapTex;
 
-        public SSRFilter(NormalMapRenderer normalMapRenderer) : base((string)textLoader.Load(AppDomain.CurrentDomain.BaseDirectory + "\\shaders\\post\\ssr.frag"))
+        public SSRFilter(NormalMapRenderer normalMapRenderer) : base((string)AssetManager.Load(AppDomain.CurrentDomain.BaseDirectory + "\\shaders\\post\\ssr.frag"))
         {
             this.normalMapRenderer = normalMapRenderer;
         }

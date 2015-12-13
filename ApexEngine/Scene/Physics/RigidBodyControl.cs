@@ -92,7 +92,7 @@ namespace ApexEngine.Scene.Physics
         {
             Shape shape = null;
             boundingBox = new BoundingBox();
-            List<Geometry> geom = MeshUtil.GatherGeometry(GameObject);
+            List<Geometry> geom = RenderUtil.GatherGeometry(GameObject);
             List<Mesh> meshes = new List<Mesh>();
             List<Matrix4f> matrices = new List<Matrix4f>();
             Vector3f mytrans = GameObject.GetUpdatedWorldTranslation();

@@ -131,6 +131,7 @@
     <Compile Include="Rendering\Shadows\ShadowPostFilter.cs" />
     <Compile Include="Rendering\Texture.cs" />
     <Compile Include="Rendering\Util\MeshFactory.cs" />
+    <Compile Include="Rendering\Util\RenderUtil.cs" />
     <Compile Include="Rendering\Util\ShaderUtil.cs" />
     <Compile Include="Rendering\Vertex.cs" />
     <Compile Include="Rendering\VertexAttributes.cs" />

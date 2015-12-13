@@ -230,9 +230,9 @@ namespace ApexEngine.Assets.Apx
                 for (int i = 0; i < normals.Count; i++)
                 {
                     writer.WriteStartElement(TOKEN_NORMAL);
-                    writer.WriteAttributeString("x", normals[i].x.ToString());
-                    writer.WriteAttributeString("y", normals[i].y.ToString());
-                    writer.WriteAttributeString("z", normals[i].z.ToString());
+                    writer.WriteAttributeString("x", normals[i].X.ToString());
+                    writer.WriteAttributeString("y", normals[i].Y.ToString());
+                    writer.WriteAttributeString("z", normals[i].Z.ToString());
                     writer.WriteEndElement();
                 }
             }
@@ -241,8 +241,8 @@ namespace ApexEngine.Assets.Apx
                 for (int i = 0; i < texcoords0.Count; i++)
                 {
                     writer.WriteStartElement(TOKEN_TEXCOORD0);
-                    writer.WriteAttributeString("x", texcoords0[i].x.ToString());
-                    writer.WriteAttributeString("y", texcoords0[i].y.ToString());
+                    writer.WriteAttributeString("x", texcoords0[i].X.ToString());
+                    writer.WriteAttributeString("y", texcoords0[i].Y.ToString());
                     writer.WriteEndElement();
                 }
             }
@@ -251,8 +251,8 @@ namespace ApexEngine.Assets.Apx
                 for (int i = 0; i < texcoords1.Count; i++)
                 {
                     writer.WriteStartElement(TOKEN_TEXCOORD1);
-                    writer.WriteAttributeString("x", texcoords1[i].x.ToString());
-                    writer.WriteAttributeString("y", texcoords1[i].y.ToString());
+                    writer.WriteAttributeString("x", texcoords1[i].X.ToString());
+                    writer.WriteAttributeString("y", texcoords1[i].Y.ToString());
                     writer.WriteEndElement();
                 }
             }

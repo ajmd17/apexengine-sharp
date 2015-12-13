@@ -52,7 +52,7 @@ namespace ApexEngine.Terrain.ModelTerrain
 
         public override void ApplyTerrainMaterial(TerrainChunkNode chunk)
         {
-            List<Geometry> geoms = Rendering.Util.MeshUtil.GatherGeometry(chunk);
+            List<Geometry> geoms = Rendering.Util.RenderUtil.GatherGeometry(chunk);
             foreach (Geometry g in geoms)
                 g.Material = GetMaterial();
         }

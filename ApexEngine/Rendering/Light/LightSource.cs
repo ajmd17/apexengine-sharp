@@ -4,10 +4,10 @@ namespace ApexEngine.Rendering.Light
 {
     public abstract class LightSource
     {
-        protected Vector4f color = new Vector4f(1.0f);
+        protected Color4f color = new Color4f(1.0f);
         protected float intensity = 1.0f;
 
-        public Vector4f Color
+        public Color4f Color
         {
             get { return color; }
             set { color.Set(value); }

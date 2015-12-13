@@ -29,3 +29,4 @@ C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Terrain\
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Terrain\bin\Debug\Jitter.dll
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Terrain\bin\Debug\Jitter.pdb
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Terrain\bin\Debug\System.Net.Http.dll
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Terrain\bin\Debug\System.Net.Http.xml

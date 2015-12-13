@@ -1,4 +1,5 @@
-﻿using ApexEngine.Math;
+﻿using ApexEngine.Assets;
+using ApexEngine.Math;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -151,7 +152,7 @@ namespace ApexEngine.Rendering.Util
                         string parentPath = System.IO.Directory.GetParent(shaderPath).ToString();
                         string incPath = parentPath + "\\" + path;
 
-                        line = (string)Assets.ShaderTextLoader.GetInstance().Load(incPath);
+                        line = (string)AssetManager.Load(incPath, ShaderTextLoader.GetInstance());
                     }
                 }
                 if (lines[i] != "")

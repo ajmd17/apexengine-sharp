@@ -208,6 +208,18 @@
 
             return hash;
         }
+        
+        public float X
+        {
+            get { return x; }
+            set { x = value; }
+        }
+
+        public float Y
+        {
+            get { return y; }
+            set { y = value; }
+        }
 
         public override bool Equals(object obj)
         {

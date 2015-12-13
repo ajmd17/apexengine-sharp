@@ -8,6 +8,7 @@ namespace ApexEngine.Assets
     public class AssetManager
     {
         private static Dictionary<string, AssetLoader> loaders = new Dictionary<string, AssetLoader>();
+        private static Dictionary<string, object> loadedAssets = new Dictionary<string, object>();
 
         public static void InitDefaultLoaders()
         {
@@ -59,21 +60,63 @@ namespace ApexEngine.Assets
 
         public static object Load(string filePath, AssetLoader loader)
         {
+            object alreadyLoaded = null;
+            if (loadedAssets.TryGetValue(filePath, out alreadyLoaded))
+            {
+                return alreadyLoaded;
+            }
+
             if (!System.IO.File.Exists(filePath))
                 throw new System.IO.FileNotFoundException("The file \"" + filePath + "\" does not exist!");
             loader.ResetLoader();
-            return loader.Load(filePath);
+            
+            // Loaded ascii data
+            string data = "";
+
+            if (System.IO.File.Exists(filePath))
+            {
+                data = System.IO.File.ReadAllText(filePath);
+            }
+
+            LoadedAsset asset = new LoadedAsset(data, filePath);
+
+            object loaded = loader.Load(asset);
+
+            loadedAssets.Add(filePath, loaded);
+
+            return loaded;
         }
 
         public static object Load(string filePath)
         {
+            object alreadyLoaded = null;
+            if (loadedAssets.TryGetValue(filePath, out alreadyLoaded))
+            {
+                return alreadyLoaded;
+            }
+
             foreach (string str in loaders.Keys)
             {
                 if (filePath.EndsWith(str, StringComparison.OrdinalIgnoreCase))
                 {
                     AssetLoader loader = loaders[str];
                     loader.ResetLoader();
-                    return loader.Load(filePath);
+
+                    // Loaded ascii data
+                    string data = "";
+
+                   if (System.IO.File.Exists(filePath))
+                    {
+                        data = System.IO.File.ReadAllText(filePath);
+                    }
+
+                    LoadedAsset asset = new LoadedAsset(data, filePath);
+
+                    object loaded = loader.Load(asset);
+
+                    loadedAssets.Add(filePath, loaded);
+
+                    return loaded;
                 }
             }
             throw new KeyNotFoundException("Could not find a registered asset loader for the filetype! File: " + filePath);

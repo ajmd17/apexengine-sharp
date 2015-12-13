@@ -12,8 +12,8 @@ namespace ApexEditor.NormalMapGenerator
         private static ShaderTextLoader textLoader = ShaderTextLoader.GetInstance();
 
         public NormalMapShader(ShaderProperties properties)
-            : base(properties, (string)textLoader.Load(AssetManager.GetAppPath() + "\\shaders\\normal_map_generator\\nm.vert"),
-                               (string)textLoader.Load(AssetManager.GetAppPath() + "\\shaders\\normal_map_generator\\nm.frag"))
+            : base(properties, (string)AssetManager.Load(AssetManager.GetAppPath() + "\\shaders\\normal_map_generator\\nm.vert"),
+                               (string)AssetManager.Load(AssetManager.GetAppPath() + "\\shaders\\normal_map_generator\\nm.frag"))
         {
         }
 

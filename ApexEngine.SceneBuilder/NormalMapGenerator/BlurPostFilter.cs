@@ -15,8 +15,8 @@ namespace ApexEditor.NormalMapGenerator
         private static ShaderTextLoader textLoader = ShaderTextLoader.GetInstance();
         private Vector2f scale = new Vector2f(0.005f, 0.005f);
 
-        public BlurPostFilter(bool horizontal) : base(horizontal ? (string)textLoader.Load(AssetManager.GetAppPath() + "\\shaders\\normal_map_generator\\blurpass_h.frag") :
-                                                      (string)textLoader.Load(AssetManager.GetAppPath() + "\\shaders\\normal_map_generator\\blurpass_v.frag"))
+        public BlurPostFilter(bool horizontal) : base(horizontal ? (string)AssetManager.Load(AssetManager.GetAppPath() + "\\shaders\\normal_map_generator\\blurpass_h.frag") :
+                                                      (string)AssetManager.Load(AssetManager.GetAppPath() + "\\shaders\\normal_map_generator\\blurpass_v.frag"))
         {
 
         }

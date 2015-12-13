@@ -1,19 +1,15 @@
-﻿using OpenTK.Graphics.OpenGL;
+﻿using ApexEngine.Assets;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace ApexEngine.Rendering.Shaders
 {
     public class GrassShader : Shader
     {
         private static Assets.ShaderTextLoader textLoader = Assets.ShaderTextLoader.GetInstance();
-        float globalTime = 0f;
 
         public GrassShader(ShaderProperties properties)
-            : base(properties, (string)textLoader.Load(AppDomain.CurrentDomain.BaseDirectory + "\\shaders\\grass.vert"),
-                               (string)textLoader.Load(AppDomain.CurrentDomain.BaseDirectory + "\\shaders\\default.frag"))
+            : base(properties, (string)AssetManager.Load(AppDomain.CurrentDomain.BaseDirectory + "\\shaders\\grass.vert"),
+                               (string)AssetManager.Load(AppDomain.CurrentDomain.BaseDirectory + "\\shaders\\default.frag"))
         {
         }
 
@@ -30,20 +26,19 @@ namespace ApexEngine.Rendering.Shaders
             this.SetUniform(MATERIAL_SPECULARTECHNIQUE, material.GetInt(Material.TECHNIQUE_SPECULAR));
             this.SetUniform(MATERIAL_SPECULAREXPONENT, material.GetFloat(Material.SPECULAR_EXPONENT));
             this.SetUniform(MATERIAL_PERPIXELLIGHTING, material.GetInt(Material.TECHNIQUE_PER_PIXEL_LIGHTING));
-
+            
             int blendMode = material.GetInt(Material.MATERIAL_BLENDMODE);
             if (blendMode == 1)
             {
-                GL.Enable(EnableCap.Blend);
-                GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
+                RenderManager.Renderer.SetBlend(true);
+                RenderManager.Renderer.SetBlendMode(Renderer.BlendMode.AlphaBlend);
             }
         }
 
         public override void End()
         {
             base.End();
-
-            GL.Disable(EnableCap.Blend);
+            RenderManager.Renderer.SetBlend(false);
         }
 
         public override void Update(Environment environment, Camera cam, Mesh mesh)

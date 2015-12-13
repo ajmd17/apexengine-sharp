@@ -1,5 +1,4 @@
-﻿using OpenTK.Input;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace ApexEngine.Input
 {
@@ -8,8 +7,83 @@ namespace ApexEngine.Input
         public int SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_X, WINDOW_Y, MOUSE_X, MOUSE_Y;
         private List<KeyboardEvent> keyEvts = new List<KeyboardEvent>();
         private List<MouseEvent> mouseEvts = new List<MouseEvent>();
-        public List<OpenTK.Input.Key> keysdown = new List<OpenTK.Input.Key>();
-        public List<OpenTK.Input.MouseButton> mousebtnsdown = new List<MouseButton>();
+        public List<KeyboardKey> keysdown = new List<KeyboardKey>();
+        public List<MouseButton> mousebtnsdown = new List<MouseButton>();
+
+        //TODO: add more
+
+        public enum MouseButton
+        {
+            None,
+
+            Left,
+            Right,
+            Middle
+        }
+
+
+        //TODO: add more
+        public enum KeyboardKey
+        {
+            None,
+
+            LeftCtrl,
+            RightCtrl,
+            LeftAlt,
+            RightAlt,
+            LeftShift,
+            RightShift,
+
+            Tab,
+            Enter,
+            CapsLock,
+            Backspace,
+            Space,
+
+            LeftArrow,
+            RightArrow,
+            UpArrow,
+            DownArrow,
+
+            Num0,
+            Num1,
+            Num2,
+            Num3,
+            Num4,
+            Num5,
+            Num6,
+            Num7,
+            Num8,
+            Num9,
+
+
+            A,
+            B,
+            C,
+            D,
+            E,
+            F,
+            G,
+            H,
+            I,
+            J,
+            K,
+            L,
+            M,
+            N,
+            O,
+            P,
+            Q,
+            R,
+            S,
+            T,
+            U,
+            V,
+            W,
+            X,
+            Y,
+            Z
+        }
 
         public void AddKeyboardEvent(KeyboardEvent e)
         {
@@ -23,7 +97,7 @@ namespace ApexEngine.Input
 
         public int GetMouseX()
         {
-            return MOUSE_X; 
+            return MOUSE_X;
         }
 
         public int GetMouseY()
@@ -31,7 +105,7 @@ namespace ApexEngine.Input
             return MOUSE_Y;
         }
 
-        public void MouseButtonDown(OpenTK.Input.MouseButton btn)
+        public void MouseButtonDown(MouseButton btn)
         {
             if (!mousebtnsdown.Contains(btn))
             {
@@ -46,12 +120,12 @@ namespace ApexEngine.Input
             }
         }
 
-        public bool IsMouseButtonDown(OpenTK.Input.MouseButton btn)
+        public bool IsMouseButtonDown(MouseButton btn)
         {
             return mousebtnsdown.Contains(btn);
         }
 
-        public void MouseButtonUp(OpenTK.Input.MouseButton btn)
+        public void MouseButtonUp(MouseButton btn)
         {
             if (mousebtnsdown.Contains(btn))
             {
@@ -66,12 +140,12 @@ namespace ApexEngine.Input
             }
         }
 
-        public bool IsMouseButtonUp(OpenTK.Input.MouseButton btn)
+        public bool IsMouseButtonUp(MouseButton btn)
         {
             return !IsMouseButtonDown(btn);
         }
 
-        public void KeyDown(OpenTK.Input.Key key)
+        public void KeyDown(KeyboardKey key)
         {
             if (!keysdown.Contains(key))
             {
@@ -79,12 +153,12 @@ namespace ApexEngine.Input
             }
         }
 
-        public bool IsKeyDown(OpenTK.Input.Key key)
+        public bool IsKeyDown(KeyboardKey key)
         {
             return keysdown.Contains(key);
         }
 
-        public void KeyUp(OpenTK.Input.Key key)
+        public void KeyUp(KeyboardKey key)
         {
             if (keysdown.Contains(key))
             {
@@ -99,7 +173,7 @@ namespace ApexEngine.Input
             }
         }
 
-        public bool IsKeyUp(OpenTK.Input.Key key)
+        public bool IsKeyUp(KeyboardKey key)
         {
             return !IsKeyDown(key);
         }
@@ -111,10 +185,10 @@ namespace ApexEngine.Input
 
         public void SetMouseVisible(bool isVisible)
         {
-            if (!isVisible)
-                System.Windows.Forms.Cursor.Hide();
-            else
-                System.Windows.Forms.Cursor.Show();
+             if (!isVisible)
+                 System.Windows.Forms.Cursor.Hide();
+             else
+                 System.Windows.Forms.Cursor.Show();
         }
     }
 }

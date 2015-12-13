@@ -1,18 +1,28 @@
-﻿using OpenTK.Graphics.OpenGL;
-using System;
+﻿using ApexEngine.Math;
 using System.Collections.Generic;
-using ApexEngine.Math;
 
 namespace ApexEngine.Rendering
 {
     public class Mesh
     {
+        public enum PrimitiveTypes
+        {
+            Triangles,
+            TriangleStrip,
+            TriangleFan,
+            Quads,
+            QuadStrip,
+            Lines,
+            Points,
+            Patches
+        }
+
         public int vbo, ibo, size, vertexSize;
         protected Animation.Skeleton skeleton = null;
         public VertexAttributes attribs = new VertexAttributes();
         public List<Vertex> vertices = new List<Vertex>();
         public List<int> indices = new List<int>();
-        public BeginMode primitiveType = BeginMode.Triangles;
+        public PrimitiveTypes primitiveType = PrimitiveTypes.Triangles;
         private BoundingBox boundingBox = null;
         private Material material = new Material();
 
@@ -32,7 +42,6 @@ namespace ApexEngine.Rendering
                     skeleton.GetBones().Clear();
                 skeleton = null;
             }
-
         }
 
         public Material Material
@@ -47,12 +56,12 @@ namespace ApexEngine.Rendering
             set { boundingBox = value; }
         }
 
-        public BeginMode PrimitiveType
+        public PrimitiveTypes PrimitiveType
         {
             get { return primitiveType; }
             set { primitiveType = value; }
         }
-        
+
         public Animation.Skeleton GetSkeleton()
         {
             return skeleton;
@@ -141,7 +150,7 @@ namespace ApexEngine.Rendering
         {
             return CreateBoundingBox(vertices, indices, worldTranslation);
         }
-        
+
         public BoundingBox CreateBoundingBox(Matrix4f worldTransform)
         {
             return CreateBoundingBox(vertices, indices, worldTransform);

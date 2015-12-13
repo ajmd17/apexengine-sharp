@@ -1,20 +1,17 @@
 ﻿using ApexEngine.Math;
-using ApexEngine.Scene.Components;
-using OpenTK.Graphics.OpenGL;
-using System;
-using System.Collections.Generic;
+
 namespace ApexEngine.Rendering
 {
     public class Shader
     {
-        private const string A_POSITION = "a_position";
-        private const string A_TEXCOORD0 = "a_texcoord0";
-        private const string A_TEXCOORD1 = "a_texcoord1";
-        private const string A_NORMAL = "a_normal";
-        private const string A_TANGENT = "a_tangent";
-        private const string A_BITANGENT = "a_bitangent";
-        private const string A_BONEWEIGHT = "a_boneweights";
-        private const string A_BONEINDEX = "a_boneindices";
+        public const string A_POSITION = "a_position";
+        public const string A_TEXCOORD0 = "a_texcoord0";
+        public const string A_TEXCOORD1 = "a_texcoord1";
+        public const string A_NORMAL = "a_normal";
+        public const string A_TANGENT = "a_tangent";
+        public const string A_BITANGENT = "a_bitangent";
+        public const string A_BONEWEIGHT = "a_boneweights";
+        public const string A_BONEINDEX = "a_boneindices";
 
         public const string APEX_WORLDMATRIX = "Apex_WorldMatrix";
         public const string APEX_VIEWMATRIX = "Apex_ViewMatrix";
@@ -39,12 +36,19 @@ namespace ApexEngine.Rendering
         public const string ENV_FOGEND = "Env_FogEnd";
         public const string ENV_NUMPOINTLIGHTS = "Env_NumPointLights";
 
-
-        public static FrontFaceDirection FrontFace = FrontFaceDirection.Ccw;
         protected Material currentMaterial = null;
         protected ShaderProperties properties;
         protected Matrix4f worldMatrix, viewMatrix, projectionMatrix;
         protected int id = 0;
+
+        public enum ShaderTypes
+        {
+            Vertex,
+            Fragment,
+            Geometry,
+            TessEval,
+            TessControl
+        }
 
         public static string GetApexVertexHeader()
         {
@@ -82,16 +86,12 @@ namespace ApexEngine.Rendering
 
         public void Create()
         {
-            id = GL.CreateProgram();
-            if (id == 0)
-            {
-                throw new Exception("An error occurred while creating the shader!");
-            }
+            id = RenderManager.Renderer.GenerateShaderProgram();
         }
 
         public void Use()
         {
-            GL.UseProgram(id);
+            RenderManager.Renderer.BindShaderProgram(id);
         }
 
         public virtual void End()
@@ -101,46 +101,36 @@ namespace ApexEngine.Rendering
 
         public static void Clear()
         {
-            GL.UseProgram(0);
+            RenderManager.Renderer.BindShaderProgram(0);
         }
 
         public void CompileShader()
         {
             Use();
-            GL.BindAttribLocation(id, 0, A_POSITION);
-            GL.BindAttribLocation(id, 1, A_TEXCOORD0);
-            GL.BindAttribLocation(id, 2, A_TEXCOORD1);
-            GL.BindAttribLocation(id, 3, A_NORMAL);
-            GL.BindAttribLocation(id, 4, A_TANGENT);
-            GL.BindAttribLocation(id, 5, A_BITANGENT);
-            GL.BindAttribLocation(id, 6, A_BONEWEIGHT);
-            GL.BindAttribLocation(id, 7, A_BONEINDEX);
-            GL.LinkProgram(id);
-            GL.ValidateProgram(id);
+            RenderManager.Renderer.CompileShaderProgram(id);
         }
 
         public virtual void ApplyMaterial(Material material)
         {
             currentMaterial = material;
-            if (currentMaterial.GetBool(Material.MATERIAL_DEPTHTEST))
-                GL.Enable(EnableCap.DepthTest);
-            else
-                GL.Disable(EnableCap.DepthTest);
-            if (currentMaterial.GetBool(Material.MATERIAL_DEPTHMASK))
-                GL.DepthMask(true);
-            else
-                GL.DepthMask(false);
+
+            RenderManager.Renderer.SetDepthTest(currentMaterial.GetBool(Material.MATERIAL_DEPTHTEST));
+
+            RenderManager.Renderer.SetDepthMask(currentMaterial.GetBool(Material.MATERIAL_DEPTHMASK));
+
+
             if (currentMaterial.GetBool(Material.MATERIAL_CULLENABLED))
             {
-                GL.Enable(EnableCap.CullFace);
+                RenderManager.Renderer.SetCullFace(true);
                 int i = currentMaterial.GetInt(Material.MATERIAL_FACETOCULL);
                 if (i == 0)
-                    GL.CullFace(CullFaceMode.Back);
+                    RenderManager.Renderer.SetFaceToCull(Renderer.Face.Back);
                 else if (i == 1)
-                    GL.CullFace(CullFaceMode.Front);
+                    RenderManager.Renderer.SetFaceToCull(Renderer.Face.Front);
             }
             else
-                GL.Disable(EnableCap.CullFace);
+                RenderManager.Renderer.SetCullFace(false);
+
             SetUniform(MATERIAL_ALPHADISCARD, currentMaterial.GetFloat(Material.MATERIAL_ALPHADISCARD));
         }
 
@@ -161,9 +151,8 @@ namespace ApexEngine.Rendering
 
         private static void SetDefaultValues()
         {
-            GL.Enable(EnableCap.DepthClamp);
-            GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill);
-            GL.FrontFace(FrontFace);
+            RenderManager.Renderer.SetDepthClamp(true);
+            RenderManager.Renderer.SetFaceDirection(Renderer.FaceDirection.Ccw);
         }
 
         public void SetTransforms(Matrix4f world, Matrix4f view, Matrix4f proj)
@@ -190,90 +179,69 @@ namespace ApexEngine.Rendering
 
         public void AddVertexProgram(string vs)
         {
-            AddProgram(vs, ShaderType.VertexShader);
+            AddProgram(vs, ShaderTypes.Vertex);
         }
 
         public void AddFragmentProgram(string fs)
         {
-            AddProgram(fs, ShaderType.FragmentShader);
+            AddProgram(fs, ShaderTypes.Fragment);
         }
 
         public void AddGeometryProgram(string gs)
         {
-            AddProgram(gs, ShaderType.GeometryShader);
+            AddProgram(gs, ShaderTypes.Geometry);
         }
 
-        public void AddProgram(string code, ShaderType type)
+        public void AddProgram(string code, ShaderTypes type)
         {
-            int shader = GL.CreateShader(type);
-            if (shader == 0)
-            {
-                throw new Exception("Error creating shader.\n\tShader type: " + type + "\n\tCode: " + code);
-            }
-            GL.ShaderSource(shader, code);
-            GL.CompileShader(shader);
-            GL.AttachShader(id, shader);
-            int status = -1;
-            string info = "";
-            GL.GetShaderInfoLog(shader, out info);
-            GL.GetShader(shader, ShaderParameter.CompileStatus, out status);
-            if (status != 1)
-            {
-                Console.WriteLine("Shader compiler error!\nType: " + type.ToString() + "\nName: " + this.GetType().ToString() + "\n\n"/* + "Source code:\n" + code + "\n\n"*/ + 
-                           info + "\n" + "Status Code: " + status.ToString());
-            }
+            RenderManager.Renderer.AddShader(id, code, type);
         }
 
         public void SetUniform(string name, int i)
         {
-            int loc = GL.GetUniformLocation(id, name);
-            GL.Uniform1(loc, i);
+            RenderManager.Renderer.SetShaderUniform(id, name, i);
         }
 
         public void SetUniform(string name, float f)
         {
-            int loc = GL.GetUniformLocation(id, name);
-            GL.Uniform1(loc, f);
+            RenderManager.Renderer.SetShaderUniform(id, name, f);
         }
 
         public void SetUniform(string name, float x, float y)
         {
-            int loc = GL.GetUniformLocation(id, name);
-            GL.Uniform2(loc, x, y);
+            RenderManager.Renderer.SetShaderUniform(id, name, x, y);
         }
 
         public void SetUniform(string name, float x, float y, float z)
         {
-            int loc = GL.GetUniformLocation(id, name);
-            GL.Uniform3(loc, x, y, z);
+            RenderManager.Renderer.SetShaderUniform(id, name, x, y, z);
         }
 
         public void SetUniform(string name, float x, float y, float z, float w)
         {
-            int loc = GL.GetUniformLocation(id, name);
-            GL.Uniform4(loc, x, y, z, w);
+            RenderManager.Renderer.SetShaderUniform(id, name, x, y, z, w);
         }
 
         public void SetUniform(string name, Vector2f vec)
         {
-            SetUniform(name, vec.x, vec.y);
+            SetUniform(name, vec.X, vec.Y);
         }
 
         public void SetUniform(string name, Vector2f[] vec)
         {
             for (int i = 0; i < vec.Length; i++)
-                SetUniform(name + "[" + i.ToString() + "]", vec[i].x, vec[i].y);
+                SetUniform(name + "[" + i.ToString() + "]", vec[i].X, vec[i].Y);
         }
 
         public void SetUniform(string name, Vector3f vec)
         {
-            SetUniform(name, vec.x, vec.y, vec.z);
+            SetUniform(name, vec.X, vec.Y, vec.Z);
         }
 
         public void SetUniform(string name, Vector3f[] vec)
         {
             for (int i = 0; i < vec.Length; i++)
-                SetUniform(name + "[" + i.ToString() + "]", vec[i].x, vec[i].y, vec[i].z);
+                SetUniform(name + "[" + i.ToString() + "]", vec[i].X, vec[i].Y, vec[i].Z);
         }
 
         public void SetUniform(string name, Vector4f vec)
@@ -289,8 +257,7 @@ namespace ApexEngine.Rendering
 
         public void SetUniform(string name, Matrix4f mat)
         {
-            int loc = GL.GetUniformLocation(id, name);
-            GL.UniformMatrix4(loc, 1, true, mat.values);
+            RenderManager.Renderer.SetShaderUniform(id, name, mat.values);
         }
     }
 }

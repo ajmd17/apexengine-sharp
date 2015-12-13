@@ -1,18 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ApexEngine;
+﻿using ApexEngine;
 using ApexEngine.Math;
+
 namespace ApexEditor
 {
     public class MtlViewerGame : Game
     {
-        bool rotate = true;
-        Quaternion rot = new Quaternion();
-        float rotTime = 0f;
-        
+        private bool rotate = true;
+        private Quaternion rot = new Quaternion();
+        private float rotTime = 0f;
+
+        public MtlViewerGame() : base(new ApexEngine.Rendering.OpenGL.GLRenderer())
+        {
+        }
+
         public bool Rotate
         {
             get { return rotate; }

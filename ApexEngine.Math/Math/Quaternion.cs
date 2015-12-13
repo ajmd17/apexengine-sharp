@@ -17,9 +17,9 @@
             Set(other);
         }
 
-        public Quaternion(float _x, float _y, float _z, float _w)
+        public Quaternion(float x, float y, float z, float w)
         {
-            Set(_x, _y, _z, _w);
+            Set(x, y, z, w);
         }
 
         public Quaternion Set(Quaternion other)
@@ -31,12 +31,12 @@
             return this;
         }
 
-        public Quaternion Set(float _x, float _y, float _z, float _w)
+        public Quaternion Set(float x, float y, float z, float w)
         {
-            this.x = _x;
-            this.y = _y;
-            this.z = _z;
-            this.w = _w;
+            this.x = x;
+            this.y = y;
+            this.z = z;
+            this.w = w;
             return this;
         }
 
@@ -343,6 +343,30 @@
             return this;
         }
 
+        public float X
+        {
+            get { return x; }
+            set { x = value; }
+        }
+        
+        public float Y
+        {
+            get { return y; }
+            set { y = value; }
+        }
+
+        public float Z
+        {
+            get { return z; }
+            set { z = value; }
+        }
+        
+        public float W
+        {
+            get { return w; }
+            set { w = value; }
+        }
+        
         public override bool Equals(object obj)
         {
             if (!(obj is Quaternion))

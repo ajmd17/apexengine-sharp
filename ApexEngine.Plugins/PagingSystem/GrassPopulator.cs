@@ -76,7 +76,7 @@ namespace ApexEngine.Plugins.PagingSystem
             {
                 return rayHit.y;
             }
-            return 30;
+            return float.NaN;
         }
 
         public override void Init()

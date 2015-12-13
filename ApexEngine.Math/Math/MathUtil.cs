@@ -44,47 +44,47 @@
 
         public static Vector2f Min(Vector2f a, Vector2f b)
         {
-            return new Vector2f(Min(a.x, b.x), Min(a.y, b.y));
+            return new Vector2f(Min(a.X, b.X), Min(a.Y, b.Y));
         }
 
         public static Vector2f Max(Vector2f a, Vector2f b)
         {
-            return new Vector2f(Max(a.x, b.x), Max(a.y, b.y));
+            return new Vector2f(Max(a.X, b.X), Max(a.Y, b.Y));
         }
 
         public static Vector3f Min(Vector3f a, Vector3f b)
         {
-            return new Vector3f(Min(a.x, b.x), Min(a.y, b.y), Min(a.z, b.z));
+            return new Vector3f(Min(a.X, b.X), Min(a.Y, b.Y), Min(a.Z, b.Z));
         }
 
         public static Vector3f Max(Vector3f a, Vector3f b)
         {
-            return new Vector3f(Max(a.x, b.x), Max(a.y, b.y), Max(a.z, b.z));
+            return new Vector3f(Max(a.X, b.X), Max(a.Y, b.Y), Max(a.Z, b.Z));
         }
 
         public static Vector4f Min(Vector4f a, Vector4f b)
         {
-            return new Vector4f(Min(a.x, b.x), Min(a.y, b.y), Min(a.z, b.z), Min(a.w, b.w));
+            return new Vector4f(Min(a.X, b.X), Min(a.Y, b.Y), Min(a.Z, b.Z), Min(a.W, b.W));
         }
 
         public static Vector4f Max(Vector4f a, Vector4f b)
         {
-            return new Vector4f(Max(a.x, b.x), Max(a.y, b.y), Max(a.z, b.z), Max(a.w, b.w));
+            return new Vector4f(Max(a.X, b.X), Max(a.Y, b.Y), Max(a.Z, b.Z), Max(a.W, b.W));
         }
         
         public static Vector2f Round(Vector2f vec)
         {
-            return new Vector2f((float)System.Math.Round(vec.x), (float)System.Math.Round(vec.y));
+            return new Vector2f((float)System.Math.Round(vec.X), (float)System.Math.Round(vec.Y));
         }
 
         public static Vector3f Round(Vector3f vec)
         {
-            return new Vector3f((float)System.Math.Round(vec.x), (float)System.Math.Round(vec.y), (float)System.Math.Round(vec.z));
+            return new Vector3f((float)System.Math.Round(vec.X), (float)System.Math.Round(vec.Y), (float)System.Math.Round(vec.Z));
         }
 
         public static Vector4f Round(Vector4f vec)
         {
-            return new Vector4f((float)System.Math.Round(vec.x), (float)System.Math.Round(vec.y), (float)System.Math.Round(vec.z), (float)System.Math.Round(vec.w));
+            return new Vector4f((float)System.Math.Round(vec.X), (float)System.Math.Round(vec.Y), (float)System.Math.Round(vec.Z), (float)System.Math.Round(vec.W));
         }
     }
 }

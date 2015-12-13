@@ -1,5 +1,4 @@
 ﻿using ApexEngine.Math;
-using System.Collections.Generic;
 
 namespace ApexEngine.Rendering
 {

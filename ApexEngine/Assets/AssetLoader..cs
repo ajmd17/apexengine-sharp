@@ -4,7 +4,7 @@ namespace ApexEngine.Assets
 {
     public abstract class AssetLoader
     {
-        public abstract Object Load(string filePath);
+        public abstract object Load(LoadedAsset asset);
 
         public abstract void ResetLoader();
 

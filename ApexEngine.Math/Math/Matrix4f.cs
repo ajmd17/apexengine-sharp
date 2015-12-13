@@ -19,10 +19,16 @@ namespace ApexEngine.Math
                          m30 = 12, m31 = 13, m32 = 14, m33 = 15;
 
         public float[] values = new float[16];
+        private float[] invValues = new float[16];
 
         public Matrix4f()
         {
             this.SetToIdentity();
+        }
+
+        public Matrix4f(float[] values)
+        {
+            this.Set(values);
         }
 
         public Matrix4f(float m00, float m01, float m02, float m03,
@@ -44,28 +50,27 @@ namespace ApexEngine.Math
 
         public float[] GetInvertedValues()
         {
-            float[] res = new float[16];
-            res[m00] = values[m00];
-            res[m01] = values[m10];
-            res[m02] = values[m20];
-            res[m03] = values[m30];
+            invValues[m00] = values[m00];
+            invValues[m01] = values[m10];
+            invValues[m02] = values[m20];
+            invValues[m03] = values[m30];
 
-            res[m10] = values[m01];
-            res[m11] = values[m11];
-            res[m12] = values[m21];
-            res[m13] = values[m31];
+            invValues[m10] = values[m01];
+            invValues[m11] = values[m11];
+            invValues[m12] = values[m21];
+            invValues[m13] = values[m31];
 
-            res[m20] = values[m02];
-            res[m21] = values[m12];
-            res[m22] = values[m22];
-            res[m23] = values[m32];
+            invValues[m20] = values[m02];
+            invValues[m21] = values[m12];
+            invValues[m22] = values[m22];
+            invValues[m23] = values[m32];
 
-            res[m30] = values[m03];
-            res[m31] = values[m13];
-            res[m32] = values[m23];
-            res[m33] = values[m33];
+            invValues[m30] = values[m03];
+            invValues[m31] = values[m13];
+            invValues[m32] = values[m23];
+            invValues[m33] = values[m33];
 
-            return res;
+            return invValues;
         }
 
         public Matrix4f Set(float m00, float m01, float m02, float m03,
@@ -113,6 +118,18 @@ namespace ApexEngine.Math
                 }
             }
 
+            return this;
+        }
+
+        public Matrix4f Set(float[] values)
+        {
+            if (values.Length != this.values.Length)
+                throw new Exception("Invalid length");
+
+            for (int i = 0; i < this.values.Length; i++)
+            {
+                this.values[i] = values[i];
+            }
             return this;
         }
 
@@ -288,6 +305,63 @@ namespace ApexEngine.Math
             values[m32] = tmp[m32] * inv_det;
             values[m33] = tmp[m33] * inv_det;
             tmp = null;
+            return this;
+        }
+
+        public Matrix4f Transpose()
+        {
+            Matrix4f res = new Matrix4f();
+
+            res.values[m00] = values[m00];
+            res.values[m01] = values[m10];
+            res.values[m02] = values[m20];
+            res.values[m03] = values[m30];
+
+            res.values[m10] = values[m01];
+            res.values[m11] = values[m11];
+            res.values[m12] = values[m21];
+            res.values[m13] = values[m31];
+
+            res.values[m20] = values[m02];
+            res.values[m21] = values[m12];
+            res.values[m22] = values[m22];
+            res.values[m23] = values[m32];
+
+            res.values[m30] = values[m03];
+            res.values[m31] = values[m13];
+            res.values[m32] = values[m23];
+            res.values[m33] = values[m33];
+
+            return res;
+        }
+
+        public Matrix4f TransposeStore()
+        {
+            float[] tmp = new float[16];
+
+            tmp[m00] = values[m00];
+            tmp[m01] = values[m10];
+            tmp[m02] = values[m20];
+            tmp[m03] = values[m30];
+
+            tmp[m10] = values[m01];
+            tmp[m11] = values[m11];
+            tmp[m12] = values[m21];
+            tmp[m13] = values[m31];
+
+            tmp[m20] = values[m02];
+            tmp[m21] = values[m12];
+            tmp[m22] = values[m22];
+            tmp[m23] = values[m32];
+
+            tmp[m30] = values[m03];
+            tmp[m31] = values[m13];
+            tmp[m32] = values[m23];
+            tmp[m33] = values[m33];
+
+            this.Set(tmp);
+            tmp = null;
+
             return this;
         }
 

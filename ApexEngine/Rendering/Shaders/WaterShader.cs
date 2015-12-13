@@ -1,8 +1,5 @@
-﻿using OpenTK.Graphics.OpenGL;
+﻿using ApexEngine.Assets;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace ApexEngine.Rendering.Shaders
 {
@@ -12,8 +9,8 @@ namespace ApexEngine.Rendering.Shaders
         float globalTime = 0f;
 
         public WaterShader(ShaderProperties properties)
-            : base(properties, (string)textLoader.Load(AppDomain.CurrentDomain.BaseDirectory + "\\shaders\\water.vert"),
-                               (string)textLoader.Load(AppDomain.CurrentDomain.BaseDirectory + "\\shaders\\water.frag"))
+            : base(properties, (string)AssetManager.Load(AppDomain.CurrentDomain.BaseDirectory + "\\shaders\\water.vert"),
+                               (string)AssetManager.Load(AppDomain.CurrentDomain.BaseDirectory + "\\shaders\\water.frag"))
         {
         }
 
@@ -34,16 +31,15 @@ namespace ApexEngine.Rendering.Shaders
             int blendMode = material.GetInt(Material.MATERIAL_BLENDMODE);
             if (blendMode == 1)
             {
-                GL.Enable(EnableCap.Blend);
-                GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
+                RenderManager.Renderer.SetBlend(true);
+                RenderManager.Renderer.SetBlendMode(Renderer.BlendMode.AlphaBlend);
             }
         }
 
         public override void End()
         {
             base.End();
-
-            GL.Disable(EnableCap.Blend);
+            RenderManager.Renderer.SetBlend(false);
         }
 
         public override void Update(Environment environment, Camera cam, Mesh mesh)

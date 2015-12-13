@@ -1,4 +1,6 @@
-﻿using ApexEngine.Assets;
+﻿using System;
+using System.Collections.Generic;
+using ApexEngine.Assets;
 using ApexEngine.Input;
 using ApexEngine.Math;
 using ApexEngine.Rendering;
@@ -6,11 +8,6 @@ using ApexEngine.Rendering.Cameras;
 using ApexEngine.Scene;
 using ApexEngine.Scene.Components;
 using ApexEngine.Scene.Physics;
-using OpenTK;
-using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL;
-using System;
-using System.Collections.Generic;
 
 namespace ApexEngine
 {
@@ -26,11 +23,17 @@ namespace ApexEngine
         private PhysicsWorld physicsWorld;
         Vector3f tmpVec = new Vector3f();
 
-        public Game()
+        public Game(Renderer renderer)
         {
             cam = new DefaultCamera(inputManager, 55);
-            renderManager = new RenderManager(new ApexEngine.Rendering.OpenGL.GLRenderer(), cam, new Action(() => { Render(); }));
+            renderManager = new RenderManager(renderer, cam, new Action(() => { Render(); }));
             physicsWorld = new PhysicsWorld(new PhysicsDebugDraw(cam));
+        }
+
+        public string Title
+        {
+            get { return windowTitle; }
+            set { windowTitle = value; }
         }
 
         public List<GameComponent> GameComponents
@@ -87,48 +90,7 @@ namespace ApexEngine
 
         public void Run()
         {
-            using (var game = new GameWindow(1080, 720, new GraphicsMode(new ColorFormat(8, 8, 8, 8), 24)))
-            {
-                game.Title = windowTitle;
-                game.Load += (sender, e) => InitInternal();
-                game.UpdateFrame += (sender, e) =>
-                {
-                    inputManager.WINDOW_X = game.X;
-                    inputManager.WINDOW_Y = game.Y;
-                    UpdateInternal();
-                };
-                game.RenderFrame += (sender, e) =>
-                {
-                    RenderInternal();
-                    game.SwapBuffers();
-                };
-                game.Resize += (sender, e) =>
-                {
-                    GL.Viewport(0, 0, game.Width, game.Height);
-                    inputManager.SCREEN_HEIGHT = game.Height;
-                    inputManager.SCREEN_WIDTH = game.Width;
-                    cam.Width = game.Width;
-                    cam.Height = game.Height;
-                };
-                game.KeyDown += (sender, e) =>
-                {
-                    inputManager.KeyDown(e.Key);
-                };
-                game.KeyUp += (sender, e) =>
-                {
-                    inputManager.KeyUp(e.Key);
-                };
-                game.MouseDown += (sender, e) =>
-                {
-                    inputManager.MouseButtonDown(e.Button);
-                };
-                game.MouseUp += (sender, e) =>
-                {
-                    inputManager.MouseButtonUp(e.Button);
-                };
-                game.VSync = VSyncMode.Off;
-                game.Run(60);
-            }
+            RenderManager.Renderer.CreateContext(this, 1080, 720);
             physicsWorld.Dispose();
         }
 
@@ -141,8 +103,6 @@ namespace ApexEngine
 
         public void UpdateInternal()
         {
-            inputManager.MOUSE_X = inputManager.WINDOW_X - OpenTK.Input.Mouse.GetCursorState().X + (inputManager.SCREEN_WIDTH / 2);
-            inputManager.MOUSE_Y = inputManager.WINDOW_Y - OpenTK.Input.Mouse.GetCursorState().Y + (inputManager.SCREEN_HEIGHT / 2);
             MoveToOrigin();
             foreach (GameComponent cmp in components)
                 cmp.Update();

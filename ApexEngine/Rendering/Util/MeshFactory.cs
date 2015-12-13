@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using OpenTK.Graphics.OpenGL;
+﻿using System.Collections.Generic;
 using ApexEngine.Math;
 
 namespace ApexEngine.Rendering.Util
@@ -18,7 +14,7 @@ namespace ApexEngine.Rendering.Util
             vertices.Add(new Vertex(new Vector3f(1f, 1f, 0), new Vector2f(1f, 1f), new Vector3f(0, 0, 1)));
             vertices.Add(new Vertex(new Vector3f(-1f, 1f, 0), new Vector2f(0, 1f), new Vector3f(0, 0, 1)));
             mesh.SetVertices(vertices);
-            mesh.PrimitiveType = BeginMode.TriangleFan;
+            mesh.PrimitiveType = Mesh.PrimitiveTypes.TriangleFan;
             return mesh;
         }
 

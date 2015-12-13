@@ -57,6 +57,8 @@ namespace ApexEditor
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            game.InputManager.MOUSE_X = game.InputManager.WINDOW_X - OpenTK.Input.Mouse.GetCursorState().X + (game.InputManager.SCREEN_WIDTH / 2);
+            game.InputManager.MOUSE_Y = game.InputManager.WINDOW_Y - OpenTK.Input.Mouse.GetCursorState().Y + (game.InputManager.SCREEN_HEIGHT / 2);
             game.UpdateInternal();
             glControl1.Invalidate();
             Point p = this.PointToScreen(Location);
@@ -81,17 +83,17 @@ namespace ApexEditor
         private void glControl1_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
-                game.InputManager.MouseButtonDown(OpenTK.Input.MouseButton.Right);
-            if (e.Button == MouseButtons.Left)
-                game.InputManager.MouseButtonDown(OpenTK.Input.MouseButton.Left);
+                game.InputManager.MouseButtonDown(InputManager.MouseButton.Right);
+            else if (e.Button == MouseButtons.Left)
+                game.InputManager.MouseButtonDown(InputManager.MouseButton.Left);
         }
 
         private void glControl1_MouseUp(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
-                game.InputManager.MouseButtonUp(OpenTK.Input.MouseButton.Right);
-            if (e.Button == MouseButtons.Left)
-                game.InputManager.MouseButtonUp(OpenTK.Input.MouseButton.Left);
+                game.InputManager.MouseButtonUp(InputManager.MouseButton.Right);
+            else if (e.Button == MouseButtons.Left)
+                game.InputManager.MouseButtonUp(InputManager.MouseButton.Left);
         }
 
         private void glControl1_KeyDown(object sender, KeyEventArgs e)
@@ -101,7 +103,6 @@ namespace ApexEditor
 
         private void ApexEngineControl_MouseClick(object sender, MouseEventArgs e)
         {
-
         }
     }
 }

@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ApexEngine.Math;
+using ApexEngine.Assets;
 
 namespace ApexEngine.Rendering.PostProcess.Filters
 {
     public class SSAOFilter : PostFilter
     {
-        private static Assets.ShaderTextLoader textLoader = Assets.ShaderTextLoader.GetInstance();
         private NormalMapRenderer normalMapRenderer;
         private Texture normalMapTex, noiseTex;
 
@@ -20,7 +20,7 @@ namespace ApexEngine.Rendering.PostProcess.Filters
         private RenderManager rm;
         private Vector2f resolution = new Vector2f();
 
-        public SSAOFilter(NormalMapRenderer normalMapRenderer) : base(new ShaderProperties().SetProperty("NO_GI", true), (string)textLoader.Load(AppDomain.CurrentDomain.BaseDirectory + "\\shaders\\post\\ssao.frag"))
+        public SSAOFilter(NormalMapRenderer normalMapRenderer) : base(new ShaderProperties().SetProperty("NO_GI", true), (string)AssetManager.Load(AppDomain.CurrentDomain.BaseDirectory + "\\shaders\\post\\ssao.frag"))
         {
             this.normalMapRenderer = normalMapRenderer;
             noiseTex = Texture.LoadTexture(AppDomain.CurrentDomain.BaseDirectory + "\\textures\\noise_ssao.png");

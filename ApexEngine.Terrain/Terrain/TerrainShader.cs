@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ApexEngine.Rendering;
+using ApexEngine.Assets;
 
 namespace ApexEngine.Terrain
 {
@@ -12,8 +13,8 @@ namespace ApexEngine.Terrain
         private static Assets.ShaderTextLoader textLoader = Assets.ShaderTextLoader.GetInstance();
 
         public TerrainShader(ShaderProperties properties)
-            : base(properties, (string)textLoader.Load(AppDomain.CurrentDomain.BaseDirectory + "\\shaders\\terrain.vert"),
-                               (string)textLoader.Load(AppDomain.CurrentDomain.BaseDirectory + "\\shaders\\terrain.frag"))
+            : base(properties, (string)AssetManager.Load(AppDomain.CurrentDomain.BaseDirectory + "\\shaders\\terrain.vert"),
+                               (string)AssetManager.Load(AppDomain.CurrentDomain.BaseDirectory + "\\shaders\\terrain.frag"))
         {
         }
 

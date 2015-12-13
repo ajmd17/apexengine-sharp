@@ -1,6 +1,5 @@
 ﻿using ApexEngine.Math;
 using ApexEngine.Scene;
-using OpenTK.Graphics.OpenGL;
 using System.Collections.Generic;
 
 namespace ApexEngine.Rendering.PostProcess
@@ -48,7 +47,7 @@ namespace ApexEngine.Rendering.PostProcess
             vertices.Add(new Vertex(new Vector3f(1f, 1f, 0), new Vector2f(1f, 1f)));
             vertices.Add(new Vertex(new Vector3f(-1f, 1f, 0), new Vector2f(0, 1f)));
             mesh.SetVertices(vertices);
-            mesh.PrimitiveType = BeginMode.TriangleFan;
+            mesh.PrimitiveType = Mesh.PrimitiveTypes.TriangleFan;
             quadGeom = new Geometry(mesh);
             postFilters.Add(new Filters.DefaultPostFilter());
         }
@@ -62,7 +61,7 @@ namespace ApexEngine.Rendering.PostProcess
                 fbo.Init();
             }
             fbo.Capture();
-            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+            RenderManager.Renderer.Clear(true, true, false);
         }
 
         public void Release()

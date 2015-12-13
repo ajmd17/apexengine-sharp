@@ -127,7 +127,6 @@
     <Compile Include="metro\metroToolStripRenderer.cs" />
     <Compile Include="metro\MetroUI.cs" />
     <Compile Include="MtlViewerGame.cs" />
-    <Compile Include="MyRenderUtil.cs" />
     <Compile Include="NormalMapGenerator\BlurPostFilter.cs" />
     <Compile Include="NormalMapGenerator\NormalMapShader.cs" />
     <Compile Include="NormalMapGenerator\NrmGenerator.cs">

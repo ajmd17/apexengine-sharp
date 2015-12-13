@@ -1,10 +1,4 @@
 ﻿using ApexEngine.Scene.Components;
-using OpenTK.Graphics.OpenGL;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ApexEngine.Rendering
 {
@@ -42,7 +36,7 @@ namespace ApexEngine.Rendering
             }
             fbo.Capture();
 
-            RenderManager.Renderer.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+            RenderManager.Renderer.Clear(true, true, false);
 
             renderManager.RenderBucketNormals(env, cam, RenderManager.Bucket.Opaque);
             renderManager.RenderBucketNormals(env, cam, RenderManager.Bucket.Transparent);

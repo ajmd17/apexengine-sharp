@@ -13,6 +13,7 @@ using ApexEngine.Math;
 using ApexEngine.Rendering.PostProcess;
 using ApexEngine.Scene;
 using ApexEngine.Rendering.Shadows;
+using ApexEngine.Rendering.Util;
 
 namespace ApexEditor
 {
@@ -36,6 +37,11 @@ namespace ApexEditor
             Grab,
             Rotate
         };
+
+        public SceneEditorGame() : base(new ApexEngine.Rendering.OpenGL.GLRenderer())
+        {
+
+        }
 
         public bool BoundingBoxes
         {
@@ -97,7 +103,7 @@ namespace ApexEditor
                 //g.Material.SetValue(ApexEngine.Rendering.Material.MATERIAL_DEPTHMASK, false);
             } 
 
-            InputManager.AddMouseEvent(new ApexEngine.Input.MouseEvent(OpenTK.Input.MouseButton.Left, false, new Action(() =>
+            InputManager.AddMouseEvent(new ApexEngine.Input.MouseEvent(ApexEngine.Input.InputManager.MouseButton.Left, false, new Action(() =>
             {
                 if (!holding)
                 {
@@ -106,7 +112,7 @@ namespace ApexEditor
                     Dictionary<Vector3f, GameObject> intersections = new Dictionary<Vector3f, GameObject>();
                     Vector3f closestIntersection = new Vector3f(float.MaxValue);
                     float minDistance = float.MaxValue;
-                    List<GameObject> objectList = ApexEngine.Rendering.Util.MeshUtil.GatherObjects(rootNode);
+                    List<GameObject> objectList = ApexEngine.Rendering.Util.RenderUtil.GatherObjects(rootNode);
                     foreach (GameObject g in objectList)
                     {
                         if (objectHolding == null || g != objectHolding)
@@ -177,7 +183,7 @@ namespace ApexEditor
                     }*/
                 }
             })));
-            InputManager.AddMouseEvent(new ApexEngine.Input.MouseEvent(OpenTK.Input.MouseButton.Left, true, new Action(() => 
+            InputManager.AddMouseEvent(new ApexEngine.Input.MouseEvent(ApexEngine.Input.InputManager.MouseButton.Left, true, new Action(() => 
             {
                 holdTime = 0f;
                 holding = false;
@@ -222,7 +228,7 @@ namespace ApexEditor
             GL.Begin(PrimitiveType.Triangles);
 
             GL.Color3(1.0f, 0.0f, 0.0f);
-            MyRenderUtil.RenderBoundingBox(boundingBox);
+            RenderUtil.RenderBoundingBox(boundingBox);
             
 
             GL.End();
@@ -349,7 +355,7 @@ namespace ApexEditor
                 }*/
             }
 
-            if (InputManager.IsMouseButtonDown(OpenTK.Input.MouseButton.Right))
+            if (InputManager.IsMouseButtonDown(ApexEngine.Input.InputManager.MouseButton.Right))
             {
                 if (InputManager.GetMouseY() > 0)
                 {

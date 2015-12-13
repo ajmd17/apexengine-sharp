@@ -18,24 +18,6 @@
 
         private static Matrix4f tmpRot = new Matrix4f();
 
-        public float X
-        {
-            get { return x; }
-            set { x = value; }
-        }
-
-        public float Y
-        {
-            get { return y; }
-            set { y = value; }
-        }
-
-        public float Z
-        {
-            get { return z; }
-            set { z = value; }
-        }
-
         public Vector3f()
         {
             Set(0.0f);
@@ -314,6 +296,25 @@
         public Vector4f ToVector4f()
         {
             return new Vector4f(this);
+        }
+
+
+        public float X
+        {
+            get { return x; }
+            set { x = value; }
+        }
+
+        public float Y
+        {
+            get { return y; }
+            set { y = value; }
+        }
+
+        public float Z
+        {
+            get { return z; }
+            set { z = value; }
         }
 
         public override int GetHashCode()

@@ -15,9 +15,9 @@ namespace ApexEngine.Assets
         {
         }
 
-        public override object Load(string filePath)
+        public override object Load(LoadedAsset asset)
         {
-            return Rendering.Texture.LoadTexture(filePath);
+            return Rendering.Texture.LoadTexture(asset.FilePath);
         }
 
         public override void ResetLoader()

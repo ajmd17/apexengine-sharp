@@ -37,9 +37,9 @@ namespace ApexEngine.Assets.OgreXml
             keyframeBoneAngle = 0f;
             keyframeBoneName = "";
         }
-        public override object Load(string filePath)
+        public override object Load(LoadedAsset asset)
         {
-            XmlReader xmlReader = XmlReader.Create(filePath);
+            XmlReader xmlReader = XmlReader.Create(asset.FilePath);
             while (xmlReader.Read())
             {
                 if (xmlReader.NodeType == XmlNodeType.Element)

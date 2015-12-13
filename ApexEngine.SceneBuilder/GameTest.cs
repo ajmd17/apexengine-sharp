@@ -8,6 +8,11 @@ namespace ApexEditor
 {
     public class GameTest : Game
     {
+        public GameTest() : base(new ApexEngine.Rendering.OpenGL.GLRenderer())
+        {
+
+        }
+
         public override void Init()
         {
             

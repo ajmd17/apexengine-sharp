@@ -29,3 +29,4 @@ C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBui
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBuilder\obj\Debug\ApexEditor.frmSimplify.resources
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBuilder\bin\Debug\System.Net.Http.dll
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBuilder\obj\Debug\ApexEditor.frmCtrls.resources
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBuilder\bin\Debug\System.Net.Http.xml
