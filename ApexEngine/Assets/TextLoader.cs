@@ -1,4 +1,6 @@
-﻿namespace ApexEngine.Assets
+﻿using System.IO;
+
+namespace ApexEngine.Assets
 {
     public class TextLoader : AssetLoader
     {
@@ -19,8 +21,11 @@
 
         public override object Load(LoadedAsset asset)
         {
-            string res = System.IO.File.ReadAllText(asset.FilePath);
-            return res;
+            string text = "";
+            StreamReader reader = new StreamReader(asset.Data);
+            text = reader.ReadToEnd();
+            reader.Close();
+            return text;
         }
     }
 }

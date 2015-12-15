@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml;
+﻿using ApexEngine.Math;
 using ApexEngine.Rendering.Animation;
-using ApexEngine.Math;
+using System.Xml;
+
 namespace ApexEngine.Assets.OgreXml
 {
     public class OgreXmlSkeletonLoader : AssetLoader
@@ -16,14 +13,14 @@ namespace ApexEngine.Assets.OgreXml
             return instance;
         }
 
-        string keyframeBoneName = "";
-        float keyframeBoneTime = 0f, keyframeBoneAngle = 0f;
-        Vector3f keyframeBoneTrans = new Vector3f(Vector3f.Zero), keyframeBoneAxis = new Vector3f(Vector3f.Zero);
+        private string keyframeBoneName = "";
+        private float keyframeBoneTime = 0f, keyframeBoneAngle = 0f;
+        private Vector3f keyframeBoneTrans = new Vector3f(Vector3f.Zero), keyframeBoneAxis = new Vector3f(Vector3f.Zero);
         public Skeleton skeleton = new Skeleton();
         private string lastElement = "";
         private float bindAngle = 0f;
         private Vector3f bindAxis = new Vector3f(Vector3f.Zero);
-        int boneIdx = 0;
+        private int boneIdx = 0;
 
         public override void ResetLoader()
         {
@@ -37,9 +34,10 @@ namespace ApexEngine.Assets.OgreXml
             keyframeBoneAngle = 0f;
             keyframeBoneName = "";
         }
+
         public override object Load(LoadedAsset asset)
         {
-            XmlReader xmlReader = XmlReader.Create(asset.FilePath);
+            XmlReader xmlReader = XmlReader.Create(asset.Data);
             while (xmlReader.Read())
             {
                 if (xmlReader.NodeType == XmlNodeType.Element)

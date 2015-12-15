@@ -1,4 +1,6 @@
-﻿namespace ApexEngine.Assets
+﻿using System.IO;
+
+namespace ApexEngine.Assets
 {
     public class ShaderTextLoader : AssetLoader
     {
@@ -19,7 +21,10 @@
 
         public override object Load(LoadedAsset asset)
         {
-            string res = ApexEngine.Rendering.Util.ShaderUtil.FormatShaderIncludes(asset.FilePath, System.IO.File.ReadAllText(asset.FilePath));
+            string shaderText = "";
+            StreamReader reader = new StreamReader(asset.Data);
+            string res = ApexEngine.Rendering.Util.ShaderUtil.FormatShaderIncludes(asset.FilePath, reader.ReadToEnd());
+            reader.Close();
             return res;
         }
     }

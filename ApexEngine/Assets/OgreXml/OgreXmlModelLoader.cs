@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using ApexEngine.Assets.Util;
 using ApexEngine.Math;
-using ApexEngine.Scene;
 using ApexEngine.Rendering;
 using ApexEngine.Rendering.Animation;
-using ApexEngine.Assets.Util;
+using ApexEngine.Scene;
+using System.Collections.Generic;
 using System.Xml;
+
 namespace ApexEngine.Assets.OgreXml
 {
     public class Submesh
@@ -15,13 +13,16 @@ namespace ApexEngine.Assets.OgreXml
         public List<int> faces = new List<int>();
         public List<Vertex> vertices = new List<Vertex>();
     }
+
     public class OgreXmlModelLoader : AssetLoader
     {
         private static OgreXmlModelLoader instance = new OgreXmlModelLoader();
+
         public static OgreXmlModelLoader GetInstance()
         {
             return instance;
         }
+
         public List<Vector3f> positions = new List<Vector3f>();
         public List<Vector3f> normals = new List<Vector3f>();
         public List<Vector2f> texCoords = new List<Vector2f>();
@@ -30,9 +31,11 @@ namespace ApexEngine.Assets.OgreXml
         public Dictionary<int, BoneAssign[]> boneAssigns = new Dictionary<int, BoneAssign[]>();
         public List<Submesh> subMeshes = new List<Submesh>();
         public Skeleton skeleton = new Skeleton();
-        public OgreXmlModelLoader() : base ("mesh.xml")
+
+        public OgreXmlModelLoader() : base("mesh.xml")
         {
         }
+
         public override void ResetLoader()
         {
             positions.Clear();
@@ -44,10 +47,12 @@ namespace ApexEngine.Assets.OgreXml
             subMeshes.Clear();
             skeleton = new Skeleton();
         }
+
         private Submesh CurrentSubmesh()
         {
             return subMeshes[subMeshes.Count - 1];
         }
+
         private void AddToBoneAssigns(int vidx, BoneAssign assign)
         {
             if (boneAssigns.ContainsKey(vidx))
@@ -61,7 +66,6 @@ namespace ApexEngine.Assets.OgreXml
                     clist[2] = assign;
                 else if (clist[3] == null)
                     clist[3] = assign;
-
             }
             else
             {
@@ -77,6 +81,7 @@ namespace ApexEngine.Assets.OgreXml
                     clist[3] = assign;
             }
         }
+
         private void LoopThrough(List<int> faces, ref List<Vertex> outVerts)
         {
             for (int i = 0; i < faces.Count; i++)
@@ -88,22 +93,21 @@ namespace ApexEngine.Assets.OgreXml
                 if (boneAssigns.ContainsKey(faces[i]))
                 {
                     BoneAssign[] vertBoneAssigns = boneAssigns[faces[i]];
-                     for (int j = 0; j < vertBoneAssigns.Length; j++)
-                     {
+                    for (int j = 0; j < vertBoneAssigns.Length; j++)
+                    {
                         if (vertBoneAssigns[j] != null)
                         {
                             v.AddBoneIndex(vertBoneAssigns[j].GetBoneIndex());
                             v.AddBoneWeight(vertBoneAssigns[j].GetBoneWeight());
                         }
-
                     }
                 }
                 outVerts.Add(v);
             }
         }
+
         public override object Load(LoadedAsset asset)
         {
-
             XmlReader xmlReader = XmlReader.Create(asset.FilePath);
             while (xmlReader.Read())
             {
@@ -171,7 +175,6 @@ namespace ApexEngine.Assets.OgreXml
                         }
                     }
                 }
-
             }
             xmlReader.Close();
             List<Vertex> vertices = new List<Vertex>();
@@ -181,7 +184,7 @@ namespace ApexEngine.Assets.OgreXml
             }
             else
             {
-                for (int i = subMeshes.Count-1; i > -1; i--)
+                for (int i = subMeshes.Count - 1; i > -1; i--)
                 {
                     Submesh s = subMeshes[i];
                     if (s.faces.Count > 0)
@@ -190,7 +193,6 @@ namespace ApexEngine.Assets.OgreXml
                         subMeshes.Remove(s);
                 }
             }
-
 
             if (skeleton.GetNumBones() > 0)
             {

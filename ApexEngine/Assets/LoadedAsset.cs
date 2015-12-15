@@ -4,10 +4,10 @@ namespace ApexEngine.Assets
 {
     public class LoadedAsset
     {
-        private object data;
+        private Stream data;
         private string filePath;
 
-        public object Data
+        public Stream Data
         {
             get { return data; }
             set { data = value; }
@@ -19,7 +19,7 @@ namespace ApexEngine.Assets
             set { filePath = value; }
         }
 
-        public LoadedAsset(object data, string filePath)
+        public LoadedAsset(Stream data, string filePath)
         {
             this.data = data;
             this.filePath = filePath;

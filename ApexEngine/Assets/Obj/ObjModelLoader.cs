@@ -1,34 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO;
+﻿using ApexEngine.Math;
 using ApexEngine.Rendering;
 using ApexEngine.Scene;
-using ApexEngine.Math;
+using System.Collections.Generic;
+using System.IO;
+
 namespace ApexEngine.Assets.Obj
 {
     public class ObjIndex
     {
         public int vertexIdx, normalIdx, texCoordIdx;
+
         public ObjIndex(int v_idx, int n_idx, int t_idx)
         {
             vertexIdx = v_idx;
             normalIdx = n_idx;
             texCoordIdx = t_idx;
         }
+
         public ObjIndex()
         {
-
         }
     }
+
     public class ObjModelLoader : AssetLoader
     {
         private static ObjModelLoader instance = new ObjModelLoader();
+
         public static ObjModelLoader GetInstance()
         {
             return instance;
         }
+
         protected List<string> names = new List<string>();
         protected List<string> namesMtl = new List<string>();
         protected List<List<ObjIndex>> objIndices = new List<List<ObjIndex>>();
@@ -52,15 +54,18 @@ namespace ApexEngine.Assets.Obj
             materials.Clear();
             mtlOrder.Clear();
         }
+
         private List<ObjIndex> CurrentList()
         {
             if (objIndices.Count == 0)
                 NewMesh("child_0");
             return objIndices[objIndices.Count - 1];
         }
-        public ObjModelLoader() : base ("obj")
+
+        public ObjModelLoader() : base("obj")
         {
         }
+
         private void NewMesh(string name)
         {
             int counter = 0;
@@ -75,9 +80,8 @@ namespace ApexEngine.Assets.Obj
             objIndices.Add(new List<ObjIndex>());
             names.Add((counter == 0 ? name : name + "_" + counter.ToString()));
             namesMtl.Add(name);
-            
-            
         }
+
         private ObjIndex ParseObjIndex(string token)
         {
             string[] values = token.Split('/');
@@ -101,6 +105,7 @@ namespace ApexEngine.Assets.Obj
             }
             return res;
         }
+
         public static string[] RemoveEmptyStrings(string[] data)
         {
             List<string> result = new List<string>();
@@ -114,6 +119,7 @@ namespace ApexEngine.Assets.Obj
             string[] res = result.ToArray();
             return res;
         }
+
         public Material MaterialWithName(string name)
         {
             foreach (Material m in materials)
@@ -123,14 +129,15 @@ namespace ApexEngine.Assets.Obj
             }
             return new Material().SetName(name);
         }
+
         public override object Load(LoadedAsset asset)
         {
             Node node = new Node();
             string modelName = Path.GetFileNameWithoutExtension(asset.FilePath);
             node.Name = modelName;
-            StreamReader reader = File.OpenText(asset.FilePath);
+            StreamReader reader = new StreamReader(asset.Data);
             string line;
-            while ((line = reader.ReadLine()) != null )
+            while ((line = reader.ReadLine()) != null)
             {
                 string[] tokens = line.Split(' ');
                 tokens = RemoveEmptyStrings(tokens);
@@ -175,9 +182,7 @@ namespace ApexEngine.Assets.Obj
                 }
                 else if (tokens[0] == "g")
                 {
-                    
                 }
-                
             }
             reader.Close();
             for (int i = 0; i < objIndices.Count; i++)
@@ -193,7 +198,7 @@ namespace ApexEngine.Assets.Obj
                 }
                 Mesh mesh = new Mesh();
                 mesh.SetVertices(vertices);
-               
+
                 Geometry geom = new Geometry();
                 geom.Name = names[i];
                 geom.Mesh = mesh;

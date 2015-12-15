@@ -69,18 +69,15 @@ namespace ApexEngine.Assets
             if (!System.IO.File.Exists(filePath))
                 throw new System.IO.FileNotFoundException("The file \"" + filePath + "\" does not exist!");
             loader.ResetLoader();
-            
-            // Loaded ascii data
-            string data = "";
 
-            if (System.IO.File.Exists(filePath))
-            {
-                data = System.IO.File.ReadAllText(filePath);
-            }
 
-            LoadedAsset asset = new LoadedAsset(data, filePath);
+            Stream stream = new FileStream(filePath, FileMode.Open);
+
+            LoadedAsset asset = new LoadedAsset(stream, filePath);
 
             object loaded = loader.Load(asset);
+
+            stream.Close();
 
             loadedAssets.Add(filePath, loaded);
 
@@ -89,12 +86,6 @@ namespace ApexEngine.Assets
 
         public static object Load(string filePath)
         {
-            object alreadyLoaded = null;
-            if (loadedAssets.TryGetValue(filePath, out alreadyLoaded))
-            {
-                return alreadyLoaded;
-            }
-
             foreach (string str in loaders.Keys)
             {
                 if (filePath.EndsWith(str, StringComparison.OrdinalIgnoreCase))
@@ -102,21 +93,7 @@ namespace ApexEngine.Assets
                     AssetLoader loader = loaders[str];
                     loader.ResetLoader();
 
-                    // Loaded ascii data
-                    string data = "";
-
-                   if (System.IO.File.Exists(filePath))
-                    {
-                        data = System.IO.File.ReadAllText(filePath);
-                    }
-
-                    LoadedAsset asset = new LoadedAsset(data, filePath);
-
-                    object loaded = loader.Load(asset);
-
-                    loadedAssets.Add(filePath, loaded);
-
-                    return loaded;
+                    return Load(filePath, loader);
                 }
             }
             throw new KeyNotFoundException("Could not find a registered asset loader for the filetype! File: " + filePath);

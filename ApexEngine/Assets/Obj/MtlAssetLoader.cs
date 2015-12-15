@@ -1,24 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO;
+﻿using ApexEngine.Math;
 using ApexEngine.Rendering;
-using ApexEngine.Math;
+using System.Collections.Generic;
+using System.IO;
+
 namespace ApexEngine.Assets.Obj
 {
     public class MtlAssetLoader : AssetLoader
     {
         private static MtlAssetLoader instance = new MtlAssetLoader();
+
         public static MtlAssetLoader GetInstance()
         {
             return instance;
         }
+
         private List<Material> materials = new List<Material>();
         private List<string> matNames = new List<string>();
 
         public MtlAssetLoader() : base("mtl")
         { }
+
         public static string[] RemoveEmptyStrings(string[] data)
         {
             List<string> result = new List<string>();
@@ -32,6 +33,7 @@ namespace ApexEngine.Assets.Obj
             string[] res = result.ToArray();
             return res;
         }
+
         public override object Load(LoadedAsset asset)
         {
             if (!File.Exists(asset.FilePath))
@@ -39,7 +41,7 @@ namespace ApexEngine.Assets.Obj
                 return materials;
             }
 
-            StreamReader reader = File.OpenText(asset.FilePath);
+            StreamReader reader = new StreamReader(asset.Data);
             string line;
             while ((line = reader.ReadLine()) != null)
             {
@@ -52,7 +54,7 @@ namespace ApexEngine.Assets.Obj
                 {
                     string name = tokens[1];
                     materials.Add(new Material());
-                    
+
                     materials[materials.Count - 1].SetName(name);
                 }
                 else if (tokens[0] == "Ka") // ambient color
@@ -65,7 +67,7 @@ namespace ApexEngine.Assets.Obj
                     y = float.Parse(y_str);
                     z = float.Parse(z_str);
                     Vector4f color = new Vector4f(x, y, z, 1.0f);
-                   // materials[materials.Count - 1].SetValue(Material.COLOR_AMBIENT, color);
+                    // materials[materials.Count - 1].SetValue(Material.COLOR_AMBIENT, color);
                 }
                 else if (tokens[0] == "Kd") // ambient color
                 {
