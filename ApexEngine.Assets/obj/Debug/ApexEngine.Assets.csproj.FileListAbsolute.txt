@@ -1,0 +1,4 @@
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Assets\bin\Debug\ApexEngine.Assets.dll
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Assets\bin\Debug\ApexEngine.Assets.pdb
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Assets\obj\Debug\ApexEngine.Assets.dll
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Assets\obj\Debug\ApexEngine.Assets.pdb

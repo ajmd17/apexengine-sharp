@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using OpenTK.Graphics;
-using OpenTK.Graphics.OpenGL;
 using ApexEngine.Rendering;
 using Jitter;
 using Jitter.Dynamics;
@@ -22,7 +20,7 @@ namespace ApexEngine.Scene.Physics
 
         public void DrawLine(JVector start, JVector end)
         {
-            GL.MatrixMode(MatrixMode.Modelview);
+        /*    GL.MatrixMode(MatrixMode.Modelview);
             GL.LoadMatrix(cam.ViewMatrix.GetInvertedValues());
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadMatrix(cam.ProjectionMatrix.GetInvertedValues());
@@ -33,7 +31,7 @@ namespace ApexEngine.Scene.Physics
             GL.Vertex3(start.X, start.Y, start.Z);
             GL.Vertex3(end.X, end.Y, end.Z);
 
-            GL.End();
+            GL.End();*/
         }
 
         public void DrawPoint(JVector pos)
@@ -43,7 +41,7 @@ namespace ApexEngine.Scene.Physics
 
         public void DrawTriangle(JVector pos1, JVector pos2, JVector pos3)
         {
-            GL.MatrixMode(MatrixMode.Modelview);
+         /*   GL.MatrixMode(MatrixMode.Modelview);
             GL.LoadMatrix(cam.ViewMatrix.GetInvertedValues());
             GL.MatrixMode(MatrixMode.Projection);
             GL.LoadMatrix(cam.ProjectionMatrix.GetInvertedValues());
@@ -57,7 +55,7 @@ namespace ApexEngine.Scene.Physics
             RenderManager.Renderer.DrawVertex(pos2.X, pos2.Y, pos2.Z);
             RenderManager.Renderer.DrawVertex(pos3.X, pos3.Y, pos3.Z);
 
-            GL.End();
+            GL.End();*/
         }
     }
 }

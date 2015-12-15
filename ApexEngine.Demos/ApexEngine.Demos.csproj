@@ -55,6 +55,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ApexEngine.DesktopRenderer\ApexEngine.DesktopRenderer.csproj">
+      <Project>{7eb69401-0433-4e5e-bce9-e20534a66e44}</Project>
+      <Name>ApexEngine.DesktopRenderer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ApexEngine.Math\ApexEngine.Math.csproj">
       <Project>{a3e4f805-3271-4f83-bde0-180543845ba7}</Project>
       <Name>ApexEngine.Math</Name>

@@ -65,7 +65,7 @@ namespace ApexEngine.Plugins.Skydome
             // values that work well
             Kr = 0.0025f;
             Km = 0.0015f;
-            ESun = 10f;
+            ESun = 100f;
             exposure = 2f;
             wavelength.Set(0.731f, 0.612f, 0.455f);
 

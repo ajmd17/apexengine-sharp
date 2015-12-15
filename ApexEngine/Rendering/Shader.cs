@@ -97,6 +97,9 @@ namespace ApexEngine.Rendering
         public virtual void End()
         {
             currentMaterial = null;
+
+            RenderManager.Renderer.SetDepthTest(true);
+            RenderManager.Renderer.SetDepthMask(true);
         }
 
         public static void Clear()
@@ -115,7 +118,6 @@ namespace ApexEngine.Rendering
             currentMaterial = material;
 
             RenderManager.Renderer.SetDepthTest(currentMaterial.GetBool(Material.MATERIAL_DEPTHTEST));
-
             RenderManager.Renderer.SetDepthMask(currentMaterial.GetBool(Material.MATERIAL_DEPTHMASK));
 
 

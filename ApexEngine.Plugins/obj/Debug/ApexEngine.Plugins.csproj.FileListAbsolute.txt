@@ -9,10 +9,10 @@ C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Plugins\
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Plugins\obj\Debug\ApexEngine.Plugins.pdb
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Plugins\bin\Debug\ApexEngine.Math.dll
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Plugins\bin\Debug\ApexEngine.Math.pdb
-C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Plugins\bin\Debug\ApexEngine.exe
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Plugins\bin\Debug\Jitter.dll
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Plugins\bin\Debug\Jitter.pdb
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Plugins\bin\Debug\System.Net.Http.dll
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Plugins\bin\Debug\ApexEngine.Terrain.dll
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Plugins\bin\Debug\ApexEngine.Terrain.pdb
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Plugins\bin\Debug\System.Net.Http.xml
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Plugins\bin\Debug\ApexEngine.dll

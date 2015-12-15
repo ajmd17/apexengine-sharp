@@ -1,4 +1,5 @@
 ﻿using ApexEngine.Math;
+using ApexEngine.Rendering.Util;
 using ApexEngine.Scene;
 using System.Collections.Generic;
 
@@ -40,14 +41,9 @@ namespace ApexEngine.Rendering.PostProcess
         public void Init()
         {
             fbo.Init();
-            Mesh mesh = new Mesh();
-            List<Vertex> vertices = new List<Vertex>();
-            vertices.Add(new Vertex(new Vector3f(-1f, -1f, 0), new Vector2f(0, 0)));
-            vertices.Add(new Vertex(new Vector3f(1, -1f, 0), new Vector2f(1f, 0)));
-            vertices.Add(new Vertex(new Vector3f(1f, 1f, 0), new Vector2f(1f, 1f)));
-            vertices.Add(new Vertex(new Vector3f(-1f, 1f, 0), new Vector2f(0, 1f)));
-            mesh.SetVertices(vertices);
-            mesh.PrimitiveType = Mesh.PrimitiveTypes.TriangleFan;
+            Mesh mesh = MeshFactory.CreateQuad();
+            mesh.Material.SetValue(Material.MATERIAL_DEPTHMASK, false);
+            mesh.Material.SetValue(Material.MATERIAL_DEPTHTEST, false);
             quadGeom = new Geometry(mesh);
             postFilters.Add(new Filters.DefaultPostFilter());
         }
@@ -69,7 +65,7 @@ namespace ApexEngine.Rendering.PostProcess
             fbo.Release();
             colorTexture = fbo.ColorTexture;
             depthTexture = fbo.DepthTexture;
-            for (int i = postFilters.Count - 1; i > -1; i--)
+            for (int i = postFilters.Count-1; i > -1 ; i--)
             {
                 PostFilter pf = postFilters[i];
                 pf.Cam = cam;
