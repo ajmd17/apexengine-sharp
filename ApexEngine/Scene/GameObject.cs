@@ -115,6 +115,11 @@ namespace ApexEngine.Scene
             return parent;
         }
 
+        public Transform WorldTransform
+        {
+            get { return worldTransform; }
+        }
+
         public virtual Vector3f GetLocalTranslation()
         {
             return localTranslation;

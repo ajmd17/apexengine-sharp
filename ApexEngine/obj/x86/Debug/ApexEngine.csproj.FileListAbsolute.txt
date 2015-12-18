@@ -19,3 +19,6 @@ C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine\bin\Debu
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine\bin\Debug\ApexEngine.dll.config
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine\bin\Debug\ApexEngine.dll
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine\obj\x86\Debug\ApexEngine.dll
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine\bin\Debug\Lidgren.Network.dll
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine\bin\Debug\Lidgren.Network.pdb
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine\bin\Debug\Lidgren.Network.xml

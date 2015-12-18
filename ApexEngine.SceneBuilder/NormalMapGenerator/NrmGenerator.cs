@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using ApexEngine.Scene;
 using ApexEngine.Rendering;
 using ApexEngine.Rendering.Util;
-
+using ApexEngine.Assets;
 
 namespace ApexEditor.NormalMapGenerator
 {
@@ -51,7 +51,7 @@ namespace ApexEditor.NormalMapGenerator
         {
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                Texture tex = Texture.LoadTexture(openFileDialog1.FileName);
+                Texture tex = AssetManager.LoadTexture(openFileDialog1.FileName);
                 quadGeom.Material.SetValue(Material.TEXTURE_DIFFUSE, tex);
             }
         }

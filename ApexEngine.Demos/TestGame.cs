@@ -1,5 +1,6 @@
 ﻿using ApexEngine.Assets;
 using ApexEngine.Math;
+using ApexEngine.Networking;
 using ApexEngine.Plugins.PagingSystem;
 using ApexEngine.Plugins.Shaders.Post;
 using ApexEngine.Plugins.Skydome;
@@ -14,6 +15,9 @@ namespace ApexEngine.Demos
 {
     public class TestGame : Game
     {
+
+        Texture2D tex;
+
         public TestGame() : base(new Rendering.OpenGL.GLRenderer())
         {
         }
@@ -83,10 +87,10 @@ namespace ApexEngine.Demos
             terrainGeom.SetShader(typeof(Terrain.TerrainShader));
             Material terrainMaterial = new Material();
 
-            Texture grass = Texture.LoadTexture(Assets.AssetManager.GetAppPath() + "\\textures\\grass.jpg");
-            Texture grass_nrm = Texture.LoadTexture(Assets.AssetManager.GetAppPath() + "\\textures\\grass_NRM.jpg");
-            Texture dirt = Texture.LoadTexture(Assets.AssetManager.GetAppPath() + "\\textures\\dirt.jpg");
-            Texture dirt_nrm = Texture.LoadTexture(Assets.AssetManager.GetAppPath() + "\\textures\\dirt_NRM.jpg");
+            Texture grass = AssetManager.LoadTexture(Assets.AssetManager.GetAppPath() + "\\textures\\grass.jpg");
+            Texture grass_nrm = AssetManager.LoadTexture(Assets.AssetManager.GetAppPath() + "\\textures\\grass_NRM.jpg");
+            Texture dirt = AssetManager.LoadTexture(Assets.AssetManager.GetAppPath() + "\\textures\\dirt.jpg");
+            Texture dirt_nrm = AssetManager.LoadTexture(Assets.AssetManager.GetAppPath() + "\\textures\\dirt_NRM.jpg");
             terrainMaterial.SetValue(TerrainMaterial.TEXTURE_DIFFUSE0, grass);
             terrainMaterial.SetValue(TerrainMaterial.TEXTURE_NORMAL0, grass_nrm);
             terrainMaterial.SetValue(TerrainMaterial.TEXTURE_DIFFUSE_SLOPE, dirt);
@@ -120,7 +124,7 @@ namespace ApexEngine.Demos
     //        RenderManager.PostProcessor.PostFilters.Add(new FXAAFilter());
 
                GameObject loadedObj = AssetManager.LoadModel(AssetManager.GetAppPath() + "\\models\\house.obj");
-               ((Node)loadedObj).GetChildGeom(0).Material.SetValue(Material.TEXTURE_HEIGHT, Texture.LoadTexture("C:\\Users\\User\\Pictures\\Brick_14_UV_H_CM_1_DISP.jpg"));
+               ((Node)loadedObj).GetChildGeom(0).Material.SetValue(Material.TEXTURE_HEIGHT, AssetManager.LoadTexture("C:\\Users\\User\\Pictures\\Brick_14_UV_H_CM_1_DISP.jpg"));
                rootNode.AddChild(loadedObj);
                PhysicsWorld.AddObject(loadedObj, 0.0f);
        //     rootNode.AddChild(new Geometry(Rendering.Util.MeshFactory.CreateCube(new Vector3f(-1, -1, -1), new Vector3f(1, 1, 1))));
@@ -146,6 +150,12 @@ namespace ApexEngine.Demos
             waterGeom.Material.SetValue(Material.TEXTURE_NORMAL, Texture.LoadTexture(AssetManager.GetAppPath() + "\\textures\\water_NRM.jpg"));
             rootNode.AddChild(waterGeom);*/
             //   Console.WriteLine("\n\n" + ShaderUtil.FormatShaderProperties((string)ShaderTextLoader.GetInstance().Load(AssetManager.GetAppPath() + "\\shaders\\default.frag"), new ShaderProperties().SetProperty("NORMALS", true)));
+
+
+            /*
+            ServerGameComponent serv;
+            this.AddComponent(serv = new ServerGameComponent(new ServerHandler((Message msg) => { })));
+            serv.Connect(2222);*/
         }
 
         public void OnChunkAdd(Terrain.TerrainChunkNode chunk, EventArgs e)

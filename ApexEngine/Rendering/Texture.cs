@@ -1,4 +1,6 @@
-﻿namespace ApexEngine.Rendering
+﻿using ApexEngine.Assets;
+
+namespace ApexEngine.Rendering
 {
     public abstract class Texture
     {
@@ -18,9 +20,9 @@
             Mipmap
         }
 
-        public static Texture LoadTexture(string path)
+        public static Texture LoadTexture(LoadedAsset asset)
         {
-            return RenderManager.Renderer.LoadTexture2D(path);
+            return RenderManager.Renderer.LoadTexture2D(asset);
         }
 
         public static int GenTextureID()

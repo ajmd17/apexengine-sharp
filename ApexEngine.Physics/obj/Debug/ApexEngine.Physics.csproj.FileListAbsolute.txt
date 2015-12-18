@@ -1,0 +1,4 @@
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Physics\bin\Debug\ApexEngine.Physics.dll
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Physics\bin\Debug\ApexEngine.Physics.pdb
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Physics\obj\Debug\ApexEngine.Physics.dll
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Physics\obj\Debug\ApexEngine.Physics.pdb

@@ -106,12 +106,12 @@ namespace ApexEngine.Assets.Obj
                     string texPath = parentPath + "\\" + texName;
                     if (File.Exists(texPath))
                     {
-                        Texture tex = Texture.LoadTexture(texPath);
+                        Texture tex = AssetManager.LoadTexture(texPath);
                         materials[materials.Count - 1].SetValue(Material.TEXTURE_DIFFUSE, tex);
                     }
                     else if (File.Exists(texName))
                     {
-                        Texture tex = Texture.LoadTexture(texName);
+                        Texture tex = AssetManager.LoadTexture(texName);
                         materials[materials.Count - 1].SetValue(Material.TEXTURE_DIFFUSE, tex);
                     }
                 }
@@ -122,12 +122,12 @@ namespace ApexEngine.Assets.Obj
                     string texPath = parentPath + "\\" + texName;
                     if (File.Exists(texPath))
                     {
-                        Texture tex = Texture.LoadTexture(texPath);
+                        Texture tex = AssetManager.LoadTexture(texPath);
                         materials[materials.Count - 1].SetValue(Material.TEXTURE_NORMAL, tex);
                     }
                     else if (File.Exists(texName))
                     {
-                        Texture tex = Texture.LoadTexture(texName);
+                        Texture tex = AssetManager.LoadTexture(texName);
                         materials[materials.Count - 1].SetValue(Material.TEXTURE_NORMAL, tex);
                     }
                 }

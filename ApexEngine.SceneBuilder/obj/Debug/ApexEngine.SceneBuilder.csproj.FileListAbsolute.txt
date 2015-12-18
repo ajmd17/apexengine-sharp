@@ -8,8 +8,6 @@ C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBui
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBuilder\bin\Debug\ApexEngine.Math.pdb
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBuilder\bin\Debug\ApexEngine.Terrain.pdb
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBuilder\bin\Debug\ApexEngine.pdb
-C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBuilder\bin\Debug\OpenTK.pdb
-C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBuilder\bin\Debug\OpenTK.xml
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBuilder\bin\Debug\OpenTK.GLControl.xml
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBuilder\bin\Debug\Jitter.pdb
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBuilder\obj\Debug\ApexEngine.SceneBuilder.csprojResolveAssemblyReference.cache
@@ -32,3 +30,6 @@ C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBui
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBuilder\bin\Debug\ApexEngine.DesktopRenderer.dll
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBuilder\bin\Debug\ApexEngine.dll
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBuilder\bin\Debug\ApexEngine.DesktopRenderer.pdb
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBuilder\bin\Debug\Lidgren.Network.dll
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBuilder\bin\Debug\Lidgren.Network.pdb
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBuilder\bin\Debug\Lidgren.Network.xml

@@ -23,7 +23,7 @@ namespace ApexEngine.Rendering.PostProcess.Filters
         public SSAOFilter(NormalMapRenderer normalMapRenderer) : base(new ShaderProperties().SetProperty("NO_GI", true), (string)AssetManager.Load(AppDomain.CurrentDomain.BaseDirectory + "\\shaders\\post\\ssao.frag"))
         {
             this.normalMapRenderer = normalMapRenderer;
-            noiseTex = Texture.LoadTexture(AppDomain.CurrentDomain.BaseDirectory + "\\textures\\noise_ssao.png");
+            noiseTex = AssetManager.LoadTexture(AppDomain.CurrentDomain.BaseDirectory + "\\textures\\noise_ssao.png");
             Random rand = new Random();
             for (int i = 0; i < kernel.Length; i++)
                 kernel[i] = new Vector3f((float)rand.NextDouble()*10f, (float)rand.NextDouble() * 10f, (float)rand.NextDouble() * 10f);

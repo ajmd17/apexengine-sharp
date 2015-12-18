@@ -8,6 +8,7 @@ using ApexEngine.Scene.Physics;
 using ApexEngine.Math;
 using ApexEngine.Rendering;
 using ApexEngine.Util;
+using ApexEngine.Assets;
 
 namespace ApexEngine.Terrain.SimplexTerrain
 {
@@ -41,10 +42,10 @@ namespace ApexEngine.Terrain.SimplexTerrain
                 amplitudes[i] = (float)System.Math.Pow(0.5f, octaves.Length - i);
             }
             //terrainMaterial.SetValue(Material.COLOR_DIFFUSE, new Vector4f(0.2f, 0.7f, 0.2f, 1.0f));
-            Texture grass = Texture.LoadTexture(Assets.AssetManager.GetAppPath() + "\\textures\\grass2.jpg");
-            Texture grass_nrm = Texture.LoadTexture(Assets.AssetManager.GetAppPath() + "\\textures\\grass_NRM.jpg");
-            Texture dirt = Texture.LoadTexture(Assets.AssetManager.GetAppPath() + "\\textures\\dirt.jpg");
-            Texture dirt_nrm = Texture.LoadTexture(Assets.AssetManager.GetAppPath() + "\\textures\\dirt_NRM.jpg");
+            Texture grass = AssetManager.LoadTexture(Assets.AssetManager.GetAppPath() + "\\textures\\grass2.jpg");
+            Texture grass_nrm = AssetManager.LoadTexture(Assets.AssetManager.GetAppPath() + "\\textures\\grass_NRM.jpg");
+            Texture dirt = AssetManager.LoadTexture(Assets.AssetManager.GetAppPath() + "\\textures\\dirt.jpg");
+            Texture dirt_nrm = AssetManager.LoadTexture(Assets.AssetManager.GetAppPath() + "\\textures\\dirt_NRM.jpg");
             terrainMaterial.SetValue(TerrainMaterial.TEXTURE_DIFFUSE0, grass);
             terrainMaterial.SetValue(TerrainMaterial.TEXTURE_NORMAL0, grass_nrm);
             terrainMaterial.SetValue(TerrainMaterial.TEXTURE_DIFFUSE_SLOPE, dirt);

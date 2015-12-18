@@ -106,7 +106,7 @@ namespace ApexEngine.Scene
             }
         }
 
-        public void Render(Rendering.Environment environment, Camera cam)
+        public virtual void Render(Rendering.Environment environment, Camera cam)
         {
             if (shader == null)
             {

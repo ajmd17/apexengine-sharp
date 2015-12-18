@@ -6,6 +6,7 @@ using System.Drawing.Imaging;
 using ApexEngine.Input;
 
 using OpenTK.Graphics.OpenGL;
+using ApexEngine.Assets;
 
 namespace ApexEngine.Rendering.OpenGL
 {
@@ -38,8 +39,6 @@ namespace ApexEngine.Rendering.OpenGL
                     GL.Viewport(0, 0, gameWindow.Width, gameWindow.Height);
                     game.InputManager.SCREEN_HEIGHT = gameWindow.Height;
                     game.InputManager.SCREEN_WIDTH = gameWindow.Width;
-                    game.Camera.Width = gameWindow.Width;
-                    game.Camera.Height = gameWindow.Height;
                 };
                 gameWindow.KeyDown += (sender, e) =>
                 {
@@ -276,19 +275,19 @@ namespace ApexEngine.Rendering.OpenGL
 
         #region Texture stuff
 
-        public override Texture2D LoadTexture2D(string path)
+        public override Texture2D LoadTexture2D(LoadedAsset asset)
         {
             Bitmap bmp = null;
-            if (path.EndsWith(".tga"))
+            if (asset.FilePath.EndsWith(".tga"))
             {
-                bmp = ApexEngine.Assets.Util.TargaImage.LoadTargaImage(path);
+                bmp = ApexEngine.Assets.Util.TargaImage.LoadTargaImage(asset.Data);
             }
             else
-                bmp = new Bitmap(path);
+                bmp = new Bitmap(asset.Data);
             BitmapData bmp_data = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
 
             Texture2D tex = new Texture2D(Texture.GenTextureID());
-            tex.TexturePath = path;
+            tex.TexturePath = asset.FilePath;
             tex.Use();
             tex.SetWrap(Convert.ToInt32(TextureWrapMode.Repeat), Convert.ToInt32(TextureWrapMode.Repeat));
             tex.SetFilter((int)TextureMinFilter.LinearMipmapLinear, (int)TextureMagFilter.Linear);

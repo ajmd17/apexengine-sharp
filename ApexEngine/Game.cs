@@ -27,6 +27,7 @@ namespace ApexEngine
         {
             cam = new DefaultCamera(inputManager, 55);
             renderManager = new RenderManager(renderer, cam, new Action(() => { Render(); }));
+            renderManager.SpriteRenderer = new SpriteRenderer(this);
             physicsWorld = new PhysicsWorld(new PhysicsDebugDraw(cam));
         }
 

@@ -1,4 +1,6 @@
 ﻿
+using ApexEngine.Assets;
+
 namespace ApexEngine.Rendering
 {
     public abstract class Renderer
@@ -66,7 +68,7 @@ namespace ApexEngine.Rendering
         /// </summary>
         /// <param name="n"></param>
         /// <param name="textures"></param>
-        public abstract Texture2D LoadTexture2D(string path);
+        public abstract Texture2D LoadTexture2D(LoadedAsset asset);
 
         /// <summary>
         /// Load a cubemap texture from 6 texture paths

@@ -25,6 +25,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApexEngine.DesktopRenderer"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApexEngine.Physics", "ApexEngine.Physics\ApexEngine.Physics.csproj", "{117DCC91-9386-4380-8361-13E0498848E1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lidgren.Network", "..\..\..\..\Downloads\lidgren-network-gen3-master\Lidgren.Network\Lidgren.Network.csproj", "{49BA1C69-6104-41AC-A5D8-B54FA9F696E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApexEngine.ClientTest", "ApexEngine.ClientTest\ApexEngine.ClientTest.csproj", "{1123F799-8608-4A7D-A5A0-F10D7F33F0E8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -120,6 +124,22 @@ Global
 		{117DCC91-9386-4380-8361-13E0498848E1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{117DCC91-9386-4380-8361-13E0498848E1}.Release|x86.ActiveCfg = Release|Any CPU
 		{117DCC91-9386-4380-8361-13E0498848E1}.Release|x86.Build.0 = Release|Any CPU
+		{49BA1C69-6104-41AC-A5D8-B54FA9F696E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49BA1C69-6104-41AC-A5D8-B54FA9F696E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49BA1C69-6104-41AC-A5D8-B54FA9F696E8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{49BA1C69-6104-41AC-A5D8-B54FA9F696E8}.Debug|x86.Build.0 = Debug|Any CPU
+		{49BA1C69-6104-41AC-A5D8-B54FA9F696E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49BA1C69-6104-41AC-A5D8-B54FA9F696E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49BA1C69-6104-41AC-A5D8-B54FA9F696E8}.Release|x86.ActiveCfg = Release|Any CPU
+		{49BA1C69-6104-41AC-A5D8-B54FA9F696E8}.Release|x86.Build.0 = Release|Any CPU
+		{1123F799-8608-4A7D-A5A0-F10D7F33F0E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1123F799-8608-4A7D-A5A0-F10D7F33F0E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1123F799-8608-4A7D-A5A0-F10D7F33F0E8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1123F799-8608-4A7D-A5A0-F10D7F33F0E8}.Debug|x86.Build.0 = Debug|Any CPU
+		{1123F799-8608-4A7D-A5A0-F10D7F33F0E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1123F799-8608-4A7D-A5A0-F10D7F33F0E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1123F799-8608-4A7D-A5A0-F10D7F33F0E8}.Release|x86.ActiveCfg = Release|Any CPU
+		{1123F799-8608-4A7D-A5A0-F10D7F33F0E8}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

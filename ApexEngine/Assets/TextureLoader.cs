@@ -17,12 +17,11 @@ namespace ApexEngine.Assets
 
         public override object Load(LoadedAsset asset)
         {
-            return Rendering.Texture.LoadTexture(asset.FilePath);
+            return Rendering.Texture.LoadTexture(asset);
         }
 
         public override void ResetLoader()
         {
-            throw new NotImplementedException();
         }
     }
 }

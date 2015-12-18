@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ApexEngine.Rendering.PostProcess;
 using ApexEngine.Rendering;
 using ApexEngine.Math;
+using ApexEngine.Assets;
 
 namespace ApexEngine.Rendering.Shadows
 {
@@ -199,7 +200,7 @@ namespace ApexEngine.Rendering.Shadows
         public ShadowPostFilter(ShadowMappingComponent parent) : base(SHADER_CODE)
         {
             this.parent = parent;
-            noiseMap = Texture.LoadTexture(Assets.AssetManager.GetAppPath() + "\\textures\\noise.png");
+            noiseMap = AssetManager.LoadTexture(Assets.AssetManager.GetAppPath() + "\\textures\\noise.png");
         }
 
         public override void End()

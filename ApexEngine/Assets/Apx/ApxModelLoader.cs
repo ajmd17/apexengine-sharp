@@ -277,11 +277,11 @@ namespace ApexEngine.Assets.Apx
                             string finalTexPath = parentPath + "\\" + texPath;
                             if (System.IO.File.Exists(finalTexPath))
                             {
-                                value = Texture.LoadTexture(finalTexPath);
+                                value = AssetManager.LoadTexture(finalTexPath);
                             }
                             else if (System.IO.File.Exists(texPath)) // absolute path
                             {
-                                value = Texture.LoadTexture(texPath);
+                                value = AssetManager.LoadTexture(texPath);
                             }
                             else
                                 value = null;

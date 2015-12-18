@@ -21,3 +21,6 @@ C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Demos\bi
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Demos\bin\Debug\ApexEngine.DesktopRenderer.dll
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Demos\bin\Debug\ApexEngine.dll
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Demos\bin\Debug\ApexEngine.DesktopRenderer.pdb
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Demos\bin\Debug\Lidgren.Network.dll
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Demos\bin\Debug\Lidgren.Network.pdb
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Demos\bin\Debug\Lidgren.Network.xml

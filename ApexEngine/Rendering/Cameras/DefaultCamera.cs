@@ -40,7 +40,8 @@ namespace ApexEngine.Rendering.Cameras
             inputManager.AddKeyboardEvent(evt_mouseRelease);
             MouseEvent evt_mouseClick = new MouseEvent(ApexEngine.Input.InputManager.MouseButton.Left, false, () =>
             {
-                CenterMouse();
+                if (camMode == CameraMode.FPSMode)
+                     CenterMouse();
                 mouseDragging = true;
                 mouseCaptured = true;
                 //   if (camMode == CameraMode.DragMode)
@@ -51,7 +52,8 @@ namespace ApexEngine.Rendering.Cameras
             inputManager.AddMouseEvent(evt_mouseClick);
             MouseEvent evt_mouseUp = new MouseEvent(ApexEngine.Input.InputManager.MouseButton.Left, true, () =>
             {
-                CenterMouse();
+                if (camMode == CameraMode.FPSMode)
+                    CenterMouse();
                 mouseDragging = false;
                 if (camMode == CameraMode.DragMode)
                     inputManager.SetMouseVisible(!mouseDragging);
@@ -73,8 +75,8 @@ namespace ApexEngine.Rendering.Cameras
 
         public override void UpdateCamera()
         {
-            //this.width = inputManager.SCREEN_WIDTH;
-            //this.height = inputManager.SCREEN_HEIGHT;
+            this.width = inputManager.SCREEN_WIDTH;
+            this.height = inputManager.SCREEN_HEIGHT;
             Input();
         }
 
@@ -104,20 +106,17 @@ namespace ApexEngine.Rendering.Cameras
             }
             else if (camMode == CameraMode.DragMode && mouseDragging)
             {
-                float xDiff = (float)(oldX - x);
-                float yDiff = (float)(oldY - y);
-                magX = (float)x;
-                magY = (float)y;
-                oldX = magX;
-                oldY = magY;
+                magX = (float)x-oldX;
+                magY = (float)y-oldY;
                 magX *= -0.1f;
                 magY *= -0.1f;
                 dirCrossY.Set(direction);
                 dirCrossY.CrossStore(Vector3f.UnitY);
                 Rotate(Vector3f.UnitY, magX);
                 Rotate(dirCrossY, magY);
-                inputManager.SetMousePosition(halfWidth, halfHeight);
             }
+            oldX = x;
+            oldY = y;
         }
 
         protected void KeyboardInput()

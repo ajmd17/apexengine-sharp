@@ -23,6 +23,7 @@ namespace ApexEngine.Rendering
         private Texture depthTexture;
         private Vector4f backgroundColor = new Vector4f(0.39f, 0.58f, 0.93f, 1.0f);
         private Action userRender;
+        private SpriteRenderer spriteRenderer;
 
         private static Renderer renderer;
 
@@ -40,6 +41,12 @@ namespace ApexEngine.Rendering
             this.userRender = userRender;
             postProcessor = new PostProcessor(this, cam);
             depthFbo = new Framebuffer(cam.Width, cam.Height);
+        }
+
+        public SpriteRenderer SpriteRenderer
+        {
+            get { return spriteRenderer; }
+            set { spriteRenderer = value; }
         }
 
         public static Renderer Renderer
