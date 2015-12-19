@@ -13,7 +13,7 @@ namespace ApexEngine.Plugins.PagingSystem
     public abstract class Populator : Controller
     {
         protected List<Patch> patches = new List<Patch>();
-        private float updateTime = 4f, maxUpdateTime = 2f;
+        private float updateTime = 0f, maxUpdateTime = 3f;
         protected bool batchGeometry = true;
         protected Camera cam;
         private Vector2f tmpVec = new Vector2f(), tmpVec2 = new Vector2f();
@@ -64,6 +64,7 @@ namespace ApexEngine.Plugins.PagingSystem
                     if (yLoc != float.NaN)
                     {
                         GameObject entity = CreateEntity(new Vector3f(xLoc, yLoc, zLoc), Vector3f.Zero);
+                        entity.SetLocalScale(new Vector3f((float)RandomDouble(0.1f, 0.5f)));
                         entity.SetLocalRotation(new Quaternion().SetFromAxis(Vector3f.UnitY, (float)RandomDouble(0, 359)));
                         //  n.AddChild(CreateEntity(new Vector3f(x * mult, y, z * mult), Vector3f.ZERO));
                         n.AddChild(entity);
@@ -96,7 +97,7 @@ namespace ApexEngine.Plugins.PagingSystem
 
         public void GenPatches(TerrainChunkNode terrain)
         {
-            GenPatches(terrain, new Vector2f(0,0), new Vector2f(0, 0), 5, 3, terrain.ChunkSize);
+            GenPatches(terrain, new Vector2f(0,0), new Vector2f(0, 0), 5, 4, terrain.ChunkSize);
         }
 
         public void GenPatches(int numPatches, int numEntityPerChunk, float totalSize)

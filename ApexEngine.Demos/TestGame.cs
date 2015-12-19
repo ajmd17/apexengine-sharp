@@ -18,16 +18,20 @@ namespace ApexEngine.Demos
 
         Texture2D tex;
 
-        public TestGame() : base(new Rendering.OpenGL.GLRenderer())
+        public TestGame(Renderer renderer) : base(renderer)
         {
         }
 
         public override void Init()
         {
             Environment.AmbientLight.Color.Set(0.2f, 0.15f, 0.1f, 1.0f);
-            Environment.DirectionalLight.Direction.Set(0.4f, 1, 0.4f).NormalizeStore() ;
-            Environment.DirectionalLight.Color.Set(1.0f, 0.9f, 0.8f, 1.0f);
+            Environment.DirectionalLight.Direction.Set(0.25f, 1, 0.25f).NormalizeStore();
+            Environment.DirectionalLight.Color.Set(1.0f, 0.8f, 0.6f, 1.0f);
             ((PerspectiveCamera)Camera).FieldOfView = 75;
+
+            ShadowMappingComponent smc;
+            RenderManager.AddComponent(smc = new ShadowMappingComponent(cam, Environment));
+            smc.RenderMode = ShadowMappingComponent.ShadowRenderMode.Forward;
             /*
                         // Test an Apex Engine 3D model, with a material created in the material editor
                         Node loadedApx = (Node)AssetManager.LoadModel(AssetManager.GetAppPath() + "\\models\\test_apx.apx");
@@ -54,9 +58,7 @@ namespace ApexEngine.Demos
                        // rootNode.AddChild(quadGeom);
                        // PhysicsWorld.AddObject(quadGeom, 0.0f);
 
-                        ShadowMappingComponent smc;
-                        RenderManager.AddComponent(smc = new ShadowMappingComponent(cam, Environment));
-                        smc.RenderMode = ShadowMappingComponent.ShadowRenderMode.Forward;
+                        
 
                         Rendering.Light.PointLight pl = new Rendering.Light.PointLight();
                         pl.Color = new Vector4f(0.2f, 0.0f, 0.0f, 1.0f);
@@ -82,60 +84,80 @@ namespace ApexEngine.Demos
                          loadedApx.GetChildNode(0).GetChildGeom(0).UpdateShaderProperties();
                          Console.WriteLine(loadedApx.GetChildNode(0).GetChildGeom(0).ShaderProperties);*/
 
-            Node terrainModel = (Node)AssetManager.LoadModel(AssetManager.GetAppPath() + "\\models\\landscape\\landscape.obj");
-            Geometry terrainGeom = terrainModel.GetChildGeom(0);
-            terrainGeom.SetShader(typeof(Terrain.TerrainShader));
-            Material terrainMaterial = new Material();
+            /* Node terrainModel = (Node)AssetManager.LoadModel(AssetManager.GetAppPath() + "\\models\\landscape\\landscape.obj");
+             Geometry terrainGeom = terrainModel.GetChildGeom(0);
+             terrainGeom.SetShader(typeof(Terrain.TerrainShader));
+             Material terrainMaterial = new Material();
 
-            Texture grass = AssetManager.LoadTexture(Assets.AssetManager.GetAppPath() + "\\textures\\grass.jpg");
-            Texture grass_nrm = AssetManager.LoadTexture(Assets.AssetManager.GetAppPath() + "\\textures\\grass_NRM.jpg");
-            Texture dirt = AssetManager.LoadTexture(Assets.AssetManager.GetAppPath() + "\\textures\\dirt.jpg");
-            Texture dirt_nrm = AssetManager.LoadTexture(Assets.AssetManager.GetAppPath() + "\\textures\\dirt_NRM.jpg");
-            terrainMaterial.SetValue(TerrainMaterial.TEXTURE_DIFFUSE0, grass);
-            terrainMaterial.SetValue(TerrainMaterial.TEXTURE_NORMAL0, grass_nrm);
-            terrainMaterial.SetValue(TerrainMaterial.TEXTURE_DIFFUSE_SLOPE, dirt);
-            terrainMaterial.SetValue(TerrainMaterial.TEXTURE_NORMAL_SLOPE, dirt_nrm);
-            terrainMaterial.SetValue(Material.MATERIAL_CASTSHADOWS, false);
-            terrainMaterial.SetValue(Material.SHININESS, 0.15f);
-            terrainMaterial.SetValue(Material.ROUGHNESS, 0.1f);
+             Texture grass = AssetManager.LoadTexture(Assets.AssetManager.GetAppPath() + "\\textures\\grass.jpg");
+             Texture grass_nrm = AssetManager.LoadTexture(Assets.AssetManager.GetAppPath() + "\\textures\\grass_NRM.jpg");
+             Texture dirt = AssetManager.LoadTexture(Assets.AssetManager.GetAppPath() + "\\textures\\dirt.jpg");
+             Texture dirt_nrm = AssetManager.LoadTexture(Assets.AssetManager.GetAppPath() + "\\textures\\dirt_NRM.jpg");
+             terrainMaterial.SetValue(TerrainMaterial.TEXTURE_DIFFUSE0, grass);
+             terrainMaterial.SetValue(TerrainMaterial.TEXTURE_NORMAL0, grass_nrm);
+             terrainMaterial.SetValue(TerrainMaterial.TEXTURE_DIFFUSE_SLOPE, dirt);
+             terrainMaterial.SetValue(TerrainMaterial.TEXTURE_NORMAL_SLOPE, dirt_nrm);
+             terrainMaterial.SetValue(Material.MATERIAL_CASTSHADOWS, false);
+             terrainMaterial.SetValue(Material.SHININESS, 0.15f);
+             terrainMaterial.SetValue(Material.ROUGHNESS, 0.1f);
 
-            terrainGeom.Material = terrainMaterial;
+             terrainGeom.Material = terrainMaterial;
 
-            terrainModel.SetLocalScale(new Vector3f(1, 0.5f, 1));
-            rootNode.AddChild(terrainModel);
+             terrainModel.SetLocalScale(new Vector3f(1, 0.5f, 1));
+             rootNode.AddChild(terrainModel);
 
-            PhysicsWorld.AddObject(terrainModel, 0f);
+             PhysicsWorld.AddObject(terrainModel, 0f);
+ */
+            
+
+            ApexEngine.Terrain.SimplexTerrain.SimplexTerrainComponent terrain = new ApexEngine.Terrain.SimplexTerrain.SimplexTerrainComponent(PhysicsWorld);
+             terrain.ChunkAdded += new Terrain.TerrainComponent.ChunkAddedHandler(OnChunkAdd);
+
+             AddComponent(terrain);
+
 
             AddComponent(new SkydomeComponent());
 
-            /* ApexEngine.Terrain.SimplexTerrain.SimplexTerrainComponent terrain = new ApexEngine.Terrain.SimplexTerrain.SimplexTerrainComponent(PhysicsWorld);
-             terrain.ChunkAdded += new Terrain.TerrainComponent.ChunkAddedHandler(OnChunkAdd);
 
-             AddComponent(terrain);*/
+            tex = (Texture2D)AssetManager.Load(AssetManager.GetAppPath() + "\\textures\\apex3d.png");
+           // Sprite sprite = new Sprite();
+           // rootNode.AddChild(sprite);
 
-            ShadowMappingComponent smc;
-            RenderManager.AddComponent(smc = new ShadowMappingComponent(cam, Environment));
-            smc.RenderMode = ShadowMappingComponent.ShadowRenderMode.Forward;
 
-       /*       Rendering.NormalMapRenderer nmr;
-              RenderManager.AddComponent(nmr = new Rendering.NormalMapRenderer(Environment, Camera));
-              RenderManager.PostProcessor.PostFilters.Add(new Rendering.PostProcess.Filters.SSAOFilter(nmr));*/
+            /*  ShadowMappingComponent smc;
+              RenderManager.AddComponent(smc = new ShadowMappingComponent(cam, Environment));
+              smc.RenderMode = ShadowMappingComponent.ShadowRenderMode.Forward;
+              */
 
-    //        RenderManager.PostProcessor.PostFilters.Add(new FXAAFilter());
+
+
+
+
+                  // Rendering.NormalMapRenderer nmr;
+                 //  RenderManager.AddComponent(nmr = new Rendering.NormalMapRenderer(Environment, Camera));
+                  // RenderManager.PostProcessor.PostFilters.Add(new Rendering.PostProcess.Filters.SSAOFilter(nmr));
+
+            RenderManager.PostProcessor.PostFilters.Add(new FXAAFilter());
 
                GameObject loadedObj = AssetManager.LoadModel(AssetManager.GetAppPath() + "\\models\\house.obj");
                ((Node)loadedObj).GetChildGeom(0).Material.SetValue(Material.TEXTURE_HEIGHT, AssetManager.LoadTexture("C:\\Users\\User\\Pictures\\Brick_14_UV_H_CM_1_DISP.jpg"));
+            loadedObj.SetLocalTranslation(new Vector3f(0, -3, 0));
                rootNode.AddChild(loadedObj);
                PhysicsWorld.AddObject(loadedObj, 0.0f);
-       //     rootNode.AddChild(new Geometry(Rendering.Util.MeshFactory.CreateCube(new Vector3f(-1, -1, -1), new Vector3f(1, 1, 1))));
 
-            /*     GameObject scene = AssetManager.LoadModel(AssetManager.GetAppPath() + "\\models\\scene.apx");
-                 PhysicsWorld.AddObject(scene, 0f);
-                 rootNode.AddChild(scene);*/
 
-            GrassPopulator grassPop;
+
+
+
+
+
+        /*    GrassPopulator grassPop;
             rootNode.AddController(grassPop = new GrassPopulator(PhysicsWorld, cam));
-            grassPop.GenPatches(6, 5, 64);
+            grassPop.GenPatches(6, 5, 64);*/
+
+
+
+
 
             /*Rendering.NormalMapRenderer nmr;
             RenderManager.AddComponent(nmr = new Rendering.NormalMapRenderer(Environment, Camera));
@@ -171,6 +193,7 @@ namespace ApexEngine.Demos
         public override void Render()
         {
             //      PhysicsWorld.DrawDebug();
+          //  this.RenderManager.SpriteRenderer.Render(tex, 15, 15);
         }
 
         public override void Update()

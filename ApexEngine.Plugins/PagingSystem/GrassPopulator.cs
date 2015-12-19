@@ -24,9 +24,10 @@ namespace ApexEngine.Plugins.PagingSystem
             model.Material.SetValue(Material.COLOR_DIFFUSE, new Vector4f(0.9f, 0.7f, 0.6f, 1f));
             model.Material.SetValue(Material.MATERIAL_BLENDMODE, 1);
             model.Material.SetValue(Material.MATERIAL_CASTSHADOWS, false);
-            model.Material.SetValue(Material.MATERIAL_ALPHADISCARD, 0.28f);
-            model.Material.SetValue(Material.SHININESS, 0.03f);
-            model.Material.SetValue(Material.ROUGHNESS, 0.1f);
+            model.Material.SetValue(Material.MATERIAL_ALPHADISCARD, 0.3f);
+            model.Material.SetValue(Material.SPECULAR_EXPONENT, 90f);
+            model.Material.SetValue(Material.SHININESS, 0.05f);
+            model.Material.SetValue(Material.ROUGHNESS, 0.7f);
             model.Material.SetValue(Material.MATERIAL_CULLENABLED, false);
             model.Material.Bucket = RenderManager.Bucket.Transparent;
         }

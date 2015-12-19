@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ApexEngine.Rendering.OpenGL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace ApexEngine.Demos
     {
         static void Main(string[] args)
         {
-            new ApexEngine.Demos.TestGame().Run();
+            new ApexEngine.Demos.TestHall(new GLRenderer()).Run();
         }
     }
 }

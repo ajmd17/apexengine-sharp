@@ -4,4 +4,3 @@ C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Math\obj
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Math\obj\Debug\ApexEngine.Math.pdb
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Math\bin\Debug\System.Net.Http.dll
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Math\bin\Debug\System.Net.Http.xml
-C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Math\obj\Debug\ApexEngine.Math.csprojResolveAssemblyReference.cache

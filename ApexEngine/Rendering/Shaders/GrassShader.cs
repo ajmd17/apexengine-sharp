@@ -6,6 +6,7 @@ namespace ApexEngine.Rendering.Shaders
     public class GrassShader : Shader
     {
         private static Assets.ShaderTextLoader textLoader = Assets.ShaderTextLoader.GetInstance();
+        private Mesh mesh;
 
         public GrassShader(ShaderProperties properties)
             : base(properties, (string)AssetManager.Load(AppDomain.CurrentDomain.BaseDirectory + "\\shaders\\grass.vert"),
@@ -27,23 +28,33 @@ namespace ApexEngine.Rendering.Shaders
             this.SetUniform(MATERIAL_SPECULAREXPONENT, material.GetFloat(Material.SPECULAR_EXPONENT));
             this.SetUniform(MATERIAL_PERPIXELLIGHTING, material.GetInt(Material.TECHNIQUE_PER_PIXEL_LIGHTING));
             
-            int blendMode = material.GetInt(Material.MATERIAL_BLENDMODE);
-            if (blendMode == 1)
-            {
-                RenderManager.Renderer.SetBlend(true);
-                RenderManager.Renderer.SetBlendMode(Renderer.BlendMode.AlphaBlend);
-            }
+
+            RenderManager.Renderer.SetBlend(false);
         }
 
         public override void End()
         {
             base.End();
+
+            // Render grass again with no depth test.
+
+            RenderManager.Renderer.SetBlend(true);
+            RenderManager.Renderer.SetBlendMode(Renderer.BlendMode.AlphaBlend);
+            SetUniform(MATERIAL_ALPHADISCARD, 0.0f);
+
+            RenderManager.Renderer.SetDepthMask(false);
+
+            Render(this.mesh);
+
+            RenderManager.Renderer.SetDepthMask(true);
             RenderManager.Renderer.SetBlend(false);
         }
 
         public override void Update(Environment environment, Camera cam, Mesh mesh)
         {
             base.Update(environment, cam, mesh);
+
+            this.mesh = mesh;
 
             environment.DirectionalLight.BindLight(0, this);
             environment.AmbientLight.BindLight(0, this);

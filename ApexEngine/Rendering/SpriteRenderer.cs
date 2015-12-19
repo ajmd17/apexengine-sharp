@@ -47,13 +47,13 @@ namespace ApexEngine.Rendering
                 mesh = MeshFactory.CreateQuad();
 
                 shader = new SpriteShader();
-
-                geom.Mesh = mesh;
-                geom.SetShader(shader);
-                geom.Material.SetValue(Material.MATERIAL_DEPTHMASK, false);
-                geom.Material.SetValue(Material.MATERIAL_DEPTHTEST, false);
-                geom.Material.SetValue(Material.MATERIAL_CULLENABLED, false);
             }
+
+            geom.Mesh = mesh;
+            geom.SetShader(shader);
+            geom.Material.SetValue(Material.MATERIAL_DEPTHMASK, false);
+            geom.Material.SetValue(Material.MATERIAL_DEPTHTEST, false);
+            geom.Material.SetValue(Material.MATERIAL_CULLENABLED, false);
         }
 
 

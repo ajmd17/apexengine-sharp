@@ -38,7 +38,7 @@ namespace ApexEngine.Rendering.Animation
         public override void Update(Environment environment, Camera cam, Mesh mesh)
         {
             base.Update(environment, cam, mesh);
-            if (mesh.GetSkeleton() != null)
+            if (mesh != null && mesh.GetSkeleton() != null)
             {
                 if (!isSkinningInit)
                 {

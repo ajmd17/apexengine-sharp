@@ -236,9 +236,9 @@ namespace ApexEngine.Rendering
             RenderBucket(env, cam, Bucket.Opaque);
             RenderBucket(env, cam, Bucket.Transparent);
             RenderBucket(env, cam, Bucket.Particle);
-            userRender();
 
             postProcessor.Release();
+            userRender();
         }
     }
 }
