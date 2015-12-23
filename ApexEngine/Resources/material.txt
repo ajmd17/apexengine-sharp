@@ -28,6 +28,14 @@ uniform sampler2D Material_SpecularMap;
 uniform sampler2D Material_HeightMap;
 uniform samplerCube Material_EnvironmentMap;
 
+float CalculateFog(vec3 worldPos, vec3 camPos, float fogStart, float fogEnd)
+{
+	float dist = distance(worldPos, camPos);
+
+	float fogFactor = (fogEnd - dist)/(fogEnd - fogStart);
+	fogFactor = clamp(fogFactor, 0.0, 1.0);
+	return mix(0.0, 1.0, 1.0-fogFactor);
+}
 
 vec3 CalculateFog(vec3 inColor, vec3 toColor, vec3 worldPos, vec3 camPos, float fogStart, float fogEnd)
 {
@@ -35,7 +43,7 @@ vec3 CalculateFog(vec3 inColor, vec3 toColor, vec3 worldPos, vec3 camPos, float 
 
 	float fogFactor = (fogEnd - dist)/(fogEnd - fogStart);
 	fogFactor = clamp(fogFactor, 0.0, 1.0);
-	return mix(toColor, inColor, fogFactor);
+	return mix(inColor, toColor, 1.0-fogFactor);
 }
 
 vec4 CalculateFog(vec4 inColor, vec4 toColor, vec3 worldPos, vec3 camPos, float fogStart, float fogEnd)
@@ -44,7 +52,7 @@ vec4 CalculateFog(vec4 inColor, vec4 toColor, vec3 worldPos, vec3 camPos, float 
 
 	float fogFactor = (fogEnd - dist)/(fogEnd - fogStart);
 	fogFactor = clamp(fogFactor, 0.0, 1.0);
-	return mix(toColor, inColor, fogFactor);
+	return mix(inColor, toColor, 1.0-fogFactor);
 }
 
 vec3 ReflectionVector(vec3 n, vec3 worldPos, vec3 camPos)

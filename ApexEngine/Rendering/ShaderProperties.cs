@@ -60,7 +60,11 @@ namespace ApexEngine.Rendering
 
         public ShaderProperties SetProperty(string name, object val)
         {
-            values.Add(name, val);
+            if (!values.ContainsKey(name))
+                values.Add(name, val);
+            else
+                values[name] = val;
+
             return this;
         }
 

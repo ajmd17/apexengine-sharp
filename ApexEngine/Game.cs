@@ -56,7 +56,10 @@ namespace ApexEngine
         public void AddComponent(GameComponent cmp)
         {
             components.Add(cmp);
-            cmp.cam = cam;
+
+            cmp.Camera = this.cam;
+            cmp.Environment = this.environment;
+
             rootNode.AddChild(cmp.rootNode);
             cmp.Init();
         }
@@ -107,8 +110,9 @@ namespace ApexEngine
             MoveToOrigin();
             foreach (GameComponent cmp in components)
                 cmp.Update();
-            environment.ElapsedTime += 0.1f;
+            environment.ElapsedTime += environment.TimePerFrame;
             cam.Update();
+            RenderManager.Renderer.SetAudioListenerValues(cam);
             physicsWorld.Update();
             rootNode.Update(renderManager);
             Update();
@@ -117,6 +121,7 @@ namespace ApexEngine
         public void RenderInternal()
         {
             renderManager.Render(Environment, cam);
+            Render();
         }
 
         private void MoveToOrigin()

@@ -45,6 +45,7 @@ namespace ApexEngine.Scene.Physics
 
         ~RigidBodyControl()
         {
+            body.Shape = null;
             body = null;
             boundingBox = null;
         }
@@ -111,8 +112,9 @@ namespace ApexEngine.Scene.Physics
                 matrices.Add(matrix);
                 boundingBox.Extend(tmpBB);
             }
-            foreach (Geometry g in geom)
+            for (int i = 0; i < geom.Count; i++)
             {
+                Geometry g = geom[i];
                 if (g != GameObject)
                 {
                     Mesh m = g.Mesh;
@@ -147,9 +149,11 @@ namespace ApexEngine.Scene.Physics
                 }
                 Octree oct = new Octree(jvec, tv);
                 TriangleMeshShape trimesh = new TriangleMeshShape(oct);
+                
+                shape = trimesh;
+                oct = null;
                 jvec.Clear();
                 tv.Clear();
-                shape = trimesh;
             }
             else if (physicsShape == PhysicsWorld.PhysicsShape.ConvexMesh)
             {
@@ -186,22 +190,26 @@ namespace ApexEngine.Scene.Physics
                 Octree oct = new Octree(jvec, tv);
                 TriangleMeshShape trimesh = new TriangleMeshShape(oct);
                 shape = trimesh;
-
+                tv.Clear();
+                jvec.Clear();
+                oct = null;
+                boxMesh = null;
             }
+            meshes.Clear();
+            matrices.Clear();
+            geom.Clear();
             return shape;
         }
 
         public void Reinit()
         {
-            body.Shape = CreateShape();
+     //       body.Shape = CreateShape();
        //     origin.Set(GameObject.GetUpdatedWorldTranslation());
       //      body.Position = new JVector(origin.x, origin.y, origin.z);
         }
 
         public override void Init()
         {
-            
-
             body = new RigidBody(CreateShape());
             body.Tag = GameObject;
 

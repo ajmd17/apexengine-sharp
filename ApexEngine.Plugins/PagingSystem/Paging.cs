@@ -17,15 +17,18 @@ namespace ApexEngine.Plugins.PagingSystem
         private float cacheTime = 0f;
         private float maxCacheTime = 1.5f;
 
+        public Vector3f translation;
+        public int entityPerChunk;
+        public float chunkSize;
+
         public enum PageState
         {
             LOADED, UNLOADING, UNLOADED
         }
 
-        public Patch(GameObject entities, Node parentNode, GridTile tile)
+        public Patch(Node parentNode, GridTile tile)
         {
             this.tile = tile;
-            this.entities = entities;
             this.parentNode = parentNode;
         }
 

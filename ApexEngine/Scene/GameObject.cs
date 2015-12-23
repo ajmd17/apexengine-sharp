@@ -47,6 +47,14 @@ namespace ApexEngine.Scene
 
         public abstract void UpdateLocalBoundingBox();
 
+        public List<Components.Controller> Controllers
+        {
+            get
+            {
+                return controls;
+            }
+        }
+
         public void AddController(Components.Controller ctrl)
         {
             if (!HasController(ctrl.GetType()))
@@ -342,6 +350,8 @@ namespace ApexEngine.Scene
         }
 
         public abstract GameObject Clone();
+
+        public abstract void Dispose();
 
         protected bool CalcAttachedToRoot()
         {

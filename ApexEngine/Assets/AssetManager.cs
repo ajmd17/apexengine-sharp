@@ -14,6 +14,7 @@ namespace ApexEngine.Assets
         {
             // register the default asset loaders
             // create a static instance of each loader
+            Assets.SoundLoader.GetInstance();
             Assets.TextureLoader.GetInstance();
             Assets.ShaderTextLoader.GetInstance();
             Assets.TextLoader.GetInstance();
@@ -60,11 +61,11 @@ namespace ApexEngine.Assets
 
         public static object Load(string filePath, AssetLoader loader)
         {
-            object alreadyLoaded = null;
-            if (loadedAssets.TryGetValue(filePath, out alreadyLoaded))
-            {
-                return alreadyLoaded;
-            }
+          //  object alreadyLoaded = null;
+         //   if (loadedAssets.TryGetValue(filePath, out alreadyLoaded))
+          //  {
+          //      return alreadyLoaded;
+          //  }
 
             if (!System.IO.File.Exists(filePath))
                 throw new System.IO.FileNotFoundException("The file \"" + filePath + "\" does not exist!");
@@ -79,7 +80,7 @@ namespace ApexEngine.Assets
 
             stream.Close();
 
-            loadedAssets.Add(filePath, loaded);
+          //  loadedAssets.Add(filePath, loaded);
 
             return loaded;
         }

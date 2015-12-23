@@ -4,6 +4,7 @@ using ApexEngine.Scene.Components;
 using ApexEngine.Scene.Physics;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace ApexEngine.Terrain
 {
@@ -21,7 +22,7 @@ namespace ApexEngine.Terrain
         protected List<HeightInfo> heightmaps;
         protected Material terrainMaterial = new TerrainMaterial();
         protected List<Vector2f> queue = new List<Vector2f>();
-        protected Vector3f scale = new Vector3f(1);
+        protected Vector3f scale = new Vector3f(2,1,2);
         private float updateTime = 6, maxUpdateTime = 6f, queueTime = 2, maxQueueTime = 2f;
         private Vector2f v2cp = new Vector2f();
         private Vector3f cp = new Vector3f();
@@ -39,6 +40,12 @@ namespace ApexEngine.Terrain
         {
             this.physicsWorld = physicsWorld;
             heightmaps = new List<HeightInfo>();
+        }
+
+        public Vector3f Scale
+        {
+            get { return scale; }
+            set { scale.Set(value); }
         }
 
         protected HeightInfo HmWithCoords(int x, int z)
@@ -144,8 +151,7 @@ namespace ApexEngine.Terrain
           //  queueTime += 1f;
             if (updateTime > maxUpdateTime)
             {
-
-                cp.Set(cam.Translation);
+                cp.Set(Camera.Translation);
                 cp.SubtractStore(rootNode.GetWorldTranslation());
                 cp.MultiplyStore(1f / (((int)chunkSize - 1) * (scale.x)));
 
@@ -165,9 +171,9 @@ namespace ApexEngine.Terrain
                         {
                             foreach (Vector2f v2 in hinf.neighbors)
                             {
-                                // AddChunk((int)v2.x, (int)v2.y);
+                                 AddChunk((int)v2.x, (int)v2.y);
 
-                                AddToQueue(new Vector2f((int)v2.x, (int)v2.y));
+                             //   AddToQueue(new Vector2f((int)v2.x, (int)v2.y));
                             }
                         }
                         hinf.UpdateChunk();
@@ -186,13 +192,15 @@ namespace ApexEngine.Terrain
                             hinf.neighbors = null;
                             hinf.midpoint = null;
                             hinf.position = null;
-                            hinf.chunk.hm.vertices.Clear();
-                            hinf.chunk.hm.indices.Clear();
-                            hinf.chunk.hm.vertices = null;
-                            hinf.chunk.hm.indices = null;
+                            hinf.chunk.hm.Dispose();
+                         //   hinf.chunk.hm.vertices.Clear();
+                         //   hinf.chunk.hm.indices.Clear();
+                         //   hinf.chunk.hm.vertices = null;
+                         //   hinf.chunk.hm.indices = null;
                             hinf.chunk.hm = null;
                             hinf.chunk = null;
                             hinf = null;
+                            System.GC.Collect();
                         }
                         
                     }
@@ -202,7 +210,7 @@ namespace ApexEngine.Terrain
             }
             else
             {
-                updateTime += 0.1f;
+                updateTime += this.Environment.TimePerFrame*10.0f;
             }
         }
 

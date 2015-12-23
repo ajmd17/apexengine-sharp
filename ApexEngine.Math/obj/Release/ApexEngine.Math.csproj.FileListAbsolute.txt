@@ -1,0 +1,6 @@
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Math\bin\Release\ApexEngine.Math.dll
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Math\bin\Release\ApexEngine.Math.pdb
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Math\bin\Release\System.Net.Http.dll
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Math\bin\Release\System.Net.Http.xml
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Math\obj\Release\ApexEngine.Math.dll
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Math\obj\Release\ApexEngine.Math.pdb

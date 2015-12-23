@@ -5,3 +5,17 @@ C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\CsEngine\bin\Releas
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\CsEngine\bin\Release\OpenTK.xml
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\CsEngine\obj\x86\Release\ApexEngine.dll
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\CsEngine\obj\x86\Release\ApexEngine.pdb
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine\bin\Release\ApexEngine.dll.config
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine\bin\Release\ApexEngine.dll
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine\bin\Release\ApexEngine.pdb
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine\bin\Release\ApexEngine.Math.dll
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine\bin\Release\Jitter.dll
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine\bin\Release\Lidgren.Network.dll
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine\bin\Release\ApexEngine.Math.pdb
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine\bin\Release\Jitter.pdb
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine\bin\Release\Lidgren.Network.pdb
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine\obj\x86\Release\ApexEngine.csprojResolveAssemblyReference.cache
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine\obj\x86\Release\ApexEngine.Properties.Resources.resources
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine\obj\x86\Release\ApexEngine.csproj.GenerateResource.Cache
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine\obj\x86\Release\ApexEngine.dll
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine\obj\x86\Release\ApexEngine.pdb

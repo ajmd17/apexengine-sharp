@@ -6,7 +6,12 @@ using System.Drawing.Imaging;
 using ApexEngine.Input;
 
 using OpenTK.Graphics.OpenGL;
+using OpenTK.Audio;
+using OpenTK.Audio.OpenAL;
 using ApexEngine.Assets;
+using ApexEngine.Audio;
+using System.IO;
+using ApexEngine.Math;
 
 namespace ApexEngine.Rendering.OpenGL
 {
@@ -15,6 +20,10 @@ namespace ApexEngine.Rendering.OpenGL
     /// </summary>
     public class GLRenderer : Renderer
     {
+        private Vector3 tmpVec1 = new Vector3(), tmpVec2 = new Vector3();
+        private AudioContext audioContext;
+        private bool openALSupported = true;
+
         public override void CreateContext(Game game, int width, int height)
         {
             using (var gameWindow = new GameWindow(width, height, new GraphicsMode(new ColorFormat(8, 8, 8, 8), 24)))
@@ -23,6 +32,7 @@ namespace ApexEngine.Rendering.OpenGL
                 gameWindow.Load += (sender, e) => game.InitInternal();
                 gameWindow.UpdateFrame += (sender, e) =>
                 {
+                    game.Environment.TimePerFrame = (float)e.Time;
                     game.InputManager.WINDOW_X = gameWindow.X;
                     game.InputManager.WINDOW_Y = gameWindow.Y;
                     game.InputManager.MOUSE_X = game.InputManager.WINDOW_X - OpenTK.Input.Mouse.GetCursorState().X + (game.InputManager.SCREEN_WIDTH / 2);
@@ -58,6 +68,189 @@ namespace ApexEngine.Rendering.OpenGL
                 };
                 gameWindow.VSync = VSyncMode.Off;
                 gameWindow.Run(60);
+            }
+        }
+
+        public override void InitAudio()
+        {
+            try
+            {
+                audioContext = new AudioContext();
+            } 
+            catch (Exception ex)
+            {
+                Console.WriteLine("OpenAL is not supported.\nDownload OpenAL from www.openal.org in order to fix this issue.");
+                openALSupported = false;
+            }
+        }
+
+        public override Sound LoadAudio(LoadedAsset asset)
+        {
+            
+            Sound sound = new Sound();
+
+            if (openALSupported)
+            {
+
+                int buffer = AL.GenBuffer();
+                int source = AL.GenSource();
+                int state;
+
+                if (asset.FilePath.EndsWith("wav"))
+                {
+                    // Load wav
+                    int channels, bits_per_sample, sample_rate;
+                    byte[] wavData = LoadWave(asset.Data, out channels, out bits_per_sample, out sample_rate);
+
+                    AL.BufferData(buffer, GetSoundFormat(channels, bits_per_sample), wavData, wavData.Length, sample_rate);
+                    AL.Source(source, ALSourcei.Buffer, buffer);
+
+                    sound.Source = source;
+                    sound.Buffer = buffer;
+                }
+
+            }
+
+            return sound;
+        }
+
+        public override AudioPlayState GetPlayState(Sound sound)
+        {
+            if (openALSupported)
+            {
+                int playing;
+                AL.GetSource(sound.Source, ALGetSourcei.SourceState, out playing);
+                if ((ALSourceState)playing == ALSourceState.Playing)
+                    return AudioPlayState.Playing;
+                else if ((ALSourceState)playing == ALSourceState.Stopped)
+                    return AudioPlayState.Stopped;
+                else if ((ALSourceState)playing == ALSourceState.Paused)
+                    return AudioPlayState.Paused;
+            }
+            return AudioPlayState.Stopped;
+        }
+
+        public override void PlaySound(Sound sound)
+        {
+            if (openALSupported)
+            {
+                int playing;
+                AL.GetSource(sound.Source, ALGetSourcei.SourceState, out playing);
+                if ((ALSourceState)playing != ALSourceState.Playing)
+                {
+                    AL.SourcePlay(sound.Source);
+                }
+            }
+        }
+
+        public override void StopSound(Sound sound)
+        {
+            if (openALSupported)
+            {
+                int playing;
+                AL.GetSource(sound.Source, ALGetSourcei.SourceState, out playing);
+                if ((ALSourceState)playing != ALSourceState.Stopped)
+                {
+                    AL.SourceStop(sound.Source);
+                }
+            }
+        }
+
+        public override void PauseSound(Sound sound)
+        {
+            if (openALSupported)
+            {
+                int playing;
+                AL.GetSource(sound.Source, ALGetSourcei.SourceState, out playing);
+                if ((ALSourceState)playing != ALSourceState.Paused)
+                {
+                    AL.SourcePause(sound.Source);
+                }
+            }
+        }
+
+        public override void SetAudioValues(Sound sound, float pitch, float gain, Vector3f position, Vector3f velocity)
+        {
+            if (openALSupported)
+            {
+                AL.Source(sound.Source, ALSourcef.Gain, gain);
+                AL.Source(sound.Source, ALSourcef.Pitch, pitch);
+                AL.Source(sound.Source, ALSource3f.Position, position.x, position.y, position.z);
+                AL.Source(sound.Source, ALSource3f.Velocity, velocity.x, velocity.y, velocity.z);
+            }
+        }
+
+        public override void SetAudioListenerValues(Camera cam)
+        {
+            if (openALSupported)
+            {
+                tmpVec1.X = cam.Direction.x;
+                tmpVec1.Y = cam.Direction.y;
+                tmpVec1.Z = cam.Direction.z;
+
+                tmpVec2.X = cam.Up.x;
+                tmpVec2.Y = cam.Up.y;
+                tmpVec2.Z = cam.Up.z;
+
+                AL.Listener(ALListener3f.Position, cam.Translation.x, cam.Translation.y, cam.Translation.z);
+                AL.Listener(ALListener3f.Velocity, 0, 0, 0);
+                AL.Listener(ALListenerfv.Orientation, ref tmpVec1, ref tmpVec2);
+            }
+        }
+
+        private static ALFormat GetSoundFormat(int channels, int bits)
+        {
+            switch (channels)
+            {
+                case 1: return bits == 8 ? ALFormat.Mono8 : ALFormat.Mono16;
+                case 2: return bits == 8 ? ALFormat.Stereo8 : ALFormat.Stereo16;
+                default: throw new NotSupportedException("The specified sound format is not supported.");
+            }
+        }
+
+        // Loads a wave/riff audio file.
+        private static byte[] LoadWave(Stream stream, out int channels, out int bits, out int rate)
+        {
+            if (stream == null)
+                throw new ArgumentNullException("stream");
+
+            using (BinaryReader reader = new BinaryReader(stream))
+            {
+                // RIFF header
+                string signature = new string(reader.ReadChars(4));
+                if (signature != "RIFF")
+                    throw new NotSupportedException("Specified stream is not a wave file.");
+
+                int riff_chunck_size = reader.ReadInt32();
+
+                string format = new string(reader.ReadChars(4));
+                if (format != "WAVE")
+                    throw new NotSupportedException("Specified stream is not a wave file.");
+
+                // WAVE header
+                string format_signature = new string(reader.ReadChars(4));
+                if (format_signature != "fmt ")
+                    throw new NotSupportedException("Specified wave file is not supported.");
+
+                int format_chunk_size = reader.ReadInt32();
+                int audio_format = reader.ReadInt16();
+                int num_channels = reader.ReadInt16();
+                int sample_rate = reader.ReadInt32();
+                int byte_rate = reader.ReadInt32();
+                int block_align = reader.ReadInt16();
+                int bits_per_sample = reader.ReadInt16();
+
+                string data_signature = new string(reader.ReadChars(4));
+                if (data_signature != "data")
+                    throw new NotSupportedException("Specified wave file is not supported.");
+
+                int data_chunk_size = reader.ReadInt32();
+
+                channels = num_channels;
+                bits = bits_per_sample;
+                rate = sample_rate;
+
+                return reader.ReadBytes((int)reader.BaseStream.Length);
             }
         }
 
@@ -192,6 +385,12 @@ namespace ApexEngine.Rendering.OpenGL
             GL.BufferData(BufferTarget.ArrayBuffer, (IntPtr)(vertexBuffer.Length * sizeof(float)), vertexBuffer, BufferUsageHint.StaticDraw);
             GL.BindBuffer(BufferTarget.ElementArrayBuffer, mesh.ibo);
             GL.BufferData(BufferTarget.ElementArrayBuffer, (IntPtr)(indexBuffer.Length * sizeof(int)), indexBuffer, BufferUsageHint.StaticDraw);
+        }
+
+        public override void DeleteMesh(Mesh mesh)
+        {
+            GL.DeleteBuffers(1, ref mesh.vbo);
+            GL.DeleteBuffers(1, ref mesh.ibo);
         }
 
         public override void RenderMesh(Mesh mesh)

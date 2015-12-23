@@ -13,6 +13,12 @@ namespace ApexEngine.Terrain.SimplexTerrain
 {
     public class SimplexTerrainChunkNode : TerrainChunkNode
     {
+        private static Shader terrainShader;
+
+        static SimplexTerrainChunkNode()
+        {
+            terrainShader = ShaderManager.GetShader(typeof(TerrainShader), new ShaderProperties().SetProperty("DEFAULT", true));
+        }
 
         public SimplexTerrainChunkNode(PhysicsWorld physicsWorld, SimplexTerrainComponent parentT, int x, int z, Vector3f scale, int chunkSize, SimplexTerrainChunkNode[] neighbors) 
             : base(physicsWorld, parentT, x, z, scale, chunkSize, neighbors)
@@ -39,7 +45,7 @@ namespace ApexEngine.Terrain.SimplexTerrain
             hm = new SimplexTerrainMesh((SimplexTerrainComponent)parentT, x, z, scale, chunkSize);
             Geometry geom = new Geometry();
             geom.Mesh = hm;
-            geom.SetShader(typeof(TerrainShader));
+            geom.SetShader(terrainShader);
             AddChild(geom);
         }
     }

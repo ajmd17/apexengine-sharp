@@ -11,7 +11,7 @@ namespace ApexEngine.Demos
     {
         static void Main(string[] args)
         {
-            new ApexEngine.Demos.TestHall(new GLRenderer()).Run();
+            new ApexEngine.Demos.TestGame(new GLRenderer()).Run();
         }
     }
 }

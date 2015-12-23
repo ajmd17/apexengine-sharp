@@ -32,8 +32,11 @@ namespace ApexEngine.Rendering
             ibo = 0;
         }
 
-        ~Mesh()
+        public void Dispose()
         {
+            RenderManager.Renderer.DeleteMesh(this);
+            vertices.Clear();
+            indices.Clear();
             if (skeleton != null)
             {
                 if (skeleton.GetAnimations() != null)
@@ -91,7 +94,7 @@ namespace ApexEngine.Rendering
         {
             this.vertices = vertices;
             this.indices = indices;
-            if (vertices.Count > 0)
+            if (this.vertices.Count > 0)
             {
                 if (vertices[0].GetPosition() != null)
                     attribs.SetAttribute(VertexAttributes.POSITIONS);

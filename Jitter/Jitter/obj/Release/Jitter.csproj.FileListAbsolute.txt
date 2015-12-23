@@ -1,0 +1,4 @@
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\Jitter\Jitter\bin\Release\Jitter.dll
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\Jitter\Jitter\bin\Release\Jitter.pdb
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\Jitter\Jitter\obj\Release\Jitter.dll
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\Jitter\Jitter\obj\Release\Jitter.pdb

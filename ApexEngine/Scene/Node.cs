@@ -143,6 +143,14 @@ namespace ApexEngine.Scene
             }
         }
 
+        public override void Dispose()
+        {
+            for (int i = 0; i < children.Count; i++)
+            {
+                children[i].Dispose();
+            }
+        }
+
         public override GameObject Clone()
         {
             Node res = new Node(this.name);

@@ -13,7 +13,7 @@ namespace ApexEngine.Plugins.PagingSystem
     public abstract class Populator : Controller
     {
         protected List<Patch> patches = new List<Patch>();
-        private float updateTime = 0f, maxUpdateTime = 3f;
+        private float updateTime = 0f, maxUpdateTime = 4f;
         protected bool batchGeometry = true;
         protected Camera cam;
         private Vector2f tmpVec = new Vector2f(), tmpVec2 = new Vector2f();
@@ -95,9 +95,9 @@ namespace ApexEngine.Plugins.PagingSystem
                 int numEntityPerChunk,
                 float parentSize);
 
-        public void GenPatches(TerrainChunkNode terrain)
+        public void GenPatches(TerrainChunkNode terrain, int numPatches, int numEntityPerChunk)
         {
-            GenPatches(terrain, new Vector2f(0,0), new Vector2f(0, 0), 5, 4, terrain.ChunkSize);
+            GenPatches(terrain, new Vector2f(0,0), new Vector2f(0, 0), numPatches, numEntityPerChunk, terrain.ChunkSize*terrain.Scale.x);
         }
 
         public void GenPatches(int numPatches, int numEntityPerChunk, float totalSize)
@@ -123,6 +123,10 @@ namespace ApexEngine.Plugins.PagingSystem
                     {
                         if (p.pageState != Patch.PageState.LOADED)
                         {
+                            if (p.entities == null)
+                            {
+                                p.entities = this.CreateEntityNode(p.translation, p.parentNode, p.chunkSize, p.entityPerChunk);
+                            }
                             p.parentNode.AddChild(p.entities);
                             p.pageState = Patch.PageState.LOADED;
                         }
@@ -134,11 +138,20 @@ namespace ApexEngine.Plugins.PagingSystem
                             if (p.pageState == Patch.PageState.LOADED)
                             {
                                 p.pageState = Patch.PageState.UNLOADING;
+                            } 
+                            else if (p.pageState == Patch.PageState.UNLOADING)
+                            {
+                                
                             }
                         }
                         else
                         { // unloaded
-                            p.parentNode.RemoveChild(p.entities);
+                            if (p.entities != null)
+                            {
+                                p.parentNode.RemoveChild(p.entities);
+                                p.entities.Dispose();
+                                p.entities = null;
+                            }
                         }
                     }
                 }

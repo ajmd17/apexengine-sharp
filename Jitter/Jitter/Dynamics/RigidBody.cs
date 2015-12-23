@@ -408,7 +408,8 @@ namespace Jitter.Dynamics
 
                 // register new event
                 shape = value; 
-                shape.ShapeUpdated += new ShapeUpdatedHandler(ShapeUpdated); 
+                if (shape != null)
+                     shape.ShapeUpdated += new ShapeUpdatedHandler(ShapeUpdated); 
             } 
         }
 

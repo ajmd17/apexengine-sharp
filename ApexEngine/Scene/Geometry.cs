@@ -81,7 +81,7 @@ namespace ApexEngine.Scene
 
         public Material Material
         {
-            get { return mesh.Material; }
+            get { if (mesh != null) { return mesh.Material; } return null; }
             set { if (mesh != null) { mesh.Material = value; }  }
         }
 
@@ -89,20 +89,20 @@ namespace ApexEngine.Scene
         {
             if (mesh.GetSkeleton() != null)
             {
-                Shader shader;
                 g_shaderProperties.SetProperty("SKINNING", true).SetProperty("NUM_BONES", mesh.GetSkeleton().GetNumBones());
-                ShaderProperties p = new ShaderProperties(g_shaderProperties);
-                p.SetProperty("DEFAULT", true);
-                shader = ShaderManager.GetShader(typeof(Rendering.Shaders.DefaultShader), p);
-                SetShader(shader);
+                g_shaderProperties.SetProperty("DEFAULT", true);
+                g_shaderProperties.SetProperty("NORMALS", false);
+                g_shaderProperties.SetProperty("DEPTH", false);
+                SetShader(ShaderManager.GetShader(typeof(Rendering.Shaders.DefaultShader), g_shaderProperties));
+                g_shaderProperties.SetProperty("DEFAULT", false);
             }
             else
             {
-                Shader shader;
-                ShaderProperties p = new ShaderProperties(g_shaderProperties);
-                p.SetProperty("DEFAULT", true);
-                shader = ShaderManager.GetShader(typeof(Rendering.Shaders.DefaultShader), p);
-                SetShader(shader);
+                g_shaderProperties.SetProperty("DEFAULT", true);
+                g_shaderProperties.SetProperty("NORMALS", false);
+                g_shaderProperties.SetProperty("DEPTH", false);
+                SetShader(ShaderManager.GetShader(typeof(Rendering.Shaders.DefaultShader), g_shaderProperties));
+                g_shaderProperties.SetProperty("DEFAULT", false);
             }
         }
 
@@ -198,13 +198,21 @@ namespace ApexEngine.Scene
             SetShader(ShaderManager.GetShader(shaderType, p));
         }
 
+        public override void Dispose()
+        {
+            if (mesh != null)
+            {
+                mesh.Dispose();
+            }
+        }
+
         public override GameObject Clone()
         {
             Geometry res = new Geometry();
             res.SetLocalTranslation(this.GetLocalTranslation());
             res.SetLocalScale(this.GetLocalScale());
             res.SetLocalRotation(this.GetLocalRotation());
-            res.Mesh = this.mesh.Clone();
+            res.Mesh = this.mesh;
             res.shader = this.shader;
             res.depthShader = this.depthShader;
             res.normalsShader = this.normalsShader;

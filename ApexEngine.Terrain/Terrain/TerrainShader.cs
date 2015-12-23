@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ApexEngine.Assets;
 using ApexEngine.Rendering;
-using ApexEngine.Assets;
+using System;
 
 namespace ApexEngine.Terrain
 {
@@ -51,7 +47,13 @@ namespace ApexEngine.Terrain
                     Texture.ActiveTextureSlot(0);
                     diffuseTex0.Use();
                     SetUniform("terrainTexture0", 0);
-                    SetUniform("terrainTexture0Scale", 8f);
+
+                    float scale = 8f;
+                   /* if (currentMaterial.GetFloat(TerrainMaterial.TEXTURE_SCALE_0) > 0)
+                    {
+                        scale = currentMaterial.GetFloat(TerrainMaterial.TEXTURE_SCALE_0);
+                    }*/
+                    SetUniform("terrainTexture0Scale", scale);
                 }
 
                 Texture normalTex0 = currentMaterial.GetTexture(TerrainMaterial.TEXTURE_NORMAL0);
@@ -73,7 +75,13 @@ namespace ApexEngine.Terrain
                     Texture.ActiveTextureSlot(9);
                     slopeTex.Use();
                     SetUniform("slopeTexture", 9);
-                    SetUniform("slopeScale", 8f);
+
+                    float scale = 8f;
+                  /*  if (currentMaterial.GetFloat(TerrainMaterial.TEXTURE_SCALE_SLOPE) > 0)
+                    {
+                        scale = currentMaterial.GetFloat(TerrainMaterial.TEXTURE_SCALE_SLOPE);
+                    }*/
+                    SetUniform("slopeScale", scale);
                 }
 
                 Texture slopeNormalTex = currentMaterial.GetTexture(TerrainMaterial.TEXTURE_NORMAL_SLOPE);

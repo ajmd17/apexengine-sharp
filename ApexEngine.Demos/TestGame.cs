@@ -29,9 +29,9 @@ namespace ApexEngine.Demos
             Environment.DirectionalLight.Color.Set(1.0f, 0.8f, 0.6f, 1.0f);
             ((PerspectiveCamera)Camera).FieldOfView = 75;
 
-            ShadowMappingComponent smc;
-            RenderManager.AddComponent(smc = new ShadowMappingComponent(cam, Environment));
-            smc.RenderMode = ShadowMappingComponent.ShadowRenderMode.Forward;
+         //   ShadowMappingComponent smc;
+        //    RenderManager.AddComponent(smc = new ShadowMappingComponent(cam, Environment));
+        //    smc.RenderMode = ShadowMappingComponent.ShadowRenderMode.Forward;
             /*
                         // Test an Apex Engine 3D model, with a material created in the material editor
                         Node loadedApx = (Node)AssetManager.LoadModel(AssetManager.GetAppPath() + "\\models\\test_apx.apx");
@@ -112,14 +112,15 @@ namespace ApexEngine.Demos
 
             ApexEngine.Terrain.SimplexTerrain.SimplexTerrainComponent terrain = new ApexEngine.Terrain.SimplexTerrain.SimplexTerrainComponent(PhysicsWorld);
              terrain.ChunkAdded += new Terrain.TerrainComponent.ChunkAddedHandler(OnChunkAdd);
+            terrain.ChunkRemoved += new Terrain.TerrainComponent.ChunkRemovedHandler(OnChunkRemove);
 
-             AddComponent(terrain);
+            AddComponent(terrain);
 
 
             AddComponent(new SkydomeComponent());
 
 
-            tex = (Texture2D)AssetManager.Load(AssetManager.GetAppPath() + "\\textures\\apex3d.png");
+          //  tex = (Texture2D)AssetManager.Load(AssetManager.GetAppPath() + "\\textures\\apex3d.png");
            // Sprite sprite = new Sprite();
            // rootNode.AddChild(sprite);
 
@@ -139,12 +140,12 @@ namespace ApexEngine.Demos
 
             RenderManager.PostProcessor.PostFilters.Add(new FXAAFilter());
 
-               GameObject loadedObj = AssetManager.LoadModel(AssetManager.GetAppPath() + "\\models\\house.obj");
+            /*   GameObject loadedObj = AssetManager.LoadModel(AssetManager.GetAppPath() + "\\models\\house.obj");
                ((Node)loadedObj).GetChildGeom(0).Material.SetValue(Material.TEXTURE_HEIGHT, AssetManager.LoadTexture("C:\\Users\\User\\Pictures\\Brick_14_UV_H_CM_1_DISP.jpg"));
             loadedObj.SetLocalTranslation(new Vector3f(0, -3, 0));
                rootNode.AddChild(loadedObj);
                PhysicsWorld.AddObject(loadedObj, 0.0f);
-
+               */
 
 
 
@@ -186,13 +187,22 @@ namespace ApexEngine.Demos
             {
                 GrassPopulator grass;
                 chunk.AddController(grass = new GrassPopulator(PhysicsWorld, cam));
-                grass.GenPatches(chunk);
+                grass.GenPatches(chunk, 6, 6);
+            }
+        }
+
+        public void OnChunkRemove(Terrain.TerrainChunkNode chunk, EventArgs e)
+        {
+            if (chunk.HasController(typeof(GrassPopulator)))
+            {
+                GrassPopulator grass = (GrassPopulator)chunk.GetController(typeof(GrassPopulator));
+                grass = null;
             }
         }
 
         public override void Render()
         {
-            //      PhysicsWorld.DrawDebug();
+          //       PhysicsWorld.DrawDebug();
           //  this.RenderManager.SpriteRenderer.Render(tex, 15, 15);
         }
 

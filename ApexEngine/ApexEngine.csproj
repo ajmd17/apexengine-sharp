@@ -27,7 +27,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -62,10 +62,12 @@
     <Compile Include="Assets\OgreXml\OgreXmlModelLoader.cs" />
     <Compile Include="Assets\OgreXml\OgreXmlSkeletonLoader.cs" />
     <Compile Include="Assets\ShaderTextLoader.cs" />
+    <Compile Include="Assets\SoundLoader.cs" />
     <Compile Include="Assets\Util\TargaImage.cs" />
     <Compile Include="Assets\TextLoader.cs" />
     <Compile Include="Assets\TextureLoader.cs" />
     <Compile Include="Assets\Util\BoneAssign.cs" />
+    <Compile Include="Audio\Sound.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Input\InputManager.cs" />
     <Compile Include="Input\KeyboardEvent.cs" />
@@ -137,6 +139,7 @@
     <Compile Include="Rendering\Util\ShaderUtil.cs" />
     <Compile Include="Rendering\Vertex.cs" />
     <Compile Include="Rendering\VertexAttributes.cs" />
+    <Compile Include="Scene\Audio\AudioNode.cs" />
     <Compile Include="Scene\Components\Controller.cs" />
     <Compile Include="Scene\Components\EngineComponent.cs" />
     <Compile Include="Scene\Components\GameComponent.cs" />

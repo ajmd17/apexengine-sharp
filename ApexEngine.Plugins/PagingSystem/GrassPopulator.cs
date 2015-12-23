@@ -1,78 +1,95 @@
 ﻿using ApexEngine.Assets;
 using ApexEngine.Math;
 using ApexEngine.Rendering;
-using ApexEngine.Rendering.Util;
 using ApexEngine.Scene;
 using ApexEngine.Scene.Physics;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace ApexEngine.Plugins.PagingSystem
 {
     public class GrassPopulator : Populator
     {
-        Geometry model;
+        private static Geometry model;
         private PhysicsWorld physicsWorld;
+        private Vector3f tmpOrigin = new Vector3f(), tmpDir = new Vector3f();
 
         public GrassPopulator(PhysicsWorld physicsWorld, Camera cam) : base(cam, true)
         {
             this.physicsWorld = physicsWorld;
+        }
+
+        static GrassPopulator()
+        {
             model = ((Node)AssetManager.LoadModel(AssetManager.GetAppPath() + "\\models\\grass\\grass.obj")).GetChildGeom(0);
-             model.SetLocalScale(new Vector3f(0.5f));
-            model.Material.SetValue(Material.COLOR_DIFFUSE, new Vector4f(0.9f, 0.7f, 0.6f, 1f));
+            model.SetLocalScale(new Vector3f(0.5f));
+            model.Material.SetValue(Material.COLOR_DIFFUSE, new Vector4f(0.5f, 0.48f, 0.52f, 1f));
             model.Material.SetValue(Material.MATERIAL_BLENDMODE, 1);
             model.Material.SetValue(Material.MATERIAL_CASTSHADOWS, false);
-            model.Material.SetValue(Material.MATERIAL_ALPHADISCARD, 0.3f);
-            model.Material.SetValue(Material.SPECULAR_EXPONENT, 90f);
-            model.Material.SetValue(Material.SHININESS, 0.05f);
-            model.Material.SetValue(Material.ROUGHNESS, 0.7f);
+            model.Material.SetValue(Material.MATERIAL_ALPHADISCARD, 0.2f);
+            model.Material.SetValue(Material.SPECULAR_EXPONENT, 90);
+            model.Material.SetValue(Material.SHININESS, 0.9f);
+            model.Material.SetValue(Material.ROUGHNESS, 0.1f);
             model.Material.SetValue(Material.MATERIAL_CULLENABLED, false);
             model.Material.Bucket = RenderManager.Bucket.Transparent;
         }
-        
+
+        public override void Destroy()
+        {
+            for (int i = patches.Count - 1; i > -1; i--)
+            {
+                if (patches[i].entities != null)
+                    patches[i].entities.Dispose();
+                patches[i].entities = null;
+                patches[i].tile = null;
+                patches[i] = null;
+            }
+            patches.Clear();
+        }
+
         public override GameObject CreateEntity(Vector3f translation, Vector3f slope)
         {
             Geometry m = (Geometry)model.Clone();
             m.SetLocalTranslation(translation);
             return m;
         }
-        
-    public override void GenPatches(GameObject parent,
-            Vector2f origin,
-            Vector2f center,
-            int numChunks,
-            int numEntityPerChunk,
-            float parentSize)
+
+        public override void GenPatches(GameObject parent,
+                Vector2f origin,
+                Vector2f center,
+                int numChunks,
+                int numEntityPerChunk,
+                float parentSize)
         {
             float chunkSize = parentSize / ((float)numChunks);
 
             Vector2f max = new Vector2f((numChunks) * chunkSize);
+            max.DivideStore(2);
 
-            Vector2f cent = origin.Add(new Vector2f(parentSize / 2));
             for (int x = 0; x < numChunks; x++)
             {
                 for (int z = 0; z < numChunks; z++)
                 {
                     Vector2f offset = new Vector2f(x * chunkSize, z * chunkSize);
-                    Vector2f chunkLoc = origin.Add(offset).Subtract(max.Divide(2));
-                    GridTile tile = new GridTile(chunkLoc, chunkSize, chunkSize, chunkLoc.x, chunkLoc.y, 25f);
-                    Patch patch = new Patch(CreateEntityNode(new Vector3f(chunkLoc.x, 0, chunkLoc.y), parent, chunkSize, numEntityPerChunk), (Node)parent, tile);
+                    Vector2f chunkLoc = origin.Add(offset).SubtractStore(max);
+                    GridTile tile = new GridTile(chunkLoc, chunkSize, chunkSize, chunkLoc.x, chunkLoc.y, 50f);
+                    Patch patch = new Patch( (Node)parent, tile);
+
+                    patch.translation = new Vector3f(chunkLoc.x, 0, chunkLoc.y);
+                    patch.chunkSize = chunkSize;
+                    patch.entityPerChunk = numEntityPerChunk;
+
                     patches.Add(patch);
                 }
             }
-
-
         }
 
         public override float GetHeight(float x, float z)
         {
-            Vector3f origin = new Vector3f(x, 100, z);
-            Vector3f dir = new Vector3f(0, -1.001f, 0).Multiply(1000f);
+            tmpOrigin.Set(x, 100, z);
+            tmpDir.Set(0, -1.001f, 0).MultiplyStore(1000f);
             Vector3f rayHit;
             GameObject hitObject;
-            physicsWorld.Raycast(origin, dir, out rayHit, out hitObject);
+            physicsWorld.Raycast(tmpOrigin, tmpDir, out rayHit, out hitObject);
             if (rayHit != null)
             {
                 return rayHit.y;
@@ -82,9 +99,7 @@ namespace ApexEngine.Plugins.PagingSystem
 
         public override void Init()
         {
-         //   this.GenPatches(GameObject, new Vector2f(0,0), new Vector2f(0, 0), 3, 6, 64f);
+            //   this.GenPatches(GameObject, new Vector2f(0,0), new Vector2f(0, 0), 3, 6, 64f);
         }
-
-       
     }
 }

@@ -1,0 +1,4 @@
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\Lidgren\Lidgren.Network\bin\Release\Lidgren.Network.dll
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\Lidgren\Lidgren.Network\bin\Release\Lidgren.Network.pdb
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\Lidgren\Lidgren.Network\obj\Release\Lidgren.Network.dll
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\Lidgren\Lidgren.Network\obj\Release\Lidgren.Network.pdb

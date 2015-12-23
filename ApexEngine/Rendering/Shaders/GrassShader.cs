@@ -10,7 +10,7 @@ namespace ApexEngine.Rendering.Shaders
 
         public GrassShader(ShaderProperties properties)
             : base(properties, (string)AssetManager.Load(AppDomain.CurrentDomain.BaseDirectory + "\\shaders\\grass.vert"),
-                               (string)AssetManager.Load(AppDomain.CurrentDomain.BaseDirectory + "\\shaders\\default.frag"))
+                               (string)AssetManager.Load(AppDomain.CurrentDomain.BaseDirectory + "\\shaders\\grass.frag"))
         {
         }
 
@@ -27,9 +27,10 @@ namespace ApexEngine.Rendering.Shaders
             this.SetUniform(MATERIAL_SPECULARTECHNIQUE, material.GetInt(Material.TECHNIQUE_SPECULAR));
             this.SetUniform(MATERIAL_SPECULAREXPONENT, material.GetFloat(Material.SPECULAR_EXPONENT));
             this.SetUniform(MATERIAL_PERPIXELLIGHTING, material.GetInt(Material.TECHNIQUE_PER_PIXEL_LIGHTING));
-            
 
-            RenderManager.Renderer.SetBlend(false);
+
+            RenderManager.Renderer.SetBlend(true);
+            RenderManager.Renderer.SetBlendMode(Renderer.BlendMode.AlphaBlend);
         }
 
         public override void End()
@@ -40,6 +41,7 @@ namespace ApexEngine.Rendering.Shaders
 
             RenderManager.Renderer.SetBlend(true);
             RenderManager.Renderer.SetBlendMode(Renderer.BlendMode.AlphaBlend);
+
             SetUniform(MATERIAL_ALPHADISCARD, 0.0f);
 
             RenderManager.Renderer.SetDepthMask(false);

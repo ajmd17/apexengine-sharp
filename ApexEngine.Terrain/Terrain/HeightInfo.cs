@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ApexEngine.Math;
+﻿using ApexEngine.Math;
+using ApexEngine.Scene.Components;
+
 namespace ApexEngine.Terrain
 {
     public class HeightInfo
@@ -15,25 +12,34 @@ namespace ApexEngine.Terrain
         public TerrainComponent.PageState pageState = TerrainComponent.PageState.Unloaded;
         public Vector2f[] neighbors = new Vector2f[8];
         private bool hasPhysics = false;
+
         public HeightInfo(TerrainComponent component, Vector2f pos, TerrainChunkNode chunk)
         {
             this.position = pos;
             this.chunk = chunk;
             this.component = component;
         }
-        float unloadTime = 0f;
-        float physicsTime = 0;
+
+        private float unloadTime = 0f;
+        private float physicsTime = 0;
+
         public void UpdateChunk()
         {
             if (pageState != TerrainComponent.PageState.Unloaded)
             {
-                
             }
             else if (pageState == TerrainComponent.PageState.Unloaded)
             {
                 if (hasPhysics)
                 {
                     chunk.RemovePhysics();
+                    for (int i = 0; i < chunk.Controllers.Count; i++)
+                    {
+                        Controller ctrlr = chunk.Controllers[i];
+                        ctrlr.Destroy();
+                        chunk.RemoveController(ctrlr);
+                        ctrlr = null;
+                    }
                     hasPhysics = false;
                 }
                 component.OnRemoveChunk(chunk);
@@ -45,7 +51,6 @@ namespace ApexEngine.Terrain
                     chunk.AddPhysics();
                     hasPhysics = true;
                     component.OnAddChunk(chunk);
-
                 }
                 unloadTime = 0f;
             }
@@ -53,10 +58,9 @@ namespace ApexEngine.Terrain
             {
                 if (unloadTime > 5f)
                 {
-
                     pageState = TerrainComponent.PageState.Unloaded;
                 }
-                unloadTime += 1f;////GameTime.getDeltaTime();
+                unloadTime += component.Environment.TimePerFrame * 10f;
             }
         }
     }

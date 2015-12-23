@@ -1,5 +1,7 @@
 ﻿
 using ApexEngine.Assets;
+using ApexEngine.Audio;
+using ApexEngine.Math;
 
 namespace ApexEngine.Rendering
 {
@@ -31,6 +33,18 @@ namespace ApexEngine.Rendering
             Coverage = 0x00008000
         }
 
+        public enum AudioPlayState
+        {
+            Playing,
+            Paused,
+            Stopped
+        }
+
+        public Renderer()
+        {
+            InitAudio();
+        }
+
         /// <summary>
         /// Creates a render context for a game. Allows the game to actually render.
         /// </summary>
@@ -52,6 +66,8 @@ namespace ApexEngine.Rendering
         /// </summary>
         /// <param name="mesh"></param>
         public abstract void UploadMesh(Mesh mesh);
+
+        public abstract void DeleteMesh(Mesh mesh);
 
         /// <summary>
         /// Render the mesh
@@ -76,6 +92,26 @@ namespace ApexEngine.Rendering
         /// <param name="filepaths"></param>
         /// <returns></returns>
         public abstract Cubemap LoadCubemap(string[] filepaths);
+
+        #region Sound
+
+        public abstract void InitAudio();
+
+        public abstract Sound LoadAudio(LoadedAsset asset);
+
+        public abstract AudioPlayState GetPlayState(Sound sound);
+
+        public abstract void PlaySound(Sound sound);
+
+        public abstract void StopSound(Sound sound);
+
+        public abstract void PauseSound(Sound sound);
+
+        public abstract void SetAudioValues(Sound sound, float pitch, float gain, Vector3f position, Vector3f velocity);
+
+        public abstract void SetAudioListenerValues(Camera cam);
+
+        #endregion Sound
 
         public abstract int GenTexture();
 

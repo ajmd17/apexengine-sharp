@@ -108,9 +108,9 @@ namespace ApexEngine.Scene.Physics
             if (rbc != null && world.RigidBodies.Contains(rbc.Body))
             {
                 world.RemoveBody(rbc.Body);
+                gameObject.RemoveController(rbc);
+                rbc = null;
             }
-            gameObject.RemoveController(rbc);
-            rbc = null;
         }
 
         public void Update()

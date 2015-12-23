@@ -10,6 +10,8 @@
             set { gameObject = value; }
         }
 
+        public virtual void Destroy() { }
+
         public abstract void Init();
 
         public abstract void Update();

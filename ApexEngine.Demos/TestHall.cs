@@ -29,6 +29,7 @@ namespace ApexEngine.Demos
             Environment.FogStart = 35;
 
             Environment.DirectionalLight.Color.Set(0.0f, 0.0f, 0.0f, 1.0f);
+            Environment.AmbientLight.Color.Set(1.0f, 1.0f, 1.0f, 1.0f);
 
             GameObject hall;
             rootNode.AddChild(hall = AssetManager.LoadModel(AssetManager.GetAppPath() + "\\models\\hall\\hall.obj"));
