@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ApexEngine.Math;
 using ApexEngine.Rendering;
-using ApexEngine.Math;
+using System.Collections.Generic;
+
 namespace ApexEngine.Terrain
 {
     public abstract class TerrainMesh : Mesh
@@ -14,10 +11,47 @@ namespace ApexEngine.Terrain
         public float[] heights;
         public int width, height;
         public Vector3f scale;
+
         public TerrainMesh() : base()
         {
         }
+
+        /// <summary>
+        /// Rebuild the terrain mesh, typically after modifing heights.
+        /// </summary>
+        public void RebuildTerrainMesh()
+        {
+            vertexArray = new Vertex[heights.Length];
+            indexArray = new int[width * height * 6];
+
+
+            this.BuildVertices();
+            this.BuildIndices();
+            this.CalcNormals(indexArray, vertexArray);
+
+            List<Vertex> newVertexArray = new List<Vertex>();
+            List<int> newIndexArray = new List<int>();
+
+            for (int i = 0; i < indexArray.Length; i++)
+                newIndexArray.Add(indexArray[i]);
+            for (int i = 0; i < vertexArray.Length; i++)
+                newVertexArray.Add(vertexArray[i]);
+
+            this.SetVertices(newVertexArray, newIndexArray);
+
+            indexArray = null;
+            vertexArray = null;
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+
+            heights = null;
+        }
+
         public abstract int HeightIndexAt(int x, int z);
+
         protected void AddNormal(int vertIndex, Vertex[] verts, float x, float y, float z)
         {
             int i = vertIndex;
@@ -26,9 +60,9 @@ namespace ApexEngine.Terrain
             verts[i].GetNormal().y += y;
             verts[i].GetNormal().z += z;
         }
+
         protected void NormalizeNormal(int vertIndex, Vertex[] verts)
         {
-
             int i = vertIndex;
 
             float x = verts[i].GetNormal().x;
@@ -45,9 +79,9 @@ namespace ApexEngine.Terrain
             verts[i].GetNormal().y = y;
             verts[i].GetNormal().z = z;
         }
+
         protected void CalcNormals(int[] idc, Vertex[] verts)
         {
-
             for (int i = 0; i < idc.Length; i += 3)
             {
                 int i1 = idc[i];
@@ -101,6 +135,7 @@ namespace ApexEngine.Terrain
                 NormalizeNormal(i, verts);
             }
         }
+
         public void BuildVertices()
         {
             int heightPitch = height + 1;
@@ -113,11 +148,10 @@ namespace ApexEngine.Terrain
             {
                 for (int x = 0; x < widthPitch; x++)
                 {
-
                     // POSITION
-                     vertexArray[idx++] = new Vertex(new Vector3f(scale.x * (x-(widthPitch/2)), heights[hIdx++] * scale.y, scale.z * (z - (heightPitch / 2))), 
-                                                     new Vector2f((float)-x / (float)widthPitch, (float)-z / (float)heightPitch),
-                                                     new Vector3f());
+                        vertexArray[idx++] = new Vertex(new Vector3f(scale.x * (x-(widthPitch/2)), heights[hIdx++] * scale.y, scale.z * (z - (heightPitch / 2))),
+                                                        new Vector2f((float)-x / (float)widthPitch, (float)-z / (float)heightPitch),
+                                                        new Vector3f());
 
                    /* vertexArray[idx++] = new Vertex(new Vector3f(scale.x * x, heights[hIdx++] * scale.y, scale.z * z),
                                                        new Vector2f((float)-x / (float)widthPitch, (float)-z / (float)heightPitch),
@@ -125,6 +159,7 @@ namespace ApexEngine.Terrain
                 }
             }
         }
+
         protected void BuildIndices()
         {
             int idx = 0;

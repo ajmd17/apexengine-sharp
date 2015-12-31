@@ -92,33 +92,6 @@ float GetShadowness(int idx, vec3 coord)
 }
 
 
-float GetShadowness(int idx, vec3 coord, float lambert)
-{
-	float result = 1.0;
-	float depth;
-	if (idx == 0) 
-	{
-		depth = texture2D(Env_ShadowMap0, coord.xy).r;
-	} 
-	else if (idx == 1) 
-	{
-		depth = texture2D(Env_ShadowMap1, coord.xy).r;
-	} 
-	else if (idx == 2) 
-	{
-		depth = texture2D(Env_ShadowMap2, coord.xy).r;
-	} 
-	else 
-	{
-		depth = texture2D(Env_ShadowMap3, coord.xy).r;
-	}
-
-	float bias = 0.005;
-    result = max(step(coord.z, depth-0.003), 0.0) ;
-	return result;
-}
-
-
 vec3 GetShadowCoord(int index, vec3 worldPos) 
 {
     vec4 shadowPos = vec4(0.0, 0.0, 0.0, 0.0);

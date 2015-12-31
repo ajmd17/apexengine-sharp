@@ -56,7 +56,7 @@ void main(void)
 	vec3 v3SamplePoint = v3Start + v3SampleRay * 0.5;
 
 	vec4 twilight = vec4(204.0/255.0, 135.0/255.0, 93.0/255.0, 1.0); // Horizon during sunrise
-    vec4 blue = vec4(226.0/255.0, 214.0/255.0, 186.0/255.0, 1.0); //Horizon during day
+    vec4 blue = vec4(182.0/255.0, 222.0/255.0, 222.0/255.0, 1.0); //Horizon during day
 	vec4 colorDay = vec4(128.0/255.0,166.0/255.0,208.0/255.0, 1.0);
 	
 	blue *= clamp(v3LightPos.y*5.0, 0.5, 1.0);

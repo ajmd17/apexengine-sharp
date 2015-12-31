@@ -13,6 +13,8 @@ namespace ApexEngine.Terrain
         public const string TEXTURE_DIFFUSE2 = Material.TEXTURE_DIFFUSE + "_2";
         public const string TEXTURE_DIFFUSE3 = Material.TEXTURE_DIFFUSE + "_3";
 
+        public const string TEXTURE_SPLAT = "splat_map";
+
 
         public const string TEXTURE_SCALE_0 = Material.TEXTURE_DIFFUSE + "_scale";
         public const string TEXTURE_SCALE_1 = Material.TEXTURE_DIFFUSE + "_scale_1";

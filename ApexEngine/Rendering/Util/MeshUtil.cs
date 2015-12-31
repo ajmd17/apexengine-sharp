@@ -25,9 +25,21 @@ namespace ApexEngine.Rendering.Util
             if (geom.GetController(typeof(Scene.Physics.RigidBodyControl)) != null)
             {
                 Scene.Physics.RigidBodyControl rbc = (Scene.Physics.RigidBodyControl)geom.GetController(typeof(Scene.Physics.RigidBodyControl));
-
             }
             geom.SetLocalTranslation(mesh.BoundingBox.Center);
+        }
+
+        public static Geometry MergeGeometry(GameObject gameObject)
+        {
+            List<Mesh> meshes;
+            List<Matrix4f> transforms = new List<Matrix4f>();
+            List<Shader> shaders = new List<Shader>();
+            meshes = RenderUtil.GatherMeshes(gameObject, transforms, shaders);
+            Mesh m =  MergeMeshes(meshes, transforms);
+            Geometry geom = new Geometry(m);
+            if (shaders.Count > 0)
+                geom.SetShader(shaders[0]);
+            return geom;
         }
 
         public static Mesh MergeMeshes(GameObject gameObject)
@@ -41,23 +53,52 @@ namespace ApexEngine.Rendering.Util
         public static Mesh MergeMeshes(List<Mesh> meshes, List<Matrix4f> transforms)
         {
             Mesh resMesh = new Mesh();
-            List<Vertex> finalVertices = new List<Vertex>();
-            for (int m = 0; m < meshes.Count; m++)
+
+            if (meshes.Count > 0)
             {
-                for (int i  = 0; i < meshes[m].indices.Count; i++)
+                List<Vertex> finalVertices = new List<Vertex>();
+                for (int m = 0; m < meshes.Count; m++)
                 {
-                    Vertex vertex = meshes[m].vertices[meshes[m].indices[i]];
-                    Vertex newVert = new Vertex(vertex);
-                    newVert.SetPosition(vertex.GetPosition().Multiply(transforms[m]));
-                    
-                    finalVertices.Add(newVert);
+                    for (int i = 0; i < meshes[m].indices.Count; i++)
+                    {
+                        Vertex vertex = meshes[m].vertices[meshes[m].indices[i]];
+                        Vertex newVert = new Vertex(vertex);
+                        newVert.SetPosition(vertex.GetPosition().Multiply(transforms[m]));
+                        newVert.SetNormal(vertex.GetNormal().Multiply(transforms[m].Invert().TransposeStore()));
+                        finalVertices.Add(newVert);
+                    }
                 }
+                resMesh.SetVertices(finalVertices);
+                resMesh.Material = meshes[0].Material;
+                resMesh.PrimitiveType = meshes[0].PrimitiveType;
             }
-            resMesh.SetVertices(finalVertices);
-            resMesh.Material = meshes[0].Material;
             return resMesh;
         }
 
+        public static Mesh MergeMeshes(List<Mesh> meshes)
+        {
+            Mesh resMesh = new Mesh();
+
+            if (meshes.Count > 0)
+            {
+                List<Vertex> finalVertices = new List<Vertex>();
+                for (int m = 0; m < meshes.Count; m++)
+                {
+                    for (int i = 0; i < meshes[m].indices.Count; i++)
+                    {
+                        Vertex vertex = meshes[m].vertices[meshes[m].indices[i]];
+                        Vertex newVert = new Vertex(vertex);
+                        newVert.SetPosition(vertex.GetPosition());
+
+                        finalVertices.Add(newVert);
+                    }
+                }
+                resMesh.SetVertices(finalVertices);
+                resMesh.Material = meshes[0].Material;
+                resMesh.PrimitiveType = meshes[0].PrimitiveType;
+            }
+            return resMesh;
+        }
 
         public static float[] CreateFloatBuffer(Mesh mesh)
         {

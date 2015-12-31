@@ -37,7 +37,7 @@ float CalculateFog(vec3 worldPos, vec3 camPos, float fogStart, float fogEnd)
 	return mix(0.0, 1.0, 1.0-fogFactor);
 }
 
-vec3 CalculateFog(vec3 inColor, vec3 toColor, vec3 worldPos, vec3 camPos, float fogStart, float fogEnd)
+vec3 CalculateFogLinear(vec3 inColor, vec3 toColor, vec3 worldPos, vec3 camPos, float fogStart, float fogEnd)
 {
 	float dist = distance(worldPos, camPos);
 
@@ -46,13 +46,33 @@ vec3 CalculateFog(vec3 inColor, vec3 toColor, vec3 worldPos, vec3 camPos, float 
 	return mix(inColor, toColor, 1.0-fogFactor);
 }
 
-vec4 CalculateFog(vec4 inColor, vec4 toColor, vec3 worldPos, vec3 camPos, float fogStart, float fogEnd)
+vec4 CalculateFogLinear(vec4 inColor, vec4 toColor, vec3 worldPos, vec3 camPos, float fogStart, float fogEnd)
 {
 	float dist = distance(worldPos, camPos);
 
 	float fogFactor = (fogEnd - dist)/(fogEnd - fogStart);
 	fogFactor = clamp(fogFactor, 0.0, 1.0);
 	return mix(inColor, toColor, 1.0-fogFactor);
+}
+
+vec3 CalculateFog(vec3 inColor, vec3 toColor, vec3 worldPos, vec3 camPos, float fogStart, float fogEnd)
+{
+	float dist = distance(worldPos, camPos);
+
+	float density = 0.003;
+	float fogFactor = 1.0 / exp(dist * density);
+	return mix(inColor, toColor, 1.0-fogFactor);
+}
+
+vec4 CalculateFog(vec4 inColor, vec4 toColor, vec3 worldPos, vec3 camPos, float fogStart, float fogEnd)
+{
+	float dist = distance(worldPos, camPos);
+
+	float density = 0.003;
+	float fogFactor = 1.0 / exp(dist * density);
+	vec4 color = mix(inColor, toColor, 1.0-fogFactor);
+	color.a = inColor.a;
+	return color;
 }
 
 vec3 ReflectionVector(vec3 n, vec3 worldPos, vec3 camPos)

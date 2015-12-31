@@ -63,7 +63,7 @@ void main()
 		
 		if (Env_ShadowsEnabled == 1)
 		{
-			const float radius = 0.035;
+			const float radius = 0.05;
 			int index = GetShadowMapSplit(Apex_CameraPosition, v_position.xyz);
 			for (int x = 0; x < 4; x++)
 			{
@@ -76,7 +76,7 @@ void main()
 			}
 			shadowness /= 16.0;
 			shadowColor = vec3(shadowness);
-			shadowColor = mix(vec3(0.5), shadowColor, shadowness);
+		//	shadowColor = mix(vec3(0.5), shadowColor, shadowness);
 			
 			shadowColor = CalculateFog(shadowColor, vec3(1.0), v_position.xyz, Apex_CameraPosition, Env_ShadowMapSplits[2], Env_ShadowMapSplits[3]);
 		}
@@ -107,8 +107,16 @@ void main()
 		float fresnel;
 		//fresnel = Fresnel(n, v_position.xyz, Apex_CameraPosition, l, Material_Roughness);
 		fresnel = max(1.0 - dot(n, v), 0.0);
-		fresnel = pow(fresnel, 2.0);
+		fresnel = pow(fresnel, 5.0);
+		
 		reflection = vec3(fresnel);
+		
+		if (Material_HasEnvironmentMap == 1)
+		{
+			vec4 cubemap = texture(Material_EnvironmentMap, ReflectionVector(n, v_position.xyz, Apex_CameraPosition), 2);
+			reflection += cubemap.rgb;
+		}
+		
 		specular += reflection;
 		specular *= Env_DirectionalLight.color.xyz;
 		
@@ -140,10 +148,9 @@ void main()
 		//diffuse = mix(diffuse, diffuse * vec3(1.0-shineAmt), Material_Metalness);
 		//specular = mix(specular, specular * shineAmt, Material_Metalness);
 
-		vec4 lightSum = vec4(ambient + diffuse + specular, diffuseTexture.a);
+		vec4 lightSum = vec4(ambient + diffuse + specular, diffuseTexture.a*Material_DiffuseColor.a);
 		lightSum = CalculateFog(lightSum, Env_FogColor, v_position.xyz, Apex_CameraPosition, Env_FogStart, Env_FogEnd);
 		gl_FragColor = lightSum;
-		
 		
 	}
 	else

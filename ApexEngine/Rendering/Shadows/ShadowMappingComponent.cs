@@ -18,7 +18,7 @@ namespace ApexEngine.Rendering.Shadows
         private ShadowPostFilter postFilter;
         private Environment environment;
 
-        public ShadowMappingComponent(Camera cam, Environment environment) : this(cam, environment, new int[] { 2048, 2048 })
+        public ShadowMappingComponent(Camera cam, Environment environment) : this(cam, environment, new int[] { 512, 512 })
         {
         }
 

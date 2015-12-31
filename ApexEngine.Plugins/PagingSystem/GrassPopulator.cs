@@ -21,16 +21,20 @@ namespace ApexEngine.Plugins.PagingSystem
         static GrassPopulator()
         {
             model = ((Node)AssetManager.LoadModel(AssetManager.GetAppPath() + "\\models\\grass\\grass.obj")).GetChildGeom(0);
-            model.SetLocalScale(new Vector3f(0.5f));
             model.Material.SetValue(Material.COLOR_DIFFUSE, new Vector4f(0.5f, 0.48f, 0.52f, 1f));
             model.Material.SetValue(Material.MATERIAL_BLENDMODE, 1);
             model.Material.SetValue(Material.MATERIAL_CASTSHADOWS, false);
             model.Material.SetValue(Material.MATERIAL_ALPHADISCARD, 0.2f);
-            model.Material.SetValue(Material.SPECULAR_EXPONENT, 90);
-            model.Material.SetValue(Material.SHININESS, 0.9f);
-            model.Material.SetValue(Material.ROUGHNESS, 0.1f);
+            model.Material.SetValue(Material.SPECULAR_EXPONENT, 60);
+            model.Material.SetValue(Material.SHININESS, 0.1f);
+            model.Material.SetValue(Material.ROUGHNESS, 0.0f);
             model.Material.SetValue(Material.MATERIAL_CULLENABLED, false);
             model.Material.Bucket = RenderManager.Bucket.Transparent;
+        }
+
+        public override Type GetShaderType()
+        {
+            return typeof(ApexEngine.Rendering.Shaders.GrassShader);
         }
 
         public override void Destroy()
@@ -50,6 +54,7 @@ namespace ApexEngine.Plugins.PagingSystem
         {
             Geometry m = (Geometry)model.Clone();
             m.SetLocalTranslation(translation);
+            m.SetLocalScale(new Vector3f((float)this.RandomDouble(0.35, 0.65)));
             return m;
         }
 
@@ -85,7 +90,7 @@ namespace ApexEngine.Plugins.PagingSystem
 
         public override float GetHeight(float x, float z)
         {
-            tmpOrigin.Set(x, 100, z);
+            tmpOrigin.Set(x, 500, z);
             tmpDir.Set(0, -1.001f, 0).MultiplyStore(1000f);
             Vector3f rayHit;
             GameObject hitObject;

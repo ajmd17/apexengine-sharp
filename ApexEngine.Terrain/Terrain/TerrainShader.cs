@@ -41,6 +41,8 @@ namespace ApexEngine.Terrain
 
             if (currentMaterial != null)
             {
+
+
                 Texture diffuseTex0 = currentMaterial.GetTexture(TerrainMaterial.TEXTURE_DIFFUSE0);
                 if (diffuseTex0 != null)
                 {
@@ -48,7 +50,7 @@ namespace ApexEngine.Terrain
                     diffuseTex0.Use();
                     SetUniform("terrainTexture0", 0);
 
-                    float scale = 8f;
+                    float scale = 16f;
                    /* if (currentMaterial.GetFloat(TerrainMaterial.TEXTURE_SCALE_0) > 0)
                     {
                         scale = currentMaterial.GetFloat(TerrainMaterial.TEXTURE_SCALE_0);
@@ -76,7 +78,7 @@ namespace ApexEngine.Terrain
                     slopeTex.Use();
                     SetUniform("slopeTexture", 9);
 
-                    float scale = 8f;
+                    float scale = 16f;
                   /*  if (currentMaterial.GetFloat(TerrainMaterial.TEXTURE_SCALE_SLOPE) > 0)
                     {
                         scale = currentMaterial.GetFloat(TerrainMaterial.TEXTURE_SCALE_SLOPE);
@@ -95,6 +97,19 @@ namespace ApexEngine.Terrain
                 else
                 {
                     SetUniform("slopeTextureHasNormal", 0);
+                }
+
+                Texture splatTex = currentMaterial.GetTexture(TerrainMaterial.TEXTURE_SPLAT);
+                if (splatTex != null)
+                {
+                    Texture.ActiveTextureSlot(11);
+                    splatTex.Use();
+                    SetUniform("splatTexture", 11);
+                    SetUniform("hasSplatMap", 1);
+                }
+                else
+                {
+                    SetUniform("hasSplatMap", 0);
                 }
             }
             if (environment.ShadowsEnabled)

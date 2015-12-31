@@ -113,7 +113,7 @@ namespace ApexEngine
             environment.ElapsedTime += environment.TimePerFrame;
             cam.Update();
             RenderManager.Renderer.SetAudioListenerValues(cam);
-            physicsWorld.Update();
+            physicsWorld.Update(Environment.TimePerFrame);
             rootNode.Update(renderManager);
             Update();
         }

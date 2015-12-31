@@ -47,12 +47,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ProceduralRoad.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestGame.cs" />
     <Compile Include="TestHall.cs" />
     <Compile Include="TestLandscape.cs" />
     <Compile Include="TestSounds.cs" />
+    <Compile Include="TestWater.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

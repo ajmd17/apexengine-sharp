@@ -113,9 +113,9 @@ namespace ApexEngine.Scene.Physics
             }
         }
 
-        public void Update()
+        public void Update(float delta)
         {
-            world.Step(0.01f, false);
+            world.Step(delta, false);
         }
 
         public void DrawDebug()

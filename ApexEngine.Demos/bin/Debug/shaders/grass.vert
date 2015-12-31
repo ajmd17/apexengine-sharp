@@ -48,8 +48,9 @@ void main()
 	
 
 	vec3 modifiedPos = a_position;
-	modifiedPos.x += sin(Apex_ElapsedTime * 0.1) * 0.3 * (a_texcoord0.y);
-	modifiedPos.z += sin(Apex_ElapsedTime * 0.08) * 0.3 * (a_texcoord0.y);
+	
+	modifiedPos.x += sin(Apex_ElapsedTime * 1.5) * 0.1 * (a_texcoord0.y);
+	modifiedPos.z += cos(Apex_ElapsedTime * 1.3) * 0.1 * (a_texcoord0.y);
 	
 	
 	v_position = (Apex_WorldMatrix * vec4(modifiedPos, 1.0));	

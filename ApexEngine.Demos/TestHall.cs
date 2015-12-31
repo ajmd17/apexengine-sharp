@@ -19,17 +19,19 @@ namespace ApexEngine.Demos
 
         public override void Init()
         {
-            /*  Rendering.Light.PointLight pl = new Rendering.Light.PointLight();
+
+            
+              Rendering.Light.PointLight pl = new Rendering.Light.PointLight();
               pl.Color = new Color4f(0.2f, 0.0f, 0.0f, 1.0f);
               pl.Position = new Vector3f(0.0f, 0.0f, 0.0f);
-              Environment.PointLights.Add(pl);*/
+              Environment.PointLights.Add(pl);
 
-            Environment.FogColor.Set(0.3f, 0.4f, 0.1f, 0.2f);
+            Environment.FogColor.Set(0.0f, 0.0f, 0.2f, 0.2f);
             Environment.FogEnd = 360;
             Environment.FogStart = 35;
 
-            Environment.DirectionalLight.Color.Set(0.0f, 0.0f, 0.0f, 1.0f);
-            Environment.AmbientLight.Color.Set(1.0f, 1.0f, 1.0f, 1.0f);
+            Environment.DirectionalLight.Color.Set(0.0f, 0.0f, 0.5f, 1.0f);
+            Environment.AmbientLight.Color.Set(0.2f, 0.1f, 0.1f, 1.0f);
 
             GameObject hall;
             rootNode.AddChild(hall = AssetManager.LoadModel(AssetManager.GetAppPath() + "\\models\\hall\\hall.obj"));

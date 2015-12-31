@@ -1,5 +1,6 @@
 ﻿using ApexEngine.Math;
 using ApexEngine.Rendering;
+using ApexEngine.Terrain.Ecosystem;
 using System;
 using System.Collections.Generic;
 
@@ -10,33 +11,28 @@ namespace ApexEngine.Terrain.SimplexTerrain
         protected int x, z;
         private int chunkSize;
         private SimplexTerrainComponent parent;
+        private bool generateBiomes = false;
+        public Biome[] biomes;
 
-        public SimplexTerrainMesh(SimplexTerrainComponent parent, int xstart, int zstart, Vector3f scale, int chunkSize) : base()
+
+        public SimplexTerrainMesh(SimplexTerrainComponent parent, int xstart, int zstart, Vector3f scale, int chunkSize) :
+            this(parent, xstart, zstart, scale, chunkSize, false)
+        {
+        }
+
+        public SimplexTerrainMesh(SimplexTerrainComponent parent, int xstart, int zstart, Vector3f scale, int chunkSize, bool generateBiomes) : base()
         {
             try
             {
+                this.generateBiomes = generateBiomes;
                 this.parent = parent;
                 this.x = xstart;
                 this.z = zstart;
                 this.chunkSize = chunkSize;
                 this.scale = scale;
                 this.GetHeights(this.x, this.z);
-                this.BuildVertices();
-                this.BuildIndices();
-                this.CalcNormals(indexArray, vertexArray);
-                List<Vertex> newVertexArray = new List<Vertex>();
-                List<int> newIndexArray = new List<int>();
-                for (int i = 0; i < indexArray.Length; i++)
-                    newIndexArray.Add(indexArray[i]);
-                for (int i = 0; i < vertexArray.Length; i++)
-                    newVertexArray.Add(vertexArray[i]);
-                this.SetVertices(newVertexArray, newIndexArray);
 
-                indexArray = null;
-                vertexArray = null;
-                this.heights = null;
-        //        newVertexArray.Clear();
-        //        newIndexArray.Clear()
+                this.RebuildTerrainMesh();
             }
             catch (Exception ex)
             {
@@ -44,10 +40,24 @@ namespace ApexEngine.Terrain.SimplexTerrain
             }
         }
 
+        public override void Dispose()
+        {
+            base.Dispose();
+
+            heights = null;
+            biomes = null;
+        }
+
         public override int HeightIndexAt(int x, int z)
         {
             int size = (chunkSize);
             return (((x + size) % size) + ((z + size) % size) * size);
+        }
+
+        public Biome GetBiomeAt(int x, int z)
+        {
+            int biomeIndex = HeightIndexAt(x, z);
+            return biomes[biomeIndex];
         }
 
         public float[] GetHeights(int xstart, int zstart)
@@ -58,6 +68,9 @@ namespace ApexEngine.Terrain.SimplexTerrain
             width = size - 1;
 
             heights = new float[size * size];
+
+            biomes = new Biome[heights.Length];
+
             vertexArray = new Vertex[heights.Length];
             indexArray = new int[width * height * 6];
 
@@ -65,7 +78,39 @@ namespace ApexEngine.Terrain.SimplexTerrain
             {
                 for (int yy = 0; yy < size; yy++)
                 {
-                    heights[HeightIndexAt(yy, xx)] = (float)parent.getNoise(yy + ((int)x * (size - 1)), xx + ((int)z * (size - 1))) * 25f;//this.scale.y;
+                    float _x = yy + ((int)x * (size - 1));
+                    float _y = xx + ((int)z * (size - 1));
+
+                    float terrainHeight = (float)parent.getNoise(_x, _y);
+
+                    float biomeHeight = 1f, temperature = 1f;
+
+                    int heightIndex = HeightIndexAt(yy, xx);
+
+                    if (this.generateBiomes)
+                    {
+                        biomeHeight = (float)(parent.getNoise(((double)_y) * 0.1, ((double)_x) * 0.1));
+
+                        temperature = (float)(parent.getNoise(((double)_y), terrainHeight, ((double)_x)));
+
+                        Biome biome = new Biome();
+
+                        biome.AverageTemperature = temperature;
+
+                        if (System.Math.Abs(biomeHeight) < 0.3f)
+                        {
+                            biome.Topography = Biome.BiomeTopography.Plains;
+                        }
+                        else
+                        {
+                            biome.Topography = Biome.BiomeTopography.Hills;
+                        }
+
+                        biomeHeight *= 6 * (float)System.Math.Abs(biomeHeight);
+                        biomes[heightIndex] = biome;
+                    }
+
+                    heights[heightIndex] = terrainHeight * biomeHeight * 25f;
                 }
             }
             return heights;

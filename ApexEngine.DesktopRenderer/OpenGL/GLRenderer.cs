@@ -37,6 +37,8 @@ namespace ApexEngine.Rendering.OpenGL
                     game.InputManager.WINDOW_Y = gameWindow.Y;
                     game.InputManager.MOUSE_X = game.InputManager.WINDOW_X - OpenTK.Input.Mouse.GetCursorState().X + (game.InputManager.SCREEN_WIDTH / 2);
                     game.InputManager.MOUSE_Y = game.InputManager.WINDOW_Y - OpenTK.Input.Mouse.GetCursorState().Y + (game.InputManager.SCREEN_HEIGHT / 2);
+                   //         game.Camera.Width = game.InputManager.SCREEN_WIDTH;
+                    //        game.Camera.Height = game.InputManager.SCREEN_HEIGHT;
                     game.UpdateInternal();
                 };
                 gameWindow.RenderFrame += (sender, e) =>
@@ -66,7 +68,7 @@ namespace ApexEngine.Rendering.OpenGL
                 {
                     game.InputManager.MouseButtonUp(ConvertOpenTKMouseButton(e.Button));
                 };
-                gameWindow.VSync = VSyncMode.Off;
+                gameWindow.VSync = VSyncMode.On;
                 gameWindow.Run(60);
             }
         }
@@ -412,7 +414,7 @@ namespace ApexEngine.Rendering.OpenGL
                 primitiveType = BeginMode.Points;
             else if (mesh.PrimitiveType == Mesh.PrimitiveTypes.Lines)
                 primitiveType = BeginMode.Lines;
-            
+
             GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Fill);
 
             GL.BindBuffer(BufferTarget.ArrayBuffer, mesh.vbo);
@@ -557,6 +559,8 @@ namespace ApexEngine.Rendering.OpenGL
         {
             if (filepaths.Length != 6)
                 throw new Exception("A cubemap is made up of exactly six textures. " + filepaths.Length + " textures were supplied.");
+            GL.Enable(EnableCap.TextureCubeMap);
+            GL.Enable(EnableCap.TextureCubeMapSeamless);
             int id = Texture.GenTextureID();
             Cubemap res = new Cubemap(id);
             res.Use();
@@ -565,7 +569,7 @@ namespace ApexEngine.Rendering.OpenGL
                 Bitmap bmp = new Bitmap(filepaths[i]);
                 BitmapData bmp_data = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
 
-                GL.TexImage2D(TextureTarget.TextureCubeMapPositiveX + i, 0, PixelInternalFormat.Rgba8, bmp_data.Width, bmp_data.Height, 0,
+                GL.TexImage2D(TextureTarget.TextureCubeMapPositiveX + i, 0, PixelInternalFormat.Rgba, bmp_data.Width, bmp_data.Height, 0,
                     OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, bmp_data.Scan0);
 
                 bmp.UnlockBits(bmp_data);

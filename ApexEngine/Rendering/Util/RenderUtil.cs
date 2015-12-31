@@ -46,6 +46,32 @@ namespace ApexEngine.Rendering.Util
             return meshes;
         }
 
+        public static List<Mesh> GatherMeshes(GameObject gameObject, List<Matrix4f> worldTransforms, List<Shader> shaders)
+        {
+            List<Mesh> meshes = new List<Mesh>();
+            if (worldTransforms == null)
+                worldTransforms = new List<Matrix4f>();
+
+            if (gameObject is Node)
+            {
+                GatherMeshes((Node)gameObject, meshes, worldTransforms);
+            }
+            else if (gameObject is Geometry)
+            {
+                meshes.Add(((Geometry)gameObject).Mesh);
+                Transform ttransform = new Transform();
+                ttransform.SetTranslation(gameObject.GetUpdatedWorldTranslation());
+                ttransform.SetRotation(gameObject.GetUpdatedWorldRotation());
+                ttransform.SetScale(gameObject.GetUpdatedWorldScale());
+                Matrix4f matrix = ttransform.GetMatrix();
+                worldTransforms.Add(matrix);
+                if (((Geometry)gameObject).GetShader() != null)
+                     shaders.Add(((Geometry)gameObject).GetShader());
+            }
+
+            return meshes;
+        }
+
         private static void GatherMeshes(Node node, List<Mesh> meshes)
         {
             foreach (GameObject child in node.Children)

@@ -25,6 +25,7 @@ namespace ApexEngine.Rendering
         public PrimitiveTypes primitiveType = PrimitiveTypes.Triangles;
         private BoundingBox boundingBox = null;
         private Material material = new Material();
+        private bool uploaded = false;
 
         public Mesh()
         {
@@ -32,7 +33,7 @@ namespace ApexEngine.Rendering
             ibo = 0;
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             RenderManager.Renderer.DeleteMesh(this);
             vertices.Clear();
@@ -124,13 +125,19 @@ namespace ApexEngine.Rendering
 
         private void UpdateMesh()
         {
-            RenderManager.Renderer.CreateMesh(this);
-
-            RenderManager.Renderer.UploadMesh(this);
+            uploaded = false;
         }
 
         public void Render()
         {
+            if (!uploaded)
+            {
+
+                RenderManager.Renderer.CreateMesh(this);
+
+                RenderManager.Renderer.UploadMesh(this);
+                uploaded = true;
+            }
             RenderManager.Renderer.RenderMesh(this);
         }
 

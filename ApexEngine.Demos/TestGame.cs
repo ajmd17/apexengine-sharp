@@ -1,6 +1,5 @@
 ﻿using ApexEngine.Assets;
 using ApexEngine.Math;
-using ApexEngine.Networking;
 using ApexEngine.Plugins.PagingSystem;
 using ApexEngine.Plugins.Shaders.Post;
 using ApexEngine.Plugins.Skydome;
@@ -8,15 +7,17 @@ using ApexEngine.Rendering;
 using ApexEngine.Rendering.Cameras;
 using ApexEngine.Rendering.Shadows;
 using ApexEngine.Scene;
-using ApexEngine.Terrain;
 using System;
 
 namespace ApexEngine.Demos
 {
     public class TestGame : Game
     {
+        private Node thing;
+        private ApexEngine.Terrain.SimplexTerrain.SimplexTerrainComponent terrain;
+        private Texture2D tex;
 
-        Texture2D tex;
+        Node tree;
 
         public TestGame(Renderer renderer) : base(renderer)
         {
@@ -24,14 +25,30 @@ namespace ApexEngine.Demos
 
         public override void Init()
         {
-            Environment.AmbientLight.Color.Set(0.2f, 0.15f, 0.1f, 1.0f);
-            Environment.DirectionalLight.Direction.Set(0.25f, 1, 0.25f).NormalizeStore();
-            Environment.DirectionalLight.Color.Set(1.0f, 0.8f, 0.6f, 1.0f);
-            ((PerspectiveCamera)Camera).FieldOfView = 75;
+            Environment.AmbientLight.Color.Set(0.1f, 0.1f, 0.1f, 1.0f);
+            Environment.FogColor.Set(0.2f, 0.3f, 0.45f, 1.0f);
+            Environment.DirectionalLight.Direction.Set(.5f, 1, .5f).NormalizeStore();
+            Environment.DirectionalLight.Color.Set(1.0f, 0.9f, 0.8f, 1.0f);
+            ((PerspectiveCamera)Camera).FieldOfView = 60;
+            Camera.Far = 330;
 
-         //   ShadowMappingComponent smc;
-        //    RenderManager.AddComponent(smc = new ShadowMappingComponent(cam, Environment));
-        //    smc.RenderMode = ShadowMappingComponent.ShadowRenderMode.Forward;
+            ShadowMappingComponent smc;
+            RenderManager.AddComponent(smc = new ShadowMappingComponent(cam, Environment));
+            smc.RenderMode = ShadowMappingComponent.ShadowRenderMode.Forward;
+
+          /*  thing = (Node)AssetManager.LoadModel(AssetManager.GetAppPath() + "\\models\\house.obj");
+
+            for (int i = 0; i < 1; i++)
+            {
+                GameObject thing1 = thing.Clone();
+                rootNode.AddChild(thing1);
+                thing1.SetLocalTranslation(new Vector3f(i * 7, -0.5f, 0));
+            }*/
+
+
+            tree = (Node)AssetManager.LoadModel(AssetManager.GetAppPath() + "\\models\\tree\\pine\\LoblollyPine.obj");
+            tree.SetLocalScale(new Vector3f(0.35f));
+
             /*
                         // Test an Apex Engine 3D model, with a material created in the material editor
                         Node loadedApx = (Node)AssetManager.LoadModel(AssetManager.GetAppPath() + "\\models\\test_apx.apx");
@@ -58,8 +75,6 @@ namespace ApexEngine.Demos
                        // rootNode.AddChild(quadGeom);
                        // PhysicsWorld.AddObject(quadGeom, 0.0f);
 
-                        
-
                         Rendering.Light.PointLight pl = new Rendering.Light.PointLight();
                         pl.Color = new Vector4f(0.2f, 0.0f, 0.0f, 1.0f);
                         pl.Position = new Vector3f(0.0f, 7.0f,15.0f);
@@ -68,21 +83,26 @@ namespace ApexEngine.Demos
                         Rendering.Light.PointLight pl2 = new Rendering.Light.PointLight();
                         pl2.Color = new Vector4f(0.0f, 0.3f, 0.1f, 1.0f);
                         pl2.Position = new Vector3f(0.0f, 1.0f, 0.0f);
-                       //   Environment.PointLights.Add(pl2);
-                        Cubemap skybox = Cubemap.LoadCubemap(new string[] { AssetManager.GetAppPath() + "\\textures\\frozendusk\\frozendusk_right.jpg",
-                                                             AssetManager.GetAppPath() + "\\textures\\frozendusk\\frozendusk_left.jpg",
-                                                             AssetManager.GetAppPath() + "\\textures\\frozendusk\\frozendusk_top.jpg",
-                                                             AssetManager.GetAppPath() + "\\textures\\frozendusk\\frozendusk_top.jpg",
-                                                             AssetManager.GetAppPath() + "\\textures\\frozendusk\\frozendusk_front.jpg",
-                                                             AssetManager.GetAppPath() + "\\textures\\frozendusk\\frozendusk_back.jpg" });
+                       //   Environment.PointLights.Add(pl2);*/
+           /* Node loadedApx = (Node)AssetManager.LoadModel(AssetManager.GetAppPath() + "\\models\\test_apx.apx");
+            loadedApx.SetLocalTranslation(new Math.Vector3f(0f, 45, 0));
+            rootNode.AddChild(loadedApx);
+            PhysicsWorld.AddObject(loadedApx, 1, Scene.Physics.PhysicsWorld.PhysicsShape.Box);
 
-                        // loadedApx.GetChildNode(0).GetChildGeom(0).Material.SetValue(Material.TEXTURE_ENV, skybox);
-                         loadedApx.GetChildNode(0).GetChildGeom(0).Material.SetValue(Material.SHININESS, 0.4f);
-                         loadedApx.GetChildNode(0).GetChildGeom(0).Material.SetValue(Material.ROUGHNESS, 0.2f);
-                         //loadedApx.GetChildNode(0).GetChildGeom(0).Material.SetValue(Material.METALNESS, 0.7f);
-                         loadedApx.GetChildNode(0).GetChildGeom(0).Material.SetValue(Material.SPECULAR_EXPONENT, 2f);
-                         loadedApx.GetChildNode(0).GetChildGeom(0).UpdateShaderProperties();
-                         Console.WriteLine(loadedApx.GetChildNode(0).GetChildGeom(0).ShaderProperties);*/
+            Cubemap skybox = Cubemap.LoadCubemap(new string[] { AssetManager.GetAppPath() + "\\textures\\frozendusk\\frozendusk_right.jpg",
+                                                                 AssetManager.GetAppPath() + "\\textures\\frozendusk\\frozendusk_left.jpg",
+                                                                 AssetManager.GetAppPath() + "\\textures\\frozendusk\\frozendusk_top.jpg",
+                                                                 AssetManager.GetAppPath() + "\\textures\\frozendusk\\frozendusk_top.jpg",
+                                                                 AssetManager.GetAppPath() + "\\textures\\frozendusk\\frozendusk_front.jpg",
+                                                                 AssetManager.GetAppPath() + "\\textures\\frozendusk\\frozendusk_back.jpg" });
+
+            loadedApx.GetChildNode(0).GetChildGeom(0).Material.SetValue(Material.COLOR_DIFFUSE, new Color4f(0.1f, 0.6f, 1.0f, 1.0f));
+            loadedApx.GetChildNode(0).GetChildGeom(0).Material.SetValue(Material.TEXTURE_ENV, skybox);
+            loadedApx.GetChildNode(0).GetChildGeom(0).Material.SetValue(Material.SHININESS, 0.4f);
+            loadedApx.GetChildNode(0).GetChildGeom(0).Material.SetValue(Material.ROUGHNESS, 0.2f);
+            loadedApx.GetChildNode(0).GetChildGeom(0).Material.SetValue(Material.METALNESS, 0.7f);
+            loadedApx.GetChildNode(0).GetChildGeom(0).Material.SetValue(Material.SPECULAR_EXPONENT, 2f);
+            loadedApx.GetChildNode(0).GetChildGeom(0).UpdateShaderProperties();*/
 
             /* Node terrainModel = (Node)AssetManager.LoadModel(AssetManager.GetAppPath() + "\\models\\landscape\\landscape.obj");
              Geometry terrainGeom = terrainModel.GetChildGeom(0);
@@ -108,57 +128,30 @@ namespace ApexEngine.Demos
 
              PhysicsWorld.AddObject(terrainModel, 0f);
  */
-            
 
-            ApexEngine.Terrain.SimplexTerrain.SimplexTerrainComponent terrain = new ApexEngine.Terrain.SimplexTerrain.SimplexTerrainComponent(PhysicsWorld);
-             terrain.ChunkAdded += new Terrain.TerrainComponent.ChunkAddedHandler(OnChunkAdd);
+            terrain = new ApexEngine.Terrain.SimplexTerrain.SimplexTerrainComponent(PhysicsWorld);
+            terrain.BiomesEnabled = true;
+            terrain.ChunkAdded += new Terrain.TerrainComponent.ChunkAddedHandler(OnChunkAdd);
             terrain.ChunkRemoved += new Terrain.TerrainComponent.ChunkRemovedHandler(OnChunkRemove);
 
             AddComponent(terrain);
 
-
             AddComponent(new SkydomeComponent());
 
-
-          //  tex = (Texture2D)AssetManager.Load(AssetManager.GetAppPath() + "\\textures\\apex3d.png");
-           // Sprite sprite = new Sprite();
-           // rootNode.AddChild(sprite);
-
+            //  tex = (Texture2D)AssetManager.Load(AssetManager.GetAppPath() + "\\textures\\apex3d.png");
+            // Sprite sprite = new Sprite();
+            // rootNode.AddChild(sprite);
 
             /*  ShadowMappingComponent smc;
               RenderManager.AddComponent(smc = new ShadowMappingComponent(cam, Environment));
               smc.RenderMode = ShadowMappingComponent.ShadowRenderMode.Forward;
               */
 
-
-
-
-
-                  // Rendering.NormalMapRenderer nmr;
-                 //  RenderManager.AddComponent(nmr = new Rendering.NormalMapRenderer(Environment, Camera));
-                  // RenderManager.PostProcessor.PostFilters.Add(new Rendering.PostProcess.Filters.SSAOFilter(nmr));
+            //        Rendering.NormalMapRenderer nmr;
+            //        RenderManager.AddComponent(nmr = new Rendering.NormalMapRenderer(Environment, Camera));
+            //        RenderManager.PostProcessor.PostFilters.Add(new Rendering.PostProcess.Filters.SSAOFilter(nmr));
 
             RenderManager.PostProcessor.PostFilters.Add(new FXAAFilter());
-
-            /*   GameObject loadedObj = AssetManager.LoadModel(AssetManager.GetAppPath() + "\\models\\house.obj");
-               ((Node)loadedObj).GetChildGeom(0).Material.SetValue(Material.TEXTURE_HEIGHT, AssetManager.LoadTexture("C:\\Users\\User\\Pictures\\Brick_14_UV_H_CM_1_DISP.jpg"));
-            loadedObj.SetLocalTranslation(new Vector3f(0, -3, 0));
-               rootNode.AddChild(loadedObj);
-               PhysicsWorld.AddObject(loadedObj, 0.0f);
-               */
-
-
-
-
-
-
-        /*    GrassPopulator grassPop;
-            rootNode.AddController(grassPop = new GrassPopulator(PhysicsWorld, cam));
-            grassPop.GenPatches(6, 5, 64);*/
-
-
-
-
 
             /*Rendering.NormalMapRenderer nmr;
             RenderManager.AddComponent(nmr = new Rendering.NormalMapRenderer(Environment, Camera));
@@ -174,7 +167,6 @@ namespace ApexEngine.Demos
             rootNode.AddChild(waterGeom);*/
             //   Console.WriteLine("\n\n" + ShaderUtil.FormatShaderProperties((string)ShaderTextLoader.GetInstance().Load(AssetManager.GetAppPath() + "\\shaders\\default.frag"), new ShaderProperties().SetProperty("NORMALS", true)));
 
-
             /*
             ServerGameComponent serv;
             this.AddComponent(serv = new ServerGameComponent(new ServerHandler((Message msg) => { })));
@@ -187,8 +179,23 @@ namespace ApexEngine.Demos
             {
                 GrassPopulator grass;
                 chunk.AddController(grass = new GrassPopulator(PhysicsWorld, cam));
-                grass.GenPatches(chunk, 6, 6);
+                grass.GenPatches(chunk, 5, 6);
             }
+            if (!chunk.HasController(typeof(RockPopulator)))
+            {
+                RockPopulator rock;
+                chunk.AddController(rock = new RockPopulator(PhysicsWorld, cam));
+                rock.GenPatches(chunk, 2, 2);
+            }
+
+
+            rootNode.AddChild(tree);
+        /*    
+            for (int i = 0; i < chunk.hm.heights.Length; i++)
+            {
+                chunk.hm.heights[i] = 0f;
+            }
+            chunk.hm.RebuildTerrainMesh();*/
         }
 
         public void OnChunkRemove(Terrain.TerrainChunkNode chunk, EventArgs e)
@@ -198,17 +205,19 @@ namespace ApexEngine.Demos
                 GrassPopulator grass = (GrassPopulator)chunk.GetController(typeof(GrassPopulator));
                 grass = null;
             }
+            if (chunk.HasController(typeof(RockPopulator)))
+            {
+                RockPopulator rock = (RockPopulator)chunk.GetController(typeof(RockPopulator));
+                rock = null;
+            }
         }
 
         public override void Render()
         {
-          //       PhysicsWorld.DrawDebug();
-          //  this.RenderManager.SpriteRenderer.Render(tex, 15, 15);
         }
 
         public override void Update()
         {
-            // Console.WriteLine(RootNode.GetChildNode(0).GetChild(0).GetWorldRotation());
         }
     }
 }

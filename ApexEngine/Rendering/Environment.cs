@@ -17,7 +17,7 @@ namespace ApexEngine.Rendering
 
         private float fogStart = 40f;
         private float fogEnd = 150;
-        private Vector4f fogColor = new Vector4f(0.3f, 0.3f, 0.3f, 1.0f);
+        private Vector4f fogColor = new Vector4f(0.2f, 0.2f, 0.2f, 1.0f);
 
         private float gameTime = 0f;
         private float elapsedTime = 0f;

@@ -166,10 +166,10 @@ namespace ApexEngine.Rendering
 
         public void Update()
         {
-            if (enabled)
-            {
+           // if (enabled)
+           // {
                 UpdateCamera();
-            }
+            //}
             UpdateMatrix();
         }
 

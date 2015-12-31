@@ -13,7 +13,7 @@ namespace ApexEngine.Rendering.Cameras
         };
 
         private InputManager inputManager = null;
-        protected CameraMode camMode = CameraMode.DragMode;
+        protected CameraMode camMode = CameraMode.FPSMode;
         protected bool mouseCaptured = false, mouseDragging = false;
         private Vector3f dirCrossY = new Vector3f();
         private float oldX = 0, oldY = 0, magX = 0, magY = 0;
@@ -40,25 +40,25 @@ namespace ApexEngine.Rendering.Cameras
             inputManager.AddKeyboardEvent(evt_mouseRelease);
             MouseEvent evt_mouseClick = new MouseEvent(ApexEngine.Input.InputManager.MouseButton.Left, false, () =>
             {
-                if (camMode == CameraMode.FPSMode)
-                     CenterMouse();
+                //    if (camMode == CameraMode.FPSMode)
+                CenterMouse();
                 mouseDragging = true;
                 mouseCaptured = true;
-                //   if (camMode == CameraMode.DragMode)
-                inputManager.SetMouseVisible(!mouseDragging);
-                // else if (camMode == CameraMode.FPSMode)
-                //     ApexEngine.Input.Input.SetMouseVisible(!mouseCaptured);
+                if (camMode == CameraMode.DragMode)
+                    inputManager.SetMouseVisible(!mouseDragging);
+                else if (camMode == CameraMode.FPSMode)
+                    inputManager.SetMouseVisible(!mouseCaptured);
             });
             inputManager.AddMouseEvent(evt_mouseClick);
             MouseEvent evt_mouseUp = new MouseEvent(ApexEngine.Input.InputManager.MouseButton.Left, true, () =>
             {
-                if (camMode == CameraMode.FPSMode)
-                    CenterMouse();
+                //   if (camMode == CameraMode.FPSMode)
+                CenterMouse();
                 mouseDragging = false;
                 if (camMode == CameraMode.DragMode)
                     inputManager.SetMouseVisible(!mouseDragging);
-                //  else if (camMode == CameraMode.FPSMode)
-                //     ApexEngine.Input.Input.SetMouseVisible(!mouseCaptured);
+                else if (camMode == CameraMode.FPSMode)
+                    inputManager.SetMouseVisible(!mouseCaptured);
             });
             inputManager.AddMouseEvent(evt_mouseUp);
         }
@@ -77,7 +77,8 @@ namespace ApexEngine.Rendering.Cameras
         {
             this.width = inputManager.SCREEN_WIDTH;
             this.height = inputManager.SCREEN_HEIGHT;
-            Input();
+            if (enabled)
+                Input();
         }
 
         protected void Input()
@@ -106,14 +107,15 @@ namespace ApexEngine.Rendering.Cameras
             }
             else if (camMode == CameraMode.DragMode && mouseDragging)
             {
-                magX = (float)x-oldX;
-                magY = (float)y-oldY;
+                magX = (float)x;
+                magY = (float)y;
                 magX *= -0.1f;
                 magY *= -0.1f;
                 dirCrossY.Set(direction);
                 dirCrossY.CrossStore(Vector3f.UnitY);
                 Rotate(Vector3f.UnitY, magX);
                 Rotate(dirCrossY, magY);
+                inputManager.SetMousePosition(halfWidth, halfHeight);
             }
             oldX = x;
             oldY = y;

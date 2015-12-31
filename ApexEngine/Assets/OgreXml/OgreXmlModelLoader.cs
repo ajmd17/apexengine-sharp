@@ -108,7 +108,7 @@ namespace ApexEngine.Assets.OgreXml
 
         public override object Load(LoadedAsset asset)
         {
-            XmlReader xmlReader = XmlReader.Create(asset.FilePath);
+            XmlReader xmlReader = XmlReader.Create(asset.Data);
             while (xmlReader.Read())
             {
                 if (xmlReader.NodeType == XmlNodeType.Element)

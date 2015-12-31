@@ -4,7 +4,6 @@ using ApexEngine.Scene.Components;
 using ApexEngine.Scene.Physics;
 using System;
 using System.Collections.Generic;
-using System.Threading;
 
 namespace ApexEngine.Terrain
 {
@@ -22,11 +21,11 @@ namespace ApexEngine.Terrain
         protected List<HeightInfo> heightmaps;
         protected Material terrainMaterial = new TerrainMaterial();
         protected List<Vector2f> queue = new List<Vector2f>();
-        protected Vector3f scale = new Vector3f(2,1,2);
+        protected Vector3f scale = new Vector3f(2, 2f, 2);
         private float updateTime = 6, maxUpdateTime = 6f, queueTime = 2, maxQueueTime = 2f;
         private Vector2f v2cp = new Vector2f();
         private Vector3f cp = new Vector3f();
-        private float maxDist = 1.8f;
+        private float maxDist = 3f;
         private Vector3f wt = new Vector3f();
         private Vector2f tmpCenter = new Vector2f();
         protected EventArgs e = null;
@@ -80,19 +79,6 @@ namespace ApexEngine.Terrain
             return nb;
         }
 
-        protected TerrainChunkNode GetChunk(int x, int z)
-        {
-            for (int i = 0; i < this.heightmaps.Count; i++)
-            {
-                HeightInfo hi = heightmaps[i];
-                if (((int)hi.position.x) == x && ((int)hi.position.y) == z)
-                {
-                    return hi.chunk;
-                }
-            }
-            return null;
-        }
-
         protected Vector2f ScaleDivide(Vector2f a)
         {
             return a.Multiply(1f / ((int)chunkSize - 1)).Multiply(new Vector2f(scale.x, scale.z));
@@ -136,19 +122,20 @@ namespace ApexEngine.Terrain
 
         public override void Update()
         {
-           // if (queueTime > maxQueueTime)
-         //   {
-                if (queue.Count > 0)
-                {
-                    Vector2f v = queue[0];
-                    int x = (int)v.x;
-                    int y = (int)v.y;
-                    AddChunk(x, y);
-                    queue.Remove(v);
-                    queueTime = 0f;
-                }
-           // }
-          //  queueTime += 1f;
+            // if (queueTime > maxQueueTime)
+            //   {
+            if (queue.Count > 0)
+            {
+                Vector2f v = queue[0];
+                int x = (int)v.x;
+                int y = (int)v.y;
+                AddChunk(x, y);
+                queue.Remove(v);
+                queueTime = 0f;
+            }
+            // }
+
+            //  queueTime += 1f;
             if (updateTime > maxUpdateTime)
             {
                 cp.Set(Camera.Translation);
@@ -171,9 +158,9 @@ namespace ApexEngine.Terrain
                         {
                             foreach (Vector2f v2 in hinf.neighbors)
                             {
-                                 AddChunk((int)v2.x, (int)v2.y);
+                                AddChunk((int)v2.x, (int)v2.y);
 
-                             //   AddToQueue(new Vector2f((int)v2.x, (int)v2.y));
+                                //   AddToQueue(new Vector2f((int)v2.x, (int)v2.y));
                             }
                         }
                         hinf.UpdateChunk();
@@ -193,16 +180,11 @@ namespace ApexEngine.Terrain
                             hinf.midpoint = null;
                             hinf.position = null;
                             hinf.chunk.hm.Dispose();
-                         //   hinf.chunk.hm.vertices.Clear();
-                         //   hinf.chunk.hm.indices.Clear();
-                         //   hinf.chunk.hm.vertices = null;
-                         //   hinf.chunk.hm.indices = null;
                             hinf.chunk.hm = null;
                             hinf.chunk = null;
                             hinf = null;
                             System.GC.Collect();
                         }
-                        
                     }
                 }
                 AddChunk((int)cp.x, (int)cp.z);
@@ -210,13 +192,13 @@ namespace ApexEngine.Terrain
             }
             else
             {
-                updateTime += this.Environment.TimePerFrame*10.0f;
+                updateTime += this.Environment.TimePerFrame * 10.0f;
             }
         }
 
         public Vector3f GetNormal(Vector3f worldPosition)
         {
-            wt.Set(worldPosition);
+            /*wt.Set(worldPosition);
             wt.DivideStore(new Vector3f((chunkSize - 1) * scale.x));
             if (wt.x < 0f)
             {
@@ -228,7 +210,7 @@ namespace ApexEngine.Terrain
             }
             wt.x = (int)wt.x;
             wt.z = (int)wt.z;
-            TerrainChunkNode closest = (TerrainChunkNode)GetChunk((int)wt.x, (int)wt.z);
+            HeightInfo closest = GetChunk((int)wt.x, (int)wt.z);
             if (closest != null)
             {
                 Vector3f chunkSpace = new Vector3f(worldPosition);
@@ -236,14 +218,15 @@ namespace ApexEngine.Terrain
                 chunkSpace.SubtractStore(closest.GetLocalTranslation());
                 chunkSpace.SubtractStore(rootNode.GetWorldTranslation());
                 return closest.GetNormal(chunkSpace);
-            }
+            }*/
             return null;
         }
 
-        public float GetHeight(Vector3f worldPosition)
+        public Vector3f WorldToChunkSpace(Vector3f worldPosition)
         {
             wt.Set(worldPosition);
-            wt.DivideStore(new Vector3f((chunkSize - 1) * scale.x));
+            wt.DivideStore((chunkSize - 1));
+            wt.DivideStore(scale);
             if (wt.x < 0f)
             {
                 wt.x -= 1;
@@ -252,14 +235,22 @@ namespace ApexEngine.Terrain
             {
                 wt.z -= 1;
             }
-            wt.x = (int)wt.x;
-            wt.z = (int)wt.z;
-            TerrainChunkNode closest = (TerrainChunkNode)GetChunk((int)wt.x, (int)wt.z);
+
+            return wt;
+        }
+
+        public float GetHeight(Vector3f worldPosition)
+        {
+            Vector3f chunkSpace1 = WorldToChunkSpace(worldPosition);
+            HeightInfo closest = HmWithCoords((int)chunkSpace1.x, (int)chunkSpace1.z);
+
             if (closest != null)
             {
-                Vector3f chunkSpace = new Vector3f(worldPosition);
-                chunkSpace.DivideStore(scale);
-                return closest.GetHeight(chunkSpace);
+                chunkSpace1.x -= closest.position.x;
+                chunkSpace1.z -= closest.position.y;
+                chunkSpace1.MultiplyStore((chunkSize - 1));
+
+                return closest.chunk.GetHeight(chunkSpace1);
             }
             return float.NaN;
         }

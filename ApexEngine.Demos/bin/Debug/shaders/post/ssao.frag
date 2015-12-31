@@ -145,7 +145,7 @@ void main(void)
 	    vec3 zaxis = vec3(texture2D( u_rotationNoiseTexture, p.xy*u_rotationNoiseScale).r);
 
 		vec2 rand = (xaxis * blending.x + yaxis * blending.y + zaxis * blending.z).xy;
-		float rad = u_radius*3.0;
+		float rad = u_radius;
 		
 		vec2 vec[4];
 		vec[0] = vec2(1.0, 0.0);

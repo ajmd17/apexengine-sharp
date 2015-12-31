@@ -13,11 +13,11 @@ namespace ApexEngine.Plugins.PagingSystem
     public abstract class Populator : Controller
     {
         protected List<Patch> patches = new List<Patch>();
-        private float updateTime = 0f, maxUpdateTime = 4f;
+        private float updateTime = 0f, maxUpdateTime = 5f;
         protected bool batchGeometry = true;
         protected Camera cam;
         private Vector2f tmpVec = new Vector2f(), tmpVec2 = new Vector2f();
-        private Random rand;
+        protected Random rand;
 
         public Populator(Camera cam, bool batchGeometry, int seed)
         {
@@ -34,7 +34,7 @@ namespace ApexEngine.Plugins.PagingSystem
         {
         }
 
-        double RandomDouble(double a, double b)
+        protected double RandomDouble(double a, double b)
         {
             return a + rand.NextDouble() * (b - a);
         }
@@ -64,7 +64,7 @@ namespace ApexEngine.Plugins.PagingSystem
                     if (yLoc != float.NaN)
                     {
                         GameObject entity = CreateEntity(new Vector3f(xLoc, yLoc, zLoc), Vector3f.Zero);
-                        entity.SetLocalScale(new Vector3f((float)RandomDouble(0.1f, 0.5f)));
+                       // entity.SetLocalScale(new Vector3f((float)RandomDouble(0.1f, 0.5f)));
                         entity.SetLocalRotation(new Quaternion().SetFromAxis(Vector3f.UnitY, (float)RandomDouble(0, 359)));
                         //  n.AddChild(CreateEntity(new Vector3f(x * mult, y, z * mult), Vector3f.ZERO));
                         n.AddChild(entity);
@@ -76,7 +76,7 @@ namespace ApexEngine.Plugins.PagingSystem
                 Node merged = new Node();
                 merged.AddChild(new Geometry(MeshUtil.MergeMeshes(n)));
                 merged.SetLocalTranslation(translation);
-                merged.GetChildGeom(0).SetShader(typeof(ApexEngine.Rendering.Shaders.GrassShader));
+                merged.GetChildGeom(0).SetShader(GetShaderType());
                 for (int i = 0; i < n.Children.Count; i++)
                 {
                     n.Children[i] = null;
@@ -87,6 +87,8 @@ namespace ApexEngine.Plugins.PagingSystem
             n.SetLocalTranslation(translation);
             return n;
         }
+
+        public abstract Type GetShaderType();
 
         public abstract void GenPatches(GameObject parent,
                 Vector2f origin,

@@ -37,6 +37,9 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LibNoise">
+      <HintPath>..\..\..\..\..\Downloads\LibNoise\bin\Debug\LibNoise.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -50,9 +53,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Terrain\Ecosystem\BiomeTerrain.cs" />
     <Compile Include="Terrain\HeightInfo.cs" />
     <Compile Include="Terrain\ModelTerrain\ModelTerrainChunkNode.cs" />
     <Compile Include="Terrain\ModelTerrain\ModelTerrainComponent.cs" />
+    <Compile Include="Terrain\Ecosystem\Biome.cs" />
     <Compile Include="Terrain\SimplexTerrain\SimplexTerrainChunkNode.cs" />
     <Compile Include="Terrain\SimplexTerrain\SimplexTerrainComponent.cs" />
     <Compile Include="Terrain\SimplexTerrain\SimplexTerrainMesh.cs" />

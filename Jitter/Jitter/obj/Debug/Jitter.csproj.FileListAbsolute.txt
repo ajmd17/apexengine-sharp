@@ -7,3 +7,4 @@ C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\Jitter\Jitter\bin\D
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\Jitter\Jitter\bin\Debug\Jitter.pdb
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\Jitter\Jitter\obj\Debug\Jitter.dll
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\Jitter\Jitter\obj\Debug\Jitter.pdb
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\Jitter\Jitter\obj\Debug\Jitter.csprojResolveAssemblyReference.cache

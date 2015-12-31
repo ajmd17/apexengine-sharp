@@ -8,3 +8,4 @@ C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\Lidgren\Lidgren.Net
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\Lidgren\Lidgren.Network\bin\Debug\Lidgren.Network.pdb
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\Lidgren\Lidgren.Network\obj\Debug\Lidgren.Network.dll
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\Lidgren\Lidgren.Network\obj\Debug\Lidgren.Network.pdb
+C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\Lidgren\Lidgren.Network\obj\Debug\Lidgren.Network.csprojResolveAssemblyReference.cache

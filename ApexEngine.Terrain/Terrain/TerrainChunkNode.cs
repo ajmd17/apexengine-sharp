@@ -62,6 +62,7 @@ namespace ApexEngine.Terrain
                 }
                 catch (Exception ex)
                 {
+                    Console.WriteLine(ex.Message);
                     return float.NaN;
                 }
             }

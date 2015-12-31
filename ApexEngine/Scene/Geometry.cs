@@ -53,7 +53,7 @@ namespace ApexEngine.Scene
                 if (mesh != null)
                     worldBoundingBox = mesh.CreateBoundingBox(GetWorldMatrix());
         }
-        
+
         public override void UpdateLocalBoundingBox()
         {
             if (localBoundingBox != null)
@@ -82,7 +82,7 @@ namespace ApexEngine.Scene
         public Material Material
         {
             get { if (mesh != null) { return mesh.Material; } return null; }
-            set { if (mesh != null) { mesh.Material = value; }  }
+            set { if (mesh != null) { mesh.Material = value; } }
         }
 
         public void SetDefaultShader()
@@ -90,20 +90,12 @@ namespace ApexEngine.Scene
             if (mesh.GetSkeleton() != null)
             {
                 g_shaderProperties.SetProperty("SKINNING", true).SetProperty("NUM_BONES", mesh.GetSkeleton().GetNumBones());
-                g_shaderProperties.SetProperty("DEFAULT", true);
-                g_shaderProperties.SetProperty("NORMALS", false);
-                g_shaderProperties.SetProperty("DEPTH", false);
-                SetShader(ShaderManager.GetShader(typeof(Rendering.Shaders.DefaultShader), g_shaderProperties));
-                g_shaderProperties.SetProperty("DEFAULT", false);
             }
-            else
-            {
-                g_shaderProperties.SetProperty("DEFAULT", true);
-                g_shaderProperties.SetProperty("NORMALS", false);
-                g_shaderProperties.SetProperty("DEPTH", false);
-                SetShader(ShaderManager.GetShader(typeof(Rendering.Shaders.DefaultShader), g_shaderProperties));
-                g_shaderProperties.SetProperty("DEFAULT", false);
-            }
+            g_shaderProperties.SetProperty("DEFAULT", true);
+            g_shaderProperties.SetProperty("NORMALS", false);
+            g_shaderProperties.SetProperty("DEPTH", false);
+            SetShader(ShaderManager.GetShader(typeof(Rendering.Shaders.DefaultShader), g_shaderProperties));
+            g_shaderProperties.SetProperty("DEFAULT", false);
         }
 
         public virtual void Render(Rendering.Environment environment, Camera cam)

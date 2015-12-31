@@ -12,6 +12,9 @@ uniform sampler2D terrainTexture0Normal;
 uniform int terrainTexture0HasNormal;
 uniform float terrainTexture0Scale;
 
+uniform sampler2D splatTexture;
+uniform int hasSplatMap;
+
 uniform sampler2D slopeTexture;
 uniform sampler2D slopeTextureNormal;
 uniform int slopeTextureHasNormal;
@@ -35,15 +38,41 @@ void main()
 	
 	float tex0Strength = 0.0;
 	vec4 texColor0 = pow(texture2D(terrainTexture0, texCoord * terrainTexture0Scale), vec4(2.2, 2.2, 2.2, 1.0));
+	vec4 texColor1 = vec4(0.9); // TODO: snow
+	vec4 texColor2;
+	vec4 texColor3;
+	
 	vec4 slopeColor = pow(texture2D(slopeTexture, texCoord * slopeScale), vec4(2.2, 2.2, 2.2, 1.0));
+	
 	
 	vec3 up = vec3(0.0, 1.0, 0.0);
 	float ang = max(abs(v_normal.x), 0.0);
 	
-	tex0Strength = 1.0-clamp(ang/(1.0-0.5), 0.0, 1.0);
-	diffuseTexture = mix(slopeColor, texColor0, tex0Strength);
+	tex0Strength = 1.0-clamp(ang/(1.0-0.65), 0.0, 1.0);
 	
-	if (ang > (1.0-0.5))
+	vec4 flatColor;
+	flatColor = texColor0;
+	
+	if (hasSplatMap == 1)
+	{
+		// texColor1 = red
+		// texColor2 = green
+		// texColor3 = blue;
+		
+		vec4 splatColor = texture2D(splatTexture, texCoord);
+		
+		
+	//	flatColor = mix(flatColor, texColor2, splatColor.g);
+	//	flatColor = mix(flatColor, texColor3, splatColor.b);
+	}
+	
+	flatColor = mix(flatColor, texColor1, clamp( v_position.y / 16.0, 0.0, 1.0));
+	
+	diffuseTexture = mix(slopeColor, flatColor, tex0Strength);
+	
+	
+	
+	if (ang >= (1.0-0.65))
 	{
 		diffuseTexture = slopeColor;
 	}
@@ -77,7 +106,7 @@ void main()
 		
 		if (Env_ShadowsEnabled == 1)
 		{
-			const float radius = 0.035;
+			const float radius = 0.05;
 			int index = GetShadowMapSplit(Apex_CameraPosition, v_position.xyz);
 			for (int x = 0; x < 4; x++)
 			{
@@ -90,9 +119,9 @@ void main()
 			}
 			shadowness /= 16.0;
 			shadowColor = vec3(shadowness);
-			shadowColor = mix(vec3(0.5), shadowColor, shadowness);
+		//	shadowColor = mix(vec3(0.5), shadowColor, shadowness);
 			
-			shadowColor = CalculateFog(shadowColor, vec3(1.0), v_position.xyz, Apex_CameraPosition, Env_ShadowMapSplits[2], Env_ShadowMapSplits[3]);
+			shadowColor = CalculateFogLinear(shadowColor, vec3(1.0), v_position.xyz, Apex_CameraPosition, Env_ShadowMapSplits[2], Env_ShadowMapSplits[3]);
 		}
 		
 		if (Material_SpecularTechnique == 0)
@@ -119,6 +148,7 @@ void main()
 		
 		vec3 reflection;
 		float fresnel = Fresnel(n, v_position.xyz, Apex_CameraPosition, l, Material_Roughness);
+		fresnel = pow(fresnel, 5.0);
 		reflection = vec3(fresnel);
 		specular += reflection;
 		specular *= Env_DirectionalLight.color.xyz;
