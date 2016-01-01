@@ -136,6 +136,7 @@ namespace ApexEngine
                 cam.UpdateCamera();
                 cam.UpdateMatrix();
                 rootNode.Update(renderManager);
+                Console.WriteLine("Move");
             }
             if (position.z > maxDist)
             {
@@ -145,6 +146,7 @@ namespace ApexEngine
                 cam.UpdateCamera();
                 cam.UpdateMatrix();
                 rootNode.Update(renderManager);
+                Console.WriteLine("Move");
             }
             if (position.x < -maxDist)
             {
@@ -154,6 +156,7 @@ namespace ApexEngine
                 cam.UpdateCamera();
                 cam.UpdateMatrix();
                 rootNode.Update(renderManager);
+                Console.WriteLine("Move");
             }
             if (position.z < -maxDist)
             {
@@ -163,6 +166,7 @@ namespace ApexEngine
                 cam.UpdateCamera();
                 cam.UpdateMatrix();
                 rootNode.Update(renderManager);
+                Console.WriteLine("Move");
             }
         }
 

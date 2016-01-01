@@ -336,7 +336,7 @@ namespace ApexEngine.Scene
         public virtual void SetWorldTransformPhysics(Vector3f trans, Quaternion rot, Vector3f scl)
         {
             worldTransform.SetTranslation(trans);
-          //  worldTransform.SetRotation(localRotation);
+            worldTransform.SetRotation(rot);
           //  worldTransform.SetScale(scl);
             worldMatrix = worldTransform.GetMatrix();
 

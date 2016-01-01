@@ -54,7 +54,7 @@
     <Compile Include="TestHall.cs" />
     <Compile Include="TestLandscape.cs" />
     <Compile Include="TestSounds.cs" />
-    <Compile Include="TestWater.cs" />
+    <Compile Include="TestPhysics.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

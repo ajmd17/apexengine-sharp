@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ApexEngine.Math;
+using ApexEngine.Rendering.Cameras;
+using ApexEngine.Input;
 
 namespace ApexEngine.Scene.Physics
 {
@@ -25,7 +27,7 @@ namespace ApexEngine.Scene.Physics
 
         public PhysicsWorld(PhysicsDebugDraw debugDraw)
         {
-            collisionSystem.UseTriangleMeshNormal = false;
+            collisionSystem.UseTriangleMeshNormal = true;
             world = new World(collisionSystem);
             this.debugDraw = debugDraw;
         }
@@ -113,9 +115,18 @@ namespace ApexEngine.Scene.Physics
             }
         }
 
+        public void AddCharacter(DefaultCamera camera, InputManager inputManager, GameObject gameObject, float mass)
+        {
+            CharacterController rbc = new CharacterController(camera, inputManager, mass);
+            gameObject.AddController(rbc);
+            world.AddBody(rbc.Body);
+            rbc.Body.EnableDebugDraw = true;
+            rbc.Body.DebugDraw(debugDraw);
+        }
+
         public void Update(float delta)
         {
-            world.Step(delta, false);
+            world.Step(delta*0.65f, true);
         }
 
         public void DrawDebug()

@@ -14,9 +14,10 @@ namespace ApexEngine.Rendering.Cameras
 
         private InputManager inputManager = null;
         protected CameraMode camMode = CameraMode.FPSMode;
-        protected bool mouseCaptured = false, mouseDragging = false;
+        protected bool mouseCaptured = false, mouseDragging = false, keysEnabled = true;
         private Vector3f dirCrossY = new Vector3f();
         private float oldX = 0, oldY = 0, magX = 0, magY = 0;
+        
 
         public DefaultCamera(InputManager inputManager)
             : base()
@@ -34,8 +35,8 @@ namespace ApexEngine.Rendering.Cameras
                 CenterMouse();
                 mouseCaptured = !mouseCaptured;
 
-                if (camMode == CameraMode.FPSMode)
-                    inputManager.SetMouseVisible(!mouseCaptured);
+              //  if (camMode == CameraMode.FPSMode)
+             //       inputManager.SetMouseVisible(!mouseCaptured);
             });
             inputManager.AddKeyboardEvent(evt_mouseRelease);
             MouseEvent evt_mouseClick = new MouseEvent(ApexEngine.Input.InputManager.MouseButton.Left, false, () =>
@@ -44,10 +45,10 @@ namespace ApexEngine.Rendering.Cameras
                 CenterMouse();
                 mouseDragging = true;
                 mouseCaptured = true;
-                if (camMode == CameraMode.DragMode)
+            /*    if (camMode == CameraMode.DragMode)
                     inputManager.SetMouseVisible(!mouseDragging);
                 else if (camMode == CameraMode.FPSMode)
-                    inputManager.SetMouseVisible(!mouseCaptured);
+                    inputManager.SetMouseVisible(!mouseCaptured);*/
             });
             inputManager.AddMouseEvent(evt_mouseClick);
             MouseEvent evt_mouseUp = new MouseEvent(ApexEngine.Input.InputManager.MouseButton.Left, true, () =>
@@ -55,12 +56,18 @@ namespace ApexEngine.Rendering.Cameras
                 //   if (camMode == CameraMode.FPSMode)
                 CenterMouse();
                 mouseDragging = false;
-                if (camMode == CameraMode.DragMode)
+                /*if (camMode == CameraMode.DragMode)
                     inputManager.SetMouseVisible(!mouseDragging);
                 else if (camMode == CameraMode.FPSMode)
-                    inputManager.SetMouseVisible(!mouseCaptured);
+                    inputManager.SetMouseVisible(!mouseCaptured);*/
             });
             inputManager.AddMouseEvent(evt_mouseUp);
+        }
+
+        public bool KeysEnabled
+        {
+            get { return keysEnabled; }
+            set { keysEnabled = value; }
         }
 
         protected void CenterMouse()
@@ -84,7 +91,8 @@ namespace ApexEngine.Rendering.Cameras
         protected void Input()
         {
             MouseInput(inputManager.GetMouseX(), inputManager.GetMouseY(), width / 2, height / 2);
-            KeyboardInput();
+            if (keysEnabled)
+             KeyboardInput();
         }
 
         protected void MouseInput(int x, int y, int halfWidth, int halfHeight)

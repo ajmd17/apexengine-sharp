@@ -11,6 +11,7 @@ namespace ApexEditor
 
         public MtlViewerGame() : base(new ApexEngine.Rendering.OpenGL.GLRenderer())
         {
+            Environment.AmbientLight.Color.Set(0, 0, 0, 1);
         }
 
         public bool Rotate

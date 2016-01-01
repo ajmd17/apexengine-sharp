@@ -16,6 +16,7 @@ namespace ApexEngine.Demos
         private Node thing;
         private ApexEngine.Terrain.SimplexTerrain.SimplexTerrainComponent terrain;
         private Texture2D tex;
+        private bool added = false;
 
         Node tree;
 
@@ -28,7 +29,7 @@ namespace ApexEngine.Demos
             Environment.AmbientLight.Color.Set(0.1f, 0.1f, 0.1f, 1.0f);
             Environment.FogColor.Set(0.2f, 0.3f, 0.45f, 1.0f);
             Environment.DirectionalLight.Direction.Set(.5f, 1, .5f).NormalizeStore();
-            Environment.DirectionalLight.Color.Set(1.0f, 0.9f, 0.8f, 1.0f);
+            Environment.DirectionalLight.Color.Set(1.0f, 0.85f, 0.55f, 1.0f);
             ((PerspectiveCamera)Camera).FieldOfView = 60;
             Camera.Far = 330;
 
@@ -46,16 +47,12 @@ namespace ApexEngine.Demos
             }*/
 
 
-            tree = (Node)AssetManager.LoadModel(AssetManager.GetAppPath() + "\\models\\tree\\pine\\LoblollyPine.obj");
-            tree.SetLocalScale(new Vector3f(0.35f));
+        //    tree = (Node)AssetManager.LoadModel(AssetManager.GetAppPath() + "\\models\\tree\\pine\\LoblollyPine.obj");
+        //    tree.SetLocalScale(new Vector3f(0.35f));
 
-            /*
+            
                         // Test an Apex Engine 3D model, with a material created in the material editor
-                        Node loadedApx = (Node)AssetManager.LoadModel(AssetManager.GetAppPath() + "\\models\\test_apx.apx");
-                        loadedApx.SetLocalTranslation(new Math.Vector3f(0f, 45, 0));
-                        rootNode.AddChild(loadedApx);
-                        PhysicsWorld.AddObject(loadedApx, 1, Scene.Physics.PhysicsWorld.PhysicsShape.Box);
-
+            /*
                         // Test an OBJ model, with normal mapping
                         GameObject loadedObj = AssetManager.LoadModel(AssetManager.GetAppPath() + "\\models\\house.obj");
                         //  ((Node)loadedObj).GetChildGeom(0).Material.SetValue(Material.TEXTURE_HEIGHT, Texture.LoadTexture("C:\\Users\\User\\Pictures\\Brick_14_UV_H_CM_1_DISP.jpg"));
@@ -153,6 +150,19 @@ namespace ApexEngine.Demos
 
             RenderManager.PostProcessor.PostFilters.Add(new FXAAFilter());
 
+
+
+
+            Node n = (Node)AssetManager.LoadModel(AssetManager.GetAppPath() + "\\models\\monkeyhq.obj");
+            n.SetLocalTranslation(new Vector3f(0, 100, 0));
+            n.GetChildGeom(0).Material.SetValue(Material.COLOR_DIFFUSE, new Color4f(0.0f, 0.0f, 0.0f, 1.0f));
+            n.GetChildGeom(0).Material.SetValue(Material.SHININESS, 1.0f);
+            n.GetChildGeom(0).Material.SetValue(Material.ROUGHNESS, 0.3f);
+            rootNode.AddChild(n);
+            PhysicsWorld.AddObject(n, 250, Scene.Physics.PhysicsWorld.PhysicsShape.Box);
+            //   PhysicsWorld.AddCharacter((DefaultCamera)cam, InputManager, n, 1);
+
+
             /*Rendering.NormalMapRenderer nmr;
             RenderManager.AddComponent(nmr = new Rendering.NormalMapRenderer(Environment, Camera));
             RenderManager.PostProcessor.PostFilters.Add(new Rendering.PostProcess.Filters.SSAOFilter(nmr));*/
@@ -187,27 +197,28 @@ namespace ApexEngine.Demos
                 chunk.AddController(rock = new RockPopulator(PhysicsWorld, cam));
                 rock.GenPatches(chunk, 2, 2);
             }
-
-
-            rootNode.AddChild(tree);
         /*    
             for (int i = 0; i < chunk.hm.heights.Length; i++)
             {
                 chunk.hm.heights[i] = 0f;
             }
             chunk.hm.RebuildTerrainMesh();*/
+
+           
         }
 
         public void OnChunkRemove(Terrain.TerrainChunkNode chunk, EventArgs e)
         {
-            if (chunk.HasController(typeof(GrassPopulator)))
+           if (chunk.HasController(typeof(GrassPopulator)))
             {
                 GrassPopulator grass = (GrassPopulator)chunk.GetController(typeof(GrassPopulator));
-                grass = null;
+                grass.Destroy();
+                grass.Destroy();
             }
             if (chunk.HasController(typeof(RockPopulator)))
             {
                 RockPopulator rock = (RockPopulator)chunk.GetController(typeof(RockPopulator));
+                rock.Destroy();
                 rock = null;
             }
         }

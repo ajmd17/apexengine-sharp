@@ -147,6 +147,7 @@
     <Compile Include="Scene\GameObject.cs" />
     <Compile Include="Scene\Geometry.cs" />
     <Compile Include="Scene\Node.cs" />
+    <Compile Include="Scene\Physics\CharacterController.cs" />
     <Compile Include="Scene\Physics\PhysicsDebugDraw.cs" />
     <Compile Include="Scene\Physics\PhysicsWorld.cs" />
     <Compile Include="Scene\Physics\RigidBodyControl.cs" />

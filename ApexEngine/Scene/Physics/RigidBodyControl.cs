@@ -78,8 +78,8 @@ namespace ApexEngine.Scene.Physics
                 tmpJVec.Set(pos.x, pos.y, pos.z);
                 body.Position = tmpJVec;
                 // origin.SubtractStore(boundingBox.Center);
+                origin.Set(GameObject.GetUpdatedWorldTranslation());
             }
-            origin.Set(GameObject.GetUpdatedWorldTranslation());
         }
 
         public Vector3f GetTranslation()
@@ -212,6 +212,7 @@ namespace ApexEngine.Scene.Physics
         {
             body = new RigidBody(CreateShape());
             body.Tag = GameObject;
+            
 
             origin.Set(GameObject.GetUpdatedWorldTranslation());
             body.Position = new JVector(origin.x, origin.y, origin.z);
@@ -226,12 +227,12 @@ namespace ApexEngine.Scene.Physics
             tmpVec0.Set(vec.X, vec.Y, vec.Z);
            // tmpVec0.SubtractStore(boundingBox.Center);
            // if (mass > 0.0f)
-           if (!GameObject.GetWorldTranslation().Equals(tmpVec0))
+           //if (!GameObject.GetWorldTranslation().Equals(tmpVec0))
                 GameObject.SetWorldTransformPhysics(tmpVec0, tmpRot0, tmpScl);
-            /*body.Orientation.
-            tmpRot0.Set(rot.X, rot.Y, rot.Z, rot.W);
-            tmpRot0.InverseStore();
-            GameObject.SetLocalRotation(tmpRot0);*/
+
+        //    tmpRot0.Set(rot.X, rot.Y, rot.Z, rot.W);
+        //    tmpRot0.InverseStore();
+        //    GameObject.SetLocalRotation(tmpRot0);
         }
     }
 }
