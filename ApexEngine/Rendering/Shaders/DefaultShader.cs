@@ -116,9 +116,9 @@ namespace ApexEngine.Rendering.Shaders
                 SetUniform("Env_ShadowsEnabled", 1);
                 for (int i = 0; i < 4; i++)
                 {
-                    Texture.ActiveTextureSlot(3 + i);
+                    Texture.ActiveTextureSlot(4 + i);
                     environment.ShadowMaps[i].Use();
-                    SetUniform("Env_ShadowMap" + i.ToString(), 3 + i);
+                    SetUniform("Env_ShadowMap" + i.ToString(), 4 + i);
                     SetUniform("Env_ShadowMatrix" + i.ToString(), environment.ShadowMatrices[i]);
                     SetUniform("Env_ShadowMapSplits[" + i.ToString() + "]", environment.ShadowMapSplits[i]);
                 }

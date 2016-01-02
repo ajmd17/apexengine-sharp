@@ -555,6 +555,10 @@ namespace ApexEngine.Rendering.OpenGL
             GL.TexParameter(TextureTarget.TextureCubeMap, TextureParameterName.TextureWrapT, Convert.ToInt32(tkWrapModeT));
         }
 
+        private TextureTarget[] cubeMapTargets = new TextureTarget[] {TextureTarget.TextureCubeMapPositiveX, TextureTarget.TextureCubeMapNegativeX,
+                                                            TextureTarget.TextureCubeMapPositiveY, TextureTarget.TextureCubeMapNegativeY,
+                                                            TextureTarget.TextureCubeMapPositiveZ, TextureTarget.TextureCubeMapNegativeZ};
+
         public override Cubemap LoadCubemap(string[] filepaths)
         {
             if (filepaths.Length != 6)
@@ -569,7 +573,7 @@ namespace ApexEngine.Rendering.OpenGL
                 Bitmap bmp = new Bitmap(filepaths[i]);
                 BitmapData bmp_data = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
 
-                GL.TexImage2D(TextureTarget.TextureCubeMapPositiveX + i, 0, PixelInternalFormat.Rgba, bmp_data.Width, bmp_data.Height, 0,
+                GL.TexImage2D(cubeMapTargets[i], 0, PixelInternalFormat.Rgba, bmp_data.Width, bmp_data.Height, 0,
                     OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, bmp_data.Scan0);
 
                 bmp.UnlockBits(bmp_data);

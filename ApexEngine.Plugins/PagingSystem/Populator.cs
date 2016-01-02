@@ -74,7 +74,7 @@ namespace ApexEngine.Plugins.PagingSystem
             if (batchGeometry)
             {
                 Node merged = new Node();
-                merged.AddChild(new Geometry(MeshUtil.MergeMeshes(n)));
+                merged.AddChild(MeshUtil.MergeGeometry(n));
                 merged.SetLocalTranslation(translation);
                 merged.GetChildGeom(0).SetShader(GetShaderType());
                 for (int i = 0; i < n.Children.Count; i++)

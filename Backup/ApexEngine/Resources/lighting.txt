@@ -1,0 +1,205 @@
+// Apex 3D Lighting Calculations
+const float PI = 3.14159265358979323846;
+
+struct DirectionalLight 
+{
+	vec3 direction;
+	vec4 color;
+	float intensity;
+};
+
+struct PointLight
+{
+	vec3 position;
+	vec4 color;
+	float intensity;
+};
+
+struct AmbientLight 
+{
+	vec4 color;
+	float intensity;
+};
+
+uniform DirectionalLight Env_DirectionalLight;
+uniform PointLight Env_PointLights[4];
+uniform AmbientLight Env_AmbientLight;
+uniform int Env_NumPointLights;
+
+float sqr(float x)
+{
+    return x*x;
+}
+
+float NormalizedTrowbridgeReitz(float costhetaH, float w)
+{
+    float w2 = w*w;
+    return w2 / (PI * sqr( costhetaH*costhetaH * (w2 - 1) + 1 ));
+}
+
+float kurtG(float NdotL, float NdotV, float LdotH, float alpha)
+{
+    return 1.0 / (4.0 * LdotH * pow(NdotL* NdotV, alpha));
+}
+
+float duerG(vec3 L, vec3 V, vec3 N)
+{
+    vec3 LplusV = L + V;
+    return dot(LplusV,LplusV) / (PI * pow(dot(LplusV,N), 4.0));
+}
+
+float smithG_GGX(float Ndotv, float alphaG)
+{
+    return 2.0/(1.0 + sqrt(1.0 + alphaG*alphaG * (1.0-Ndotv*Ndotv)/(Ndotv*Ndotv)));
+}
+
+float GGX(float alpha, float cosThetaM)
+{
+    float CosSquared = cosThetaM*cosThetaM;
+    float TanSquared = (1.0-CosSquared)/CosSquared;
+    return (1.0/PI) * sqr(alpha/(CosSquared * (alpha*alpha + TanSquared)));
+}
+
+float SchlickFresnel(float f0, float f90, float u)
+{
+    return f0 + (f90-f0) * pow(1-u, 5);
+}
+
+float CookTorranceG(float NdotL, float NdotV, float LdotH, float NdotH)
+{
+    return min(1, 2 * (NdotH / LdotH) * min(NdotL, NdotV));
+}
+
+float LambertDirectional(vec3 _normal, vec3 _dir) {
+	vec3 n = _normal;
+	vec3 l = _dir;
+	float NdotL = dot(n, l);
+	return max(NdotL, 0.0);
+}
+
+#ifdef OREN_NAYAR
+float OrenNayarDirectional(vec3 n, vec3 l, vec3 v, float _roughness)
+{
+	// interpolating normals will change the length of the normal, so renormalize the normal.
+    
+    // calculate intermediary values
+    float NdotL = dot(n, l);
+    float NdotV = dot(n, v); 
+
+    float angleVN = acos(NdotV);
+    float angleLN = acos(NdotL);
+    
+    float alpha = max(angleVN, angleLN);
+    float beta = min(angleVN, angleLN);
+    float gamma = dot(v - n * dot(v, n), l - n * dot(l, n));
+    
+    float roughnessSquared = _roughness * _roughness;
+    
+    // calculate A and B
+    float A = 1.0 - 0.5 * (roughnessSquared / (roughnessSquared + 0.57));
+
+    float B = 0.45 * (roughnessSquared / (roughnessSquared + 0.09));
+ 
+    float C = sin(alpha) * tan(beta);
+    
+    // put it all together
+    float L1 = max(0.0, NdotL) * (A + B * max(0.0, gamma) * C);
+
+	return L1;
+}
+#endif
+
+float BlinnPhongDirectional(vec3 _normal, vec3 _pos, vec3 _cam, vec3 _dir, float _shininess)
+{
+	vec3 eyeDir = normalize(_cam-_pos);
+  	vec3 vHalfVector = normalize(_dir+eyeDir);
+	vec3 n = normalize(_normal);
+	return pow(max(dot(n, vHalfVector), 0.0), _shininess) * 1.5;
+}
+
+float SpecularDirectional(vec3 _normal, vec3 _pos, vec3 _cam, vec3 _dir, float _shininess, float _roughness)
+{
+	vec3 eyeDir = normalize(_cam-_pos);
+  	vec3 vHalfVector = normalize(_dir+eyeDir);
+	vec3 n = (_normal);
+	vec3 l = (_dir);
+
+	float NdotH = dot(n, vHalfVector);
+	float LdotH = dot(l, vHalfVector);
+	float NdotL = dot(n, l);
+	float VdotH = dot(eyeDir, vHalfVector);
+	float NdotV = dot(n, eyeDir);
+
+	float D = GGX(_roughness, NdotH);//NormalizedTrowbridgeReitz(NdotH, _roughness);
+	float F = SchlickFresnel(0.2, 1.0, LdotH);
+
+    vec3 LplusV = l + eyeDir;
+
+   // float G = dot(LplusV,LplusV) * (PI/pow(dot(LplusV,n),4.0));
+   // G *= NdotL*NdotV;
+	float G = CookTorranceG(NdotL, NdotV, LdotH, NdotH) / (PI * NdotL * NdotV);
+
+	return F*D;
+}
+
+float Fresnel(vec3 _normal, vec3 _pos, vec3 _cam, vec3 _dir, float _roughness)
+{
+	vec3 eyeDir = normalize(_cam-_pos);
+  	vec3 vHalfVector = normalize(_dir+eyeDir);
+	vec3 n = (_normal);
+	vec3 l = (_dir);
+
+	float NdotH = dot(n, vHalfVector);
+	float LdotH = dot(l, vHalfVector);
+	float NdotL = dot(n, l);
+	float VdotH = dot(eyeDir, vHalfVector);
+	float NdotV = dot(n, eyeDir);
+
+	float fresnel = pow((1.0-dot(eyeDir, _normal)),1.33);
+	//fresnel = fresnel * (1.0 - _roughness * 0.7);
+
+	
+	float shared_geo = 2.0 * NdotH / VdotH; 
+	float geo_b = shared_geo * NdotV; 
+	float geo_c = shared_geo * NdotL; 
+	float G = min( 1.0, min( geo_b, geo_c ) ); 
+
+	return fresnel;// * G;
+}
+
+vec2 ParallaxTexCoords(vec4 _parallaxMap, vec2 _inTexCoords, vec3 _viewDir)
+{
+	vec2 newTexCoords;
+
+	float h;
+	h = _parallaxMap.r;
+	float heightScale = 0.04;
+	float heightBias = heightScale * -0.5;
+	vec3 normView = (_viewDir);
+	h = (h * heightScale + heightBias) * normView.z;
+	newTexCoords = _inTexCoords + (h * -normView.xy); 
+	return newTexCoords;
+}
+
+vec2 SteepParallaxTexCoords(sampler2D _parallaxMap, vec2 _inTexCoords, vec3 _viewDir)
+{
+	const float minLayers = 5;
+	const float maxLayers = 15;
+	float heightScale = 0.05;
+	float numLayers = 15.0;//mix(maxLayers, minLayers, abs(dot(vec3(0, 0, 1), _viewDir)));
+
+	float layerHeight = 1.0 / numLayers;
+	float currentLayerHeight = 0.0;
+	vec2 dtex = heightScale * _viewDir.xy / _viewDir.z / numLayers;
+	vec2 currentTextureCoords = _inTexCoords;
+	float heightFromTexture = texture(_parallaxMap, currentTextureCoords).r;
+
+	while (heightFromTexture > currentLayerHeight)
+	{
+		currentLayerHeight += layerHeight;
+		currentTextureCoords -= dtex;
+		heightFromTexture = texture(_parallaxMap, currentTextureCoords).r;
+	}
+
+	return currentTextureCoords;
+}

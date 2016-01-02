@@ -17,3 +17,20 @@ C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.DesktopR
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.DesktopRenderer\bin\Debug\Lidgren.Network.dll
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.DesktopRenderer\bin\Debug\Lidgren.Network.pdb
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.DesktopRenderer\bin\Debug\Lidgren.Network.xml
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.DesktopRenderer\bin\Debug\ApexEngine.DesktopRenderer.dll
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.DesktopRenderer\bin\Debug\ApexEngine.DesktopRenderer.pdb
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.DesktopRenderer\bin\Debug\ApexEngine.dll
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.DesktopRenderer\bin\Debug\ApexEngine.Math.dll
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.DesktopRenderer\bin\Debug\OpenTK.dll
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.DesktopRenderer\bin\Debug\Jitter.dll
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.DesktopRenderer\bin\Debug\Lidgren.Network.dll
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.DesktopRenderer\bin\Debug\ApexEngine.Math.pdb
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.DesktopRenderer\bin\Debug\ApexEngine.pdb
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.DesktopRenderer\bin\Debug\OpenTK.pdb
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.DesktopRenderer\bin\Debug\OpenTK.xml
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.DesktopRenderer\bin\Debug\Jitter.pdb
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.DesktopRenderer\bin\Debug\Lidgren.Network.pdb
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.DesktopRenderer\bin\Debug\Lidgren.Network.xml
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.DesktopRenderer\obj\Debug\ApexEngine.DesktopRenderer.csprojResolveAssemblyReference.cache
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.DesktopRenderer\obj\Debug\ApexEngine.DesktopRenderer.dll
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.DesktopRenderer\obj\Debug\ApexEngine.DesktopRenderer.pdb

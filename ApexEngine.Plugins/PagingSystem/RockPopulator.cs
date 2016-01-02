@@ -22,8 +22,8 @@ namespace ApexEngine.Plugins.PagingSystem
         {
             model = ((Node)AssetManager.LoadModel(AssetManager.GetAppPath() + "\\models\\rocks\\rock_0.obj")).GetChildGeom(0);
             model.Material.SetValue(Material.SPECULAR_EXPONENT, 60);
-            model.Material.SetValue(Material.SHININESS, 0.2f);
-            model.Material.SetValue(Material.ROUGHNESS, 0.08f);
+            model.Material.SetValue(Material.SHININESS, 0.3f);
+            model.Material.SetValue(Material.ROUGHNESS, 0.2f);
         }
 
         public override void Destroy()

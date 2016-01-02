@@ -3,3 +3,14 @@ C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Input\bi
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Input\obj\Debug\ApexEngine.Input.dll
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Input\obj\Debug\ApexEngine.Input.pdb
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Input\obj\Debug\ApexEngine.Input.csprojResolveAssemblyReference.cache
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.Input\bin\Debug\ApexEngine.Input.dll
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.Input\bin\Debug\ApexEngine.Input.pdb
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.Input\bin\Debug\mscorlib.dll
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.Input\bin\Debug\normidna.nlp
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.Input\bin\Debug\normnfc.nlp
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.Input\bin\Debug\normnfd.nlp
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.Input\bin\Debug\normnfkc.nlp
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.Input\bin\Debug\normnfkd.nlp
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.Input\obj\Debug\ApexEngine.Input.csprojResolveAssemblyReference.cache
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.Input\obj\Debug\ApexEngine.Input.dll
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.Input\obj\Debug\ApexEngine.Input.pdb

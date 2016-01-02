@@ -22,19 +22,22 @@ namespace ApexEngine.Rendering.Util
             return meshes;
         }
 
-        public static List<Mesh> GatherMeshes(GameObject gameObject, List<Matrix4f> worldTransforms)
+        public static List<Mesh> GatherMeshes(GameObject gameObject, List<Material> materials, List<Matrix4f> worldTransforms)
         {
             List<Mesh> meshes = new List<Mesh>();
             if (worldTransforms == null)
                 worldTransforms = new List<Matrix4f>();
+            if (materials == null)
+                materials = new List<Material>();
 
             if (gameObject is Node)
             {
-                GatherMeshes((Node)gameObject, meshes, worldTransforms);
+                GatherMeshes((Node)gameObject, meshes, materials, worldTransforms);
             }
             else if (gameObject is Geometry)
             {
                 meshes.Add(((Geometry)gameObject).Mesh);
+                materials.Add(((Geometry)gameObject).Material);
                 Transform ttransform = new Transform();
                 ttransform.SetTranslation(gameObject.GetUpdatedWorldTranslation());
                 ttransform.SetRotation(gameObject.GetUpdatedWorldRotation());
@@ -46,7 +49,7 @@ namespace ApexEngine.Rendering.Util
             return meshes;
         }
 
-        public static List<Mesh> GatherMeshes(GameObject gameObject, List<Matrix4f> worldTransforms, List<Shader> shaders)
+        public static List<Mesh> GatherMeshes(GameObject gameObject, List<Material> materials, List<Matrix4f> worldTransforms, List<Shader> shaders)
         {
             List<Mesh> meshes = new List<Mesh>();
             if (worldTransforms == null)
@@ -54,7 +57,7 @@ namespace ApexEngine.Rendering.Util
 
             if (gameObject is Node)
             {
-                GatherMeshes((Node)gameObject, meshes, worldTransforms);
+                GatherMeshes((Node)gameObject, meshes, materials, worldTransforms);
             }
             else if (gameObject is Geometry)
             {
@@ -65,6 +68,7 @@ namespace ApexEngine.Rendering.Util
                 ttransform.SetScale(gameObject.GetUpdatedWorldScale());
                 Matrix4f matrix = ttransform.GetMatrix();
                 worldTransforms.Add(matrix);
+                materials.Add(((Geometry)gameObject).Material);
                 if (((Geometry)gameObject).GetShader() != null)
                      shaders.Add(((Geometry)gameObject).GetShader());
             }
@@ -87,17 +91,18 @@ namespace ApexEngine.Rendering.Util
             }
         }
 
-        private static void GatherMeshes(Node node, List<Mesh> meshes, List<Matrix4f> worldTransforms)
+        private static void GatherMeshes(Node node, List<Mesh> meshes, List<Material> materials, List<Matrix4f> worldTransforms)
         {
             foreach (GameObject child in node.Children)
             {
                 if (child is Node)
                 {
-                    GatherMeshes((Node)child, meshes, worldTransforms);
+                    GatherMeshes((Node)child, meshes, materials, worldTransforms);
                 }
                 else if (child is Geometry)
                 {
                     meshes.Add(((Geometry)child).Mesh);
+                    materials.Add(((Geometry)child).Material);
                     Transform ttransform = new Transform();
                     ttransform.SetTranslation(child.GetUpdatedWorldTranslation());
                     ttransform.SetRotation(child.GetUpdatedWorldRotation());

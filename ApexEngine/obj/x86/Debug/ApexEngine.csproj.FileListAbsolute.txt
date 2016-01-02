@@ -22,3 +22,18 @@ C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine\obj\x86\
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine\bin\Debug\Lidgren.Network.dll
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine\bin\Debug\Lidgren.Network.pdb
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine\bin\Debug\Lidgren.Network.xml
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine\bin\Debug\ApexEngine.dll.config
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine\bin\Debug\ApexEngine.dll
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine\bin\Debug\ApexEngine.pdb
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine\bin\Debug\ApexEngine.Math.dll
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine\bin\Debug\Jitter.dll
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine\bin\Debug\Lidgren.Network.dll
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine\bin\Debug\ApexEngine.Math.pdb
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine\bin\Debug\Jitter.pdb
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine\bin\Debug\Lidgren.Network.pdb
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine\bin\Debug\Lidgren.Network.xml
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine\obj\x86\Debug\ApexEngine.csprojResolveAssemblyReference.cache
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine\obj\x86\Debug\ApexEngine.Properties.Resources.resources
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine\obj\x86\Debug\ApexEngine.csproj.GenerateResource.Cache
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine\obj\x86\Debug\ApexEngine.dll
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine\obj\x86\Debug\ApexEngine.pdb

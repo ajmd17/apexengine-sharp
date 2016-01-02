@@ -11,6 +11,7 @@ namespace ApexEngine.Scene
         protected Mesh mesh;
         protected Shader shader, depthShader, normalsShader;
         protected BoundingBox worldBoundingBox, localBoundingBox;
+        private Material material = new Material();
 
         public Geometry()
             : base()
@@ -81,8 +82,8 @@ namespace ApexEngine.Scene
 
         public Material Material
         {
-            get { if (mesh != null) { return mesh.Material; } return null; }
-            set { if (mesh != null) { mesh.Material = value; } }
+            get { return material; }
+            set { material = value; }
         }
 
         public void SetDefaultShader()
@@ -122,10 +123,6 @@ namespace ApexEngine.Scene
             object[] vals = Material.Values.Values.ToArray();
             for (int i = 0; i < vals.Length; i++)
             {
-                if (vals[i] == null) { }
-                //g_shaderProperties.SetProperty(keys[i].ToUpper(), false);
-                else
-                {
                     /*if (vals[i] is int)
                         g_shaderProperties.SetProperty(keys[i].ToUpper(), (int)vals[i]);
                     else if (vals[i] is float)
@@ -136,8 +133,7 @@ namespace ApexEngine.Scene
                         g_shaderProperties.SetProperty(keys[i].ToUpper(), (string)vals[i]);
                     else */
                     if (vals[i] is Texture)
-                        g_shaderProperties.SetProperty(keys[i].ToUpper(), true);
-                }
+                        g_shaderProperties.SetProperty(keys[i].ToUpper(), vals[i] != null);
             }
             if (shader != null)
             {
@@ -204,6 +200,7 @@ namespace ApexEngine.Scene
             res.SetLocalTranslation(this.GetLocalTranslation());
             res.SetLocalScale(this.GetLocalScale());
             res.SetLocalRotation(this.GetLocalRotation());
+            res.Material = this.Material.Clone();
             res.Mesh = this.mesh;
             res.shader = this.shader;
             res.depthShader = this.depthShader;

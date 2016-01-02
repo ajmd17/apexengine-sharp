@@ -107,15 +107,15 @@ void main()
 		float fresnel;
 		//fresnel = Fresnel(n, v_position.xyz, Apex_CameraPosition, l, Material_Roughness);
 		fresnel = max(1.0 - dot(n, v), 0.0);
-		fresnel = pow(fresnel, 5.0);
+		fresnel = pow(fresnel, 2.0);
 		
 		reflection = vec3(fresnel);
 		
-		if (Material_HasEnvironmentMap == 1)
-		{
-			vec4 cubemap = texture(Material_EnvironmentMap, ReflectionVector(n, v_position.xyz, Apex_CameraPosition), 2);
-			reflection += cubemap.rgb;
-		}
+		#ifdef ENV_MAP
+		float mipLevel = Material_Roughness * 7.0;
+		vec3 cubeMap = textureCube(Material_EnvironmentMap, ReflectionVector(n, v_position.xyz, Apex_CameraPosition), mipLevel).rgb;
+		reflection *= cubeMap;
+		#endif
 		
 		specular += reflection;
 		specular *= Env_DirectionalLight.color.xyz;
@@ -142,6 +142,7 @@ void main()
 		diffuse = clamp(diffuse, vec3(0.0), vec3(1.0));
 		specular = clamp(specular, vec3(0.0), vec3(1.0));
 
+		ambient = mix(ambient, vec3(0.0), Material_Shininess);
 		diffuse = mix(diffuse, vec3(0.0), Material_Shininess);
 		specular *= Material_Shininess;
 		

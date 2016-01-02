@@ -33,12 +33,15 @@ namespace ApexEngine.Rendering.Util
         {
             List<Mesh> meshes;
             List<Matrix4f> transforms = new List<Matrix4f>();
+            List<Material> materials = new List<Material>();
             List<Shader> shaders = new List<Shader>();
-            meshes = RenderUtil.GatherMeshes(gameObject, transforms, shaders);
-            Mesh m =  MergeMeshes(meshes, transforms);
+            meshes = RenderUtil.GatherMeshes(gameObject, materials, transforms, shaders);
+            Mesh m =  MergeMeshes(meshes, materials, transforms);
             Geometry geom = new Geometry(m);
             if (shaders.Count > 0)
                 geom.SetShader(shaders[0]);
+            if (materials.Count > 0)
+                geom.Material = materials[0];
             return geom;
         }
 
@@ -46,11 +49,12 @@ namespace ApexEngine.Rendering.Util
         {
             List<Mesh> meshes;
             List<Matrix4f> transforms = new List<Matrix4f>();
-            meshes = RenderUtil.GatherMeshes(gameObject, transforms);
-            return MergeMeshes(meshes, transforms);
+            List<Material> materials = new List<Material>();
+            meshes = RenderUtil.GatherMeshes(gameObject, materials, transforms);
+            return MergeMeshes(meshes, materials, transforms);
         }
 
-        public static Mesh MergeMeshes(List<Mesh> meshes, List<Matrix4f> transforms)
+        private static Mesh MergeMeshes(List<Mesh> meshes, List<Material> materials, List<Matrix4f> transforms)
         {
             Mesh resMesh = new Mesh();
 
@@ -69,12 +73,12 @@ namespace ApexEngine.Rendering.Util
                     }
                 }
                 resMesh.SetVertices(finalVertices);
-                resMesh.Material = meshes[0].Material;
+                resMesh.Material = materials[0];
                 resMesh.PrimitiveType = meshes[0].PrimitiveType;
             }
             return resMesh;
         }
-
+        
         public static Mesh MergeMeshes(List<Mesh> meshes)
         {
             Mesh resMesh = new Mesh();

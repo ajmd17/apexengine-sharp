@@ -26,15 +26,15 @@ namespace ApexEngine.Demos
 
         public override void Init()
         {
-            Environment.AmbientLight.Color.Set(0.1f, 0.1f, 0.1f, 1.0f);
+            Environment.AmbientLight.Color.Set(0.1f, 0.2f, 0.3f, 1.0f);
             Environment.FogColor.Set(0.2f, 0.3f, 0.45f, 1.0f);
-            Environment.DirectionalLight.Direction.Set(.5f, 1, .5f).NormalizeStore();
-            Environment.DirectionalLight.Color.Set(1.0f, 0.85f, 0.55f, 1.0f);
+            Environment.DirectionalLight.Direction.Set(1f, 1, 1f).NormalizeStore();
+            Environment.DirectionalLight.Color.Set(1.0f, 0.88f, 0.6f, 1.0f);
             ((PerspectiveCamera)Camera).FieldOfView = 60;
             Camera.Far = 330;
 
             ShadowMappingComponent smc;
-            RenderManager.AddComponent(smc = new ShadowMappingComponent(cam, Environment));
+            RenderManager.AddComponent(smc = new ShadowMappingComponent(cam, Environment, new int[] {1024, 1024}));
             smc.RenderMode = ShadowMappingComponent.ShadowRenderMode.Forward;
 
           /*  thing = (Node)AssetManager.LoadModel(AssetManager.GetAppPath() + "\\models\\house.obj");
@@ -81,25 +81,42 @@ namespace ApexEngine.Demos
                         pl2.Color = new Vector4f(0.0f, 0.3f, 0.1f, 1.0f);
                         pl2.Position = new Vector3f(0.0f, 1.0f, 0.0f);
                        //   Environment.PointLights.Add(pl2);*/
-           /* Node loadedApx = (Node)AssetManager.LoadModel(AssetManager.GetAppPath() + "\\models\\test_apx.apx");
-            loadedApx.SetLocalTranslation(new Math.Vector3f(0f, 45, 0));
-            rootNode.AddChild(loadedApx);
-            PhysicsWorld.AddObject(loadedApx, 1, Scene.Physics.PhysicsWorld.PhysicsShape.Box);
+            Node loadedApx = (Node)AssetManager.LoadModel(AssetManager.GetAppPath() + "\\models\\mitsuba.obj");
+            loadedApx.SetLocalTranslation(new Math.Vector3f(0f, 0.0f, 0));
 
-            Cubemap skybox = Cubemap.LoadCubemap(new string[] { AssetManager.GetAppPath() + "\\textures\\frozendusk\\frozendusk_right.jpg",
-                                                                 AssetManager.GetAppPath() + "\\textures\\frozendusk\\frozendusk_left.jpg",
-                                                                 AssetManager.GetAppPath() + "\\textures\\frozendusk\\frozendusk_top.jpg",
-                                                                 AssetManager.GetAppPath() + "\\textures\\frozendusk\\frozendusk_top.jpg",
-                                                                 AssetManager.GetAppPath() + "\\textures\\frozendusk\\frozendusk_front.jpg",
-                                                                 AssetManager.GetAppPath() + "\\textures\\frozendusk\\frozendusk_back.jpg" });
+            Cubemap skybox = Cubemap.LoadCubemap(new string[] { AssetManager.GetAppPath() + "\\textures\\lostvalley\\lostvalley_right.jpg",
+                                                                 AssetManager.GetAppPath() + "\\textures\\lostvalley\\lostvalley_left.jpg",
+                                                                 AssetManager.GetAppPath() + "\\textures\\lostvalley\\lostvalley_top.jpg",
+                                                                 AssetManager.GetAppPath() + "\\textures\\lostvalley\\lostvalley_top.jpg",
+                                                                 AssetManager.GetAppPath() + "\\textures\\lostvalley\\lostvalley_front.jpg",
+                                                                 AssetManager.GetAppPath() + "\\textures\\lostvalley\\lostvalley_back.jpg" });
 
-            loadedApx.GetChildNode(0).GetChildGeom(0).Material.SetValue(Material.COLOR_DIFFUSE, new Color4f(0.1f, 0.6f, 1.0f, 1.0f));
-            loadedApx.GetChildNode(0).GetChildGeom(0).Material.SetValue(Material.TEXTURE_ENV, skybox);
-            loadedApx.GetChildNode(0).GetChildGeom(0).Material.SetValue(Material.SHININESS, 0.4f);
-            loadedApx.GetChildNode(0).GetChildGeom(0).Material.SetValue(Material.ROUGHNESS, 0.2f);
-            loadedApx.GetChildNode(0).GetChildGeom(0).Material.SetValue(Material.METALNESS, 0.7f);
-            loadedApx.GetChildNode(0).GetChildGeom(0).Material.SetValue(Material.SPECULAR_EXPONENT, 2f);
-            loadedApx.GetChildNode(0).GetChildGeom(0).UpdateShaderProperties();*/
+    
+            for (int x = 0; x < 5; x++)
+            {
+                for (int z = 0; z < 5; z++)
+                {
+                    Node thing = (Node)loadedApx.Clone();
+                    thing.SetLocalTranslation(new Vector3f(x * 4, 0, z * 4));
+                    thing.GetChildGeom(0).Material.SetValue(Material.COLOR_DIFFUSE, new Color4f(0.5f, 0.5f, 0.5f, 1.0f));
+                    thing.GetChildGeom(0).Material.SetValue(Material.TEXTURE_ENV, skybox);
+                    thing.GetChildGeom(0).Material.SetValue(Material.SHININESS, 1.0f);
+                    thing.GetChildGeom(0).Material.SetValue(Material.ROUGHNESS, 0.5f);
+                    thing.GetChildGeom(0).UpdateShaderProperties();
+
+                    thing.GetChildGeom(1).Material.SetValue(Material.COLOR_DIFFUSE, new Color4f(0.901f, 0.808f, 0.502f, 1.0f));
+                    thing.GetChildGeom(1).Material.SetValue(Material.TEXTURE_ENV, skybox);
+                    thing.GetChildGeom(1).Material.SetValue(Material.SHININESS, (x + 1) / 5.0f);
+                    thing.GetChildGeom(1).Material.SetValue(Material.ROUGHNESS, (z + 1) / 5.0f);
+                    thing.GetChildGeom(1).UpdateShaderProperties();
+                    //     thing.GetChildGeom(1).Material.SetValue(Material.TEXTURE_NORMAL, nrm);
+
+                    rootNode.AddChild(thing);
+                }
+            }
+
+
+
 
             /* Node terrainModel = (Node)AssetManager.LoadModel(AssetManager.GetAppPath() + "\\models\\landscape\\landscape.obj");
              Geometry terrainGeom = terrainModel.GetChildGeom(0);
@@ -153,13 +170,13 @@ namespace ApexEngine.Demos
 
 
 
-            Node n = (Node)AssetManager.LoadModel(AssetManager.GetAppPath() + "\\models\\monkeyhq.obj");
+           /* Node n = (Node)AssetManager.LoadModel(AssetManager.GetAppPath() + "\\models\\monkeyhq.obj");
             n.SetLocalTranslation(new Vector3f(0, 100, 0));
             n.GetChildGeom(0).Material.SetValue(Material.COLOR_DIFFUSE, new Color4f(0.0f, 0.0f, 0.0f, 1.0f));
             n.GetChildGeom(0).Material.SetValue(Material.SHININESS, 1.0f);
             n.GetChildGeom(0).Material.SetValue(Material.ROUGHNESS, 0.3f);
             rootNode.AddChild(n);
-            PhysicsWorld.AddObject(n, 250, Scene.Physics.PhysicsWorld.PhysicsShape.Box);
+            PhysicsWorld.AddObject(n, 250, Scene.Physics.PhysicsWorld.PhysicsShape.Box);*/
             //   PhysicsWorld.AddCharacter((DefaultCamera)cam, InputManager, n, 1);
 
 

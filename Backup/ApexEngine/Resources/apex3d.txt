@@ -1,0 +1,19 @@
+// Apex 3D standard header, provides additional uniforms for shaders.
+
+// Model matrix, world space
+uniform mat4 Apex_WorldMatrix;
+
+// Camera view matrix
+uniform mat4 Apex_ViewMatrix;
+
+// Camera projection matrix
+uniform mat4 Apex_ProjectionMatrix;
+
+// The camera location.
+uniform vec3 Apex_CameraPosition; 
+
+// The camera view direction.
+uniform vec3 Apex_CameraDirection;
+
+// Elapsed global time
+uniform float Apex_ElapsedTime;

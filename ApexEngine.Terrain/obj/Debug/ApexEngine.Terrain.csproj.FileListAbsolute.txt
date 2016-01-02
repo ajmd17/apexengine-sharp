@@ -32,3 +32,21 @@ C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Terrain\
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Terrain\bin\Debug\Lidgren.Network.xml
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Terrain\bin\Debug\LibNoise.dll
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.Terrain\bin\Debug\LibNoise.xml
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.Terrain\bin\Debug\ApexEngine.Terrain.dll.config
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.Terrain\bin\Debug\ApexEngine.Terrain.dll
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.Terrain\bin\Debug\ApexEngine.Terrain.pdb
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.Terrain\bin\Debug\ApexEngine.dll
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.Terrain\bin\Debug\ApexEngine.Math.dll
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.Terrain\bin\Debug\Jitter.dll
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.Terrain\bin\Debug\Lidgren.Network.dll
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.Terrain\bin\Debug\ApexEngine.Math.pdb
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.Terrain\bin\Debug\ApexEngine.pdb
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.Terrain\bin\Debug\LibNoise.xml
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.Terrain\bin\Debug\Jitter.pdb
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.Terrain\bin\Debug\Lidgren.Network.pdb
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.Terrain\bin\Debug\Lidgren.Network.xml
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.Terrain\obj\Debug\ApexEngine.Terrain.csprojResolveAssemblyReference.cache
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.Terrain\obj\Debug\ApexEngine.Properties.Resources.resources
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.Terrain\obj\Debug\ApexEngine.Terrain.csproj.GenerateResource.Cache
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.Terrain\obj\Debug\ApexEngine.Terrain.dll
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.Terrain\obj\Debug\ApexEngine.Terrain.pdb

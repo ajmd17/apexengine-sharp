@@ -1,0 +1,117 @@
+uniform int Env_ShadowsEnabled;
+
+uniform sampler2D Env_ShadowMap0;
+uniform sampler2D Env_ShadowMap1;
+uniform sampler2D Env_ShadowMap2;
+uniform sampler2D Env_ShadowMap3;
+
+uniform mat4 Env_ShadowMatrix0;
+uniform mat4 Env_ShadowMatrix1;
+uniform mat4 Env_ShadowMatrix2;
+uniform mat4 Env_ShadowMatrix3;
+
+uniform float Env_ShadowMapSplits[4];
+
+
+const vec2 poisson16[] = vec2[](
+					    vec2( -0.94201624,  -0.39906216 ),
+						vec2(  0.94558609,  -0.76890725 ),
+						vec2( -0.094184101, -0.92938870 ),
+						vec2(  0.34495938,   0.29387760 ),
+						vec2( -0.91588581,   0.45771432 ),
+						vec2( -0.81544232,  -0.87912464 ),
+						vec2( -0.38277543,   0.27676845 ),
+						vec2(  0.97484398,   0.75648379 ),
+						vec2(  0.44323325,  -0.97511554 ),
+						vec2(  0.53742981,  -0.47373420 ),
+						vec2( -0.26496911,  -0.41893023 ),
+						vec2(  0.79197514,   0.19090188 ),
+						vec2( -0.24188840,   0.99706507 ),
+						vec2( -0.81409955,   0.91437590 ),
+						vec2(  0.19984126,   0.78641367 ),
+						vec2(  0.14383161,  -0.14100790 ));
+
+bool InRadius(vec3 cam, vec3 world, float radius) 
+{
+	if (cam.x >= (world.x - (radius)) && cam.x <= (world.x + (radius))) 
+	{
+		if (cam.y >= (world.y - (radius)) && cam.y <= (world.y + (radius))) 
+		{
+			if (cam.z >= (world.z - (radius)) && cam.z <= (world.z + (radius))) 
+			{
+				return true;
+            }
+		}
+	}
+	return false;
+}
+
+int GetShadowMapSplit(vec3 cam, vec3 world)
+{
+	if (InRadius(cam, world, Env_ShadowMapSplits[0]))
+	{
+		return 0;
+	}
+	else if (InRadius(cam, world, Env_ShadowMapSplits[1]))
+	{
+		return 1;
+	}
+	else if (InRadius(cam, world, Env_ShadowMapSplits[2]))
+	{
+		return 2;
+	}
+	else
+	{
+		return 3;
+	}
+}
+
+float GetShadowness(int idx, vec3 coord)
+{
+	float result = 1.0;
+	float depth;
+	if (idx == 0) 
+	{
+		depth = texture2D(Env_ShadowMap0, coord.xy).r;
+	} 
+	else if (idx == 1) 
+	{
+		depth = texture2D(Env_ShadowMap1, coord.xy).r;
+	} 
+	else if (idx == 2) 
+	{
+		depth = texture2D(Env_ShadowMap2, coord.xy).r;
+	} 
+	else 
+	{
+		depth = texture2D(Env_ShadowMap3, coord.xy).r;
+	}
+
+    result = max(step(coord.z-0.0015, depth), 0.0);
+	return result;
+}
+
+
+vec3 GetShadowCoord(int index, vec3 worldPos) 
+{
+    vec4 shadowPos = vec4(0.0, 0.0, 0.0, 0.0);
+    if (index == 0) 
+	{
+        shadowPos = Env_ShadowMatrix0 * vec4(worldPos, 1.0);
+    } 
+	else if (index == 1) 
+	{
+        shadowPos = Env_ShadowMatrix1 * vec4(worldPos, 1.0);
+    } 
+	else if (index == 2) 
+	{
+        shadowPos = Env_ShadowMatrix2 * vec4(worldPos, 1.0);
+    } 
+	else 
+	{
+        shadowPos = Env_ShadowMatrix3 * vec4(worldPos, 1.0);
+    }
+    shadowPos *= 0.5;
+    shadowPos += 0.5;
+    return shadowPos.xyz;
+}
