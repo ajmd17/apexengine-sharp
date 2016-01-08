@@ -60,10 +60,34 @@ namespace ApexEngine.Rendering
 
         public ShaderProperties SetProperty(string name, object val)
         {
+            name = name.ToUpper();
             if (!values.ContainsKey(name))
-                values.Add(name, val);
+            {
+                if (val is bool)
+                {
+                    if ((bool)val == true)
+                    {
+                        values.Add(name, val);
+                    }
+                }
+                else
+                     values.Add(name, val);
+
+               // values.Add(name, val);
+            }
             else
-                values[name] = val;
+            {
+                if (val is bool)
+                {
+                    if ((bool)val == false)
+                        values.Remove(name);
+                    else
+                        values[name] = val;
+                }
+                else
+                    values[name] = val;
+                
+            }
 
             return this;
         }

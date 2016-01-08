@@ -4,6 +4,7 @@ using ApexEngine.Rendering;
 using ApexEngine.Scene;
 using ApexEngine.Scene.Physics;
 using System;
+using ApexEngine.Rendering.Shaders;
 
 namespace ApexEngine.Plugins.PagingSystem
 {
@@ -29,8 +30,12 @@ namespace ApexEngine.Plugins.PagingSystem
             model.Material.SetValue(Material.SHININESS, 0.1f);
             model.Material.SetValue(Material.ROUGHNESS, 0.0f);
             model.Material.SetValue(Material.MATERIAL_CULLENABLED, false);
+            model.Material.SetValue("fade_start", 30.0f);
+            model.Material.SetValue("fade_end", 40.0f);
             model.Material.Bucket = RenderManager.Bucket.Transparent;
+            model.SetShader(typeof(GrassShader));
         }
+
 
         public override Type GetShaderType()
         {
@@ -41,8 +46,6 @@ namespace ApexEngine.Plugins.PagingSystem
         {
             for (int i = patches.Count - 1; i > -1; i--)
             {
-                if (patches[i].entities != null)
-                    patches[i].entities.Dispose();
                 patches[i].entities = null;
                 patches[i].tile = null;
                 patches[i] = null;
@@ -54,7 +57,7 @@ namespace ApexEngine.Plugins.PagingSystem
         {
             Geometry m = (Geometry)model.Clone();
             m.SetLocalTranslation(translation);
-            m.SetLocalScale(new Vector3f((float)this.RandomDouble(0.35, 0.65)));
+            m.SetLocalScale(new Vector3f((float)this.RandomDouble(0.55, 0.9)));
             return m;
         }
 

@@ -708,7 +708,7 @@ namespace ApexEngine.Rendering.OpenGL
             GL.GetShader(shader, ShaderParameter.CompileStatus, out status);
             if (status != 1)
             {
-                Console.WriteLine("Shader compiler error!\nType: " + type.ToString() + "\nName: " + this.GetType().ToString() + "\n\n"/* + "Source code:\n" + code + "\n\n"*/ +
+                Console.WriteLine("Shader compiler error!\nType: " + type.ToString() + "\n\n"/* + "Source code:\n" + code + "\n\n"*/ +
                            info + "\n" + "Status Code: " + status.ToString());
             }
         }
@@ -818,6 +818,41 @@ namespace ApexEngine.Rendering.OpenGL
         public override void DrawVertex(float x, float y, float z)
         {
             GL.Vertex3(x, y, z);
+        }
+
+        public override void DrawLine(Camera cam, float x1, float y1, float z1, float x2, float y2, float z2)
+        {
+            GL.MatrixMode(MatrixMode.Modelview);
+            GL.LoadMatrix(cam.ViewMatrix.GetInvertedValues());
+            GL.MatrixMode(MatrixMode.Projection);
+            GL.LoadMatrix(cam.ProjectionMatrix.GetInvertedValues());
+
+            GL.Begin(PrimitiveType.Lines);
+
+            GL.Color4(0.0f, 1.0f, 0.0f, 1.0f);
+            GL.Vertex3(x1, y1, z1);
+            GL.Vertex3(x2, y2, z2);
+
+            GL.End();
+        }
+
+        public override void DrawTriangle(Camera cam, float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3)
+        {
+            GL.MatrixMode(MatrixMode.Modelview);
+            GL.LoadMatrix(cam.ViewMatrix.GetInvertedValues());
+            GL.MatrixMode(MatrixMode.Projection);
+            GL.LoadMatrix(cam.ProjectionMatrix.GetInvertedValues());
+            GL.PolygonMode(MaterialFace.FrontAndBack, PolygonMode.Line);
+
+            GL.LineWidth(2.4f);
+            GL.Begin(PrimitiveType.Triangles);
+
+            GL.Color4(0.0f, 1.0f, 0.0f, 1.0f);
+            RenderManager.Renderer.DrawVertex(x1, y1, z1);
+            RenderManager.Renderer.DrawVertex(x2, y2, z2);
+            RenderManager.Renderer.DrawVertex(x3, y3, z3);
+
+            GL.End();
         }
 
         #endregion

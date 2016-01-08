@@ -57,7 +57,7 @@ namespace ApexEngine.Rendering.Util
 
             if (gameObject is Node)
             {
-                GatherMeshes((Node)gameObject, meshes, materials, worldTransforms);
+                GatherMeshes((Node)gameObject, meshes, materials, worldTransforms, shaders);
             }
             else if (gameObject is Geometry)
             {
@@ -87,6 +87,31 @@ namespace ApexEngine.Rendering.Util
                 else if (child is Geometry)
                 {
                     meshes.Add(((Geometry)child).Mesh);
+                }
+            }
+        }
+
+        private static void GatherMeshes(Node node, List<Mesh> meshes, List<Material> materials, List<Matrix4f> worldTransforms, List<Shader> shaders)
+        {
+            foreach (GameObject child in node.Children)
+            {
+                if (child is Node)
+                {
+                    GatherMeshes((Node)child, meshes, materials, worldTransforms, shaders);
+                }
+                else if (child is Geometry)
+                {
+                    meshes.Add(((Geometry)child).Mesh);
+                    materials.Add(((Geometry)child).Material);
+                    Transform ttransform = new Transform();
+                    ttransform.SetTranslation(child.GetUpdatedWorldTranslation());
+                    ttransform.SetRotation(child.GetUpdatedWorldRotation());
+                    ttransform.SetScale(child.GetUpdatedWorldScale());
+                    Matrix4f matrix = ttransform.GetMatrix();
+                    worldTransforms.Add(matrix);
+
+                    if (((Geometry)child).GetShader() != null)
+                        shaders.Add(((Geometry)child).GetShader());
                 }
             }
         }

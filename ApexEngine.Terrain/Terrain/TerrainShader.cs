@@ -34,7 +34,13 @@ namespace ApexEngine.Terrain
 
             environment.DirectionalLight.BindLight(0, this);
             environment.AmbientLight.BindLight(0, this);
+            for (int i = 0; i < environment.PointLights.Count; i++)
+            {
+                environment.PointLights[i].BindLight(i, this);
+            }
 
+
+            SetUniform(ENV_NUMPOINTLIGHTS, environment.PointLights.Count);
             SetUniform(ENV_FOGSTART, environment.FogStart);
             SetUniform(ENV_FOGEND, environment.FogEnd);
             SetUniform(ENV_FOGCOLOR, environment.FogColor);

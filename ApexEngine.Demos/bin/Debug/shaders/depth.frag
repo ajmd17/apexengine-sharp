@@ -1,3 +1,5 @@
+
+
 vec4 pack_depth(const in float depth)
 {
 	vec4 bit_shift =
@@ -10,5 +12,6 @@ vec4 pack_depth(const in float depth)
 }
 void main()
 {
+
 	gl_FragColor = pack_depth(gl_FragCoord.z);
 }

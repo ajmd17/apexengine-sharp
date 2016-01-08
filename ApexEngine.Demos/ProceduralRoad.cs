@@ -5,6 +5,9 @@ using ApexEngine.Rendering.Util;
 using ApexEngine.Scene;
 using System;
 using System.Collections.Generic;
+using ApexEngine.Rendering.Cameras;
+using ApexEngine.Rendering.Shadows;
+using ApexEngine.Plugins.Shaders.Post;
 
 namespace ApexEngine.Demos
 {
@@ -38,7 +41,7 @@ namespace ApexEngine.Demos
 
         private List<Mesh> roads = new List<Mesh>();
         private GameObject curbModel, curbCorner;
-        private Texture road, roadCorner;
+        private Texture road, roadCorner, roadnrm, roadCornernrm;
         private Line lastLine = new Line(new Vector3f(0, 0, 0), new Vector3f(0, 0, 0));
         private Vector3f tmpVec = new Vector3f();
         Random r = new Random(333);
@@ -83,16 +86,37 @@ namespace ApexEngine.Demos
 
         public override void Init()
         {
+            Environment.AmbientLight.Color.Set(0.4f, 0.25f, 0.1f, 1.0f);
+            Environment.FogColor.Set(0.2f, 0.3f, 0.45f, 1.0f);
+            Environment.DirectionalLight.Direction.Set(0.6f, 1, 0.6f).NormalizeStore();
+            Environment.DirectionalLight.Color.Set(1.0f, 0.85f, 0.65f, 1.0f);
+            ((PerspectiveCamera)Camera).FieldOfView = 75;
+            Camera.Far = 330;
+
+            ShadowMappingComponent smc;
+            RenderManager.AddComponent(smc = new ShadowMappingComponent(cam, Environment, new int[] { 2048, 1024 }));
+            smc.RenderMode = ShadowMappingComponent.ShadowRenderMode.Forward;
+
+            RenderManager.PostProcessor.PostFilters.Add(new FXAAFilter());
+
+            const float curb_scale_y = 0.4f;
+
             road = AssetManager.LoadTexture(AssetManager.GetAppPath() + "\\textures\\road.jpg");
+            roadnrm = AssetManager.LoadTexture(AssetManager.GetAppPath() + "\\textures\\road_nrm.jpg");
             roadCorner = AssetManager.LoadTexture(AssetManager.GetAppPath() + "\\textures\\road_corner.jpg");
+            roadCornernrm = AssetManager.LoadTexture(AssetManager.GetAppPath() + "\\textures\\road_corner_nrm.jpg");
             curbModel = AssetManager.LoadModel(AssetManager.GetAppPath() + "\\models\\curb.obj");
             curbCorner = AssetManager.LoadModel(AssetManager.GetAppPath() + "\\models\\curb_corner.obj");
+            curbCorner.SetLocalScale(new Vector3f(1, curb_scale_y, 1));
 
             Random rand = new Random();
 
             int xAmt = rand.Next(2, 7), zAmt = rand.Next(2, 7), scaleX = rand.Next(10, 30), scaleZ = rand.Next(10, 30);
 
             int offset = 3;
+
+
+
 
             AddRoadCorner(new Line(new Vector3f(0, 0, -2), new Vector3f(0, 0, 0)));
 
@@ -111,7 +135,7 @@ namespace ApexEngine.Demos
                         tmpVec.y = HeightRoad(tmpVec);
                         curb2.SetLocalTranslation(tmpVec);
                         curb2.SetLocalRotation(new Quaternion().SetFromAxis(Vector3f.UnitY, 180));
-                        curb2.SetLocalScale(new Vector3f(1, 1, scaleZ));
+                        curb2.SetLocalScale(new Vector3f(1, curb_scale_y, scaleZ));
                         curbNode.AddChild(curb2);
 
                     }
@@ -121,7 +145,7 @@ namespace ApexEngine.Demos
                         tmpVec.Set((x + 1) * scaleX + 1, 0, (i) * scaleZ - 1);
                         tmpVec.y = HeightRoad(tmpVec);
                         curb2.SetLocalTranslation(tmpVec);
-                        curb2.SetLocalScale(new Vector3f(1, 1, scaleZ));
+                        curb2.SetLocalScale(new Vector3f(1, curb_scale_y, scaleZ));
                         curbNode.AddChild(curb2);
                     }
 
@@ -129,7 +153,7 @@ namespace ApexEngine.Demos
                     tmpVec.Set(x * scaleX + 1, 0, i * scaleZ + 1);
                     tmpVec.y = HeightRoad(tmpVec);
                     curb0.SetLocalTranslation(tmpVec);
-                    curb0.SetLocalScale(new Vector3f(1, 1, scaleZ - offset - 1));
+                    curb0.SetLocalScale(new Vector3f(1, curb_scale_y, scaleZ - offset - 1));
                     curbNode.AddChild(curb0);
 
                     Node curb1 = (Node)curbModel.Clone();
@@ -137,7 +161,7 @@ namespace ApexEngine.Demos
                     tmpVec.y = HeightRoad(tmpVec);
                     curb1.SetLocalTranslation(tmpVec);
                     curb1.SetLocalRotation(new Quaternion().SetFromAxis(Vector3f.UnitY, 180));
-                    curb1.SetLocalScale(new Vector3f(1, 1, scaleZ - offset - 1));
+                    curb1.SetLocalScale(new Vector3f(1, curb_scale_y, scaleZ - offset - 1));
                     curbNode.AddChild(curb1);
 
                     if (x != 0)
@@ -178,7 +202,7 @@ namespace ApexEngine.Demos
                         tmpVec.y = HeightRoad(tmpVec);
                         curb2.SetLocalTranslation(tmpVec);
                         curb2.SetLocalRotation(new Quaternion().SetFromAxis(Vector3f.UnitY, 180 + 90));
-                        curb2.SetLocalScale(new Vector3f(scaleX, 1, 1));
+                        curb2.SetLocalScale(new Vector3f(scaleX, curb_scale_y, 1));
                         curbNode.AddChild(curb2);
                     }
                     else if (z == (zAmt - 1))
@@ -188,7 +212,7 @@ namespace ApexEngine.Demos
                         tmpVec.y = HeightRoad(tmpVec);
                         curb2.SetLocalTranslation(tmpVec);
                         curb2.SetLocalRotation(new Quaternion().SetFromAxis(Vector3f.UnitY, 180 + 90 + 180));
-                        curb2.SetLocalScale(new Vector3f(scaleX, 1, 1));
+                        curb2.SetLocalScale(new Vector3f(scaleX, curb_scale_y, 1));
                         curbNode.AddChild(curb2);
                     }
 
@@ -197,7 +221,7 @@ namespace ApexEngine.Demos
                     tmpVec.y = HeightRoad(tmpVec);
                     curb0.SetLocalTranslation(tmpVec);
                     curb0.SetLocalRotation(new Quaternion().SetFromAxis(Vector3f.UnitY, 90));
-                    curb0.SetLocalScale(new Vector3f(scaleX - offset - 1, 1, 1));
+                    curb0.SetLocalScale(new Vector3f(scaleX - offset - 1, curb_scale_y, 1));
                     curbNode.AddChild(curb0);
 
                     Node curb1 = (Node)curbModel.Clone();
@@ -205,7 +229,7 @@ namespace ApexEngine.Demos
                     tmpVec.y = HeightRoad(tmpVec);
                     curb1.SetLocalTranslation(tmpVec);
                     curb1.SetLocalRotation(new Quaternion().SetFromAxis(Vector3f.UnitY, 180 + 90));
-                    curb1.SetLocalScale(new Vector3f(scaleX - offset - 1, 1, 1));
+                    curb1.SetLocalScale(new Vector3f(scaleX - offset - 1, curb_scale_y, 1));
                     curbNode.AddChild(curb1);
 
                     if (z != zAmt)
@@ -236,13 +260,17 @@ namespace ApexEngine.Demos
 
             roadMerged.Material.SetValue(Material.MATERIAL_CULLENABLED, false);
             roadMerged.Material.SetValue(Material.TEXTURE_DIFFUSE, road);
-            roadMerged.Material.SetValue(Material.SHININESS, 0.0f);
+            roadMerged.Material.SetValue(Material.TEXTURE_NORMAL, roadnrm);
+            roadMerged.Material.SetValue(Material.SHININESS, 0.3f);
+            roadMerged.Material.SetValue(Material.ROUGHNESS, 0.3f);
 
             Geometry roadCornerMerged = new Geometry(MeshUtil.MergeMeshes(roadCornerNode));
 
             roadCornerMerged.Material.SetValue(Material.MATERIAL_CULLENABLED, false);
             roadCornerMerged.Material.SetValue(Material.TEXTURE_DIFFUSE, roadCorner);
-            roadCornerMerged.Material.SetValue(Material.SHININESS, 0.0f);
+            roadCornerMerged.Material.SetValue(Material.TEXTURE_NORMAL, roadCornernrm);
+            roadCornerMerged.Material.SetValue(Material.SHININESS, 0.3f);
+            roadCornerMerged.Material.SetValue(Material.ROUGHNESS, 0.3f);
 
             rootNode.AddChild(roadCornerMerged);
             rootNode.AddChild(roadMerged);

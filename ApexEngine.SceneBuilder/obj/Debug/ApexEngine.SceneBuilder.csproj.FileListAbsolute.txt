@@ -33,3 +33,39 @@ C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBui
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBuilder\bin\Debug\Lidgren.Network.dll
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBuilder\bin\Debug\Lidgren.Network.pdb
 C:\Users\User\Documents\Visual Studio 2010\Projects\CsEngine\ApexEngine.SceneBuilder\bin\Debug\Lidgren.Network.xml
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.SceneBuilder\bin\Debug\SceneEditor.exe.config
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.SceneBuilder\obj\Debug\SceneEditor.exe
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.SceneBuilder\obj\Debug\SceneEditor.pdb
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.SceneBuilder\bin\Debug\SceneEditor.exe
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.SceneBuilder\bin\Debug\SceneEditor.pdb
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.SceneBuilder\bin\Debug\ApexEngine.DesktopRenderer.dll
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.SceneBuilder\bin\Debug\ApexEngine.dll
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.SceneBuilder\bin\Debug\ApexEngine.Math.dll
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.SceneBuilder\bin\Debug\ApexEngine.Terrain.dll
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.SceneBuilder\bin\Debug\OpenTK.dll
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.SceneBuilder\bin\Debug\OpenTK.GLControl.dll
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.SceneBuilder\bin\Debug\Jitter.dll
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.SceneBuilder\bin\Debug\Lidgren.Network.dll
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.SceneBuilder\bin\Debug\ApexEngine.DesktopRenderer.pdb
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.SceneBuilder\bin\Debug\ApexEngine.Math.pdb
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.SceneBuilder\bin\Debug\ApexEngine.Terrain.pdb
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.SceneBuilder\bin\Debug\ApexEngine.pdb
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.SceneBuilder\bin\Debug\OpenTK.pdb
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.SceneBuilder\bin\Debug\OpenTK.xml
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.SceneBuilder\bin\Debug\OpenTK.GLControl.xml
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.SceneBuilder\bin\Debug\Jitter.pdb
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.SceneBuilder\bin\Debug\Lidgren.Network.pdb
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.SceneBuilder\bin\Debug\Lidgren.Network.xml
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.SceneBuilder\obj\Debug\ApexEngine.SceneBuilder.csprojResolveAssemblyReference.cache
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.SceneBuilder\obj\Debug\ApexEditor.addCpts.resources
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.SceneBuilder\obj\Debug\ApexEditor.ApexEngineControl.resources
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.SceneBuilder\obj\Debug\ApexEditor.CodeGen.resources
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.SceneBuilder\obj\Debug\ApexEditor.Editors.QuaternionEditForm.resources
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.SceneBuilder\obj\Debug\ApexEditor.Editors.Vector3fEditForm.resources
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.SceneBuilder\obj\Debug\ApexEditor.Form1.resources
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.SceneBuilder\obj\Debug\ApexEditor.frmCtrls.resources
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.SceneBuilder\obj\Debug\ApexEditor.frmMatEditor.resources
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.SceneBuilder\obj\Debug\ApexEditor.frmSimplify.resources
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.SceneBuilder\obj\Debug\ApexEditor.NormalMapGenerator.NrmGenerator.resources
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.SceneBuilder\obj\Debug\ApexEditor.Properties.Resources.resources
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.SceneBuilder\obj\Debug\ApexEngine.SceneBuilder.csproj.GenerateResource.Cache

@@ -13,7 +13,7 @@ void main()
 	if (Material_HasDiffuseMap == 1)
 	{
 		vec4 diffuseTexture;
-		diffuseTexture = pow(texture2D(Material_DiffuseMap, texCoord), vec4(2.2, 2.2, 2.2, 1.0));
+		diffuseTexture = texture2D(Material_DiffuseMap, texCoord);
 		if (diffuseTexture.a < Material_AlphaDiscard)
 		{
 			discard;

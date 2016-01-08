@@ -8,7 +8,7 @@ namespace ApexEngine.Math
         private Vector3f max = new Vector3f(float.MinValue), min = new Vector3f(float.MaxValue), center = new Vector3f();
         public Vector3f dimension = new Vector3f();
         private Transform transform = new Transform();
-        private Vector3f worldExtent = new Vector3f(float.NaN);
+        private Vector3f extent = new Vector3f(float.NaN);
         private Vector3f[] corners = new Vector3f[8];
 
         public BoundingBox()
@@ -22,6 +22,11 @@ namespace ApexEngine.Math
             for (int i = 0; i < corners.Length; i++)
                 corners[i] = new Vector3f();
             CreateBoundingBox(dimMin, dimMax);
+        }
+
+        public Vector3f Extent
+        {
+            get { return extent; }
         }
 
         public Matrix4f Matrix
@@ -81,8 +86,14 @@ namespace ApexEngine.Math
         {
             min.Set(minimum);
             max.Set(maximum);
+
             center.Set(min).AddStore(max).MultiplyStore(0.5f);
+
+            extent.Set(maximum);
+            extent.SubtractStore(minimum);
+
             dimension.Set(max).SubtractStore(min).MultiplyStore(0.5f);
+
             UpdateCorners();
 
             return this;

@@ -20,6 +20,7 @@ namespace ApexEngine.Scene.Physics
 
         public void DrawLine(JVector start, JVector end)
         {
+            RenderManager.Renderer.DrawLine(cam, start.X, start.Y, start.Z, end.X, end.Y, end.Z);
         /*    GL.MatrixMode(MatrixMode.Modelview);
             GL.LoadMatrix(cam.ViewMatrix.GetInvertedValues());
             GL.MatrixMode(MatrixMode.Projection);
@@ -41,6 +42,9 @@ namespace ApexEngine.Scene.Physics
 
         public void DrawTriangle(JVector pos1, JVector pos2, JVector pos3)
         {
+
+            RenderManager.Renderer.DrawTriangle(cam, pos1.X, pos1.Y, pos1.Z, pos2.X, pos2.Y, pos2.Z, pos3.X, pos3.Y, pos3.Z);
+
          /*   GL.MatrixMode(MatrixMode.Modelview);
             GL.LoadMatrix(cam.ViewMatrix.GetInvertedValues());
             GL.MatrixMode(MatrixMode.Projection);

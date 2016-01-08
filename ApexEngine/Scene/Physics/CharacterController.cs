@@ -11,9 +11,9 @@ namespace ApexEngine.Scene.Physics
         private JVector impulse = new JVector(), linv;
         private bool moving;
         private InputManager inputManager;
-        private float speed = 1f;
+        private float speed = 3f;
 
-        public CharacterController(DefaultCamera camera, InputManager inputManager, float mass) : base(mass, PhysicsWorld.PhysicsShape.ConvexMesh)
+        public CharacterController(DefaultCamera camera, InputManager inputManager, float mass) : base(mass, PhysicsWorld.PhysicsShape.Box)
         {
             this.camera = camera;
             this.inputManager = inputManager;
@@ -26,8 +26,8 @@ namespace ApexEngine.Scene.Physics
 
             Body.Damping = Jitter.Dynamics.RigidBody.DampingType.Angular;
 
-            Body.Material.KineticFriction = 0.9f;
-            Body.Material.Restitution = 1.0f;
+            Body.Material.KineticFriction = 0.3f;
+            Body.Material.Restitution = 0.0f;
             Body.AngularVelocity.Set(0, 0, 0);
         }
 
@@ -38,7 +38,8 @@ namespace ApexEngine.Scene.Physics
             Vector3f dir = camera.Direction;
             linv = this.Body.LinearVelocity;
 
-            camera.Translation.Set(Body.Position.X, Body.Position.Y + 0.5f, Body.Position.Z);
+            this.Body.AngularVelocity.Set(0, 0, 0);
+
 
             if (inputManager.IsKeyDown(InputManager.KeyboardKey.W))
             {
@@ -70,7 +71,7 @@ namespace ApexEngine.Scene.Physics
                 Body.LinearVelocity = impulse;
                 if (linv.X == 0.0f && linv.Y == 0.0f && linv.Z == 0.0f)
                 {
-                    this.Body.Position.Set(Body.Position.X + impulse.X * 0.001f, Body.Position.Y + impulse.Y * 0.001f, Body.Position.Z + impulse.Z * 0.001f);
+                    this.Body.Position.Set(Body.Position.X + impulse.X * 0.01f, Body.Position.Y + impulse.Y * 0.01f, Body.Position.Z + impulse.Z * 0.01f);
                 }
                 impulse.Set(0, 0, 0);
             }
@@ -78,6 +79,7 @@ namespace ApexEngine.Scene.Physics
             {
                 moving = false;
             }
+            camera.Translation.Set(Body.Position.X, Body.Position.Y + 3.5f, Body.Position.Z);
         }
     }
 }

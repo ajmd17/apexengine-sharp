@@ -44,11 +44,9 @@ namespace ApexEngine.Rendering.Util
         }
 
         public static bool CompareShader(ShaderProperties a, ShaderProperties b)
-        {
-            if (a.values.Count != b.values.Count)
-                return false;
+       { 
 
-            string[] keys_a = a.values.Keys.ToArray();
+            /*string[] keys_a = a.values.Keys.ToArray();
             string[] keys_b = b.values.Keys.ToArray();
             object[] vals_a = a.values.Values.ToArray();
             object[] vals_b = b.values.Values.ToArray();
@@ -66,9 +64,9 @@ namespace ApexEngine.Rendering.Util
                         return false;
                     }
                 }
-            }
+            }*/
 
-            /*foreach (var pair in a.values)
+            foreach (var pair in a.values)
             {
                 object value;
                 if (b.values.TryGetValue(pair.Key, out value))
@@ -76,28 +74,28 @@ namespace ApexEngine.Rendering.Util
                     if (value is bool)
                     {
                         if (pair.Value is bool)
-                            return ((bool)value) == ((bool)pair.Value);
+                            return ((bool)value).Equals((bool)pair.Value);
                         else
                             return false;
                     }
                     else if (value is int)
                     {
                         if (pair.Value is int)
-                            return ((int)value) == ((int)pair.Value);
+                            return ((int)value).Equals((int)pair.Value);
                         else
                             return false;
                     }
                     else if (value is float)
                     {
                         if (pair.Value is float)
-                            return ((float)value) == ((float)pair.Value);
+                            return ((float)value).Equals((float)pair.Value);
                         else
                             return false;
                     }
                     else if (value is string)
                     {
                         if (pair.Value is string)
-                            return ((string)value) == ((string)pair.Value);
+                            return ((string)value).Equals((string)pair.Value);
                         else
                             return false;
                     }
@@ -106,7 +104,7 @@ namespace ApexEngine.Rendering.Util
                 {
                     return false;
                 }
-            }*/
+            }
             return true;
         }
 

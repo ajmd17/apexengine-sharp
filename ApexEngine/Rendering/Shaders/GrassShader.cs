@@ -73,6 +73,11 @@ namespace ApexEngine.Rendering.Shaders
 
             if (currentMaterial != null)
             {
+                float fadeStart = currentMaterial.GetFloat("fade_start");
+                SetUniform("u_fadeStart", fadeStart);
+                float fadeEnd = currentMaterial.GetFloat("fade_end");
+                SetUniform("u_fadeEnd", fadeEnd);
+
                 Texture diffuseTex = currentMaterial.GetTexture(Material.TEXTURE_DIFFUSE);
                 if (diffuseTex != null)
                 {

@@ -1,5 +1,7 @@
 #version 330
 
+#ifdef DEFAULT
+
 #ifdef SKINNING
 #include <skinning>
 #endif
@@ -113,3 +115,69 @@ void main()
 		v_ambient = vec4(ambient, 1.0);
 	}
 }
+
+#endif
+
+#ifdef NORMALS
+
+#include <apex3d>
+#include <material>
+
+attribute vec3 a_position;
+attribute vec3 a_normal;
+attribute vec2 a_texcoord0;
+
+varying vec4 v_normal;
+varying vec2 v_texCoord0;
+
+void main()
+{
+	v_texCoord0 = a_texcoord0;
+	v_normal = transpose(inverse(Apex_WorldMatrix)) * vec4(a_normal, 0.0);
+	
+	vec3 modifiedPos = a_position;
+	
+	modifiedPos.x += sin(Apex_ElapsedTime * 1.5) * 0.1 * (a_texcoord0.y);
+	modifiedPos.z += cos(Apex_ElapsedTime * 1.3) * 0.1 * (a_texcoord0.y);
+	
+	gl_Position = Apex_ProjectionMatrix * Apex_ViewMatrix * Apex_WorldMatrix * vec4(modifiedPos, 1.0);
+}
+
+#endif
+
+
+#ifdef DEPTH
+
+
+#ifdef SKINNING
+#include <skinning>
+#endif
+#include <apex3d>
+#include <material>
+
+attribute vec3 a_position;
+attribute vec3 a_normal;
+attribute vec2 a_texcoord0;
+
+varying vec2 v_texCoord0;
+varying vec4 v_position;
+
+void main()
+{
+	v_texCoord0 = a_texcoord0;
+	
+	vec3 modifiedPos = a_position;
+	vec3 worldPosition = Apex_WorldMatrix * vec4(modifiedPos, 1.0);
+	
+	float sinPosX = abs(sin(worldPosition.x));
+	float sinPosZ = abs(sin(worldPosition.z));
+	
+	modifiedPos.x += sin(Apex_ElapsedTime * 3.5 * sinPosX) * 0.7 * (a_texcoord0.y);
+	modifiedPos.z += cos(Apex_ElapsedTime * 2.3 * sinPosZ) * 0.7 * (a_texcoord0.y);
+	
+	worldPosition = Apex_WorldMatrix * vec4(modifiedPos, 1.0);
+	
+	gl_Position = Apex_ProjectionMatrix * Apex_ViewMatrix * worldPosition;
+}
+
+#endif

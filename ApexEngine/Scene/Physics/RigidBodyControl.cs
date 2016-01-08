@@ -26,6 +26,7 @@ namespace ApexEngine.Scene.Physics
         private JVector tmpJVec = new JVector();
         private BoundingBox boundingBox;
         private Vector3f offset = new Vector3f();
+        private Matrix4f tmpRotMatrix = new Matrix4f();
 
         public RigidBodyControl()
         {
@@ -174,7 +175,7 @@ namespace ApexEngine.Scene.Physics
             }
             else if (physicsShape == PhysicsWorld.PhysicsShape.Box)
             {
-                Mesh boxMesh = MeshFactory.CreateCube(boundingBox.Min, boundingBox.Max);
+               /* Mesh boxMesh = MeshFactory.CreateCube(boundingBox.Min, boundingBox.Max);
                 List<JVector> jvec = new List<JVector>();
                 List<TriangleVertexIndices> tv = new List<TriangleVertexIndices>();
                 for (int v = 0; v < boxMesh.vertices.Count; v++)
@@ -184,16 +185,17 @@ namespace ApexEngine.Scene.Physics
                 }
                 for (int i = 0; i < boxMesh.indices.Count; i += 3)
                 {
-                    tv.Add(new TriangleVertexIndices(boxMesh.indices[i + 2], boxMesh.indices[i + 1], boxMesh.indices[i]));
+                    tv.Add(new TriangleVertexIndices(boxMesh.indices[i], boxMesh.indices[i + 1], boxMesh.indices[i + 2]));
                 }
 
                 Octree oct = new Octree(jvec, tv);
-                TriangleMeshShape trimesh = new TriangleMeshShape(oct);
-                shape = trimesh;
-                tv.Clear();
-                jvec.Clear();
-                oct = null;
-                boxMesh = null;
+                TriangleMeshShape trimesh = new TriangleMeshShape(oct);*/
+                shape = new BoxShape(boundingBox.Extent.x, boundingBox.Extent.y, boundingBox.Extent.z);
+            //    shape = trimesh;
+            //    tv.Clear();
+             //   jvec.Clear();
+             //   oct = null;
+             //   boxMesh = null;
             }
             meshes.Clear();
             matrices.Clear();
@@ -212,13 +214,16 @@ namespace ApexEngine.Scene.Physics
         {
             body = new RigidBody(CreateShape());
             body.Tag = GameObject;
-            
+
 
             origin.Set(GameObject.GetUpdatedWorldTranslation());
             body.Position = new JVector(origin.x, origin.y, origin.z);
+
             
             if (mass == 0)
                 body.IsStatic = true;
+            else
+                body.Mass = this.mass;
         }
 
         public override void Update()
@@ -228,6 +233,25 @@ namespace ApexEngine.Scene.Physics
            // tmpVec0.SubtractStore(boundingBox.Center);
            // if (mass > 0.0f)
            //if (!GameObject.GetWorldTranslation().Equals(tmpVec0))
+
+            tmpRotMatrix.SetToIdentity();
+                tmpRotMatrix.values[Matrix4f.m00] = body.Orientation.M11;
+                tmpRotMatrix.values[Matrix4f.m10] = body.Orientation.M12;
+                tmpRotMatrix.values[Matrix4f.m20] = body.Orientation.M13;
+
+                tmpRotMatrix.values[Matrix4f.m01] = body.Orientation.M21;
+                tmpRotMatrix.values[Matrix4f.m11] = body.Orientation.M22;
+                tmpRotMatrix.values[Matrix4f.m21] = body.Orientation.M23;
+
+                tmpRotMatrix.values[Matrix4f.m02] = body.Orientation.M31;
+                tmpRotMatrix.values[Matrix4f.m12] = body.Orientation.M32;
+                tmpRotMatrix.values[Matrix4f.m22] = body.Orientation.M33;
+
+                tmpRot0.SetFromMatrix(tmpRotMatrix);
+            
+
+
+
                 GameObject.SetWorldTransformPhysics(tmpVec0, tmpRot0, tmpScl);
 
         //    tmpRot0.Set(rot.X, rot.Y, rot.Z, rot.W);

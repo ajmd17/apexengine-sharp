@@ -23,7 +23,7 @@ namespace ApexEngine.Plugins.PagingSystem
         {
             this.cam = cam;
             this.batchGeometry = batchGeometry;
-            rand = new Random(seed);
+            rand = new Random(12345);
         }
 
         public Populator(Camera cam, bool batchGeometry) : this(cam, batchGeometry, 12345)
@@ -45,6 +45,8 @@ namespace ApexEngine.Plugins.PagingSystem
 
         public Node CreateEntityNode(Vector3f translation, GameObject parentNode, float chunkSize, int entityPerChunk)
         {
+
+
             Node n = new Node();
             float mult = chunkSize / (float)entityPerChunk;
             parentNode.UpdateTransform();
@@ -57,9 +59,10 @@ namespace ApexEngine.Plugins.PagingSystem
                     float yLoc = 3;
                     float zLoc = (float)RandomDouble(0, chunkSize);
 
-
-
                     yLoc = GetHeight(parentNode.GetWorldTranslation().x + translation.x + xLoc, parentNode.GetWorldTranslation().z + translation.z + zLoc);
+
+                    
+
                     //	Vec3f norm = getNormal(parentNode, translation.x + x * 4, translation.z + z * 4);
                     if (yLoc != float.NaN)
                     {
@@ -71,12 +74,18 @@ namespace ApexEngine.Plugins.PagingSystem
                     }
                 }
             }
+
             if (batchGeometry)
             {
                 Node merged = new Node();
                 merged.AddChild(MeshUtil.MergeGeometry(n));
                 merged.SetLocalTranslation(translation);
-                merged.GetChildGeom(0).SetShader(GetShaderType());
+              //  List<Geometry> geoms = RenderUtil.GatherGeometry(n);
+              //  for (int i = 0; i < geoms.Count; i++)
+              //  {
+                //    merged.GetChildGeom(0).SetShader(GetShaderType());
+               // }
+
                 for (int i = 0; i < n.Children.Count; i++)
                 {
                     n.Children[i] = null;
@@ -84,7 +93,9 @@ namespace ApexEngine.Plugins.PagingSystem
                 n = null;
                 return merged;
             }
+
             n.SetLocalTranslation(translation);
+
             return n;
         }
 
@@ -113,14 +124,17 @@ namespace ApexEngine.Plugins.PagingSystem
         {
             tmpVec.x = cam.Translation.x;
             tmpVec.y = cam.Translation.z;
+
             if (updateTime > maxUpdateTime)
             {
                 // do update
                 for (int i = 0; i < patches.Count; i++)
                 {
                     Patch p = patches[i];
+
                     tmpVec2.x = p.parentNode.GetWorldTranslation().x;
                     tmpVec2.y = p.parentNode.GetWorldTranslation().z;
+
                     if (p.tile.inRange(tmpVec.Subtract(tmpVec2)))
                     {
                         if (p.pageState != Patch.PageState.LOADED)
@@ -151,7 +165,6 @@ namespace ApexEngine.Plugins.PagingSystem
                             if (p.entities != null)
                             {
                                 p.parentNode.RemoveChild(p.entities);
-                                p.entities.Dispose();
                                 p.entities = null;
                             }
                         }

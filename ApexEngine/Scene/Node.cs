@@ -161,6 +161,10 @@ namespace ApexEngine.Scene
             {
                 res.AddChild(children[i].Clone());
             }
+            for (int i = 0; i < controls.Count; i++)
+            {
+                res.AddController(controls[i]);
+            }
             return res;
         }
     }

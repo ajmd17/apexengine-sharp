@@ -49,6 +49,7 @@
     <Compile Include="PagingSystem\Paging.cs" />
     <Compile Include="PagingSystem\Populator.cs" />
     <Compile Include="PagingSystem\RockPopulator.cs" />
+    <Compile Include="PagingSystem\TreePopulator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RaytracerFilter.cs" />
     <Compile Include="Shaders\Post\FXAAFilter.cs" />

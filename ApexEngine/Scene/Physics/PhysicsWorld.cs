@@ -27,7 +27,7 @@ namespace ApexEngine.Scene.Physics
 
         public PhysicsWorld(PhysicsDebugDraw debugDraw)
         {
-            collisionSystem.UseTriangleMeshNormal = true;
+         //   collisionSystem.UseTriangleMeshNormal = true;
             world = new World(collisionSystem);
             this.debugDraw = debugDraw;
         }
@@ -126,7 +126,7 @@ namespace ApexEngine.Scene.Physics
 
         public void Update(float delta)
         {
-            world.Step(delta*0.65f, true);
+            world.Step(0.01f, true);
         }
 
         public void DrawDebug()

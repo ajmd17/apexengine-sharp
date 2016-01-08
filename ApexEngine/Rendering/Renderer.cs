@@ -201,6 +201,10 @@ namespace ApexEngine.Rendering
 
         public abstract void DrawVertex(float x, float y, float z);
 
+        public abstract void DrawLine(Camera cam, float x1, float y1, float z1, float x2, float y2, float z2);
+
+        public abstract void DrawTriangle(Camera cam, float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3);
+
         #endregion Rendering stuff
 
         public abstract void ClearColor(float r, float g, float b, float a);

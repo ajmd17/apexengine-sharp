@@ -2,7 +2,7 @@
 
 namespace ApexEngine.Rendering.Light
 {
-    public abstract class LightSource
+    public abstract class LightSource 
     {
         protected Color4f color = new Color4f(1.0f);
         protected float intensity = 1.0f;

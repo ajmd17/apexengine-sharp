@@ -68,7 +68,8 @@ namespace ApexEngine.Rendering.Util
                         Vertex vertex = meshes[m].vertices[meshes[m].indices[i]];
                         Vertex newVert = new Vertex(vertex);
                         newVert.SetPosition(vertex.GetPosition().Multiply(transforms[m]));
-                        newVert.SetNormal(vertex.GetNormal().Multiply(transforms[m].Invert().TransposeStore()));
+                        if (vertex.GetNormal() != null)
+                            newVert.SetNormal(vertex.GetNormal().Multiply(transforms[m].Invert().TransposeStore()));
                         finalVertices.Add(newVert);
                     }
                 }

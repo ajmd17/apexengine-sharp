@@ -88,15 +88,13 @@ namespace ApexEngine.Scene
 
         public void SetDefaultShader()
         {
-            if (mesh.GetSkeleton() != null)
-            {
-                g_shaderProperties.SetProperty("SKINNING", true).SetProperty("NUM_BONES", mesh.GetSkeleton().GetNumBones());
-            }
-            g_shaderProperties.SetProperty("DEFAULT", true);
-            g_shaderProperties.SetProperty("NORMALS", false);
-            g_shaderProperties.SetProperty("DEPTH", false);
-            SetShader(ShaderManager.GetShader(typeof(Rendering.Shaders.DefaultShader), g_shaderProperties));
-            g_shaderProperties.SetProperty("DEFAULT", false);
+            UpdateShaderProperties();
+            
+            //g_shaderProperties.SetProperty("DEFAULT", true);
+           // g_shaderProperties.SetProperty("NORMALS", false);
+            //g_shaderProperties.SetProperty("DEPTH", false);
+            SetShader(typeof(Rendering.Shaders.DefaultShader), g_shaderProperties);
+            //g_shaderProperties.SetProperty("DEFAULT", false);
         }
 
         public virtual void Render(Rendering.Environment environment, Camera cam)
@@ -119,6 +117,13 @@ namespace ApexEngine.Scene
 
         public void UpdateShaderProperties()
         {
+            g_shaderProperties.values.Clear();
+
+            if (mesh != null && mesh.GetSkeleton() != null)
+            {
+                g_shaderProperties.SetProperty("SKINNING", true).SetProperty("NUM_BONES", mesh.GetSkeleton().GetNumBones());
+            }
+
             string[] keys = Material.Values.Keys.ToArray();
             object[] vals = Material.Values.Values.ToArray();
             for (int i = 0; i < vals.Length; i++)
@@ -135,11 +140,12 @@ namespace ApexEngine.Scene
                     if (vals[i] is Texture)
                         g_shaderProperties.SetProperty(keys[i].ToUpper(), vals[i] != null);
             }
+          /*  Console.WriteLine(g_shaderProperties.ToString());
             if (shader != null)
             {
                 Type shaderType = shader.GetType();
                 SetShader(shaderType, g_shaderProperties);
-            }
+            }*/
         }
 
         public override void UpdateParents()
@@ -176,14 +182,17 @@ namespace ApexEngine.Scene
 
         public void SetShader(Type shaderType)
         {
-            SetShader(ShaderManager.GetShader(shaderType, new ShaderProperties().SetProperty("DEFAULT", true)));
+            UpdateShaderProperties();
+            g_shaderProperties.SetProperty("DEFAULT", true);
+            SetShader(ShaderManager.GetShader(shaderType, g_shaderProperties));
+            g_shaderProperties.SetProperty("DEFAULT", false);
         }
 
         public void SetShader(Type shaderType, ShaderProperties properties)
         {
-            ShaderProperties p = new ShaderProperties(properties);
-            p.SetProperty("DEFAULT", true);
-            SetShader(ShaderManager.GetShader(shaderType, p));
+            properties.SetProperty("DEFAULT", true);
+            SetShader(ShaderManager.GetShader(shaderType, properties));
+            properties.SetProperty("DEFAULT", false);
         }
 
         public override void Dispose()
@@ -206,6 +215,10 @@ namespace ApexEngine.Scene
             res.depthShader = this.depthShader;
             res.normalsShader = this.normalsShader;
             res.ShaderProperties = this.ShaderProperties;
+            for (int i = 0; i < controls.Count; i++)
+            {
+                res.AddController(controls[i]);
+            }
             return res;
         }
     }

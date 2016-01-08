@@ -63,7 +63,7 @@ void main()
 		
 		if (Env_ShadowsEnabled == 1)
 		{
-			const float radius = 0.05;
+			const float radius = 0.025;
 			int index = GetShadowMapSplit(Apex_CameraPosition, v_position.xyz);
 			for (int x = 0; x < 4; x++)
 			{
@@ -75,6 +75,8 @@ void main()
 				}
 			}
 			shadowness /= 16.0;
+			
+			
 			shadowColor = vec3(shadowness);
 		//	shadowColor = mix(vec3(0.5), shadowColor, shadowness);
 			
@@ -101,11 +103,9 @@ void main()
 		
 		vec3 specular = vec3(specularity);
 		
-		specular *= shadowness;
 		
 		vec3 reflection;
 		float fresnel;
-		//fresnel = Fresnel(n, v_position.xyz, Apex_CameraPosition, l, Material_Roughness);
 		fresnel = max(1.0 - dot(n, v), 0.0);
 		fresnel = pow(fresnel, 2.0);
 		
@@ -117,26 +117,45 @@ void main()
 		reflection *= cubeMap;
 		#endif
 		
+		
+		
+		specular *= shadowColor;
+		
+		#ifndef ENV_MAP
+		reflection *= shadowColor;
+		#endif
+		
 		specular += reflection;
+		
 		specular *= Env_DirectionalLight.color.xyz;
 		
 		for (int i = 0; i < Env_NumPointLights; i++)
 		{
 			PointLight pl = Env_PointLights[i];
-			vec3 pl_dir = normalize(pl.position - v_position.xyz);
-			float p_ndotl = max(dot(n, pl_dir), 0.0);
-			diffuse += vec3(p_ndotl) * surfaceColor * pl.color.xyz;
-			float pl_specularity;
-			if (Material_SpecularTechnique == 0)
-			{
-				pl_specularity = BlinnPhongDirectional(n, v_position.xyz, Apex_CameraPosition, pl_dir, Material_SpecularExponent);
+			
+			float radius = pl.radius;
+			float dist = distance(pl.position, v_position.xyz);
+			
+			if (dist < radius) {
+			
+				vec3 pl_dir = normalize(pl.position - v_position.xyz);
+				float p_ndotl = max(dot(n, pl_dir), 0.0);
+				diffuse += (vec3(p_ndotl) * surfaceColor * pl.color.xyz) * (1.0-(dist/radius));
+
+				float pl_specularity;
+				if (Material_SpecularTechnique == 0)
+				{
+					pl_specularity = BlinnPhongDirectional(n, v_position.xyz, Apex_CameraPosition, pl_dir, Material_SpecularExponent);
+				}
+				else if (Material_SpecularTechnique == 1)
+				{
+					pl_specularity = SpecularDirectional(n, v_position.xyz, Apex_CameraPosition, pl_dir, Material_SpecularExponent, Material_Roughness);
+				}
+					
+				vec3 pl_spec = vec3(pl_specularity) * pl.color.xyz;
+				
+				specular += pl_spec * (1.0-(dist/radius));
 			}
-			else if (Material_SpecularTechnique == 1)
-			{
-				pl_specularity = SpecularDirectional(n, v_position.xyz, Apex_CameraPosition, pl_dir, Material_SpecularExponent, Material_Roughness);
-			}
-			vec3 pl_spec = vec3(pl_specularity) * pl.color.xyz;
-			specular += pl_spec;
 		}	
 		
 		diffuse = clamp(diffuse, vec3(0.0), vec3(1.0));
@@ -186,6 +205,26 @@ void main()
 	}
 
 	gl_FragColor = vec4(v_normal.xyz*vec3(0.5)+vec3(0.5), 1.0);
+}
+
+#endif
+
+
+#ifdef DEPTH
+
+vec4 pack_depth(const in float depth)
+{
+	vec4 bit_shift =
+		vec4(256.0*256.0*256.0, 256.0*256.0, 256.0, 1.0);
+    vec4 bit_mask =
+        vec4(0.0, 1.0/256.0, 1.0/256.0, 1.0/256.0);
+        vec4 res = fract(depth * bit_shift);
+    res -= res.xxyz * bit_mask;
+    return res;
+}
+void main()
+{
+	gl_FragColor = pack_depth(gl_FragCoord.z);
 }
 
 #endif

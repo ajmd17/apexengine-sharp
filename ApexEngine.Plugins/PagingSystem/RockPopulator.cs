@@ -21,17 +21,15 @@ namespace ApexEngine.Plugins.PagingSystem
         static RockPopulator()
         {
             model = ((Node)AssetManager.LoadModel(AssetManager.GetAppPath() + "\\models\\rocks\\rock_0.obj")).GetChildGeom(0);
-            model.Material.SetValue(Material.SPECULAR_EXPONENT, 60);
+            model.Material.SetValue(Material.SPECULAR_EXPONENT, 90);
             model.Material.SetValue(Material.SHININESS, 0.3f);
-            model.Material.SetValue(Material.ROUGHNESS, 0.2f);
+            model.Material.SetValue(Material.ROUGHNESS, 0.12f);
         }
 
         public override void Destroy()
         {
             for (int i = patches.Count - 1; i > -1; i--)
             {
-                if (patches[i].entities != null)
-                    patches[i].entities.Dispose();
                 patches[i].entities = null;
                 patches[i].tile = null;
                 patches[i] = null;

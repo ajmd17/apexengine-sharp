@@ -200,7 +200,7 @@ namespace ApexEngine.Rendering
                             geometries[i].SetDefaultShader();
                         ShaderProperties p = new ShaderProperties(geometries[i].ShaderProperties);
                         p.SetProperty("NORMALS", true);
-                        geometries[i].NormalsShader = ShaderManager.GetShader(geometries[i].GetShader().GetType(), p);
+                        geometries[i].NormalsShader = ShaderManager.GetShader(typeof(Shaders.NormalsShader), p);
 
                     }
 
@@ -236,9 +236,9 @@ namespace ApexEngine.Rendering
             RenderBucket(env, cam, Bucket.Opaque);
             RenderBucket(env, cam, Bucket.Transparent);
             RenderBucket(env, cam, Bucket.Particle);
+            userRender();
 
             postProcessor.Release();
-            userRender();
         }
     }
 }

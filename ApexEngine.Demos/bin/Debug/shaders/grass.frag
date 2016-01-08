@@ -16,6 +16,9 @@ varying mat3 v_TBN;
 varying vec3 v_lightVec;
 varying vec3 v_parallaxView;
 
+uniform float u_fadeStart;
+uniform float u_fadeEnd;
+
 varying vec3 refVec;
 
 varying vec4 v_ambient;
@@ -116,7 +119,7 @@ void main()
 		gl_FragColor = lightSum;
 	}
 	gl_FragColor.rgb = pow(gl_FragColor.rgb, vec3(1.0/2.2));
-	gl_FragColor.a *= 1.0 - CalculateFog(v_position.xyz, Apex_CameraPosition, 30.0, 40.0);
+	gl_FragColor.a *= 1.0 - CalculateFog(v_position.xyz, Apex_CameraPosition, u_fadeStart, u_fadeEnd);
 }
 
 #endif
@@ -143,5 +146,26 @@ void main()
 
 	gl_FragColor = vec4(v_normal.xyz*vec3(0.5)+vec3(0.5), 1.0);
 }
+
+#endif
+
+
+#ifdef DEPTH
+
+vec4 pack_depth(const in float depth)
+{
+	vec4 bit_shift =
+		vec4(256.0*256.0*256.0, 256.0*256.0, 256.0, 1.0);
+    vec4 bit_mask =
+        vec4(0.0, 1.0/256.0, 1.0/256.0, 1.0/256.0);
+        vec4 res = fract(depth * bit_shift);
+    res -= res.xxyz * bit_mask;
+    return res;
+}
+void main()
+{
+	gl_FragColor = pack_depth(gl_FragCoord.z);
+}
+
 
 #endif

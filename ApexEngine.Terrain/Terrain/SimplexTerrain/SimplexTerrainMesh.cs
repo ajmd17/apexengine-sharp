@@ -89,7 +89,7 @@ namespace ApexEngine.Terrain.SimplexTerrain
 
                     if (this.generateBiomes)
                     {
-                        biomeHeight = (float)(parent.getNoise(((double)_y) * 0.1, ((double)_x) * 0.1));
+                        biomeHeight = (float)(parent.getNoise(((double)_y) * 0.3, ((double)_x) * 0.3));
 
                         temperature = (float)(parent.getNoise(((double)_y), terrainHeight, ((double)_x)));
 

@@ -121,7 +121,6 @@ namespace ApexEngine
         public void RenderInternal()
         {
             renderManager.Render(Environment, cam);
-            Render();
         }
 
         private void MoveToOrigin()
