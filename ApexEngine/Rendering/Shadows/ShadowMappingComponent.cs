@@ -103,7 +103,7 @@ namespace ApexEngine.Rendering.Shadows
                 if (environment.DirectionalLight != null)
                 {
                     shadowCams[i].LightDirection.x = -environment.DirectionalLight.Direction.x;
-                    shadowCams[i].LightDirection.y = -environment.DirectionalLight.Direction.y;
+                    shadowCams[i].LightDirection.y = -1;
                     shadowCams[i].LightDirection.z = -environment.DirectionalLight.Direction.z;
                 }
                 environment.ShadowMaps[i] = shadowCams[i].ShadowMap;

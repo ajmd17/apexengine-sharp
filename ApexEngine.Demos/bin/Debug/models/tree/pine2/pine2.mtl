@@ -1,0 +1,71 @@
+# Wavefront Object Material File
+# Generated using SpeedTree tools
+
+newmtl Branches_03
+Tr 0
+d 1
+Kd 1 0.890196 0.862745
+Ka 0.662745 0.662745 0.662745
+illum 1
+map_Kd Branches_03.png
+map_d Branches_03.png
+map_bump Branches_03_Normal.png
+bump Branches_03_Normal.png -bm 1
+
+
+newmtl Cap_01
+Tr 0
+d 1
+Kd 1 0.890196 0.862745
+Ka 0.662745 0.662745 0.662745
+illum 1
+map_Kd Cap_01.png
+map_d Cap_01.png
+map_bump Cap_01_Normal.png
+bump Cap_01_Normal.png -bm 1
+
+
+newmtl HuangshanPineBark
+Tr 0
+d 1
+Kd 1 1 1
+Ka 0.741176 0.752941 0.752941
+Ks 0.27451 0.27451 0.27451
+Ns 64
+illum 2
+map_Kd HuangshanPineBark.png
+map_d HuangshanPineBark.png
+map_bump HuangshanPineBark_Normal.png
+bump HuangshanPineBark_Normal.png -bm 1
+
+
+newmtl HuangshanPineNeedles_1
+Tr 0
+d 1
+Kd 1 1 1
+Ka 0.921569 0.921569 0.921569
+Ks 0.992157 1 1
+Ns 64
+illum 2
+map_Kd HuangshanPineNeedles_1.png
+map_d HuangshanPineNeedles_1.png
+map_bump HuangshanPineNeedles_1_Normal.png
+bump HuangshanPineNeedles_1_Normal.png -bm 1
+map_Ks HuangshanPineNeedles_1_Spec.png
+
+
+newmtl HuangshanPineNeedles_2
+Tr 0
+d 1
+Kd 1 1 1
+Ka 0.921569 0.921569 0.921569
+Ks 0.992157 1 1
+Ns 64
+illum 2
+map_Kd HuangshanPineNeedles_2.png
+map_d HuangshanPineNeedles_2.png
+map_bump HuangshanPineNeedles_2_Normal.png
+bump HuangshanPineNeedles_2_Normal.png -bm 1
+map_Ks HuangshanPineNeedles_2_Spec.png
+
+

@@ -55,6 +55,7 @@
     <Compile Include="Shaders\Post\FXAAFilter.cs" />
     <Compile Include="Skydome\SkydomeComponent.cs" />
     <Compile Include="Skydome\SkyShader.cs" />
+    <Compile Include="Util\OpenSimplexNoise.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ApexEngine.Math\ApexEngine.Math.csproj">

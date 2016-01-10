@@ -6,6 +6,7 @@ using ApexEngine.Terrain.Ecosystem;
 using ApexEngine.Util;
 using LibNoise;
 using System;
+using LibNoise.Modifiers;
 
 namespace ApexEngine.Terrain.SimplexTerrain
 {
@@ -18,12 +19,84 @@ namespace ApexEngine.Terrain.SimplexTerrain
         private Vector2f[] tmpVec = new Vector2f[8];
         private bool biomesEnabled = false;
 
+
+        //libnoise
+        IModule module;
+        Perlin terrainTopography;
+        Voronoi voronoi;
+
+
         public SimplexTerrainComponent() : this(null)
         {
         }
 
         public SimplexTerrainComponent(PhysicsWorld physicsWorld) : base(physicsWorld)
         {
+
+
+           module = new FastRidgedMultifractal();
+            ((FastRidgedMultifractal)module).Frequency = 0.03;
+            ((FastRidgedMultifractal)module).NoiseQuality = NoiseQuality.Low;
+            ((FastRidgedMultifractal)module).Seed = 12345;
+            ((FastRidgedMultifractal)module).OctaveCount = 11;
+            ((FastRidgedMultifractal)module).Lacunarity = 2.0;
+
+            voronoi = new Voronoi();
+            voronoi.Frequency = 0.05;
+            voronoi.Seed = 12345;
+
+         /*
+            NoiseQuality quality = NoiseQuality.Low;
+            int seed = 12345;
+            double frequency = 0.03;
+            double lacunarity = 2.0;
+            double persistence = 0.5;
+            int numOctaves = 8;
+
+            FastBillow fastbillow = new FastBillow();
+            fastbillow.Frequency = frequency;
+            fastbillow.NoiseQuality = quality;
+            fastbillow.Seed = seed;
+            fastbillow.OctaveCount = numOctaves;
+            fastbillow.Lacunarity = lacunarity;
+            fastbillow.Persistence = persistence;
+
+
+            Perlin perlin = new Perlin();
+            perlin.Seed = seed;
+            perlin.NoiseQuality = NoiseQuality.Low;
+            perlin.Frequency = frequency / 10.0;
+            perlin.Lacunarity = lacunarity;
+            perlin.OctaveCount = numOctaves;
+            perlin.Persistence = persistence;
+
+            FastRidgedMultifractal fastridged = new FastRidgedMultifractal();
+            fastridged.Frequency = frequency / 2.0;
+            fastridged.NoiseQuality = quality;
+            fastridged.Seed = seed;
+            fastridged.OctaveCount = numOctaves;
+            fastridged.Lacunarity = lacunarity;
+
+            FastNoise fastperlin = new FastNoise();
+            fastperlin.Frequency = frequency / 10.0;
+            fastperlin.NoiseQuality = quality;
+            fastperlin.Seed = seed;
+            fastperlin.OctaveCount = numOctaves;
+            fastperlin.Lacunarity = lacunarity;
+            fastperlin.Persistence = persistence;
+
+            Select fastselector = new Select(fastperlin, fastridged, perlin);
+            fastselector.SetBounds(0, 1000);
+            fastselector.EdgeFalloff = 0.3;
+
+          
+
+            module = perlin;*/
+            
+
+
+
+
             rHeights = new float[4];
             int numberOfOctaves = 8;
             octaves = new OpenSimplexNoise[numberOfOctaves];
@@ -52,7 +125,7 @@ namespace ApexEngine.Terrain.SimplexTerrain
             terrainMaterial.SetValue(TerrainMaterial.TEXTURE_DIFFUSE_SLOPE, dirt);
             terrainMaterial.SetValue(TerrainMaterial.TEXTURE_NORMAL_SLOPE, dirt_nrm);
             terrainMaterial.SetValue(Material.MATERIAL_CASTSHADOWS, false);
-            terrainMaterial.SetValue(Material.SHININESS, 0.1f);
+            terrainMaterial.SetValue(Material.SHININESS, 0.0f);
             terrainMaterial.SetValue(Material.ROUGHNESS, 0.08f);
         }
 
@@ -62,40 +135,77 @@ namespace ApexEngine.Terrain.SimplexTerrain
             set { biomesEnabled = value; }
         }
 
+        public double GetTopography(double x, double y)
+        {
+            return (terrainTopography.GetValue(x, y, 10) + 1) / 2.0;
+        }
+
+
+        public double GetVoronoiNoise(double x, double y)
+        {
+            /*  double result = 0;
+
+              for (int i = 0; i < octaves.Length; i++)
+              {
+                  result = result + octaves[i].Evaluate(x / frequencys[i], y / frequencys[i]) * amplitudes[i];
+              }
+
+              return result;*/
+            return (voronoi.GetValue(x, y, 10) + 1) / 2.0;
+        }
+
+
         public double getNoise(int x, int y)
         {
-            double result = 0;
+          /*  double result = 0;
 
             for (int i = 0; i < octaves.Length; i++)
             {
                 result = result + octaves[i].Evaluate(x / frequencys[i], y / frequencys[i]) * amplitudes[i];
             }
 
-            return result;
+            return result;*/
+            return (module.GetValue(x, y, 10)+1)/2.0;
         }
 
         public double getNoise(double x, double y)
         {
-            double result = 0;
+          /*  double result = 0;
 
             for (int i = 0; i < octaves.Length; i++)
             {
                 result = result + octaves[i].Evaluate(x / frequencys[i], y / frequencys[i]) * amplitudes[i];
             }
 
-            return result;
+            return result;*/
+
+            return (module.GetValue(x, y, 10) + 1) / 2.0;
         }
 
         public double getNoise(double x, double y, double z)
         {
-            double result = 0;
+           /* double result = 0;
 
             for (int i = 0; i < octaves.Length; i++)
             {
                 result = result + octaves[i].Evaluate(x / frequencys[i], y / frequencys[i], z / frequencys[i]) * amplitudes[i];
             }
 
-            return result;
+            return result;*/
+
+            return (module.GetValue(x, y, z) + 1) / 2.0;
+        }
+
+        public double getSimplexNoise(double x, double y)
+        {
+              double result = 0;
+
+              for (int i = 0; i < octaves.Length; i++)
+              {
+                  result = result + octaves[i].Evaluate(x / frequencys[i], y / frequencys[i]) * amplitudes[i];
+              }
+
+              return result;
         }
 
         public Biome GetBiome(Vector3f worldPosition)

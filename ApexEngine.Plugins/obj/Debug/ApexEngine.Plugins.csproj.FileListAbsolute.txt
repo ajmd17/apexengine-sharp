@@ -38,3 +38,5 @@ C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.Plugins\bin\Debug\Lidgren.N
 C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.Plugins\obj\Debug\ApexEngine.Plugins.csprojResolveAssemblyReference.cache
 C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.Plugins\obj\Debug\ApexEngine.Plugins.dll
 C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.Plugins\obj\Debug\ApexEngine.Plugins.pdb
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.Plugins\bin\Debug\LibNoise.dll
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.Plugins\bin\Debug\LibNoise.xml

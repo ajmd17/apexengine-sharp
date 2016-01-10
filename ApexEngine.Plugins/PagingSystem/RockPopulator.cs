@@ -13,7 +13,7 @@ namespace ApexEngine.Plugins.PagingSystem
         private PhysicsWorld physicsWorld;
         private Vector3f tmpOrigin = new Vector3f(), tmpDir = new Vector3f();
 
-        public RockPopulator(PhysicsWorld physicsWorld, Camera cam) : base(cam, true)
+        public RockPopulator(PhysicsWorld physicsWorld, Camera cam) : base(cam, true, 0.42f)
         {
             this.physicsWorld = physicsWorld;
         }
@@ -39,7 +39,7 @@ namespace ApexEngine.Plugins.PagingSystem
 
         public override GameObject CreateEntity(Vector3f translation, Vector3f slope)
         {
-            int numThingsInCluster = rand.Next(3, 9);
+            int numThingsInCluster = rand.Next(1, 4);
             Node clusterNode = new Node();
             for (int i = 0; i < numThingsInCluster; i++)
             {

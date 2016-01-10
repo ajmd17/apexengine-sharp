@@ -48,3 +48,5 @@ C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.Demos\bin\Debug\Jitter.pdb
 C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.Demos\bin\Debug\Lidgren.Network.pdb
 C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.Demos\bin\Debug\Lidgren.Network.xml
 C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.Demos\obj\Debug\ApexEngine.Demos.csprojResolveAssemblyReference.cache
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.Demos\bin\Debug\LibNoise.dll
+C:\Users\andrew\Desktop\CsEngine\CsEngine\ApexEngine.Demos\bin\Debug\LibNoise.xml

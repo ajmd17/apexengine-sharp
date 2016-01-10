@@ -1,0 +1,69 @@
+# Wavefront Object Material File
+# Generated using SpeedTree tools
+
+newmtl Branches_03
+Tr 0
+d 1
+Kd 1 0.933333 0.858824
+Ka 0.74902 0.752941 0.752941
+illum 1
+map_Kd Branches_03.png
+map_d Branches_03.png
+map_bump Branches_03_Normal.png
+bump Branches_03_Normal.png -bm 1
+
+
+newmtl Cap_04
+Tr 0
+d 1
+Kd 1 0.933333 0.858824
+Ka 0.74902 0.752941 0.752941
+illum 1
+map_Kd Cap_04.png
+map_d Cap_04.png
+map_bump Cap_04_Normal.png
+bump Cap_04_Normal.png -bm 1
+
+
+newmtl FraserFirBark
+Tr 0
+d 1
+Kd 1 1 1
+Ka 0.737255 0.752941 0.752941
+illum 1
+map_Kd FraserFirBark.png
+map_d FraserFirBark.png
+map_bump FraserFirBark_Normal.png
+bump FraserFirBark_Normal.png -bm 1
+
+
+newmtl FraserFirNeedles_1
+Tr 0
+d 1
+Kd 1 1 1
+Ka 0.870588 0.870588 0.870588
+Ks 0.894118 0.898039 0.898039
+Ns 26.2
+illum 2
+map_Kd FraserFirNeedles_1.png
+map_d FraserFirNeedles_1.png
+map_bump FraserFirNeedles_1_Normal.png
+bump FraserFirNeedles_1_Normal.png -bm 1
+map_Ks FraserFirNeedles_1_Spec.png
+
+
+newmtl FraserFirNeedles_2
+Tr 0
+d 1
+Kd 1 1 1
+Ka 0.870588 0.870588 0.870588
+Ks 0.894118 0.898039 0.898039
+Ns 26.2
+illum 2
+map_Kd FraserFirNeedles_2.png
+map_d FraserFirNeedles_2.png
+map_bump FraserFirNeedles_2_Normal.png
+bump FraserFirNeedles_2_Normal.png -bm 1
+map_Ks FraserFirNeedles_2_Spec.png
+
+

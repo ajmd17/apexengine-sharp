@@ -48,7 +48,7 @@ void main()
 	vec3 up = vec3(0.0, 1.0, 0.0);
 	float ang = max(abs(v_normal.x), 0.0);
 	
-	tex0Strength = 1.0-clamp(ang/(1.0-0.65), 0.0, 1.0);
+	tex0Strength = 1.0-clamp(ang/(1.0-0.4), 0.0, 1.0);
 	
 	vec4 flatColor;
 	flatColor = texColor0;
@@ -66,13 +66,13 @@ void main()
 	//	flatColor = mix(flatColor, texColor3, splatColor.b);
 	}
 	
-	flatColor = mix(flatColor, texColor1, clamp( v_position.y / 16.0, 0.0, 1.0));
+	flatColor = mix(flatColor, texColor1, clamp( (v_position.y - 60.0)/ 16.0, 0.0, 1.0));
 	
 	diffuseTexture = mix(slopeColor, flatColor, tex0Strength);
 	
 	
 	
-	if (ang >= (1.0-0.65))
+	if (ang >= (1.0-0.4))
 	{
 		diffuseTexture = slopeColor;
 	}

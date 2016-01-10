@@ -4,6 +4,7 @@ using ApexEngine.Scene.Components;
 using ApexEngine.Scene.Physics;
 using System;
 using System.Collections.Generic;
+using LibNoise;
 
 namespace ApexEngine.Terrain
 {
@@ -21,7 +22,7 @@ namespace ApexEngine.Terrain
         protected List<HeightInfo> heightmaps;
         protected Material terrainMaterial = new TerrainMaterial();
         protected List<Vector2f> queue = new List<Vector2f>();
-        protected Vector3f scale = new Vector3f(2, 2f, 2);
+        protected Vector3f scale = new Vector3f(2f, 1.8f, 2f);
         private float updateTime = 6, maxUpdateTime = 6f, queueTime = 2, maxQueueTime = 2f;
         private Vector2f v2cp = new Vector2f();
         private Vector3f cp = new Vector3f();
@@ -35,10 +36,9 @@ namespace ApexEngine.Terrain
             heightmaps = new List<HeightInfo>();
         }
 
-        public TerrainComponent(PhysicsWorld physicsWorld)
+        public TerrainComponent(PhysicsWorld physicsWorld) : this()
         {
             this.physicsWorld = physicsWorld;
-            heightmaps = new List<HeightInfo>();
         }
 
         public Vector3f Scale

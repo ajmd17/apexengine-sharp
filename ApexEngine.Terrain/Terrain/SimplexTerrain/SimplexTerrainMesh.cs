@@ -81,23 +81,36 @@ namespace ApexEngine.Terrain.SimplexTerrain
                     float _x = yy + ((int)x * (size - 1));
                     float _y = xx + ((int)z * (size - 1));
 
-                    float terrainHeight = (float)parent.getNoise(_x, _y);
 
                     float biomeHeight = 1f, temperature = 1f;
 
                     int heightIndex = HeightIndexAt(yy, xx);
 
+                    float terrainHeight;
+
                     if (this.generateBiomes)
                     {
-                        biomeHeight = (float)(parent.getNoise(((double)_y) * 0.3, ((double)_x) * 0.3));
 
-                        temperature = (float)(parent.getNoise(((double)_y), terrainHeight, ((double)_x)));
+                        biomeHeight = (float)(parent.getSimplexNoise(((double)_y*0.4), ((double)_x*0.4)));
+
+
+
+                        temperature = (float)(parent.getSimplexNoise(((double)_y), ((double)_x)));
+
+
+
+
+                        terrainHeight = (float)parent.getSimplexNoise(_x, _y);
+
+                        float mountainHeight = (float)parent.getNoise(_x*0.1f, _y*0.1f);
+
+
 
                         Biome biome = new Biome();
 
                         biome.AverageTemperature = temperature;
 
-                        if (System.Math.Abs(biomeHeight) < 0.3f)
+                        if (biomeHeight < 0.3f)
                         {
                             biome.Topography = Biome.BiomeTopography.Plains;
                         }
@@ -106,11 +119,21 @@ namespace ApexEngine.Terrain.SimplexTerrain
                             biome.Topography = Biome.BiomeTopography.Hills;
                         }
 
-                        biomeHeight *= 6 * (float)System.Math.Abs(biomeHeight);
+                        biomeHeight = (float)System.Math.Abs(biomeHeight) * 2;
+                        biomeHeight *= biomeHeight;
+
                         biomes[heightIndex] = biome;
+
+
+
+                        heights[heightIndex] = MathUtil.Lerp(terrainHeight*2, mountainHeight*70f, MathUtil.Clamp(biomeHeight, 0.0f, 1.0f));
+                    }
+                    else
+                    {
+                        terrainHeight = (float)parent.getNoise(_x, _y);
+                        heights[heightIndex] = terrainHeight * 25f;
                     }
 
-                    heights[heightIndex] = terrainHeight * biomeHeight * 25f;
                 }
             }
             return heights;

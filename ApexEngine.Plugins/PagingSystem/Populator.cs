@@ -6,6 +6,7 @@ using ApexEngine.Scene.Components;
 using ApexEngine.Terrain;
 using System;
 using System.Collections.Generic;
+using ApexEngine.Util;
 
 namespace ApexEngine.Plugins.PagingSystem
 {
@@ -18,12 +19,42 @@ namespace ApexEngine.Plugins.PagingSystem
         protected Camera cam;
         private Vector2f tmpVec = new Vector2f(), tmpVec2 = new Vector2f();
         protected Random rand;
+        private float probability = 0.5f;
 
-        public Populator(Camera cam, bool batchGeometry, int seed)
+        private static OpenSimplexNoise[] octaves;
+        private static double[] frequencys;
+        private static double[] amplitudes;
+
+        static Populator()
+        {
+            int numberOfOctaves = 8;
+            octaves = new OpenSimplexNoise[numberOfOctaves];
+            frequencys = new double[numberOfOctaves];
+            amplitudes = new double[numberOfOctaves]; 
+
+            for (int i = 0; i < numberOfOctaves; i++)
+            {
+                octaves[i] = new OpenSimplexNoise(666);
+                frequencys[i] = (float)System.Math.Pow(2, i);
+                amplitudes[i] = (float)System.Math.Pow(0.5f, octaves.Length - i);
+            }
+        }
+
+        public Populator(Camera cam, bool batchGeometry, int seed, float probability)
         {
             this.cam = cam;
             this.batchGeometry = batchGeometry;
             rand = new Random(12345);
+            this.probability = probability;
+        }
+
+        public Populator(Camera cam, bool batchGeometry, int seed) : this(cam, batchGeometry, seed, 0.5f)
+        {
+        }
+
+        public Populator(Camera cam, bool batchGeometry, float probability)
+            : this(cam, batchGeometry, 12345, probability)
+        {
         }
 
         public Populator(Camera cam, bool batchGeometry) : this(cam, batchGeometry, 12345)
@@ -32,6 +63,24 @@ namespace ApexEngine.Plugins.PagingSystem
 
         public Populator(Camera cam) : this(cam, true)
         {
+        }
+
+        public float Probability
+        {
+            get { return probability; }
+            set { probability = value; }
+        }
+
+        public static double GetNoise(double x, double y)
+        {
+            double result = 0;
+
+            for (int i = 0; i < octaves.Length; i++)
+            {
+                result = result + octaves[i].Evaluate(x / frequencys[i], y / frequencys[i]) * amplitudes[i];
+            }
+
+            return result;
         }
 
         protected double RandomDouble(double a, double b)
@@ -55,22 +104,28 @@ namespace ApexEngine.Plugins.PagingSystem
             {
                 for (int z = 0; z < entityPerChunk; z++)
                 {
-                    float xLoc = (float)RandomDouble(0, chunkSize);
+                    float xLoc = x * mult + (float)RandomDouble(-7f, 7f);// (float)RandomDouble(0, chunkSize);
                     float yLoc = 3;
-                    float zLoc = (float)RandomDouble(0, chunkSize);
+                    float zLoc = z * mult + (float)RandomDouble(-7f, 7f);// (float)RandomDouble(0, chunkSize);
 
-                    yLoc = GetHeight(parentNode.GetWorldTranslation().x + translation.x + xLoc, parentNode.GetWorldTranslation().z + translation.z + zLoc);
+                    double chance = GetNoise(parentNode.GetWorldTranslation().x + translation.x + xLoc, parentNode.GetWorldTranslation().z + translation.z + zLoc) * 0.5 + 0.5;
 
-                    
-
-                    //	Vec3f norm = getNormal(parentNode, translation.x + x * 4, translation.z + z * 4);
-                    if (yLoc != float.NaN)
+                    if (chance < probability)
                     {
-                        GameObject entity = CreateEntity(new Vector3f(xLoc, yLoc, zLoc), Vector3f.Zero);
-                       // entity.SetLocalScale(new Vector3f((float)RandomDouble(0.1f, 0.5f)));
-                        entity.SetLocalRotation(new Quaternion().SetFromAxis(Vector3f.UnitY, (float)RandomDouble(0, 359)));
-                        //  n.AddChild(CreateEntity(new Vector3f(x * mult, y, z * mult), Vector3f.ZERO));
-                        n.AddChild(entity);
+
+                        yLoc = GetHeight(parentNode.GetWorldTranslation().x + translation.x + xLoc, parentNode.GetWorldTranslation().z + translation.z + zLoc);
+
+
+
+                        //	Vec3f norm = getNormal(parentNode, translation.x + x * 4, translation.z + z * 4);
+                        if (yLoc != float.NaN)
+                        {
+                            GameObject entity = CreateEntity(new Vector3f(xLoc, yLoc, zLoc), Vector3f.Zero);
+                            // entity.SetLocalScale(new Vector3f((float)RandomDouble(0.1f, 0.5f)));
+                            entity.SetLocalRotation(new Quaternion().SetFromAxis(Vector3f.UnitY, (float)RandomDouble(0, 359)));
+                            //  n.AddChild(CreateEntity(new Vector3f(x * mult, y, z * mult), Vector3f.ZERO));
+                            n.AddChild(entity);
+                        }
                     }
                 }
             }

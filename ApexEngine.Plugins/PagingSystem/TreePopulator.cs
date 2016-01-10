@@ -20,7 +20,7 @@ namespace ApexEngine.Plugins.PagingSystem
         private Vector3f tmpOrigin = new Vector3f(), tmpDir = new Vector3f();
 
         public TreePopulator(PhysicsWorld physicsWorld, Camera cam)
-            : base(cam, false)
+            : base(cam, false, 0.5f)
         {
             this.physicsWorld = physicsWorld;
         }
@@ -29,7 +29,7 @@ namespace ApexEngine.Plugins.PagingSystem
         {
 
 
-            tree = (Node)AssetManager.LoadModel(AssetManager.GetAppPath() + "\\models\\tree\\pine\\LoblollyPine.obj");
+          /*  tree = (Node)AssetManager.LoadModel(AssetManager.GetAppPath() + "\\models\\tree\\pine\\LoblollyPine.obj");
 
             tree.GetChildGeom(1).Material.SetValue("tree_height", tree.GetLocalBoundingBox().Max.y);
             tree.GetChildGeom(1).SetShader(typeof(BarkShader));
@@ -47,12 +47,12 @@ namespace ApexEngine.Plugins.PagingSystem
 
             tree.GetChildGeom(2).DepthShader = ShaderManager.GetShader(typeof(LeafShader), new ShaderProperties()
                 .SetProperty("DEPTH", true)
-                .SetProperty(Material.TEXTURE_DIFFUSE, true));
-/*
+                .SetProperty(Material.TEXTURE_DIFFUSE, true));*/
+
             tree = new Node();
             Geometry g = new Geometry(MeshFactory.CreateQuad());
-            g.SetLocalScale(new Vector3f(20));
-            g.SetLocalTranslation(new Vector3f(0, 8, 0));
+            g.SetLocalScale(new Vector3f(15));
+            g.SetLocalTranslation(new Vector3f(0, 4, 0));
             g.Material.SetValue(Material.MATERIAL_CASTSHADOWS, 0);
             g.Material.SetValue(Material.MATERIAL_BLENDMODE, 1);
             g.Material.SetValue(Material.TEXTURE_DIFFUSE, AssetManager.LoadTexture(AssetManager.GetAppPath() + "\\models\\tree\\pine\\billboard.png"));
@@ -60,9 +60,9 @@ namespace ApexEngine.Plugins.PagingSystem
             g.Material.SetValue(Material.MATERIAL_ALPHADISCARD, 0.5f);
             g.Material.Bucket = RenderManager.Bucket.Transparent;
             g.SetShader(typeof(GrassShader));
-            g.Material.SetValue("fade_start", 90.0f);
-            g.Material.SetValue("fade_end", 120.0f);
-            tree.AddChild(g);*/
+            g.Material.SetValue("fade_start", 130.0f);
+            g.Material.SetValue("fade_end", 150.0f);
+            tree.AddChild(g);
 
         }
 
@@ -81,7 +81,7 @@ namespace ApexEngine.Plugins.PagingSystem
         {
 
             Node m = (Node)tree.Clone();
-           // m.AddController(new BillboardControl(this.cam));
+            m.AddController(new BillboardControl(this.cam));
                 Vector3f pieceLoc;
                     pieceLoc = translation;
 
@@ -90,7 +90,7 @@ namespace ApexEngine.Plugins.PagingSystem
                 m.SetLocalTranslation(pieceLoc);
 
                 m.SetLocalRotation(new Quaternion().SetFromAxis(Vector3f.UnitY, (float)RandomDouble(0, 359)));
-                m.SetLocalScale(new Vector3f((float)this.RandomDouble(0.35f, 0.55f)));
+                m.SetLocalScale(new Vector3f((float)this.RandomDouble(0.8f, 1.2f)));
                // ((Geometry)m).SetShader(typeof(DefaultShader));
             
 
@@ -116,7 +116,7 @@ namespace ApexEngine.Plugins.PagingSystem
 
                     Vector2f offset = new Vector2f(x * chunkSize, z * chunkSize);
                     Vector2f chunkLoc = origin.Add(offset).SubtractStore(max);
-                    GridTile tile = new GridTile(chunkLoc, chunkSize, chunkSize, chunkLoc.x, chunkLoc.y, 100f);
+                    GridTile tile = new GridTile(chunkLoc, chunkSize, chunkSize, chunkLoc.x, chunkLoc.y, 160);
                     Patch patch = new Patch((Node)parent, tile);
 
                     patch.translation = new Vector3f(chunkLoc.x, 0, chunkLoc.y);

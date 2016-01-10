@@ -14,7 +14,7 @@ namespace ApexEngine.Plugins.PagingSystem
         private PhysicsWorld physicsWorld;
         private Vector3f tmpOrigin = new Vector3f(), tmpDir = new Vector3f();
 
-        public GrassPopulator(PhysicsWorld physicsWorld, Camera cam) : base(cam, true)
+        public GrassPopulator(PhysicsWorld physicsWorld, Camera cam) : base(cam, true, 0.6f)
         {
             this.physicsWorld = physicsWorld;
         }
@@ -57,7 +57,7 @@ namespace ApexEngine.Plugins.PagingSystem
         {
             Geometry m = (Geometry)model.Clone();
             m.SetLocalTranslation(translation);
-            m.SetLocalScale(new Vector3f((float)this.RandomDouble(0.55, 0.9)));
+            m.SetLocalScale(new Vector3f((float)this.RandomDouble(0.25, 0.4)));
             return m;
         }
 

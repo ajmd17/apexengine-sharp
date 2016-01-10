@@ -29,10 +29,10 @@ namespace ApexEngine.Demos
 
         public override void Init()
         {
-            Environment.AmbientLight.Color.Set(0.1f, 0.2f, 0.4f, 1.0f);
-            Environment.FogColor.Set(0.2f, 0.3f, 0.45f, 1.0f);
-            Environment.DirectionalLight.Direction.Set(0.3f, 1, 0.3f).NormalizeStore();
-            Environment.DirectionalLight.Color.Set(1.0f, 0.8f, 0.5f, 1.0f);
+            Environment.AmbientLight.Color.Set(0.5f, 0.35f, 0.2f, 1.0f);
+            Environment.FogColor.Set(0.0f, 0.2f, 0.3f, 1.0f);
+            Environment.DirectionalLight.Direction.Set(1f, 1f, 1f).NormalizeStore();
+            Environment.DirectionalLight.Color.Set(1.0f, 0.7f, 0.4f, 1.0f);
             ((PerspectiveCamera)Camera).FieldOfView = 60;
             Camera.Far = 330;
 
@@ -68,7 +68,7 @@ namespace ApexEngine.Demos
             rootNode.AddChild(tree);*/
             
                         // Test an Apex Engine 3D model, with a material created in the material editor
-            /*
+            
                         // Test an OBJ model, with normal mapping
                         GameObject loadedObj = AssetManager.LoadModel(AssetManager.GetAppPath() + "\\models\\house.obj");
                         //  ((Node)loadedObj).GetChildGeom(0).Material.SetValue(Material.TEXTURE_HEIGHT, Texture.LoadTexture("C:\\Users\\User\\Pictures\\Brick_14_UV_H_CM_1_DISP.jpg"));
@@ -80,7 +80,7 @@ namespace ApexEngine.Demos
                         //  Rendering.Animation.AnimationController anim = (Rendering.Animation.AnimationController)loadedApx.GetController(typeof(Rendering.Animation.AnimationController));
                         //  anim.PlayAnimation(1);
 
-                        AddComponent(new ApexEngine.Terrain.SimplexTerrain.SimplexTerrainComponent(PhysicsWorld));
+                       /* AddComponent(new ApexEngine.Terrain.SimplexTerrain.SimplexTerrainComponent(PhysicsWorld));
                         //AddComponent(new ApexEngine.Terrain.ModelTerrain.ModelTerrainComponent(AssetManager.GetAppPath() + "\\models\\terrain", "terrain", "obj"));
 
                         Geometry quadGeom = new Geometry(Rendering.Util.MeshFactory.CreateCube(new Vector3f(-15f, 0.4f, -15f), new Vector3f(15f, 0.5f, 15f)));
@@ -230,24 +230,26 @@ namespace ApexEngine.Demos
 
         public void OnChunkAdd(Terrain.TerrainChunkNode chunk, EventArgs e)
         {
-            if (!chunk.HasController(typeof(GrassPopulator)))
+            /*if (!chunk.HasController(typeof(GrassPopulator)))
             {
                 GrassPopulator grass;
                 chunk.AddController(grass = new GrassPopulator(PhysicsWorld, cam));
-                grass.GenPatches(chunk, 5, 6);
+                grass.GenPatches(chunk, 6, 8);
             }
             if (!chunk.HasController(typeof(RockPopulator)))
             {
                 RockPopulator rock;
                 chunk.AddController(rock = new RockPopulator(PhysicsWorld, cam));
-                rock.GenPatches(chunk, 2, 2);
+                rock.GenPatches(chunk, 3, 3);
             }
             if (!chunk.HasController(typeof(TreePopulator)))
             {
                 TreePopulator tree;
                 chunk.AddController(tree = new TreePopulator(PhysicsWorld, cam));
-                tree.GenPatches(chunk, 3, 2);
-            }
+                tree.GenPatches(chunk, 3, 3);
+            }*/
+
+
         /*    
             for (int i = 0; i < chunk.hm.heights.Length; i++)
             {
