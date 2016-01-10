@@ -20,7 +20,7 @@ namespace ApexEngine.Plugins.PagingSystem
         private Vector3f tmpOrigin = new Vector3f(), tmpDir = new Vector3f();
 
         public TreePopulator(PhysicsWorld physicsWorld, Camera cam)
-            : base(cam, false, 0.5f)
+            : base(cam, false, 0.4f)
         {
             this.physicsWorld = physicsWorld;
         }
@@ -50,9 +50,10 @@ namespace ApexEngine.Plugins.PagingSystem
                 .SetProperty(Material.TEXTURE_DIFFUSE, true));*/
 
             tree = new Node();
+
             Geometry g = new Geometry(MeshFactory.CreateQuad());
             g.SetLocalScale(new Vector3f(15));
-            g.SetLocalTranslation(new Vector3f(0, 4, 0));
+            g.SetLocalTranslation(new Vector3f(0, 10, 0));
             g.Material.SetValue(Material.MATERIAL_CASTSHADOWS, 0);
             g.Material.SetValue(Material.MATERIAL_BLENDMODE, 1);
             g.Material.SetValue(Material.TEXTURE_DIFFUSE, AssetManager.LoadTexture(AssetManager.GetAppPath() + "\\models\\tree\\pine\\billboard.png"));
@@ -60,8 +61,8 @@ namespace ApexEngine.Plugins.PagingSystem
             g.Material.SetValue(Material.MATERIAL_ALPHADISCARD, 0.5f);
             g.Material.Bucket = RenderManager.Bucket.Transparent;
             g.SetShader(typeof(GrassShader));
-            g.Material.SetValue("fade_start", 130.0f);
-            g.Material.SetValue("fade_end", 150.0f);
+            g.Material.SetValue("fade_start", 250.0f);
+            g.Material.SetValue("fade_end", 260.0f);
             tree.AddChild(g);
 
         }
@@ -116,7 +117,7 @@ namespace ApexEngine.Plugins.PagingSystem
 
                     Vector2f offset = new Vector2f(x * chunkSize, z * chunkSize);
                     Vector2f chunkLoc = origin.Add(offset).SubtractStore(max);
-                    GridTile tile = new GridTile(chunkLoc, chunkSize, chunkSize, chunkLoc.x, chunkLoc.y, 160);
+                    GridTile tile = new GridTile(chunkLoc, chunkSize, chunkSize, chunkLoc.x, chunkLoc.y, 270);
                     Patch patch = new Patch((Node)parent, tile);
 
                     patch.translation = new Vector3f(chunkLoc.x, 0, chunkLoc.y);

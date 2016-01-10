@@ -20,6 +20,8 @@ namespace ApexEngine.Terrain.SimplexTerrain
         private bool biomesEnabled = false;
 
 
+        private WorleyNoise wn;
+
         //libnoise
         IModule module;
         Perlin terrainTopography;
@@ -32,6 +34,8 @@ namespace ApexEngine.Terrain.SimplexTerrain
 
         public SimplexTerrainComponent(PhysicsWorld physicsWorld) : base(physicsWorld)
         {
+
+            wn = new WorleyNoise();
 
 
            module = new FastRidgedMultifractal();
@@ -138,6 +142,11 @@ namespace ApexEngine.Terrain.SimplexTerrain
         public double GetTopography(double x, double y)
         {
             return (terrainTopography.GetValue(x, y, 10) + 1) / 2.0;
+        }
+
+        public float GetWorleyNoise(float x, float y)
+        {
+            return wn.Get2D(x, y);
         }
 
 

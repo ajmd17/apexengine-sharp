@@ -112,7 +112,7 @@ void main()
 		reflection = vec3(fresnel);
 		
 		#ifdef ENV_MAP
-		float mipLevel = Material_Roughness * 7.0;
+		float mipLevel = Material_Roughness * 5.0;
 		vec3 cubeMap = textureCube(Material_EnvironmentMap, ReflectionVector(n, v_position.xyz, Apex_CameraPosition), mipLevel).rgb;
 		reflection *= cubeMap;
 		#endif

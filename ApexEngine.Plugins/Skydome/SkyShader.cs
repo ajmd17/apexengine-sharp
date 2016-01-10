@@ -15,7 +15,7 @@ namespace ApexEngine.Plugins.Skydome
 
         private const float PI = 3.141592654f;
 
-        private readonly Color4f sunColor = new Color4f(0.1f, 0.08f, 0.06f, 1.0f);
+        private readonly Color4f sunColor = new Color4f(1f, 0.5f, 0.1f, 1.0f);
         private int nSamples;           // Number of sample rays to use in integral equation
         private float fSamples;         // float version of the above
         private float Kr;               // Rayleigh scattering constant
@@ -66,7 +66,7 @@ namespace ApexEngine.Plugins.Skydome
             Kr = 0.0025f;
             Km = 0.0015f;
             ESun = 100f;
-            exposure = 2f;
+            exposure = 3f;
             wavelength.Set(0.731f, 0.612f, 0.455f);
 
             G = -0.990f;

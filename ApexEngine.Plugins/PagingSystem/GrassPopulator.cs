@@ -14,7 +14,7 @@ namespace ApexEngine.Plugins.PagingSystem
         private PhysicsWorld physicsWorld;
         private Vector3f tmpOrigin = new Vector3f(), tmpDir = new Vector3f();
 
-        public GrassPopulator(PhysicsWorld physicsWorld, Camera cam) : base(cam, true, 0.6f)
+        public GrassPopulator(PhysicsWorld physicsWorld, Camera cam) : base(cam, true, 0.65f)
         {
             this.physicsWorld = physicsWorld;
         }

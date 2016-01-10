@@ -61,6 +61,7 @@
     <Compile Include="Terrain\SimplexTerrain\SimplexTerrainChunkNode.cs" />
     <Compile Include="Terrain\SimplexTerrain\SimplexTerrainComponent.cs" />
     <Compile Include="Terrain\SimplexTerrain\SimplexTerrainMesh.cs" />
+    <Compile Include="Terrain\SimplexTerrain\WorleyNoise.cs" />
     <Compile Include="Terrain\TerrainChunkNode.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

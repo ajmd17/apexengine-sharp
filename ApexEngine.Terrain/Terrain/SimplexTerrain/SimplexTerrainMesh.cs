@@ -91,7 +91,7 @@ namespace ApexEngine.Terrain.SimplexTerrain
                     if (this.generateBiomes)
                     {
 
-                        biomeHeight = (float)(parent.getSimplexNoise(((double)_y*0.4), ((double)_x*0.4)));
+                        biomeHeight = (float)(parent.getSimplexNoise(((double)_y*0.6), ((double)_x*0.6)));
 
 
 
@@ -102,7 +102,7 @@ namespace ApexEngine.Terrain.SimplexTerrain
 
                         terrainHeight = (float)parent.getSimplexNoise(_x, _y);
 
-                        float mountainHeight = (float)parent.getNoise(_x*0.1f, _y*0.1f);
+                        float mountainHeight = (float)parent.getNoise(_x*0.05f, _y*0.05f) * parent.GetWorleyNoise(_x*0.008f, _y*0.008f);
 
 
 
@@ -125,8 +125,7 @@ namespace ApexEngine.Terrain.SimplexTerrain
                         biomes[heightIndex] = biome;
 
 
-
-                        heights[heightIndex] = MathUtil.Lerp(terrainHeight*2, mountainHeight*70f, MathUtil.Clamp(biomeHeight, 0.0f, 1.0f));
+                        heights[heightIndex] = MathUtil.Lerp(terrainHeight * 10, mountainHeight * 150f, MathUtil.Clamp(biomeHeight, 0.0f, 1.0f));
                     }
                     else
                     {

@@ -29,8 +29,8 @@ namespace ApexEngine.Demos
 
         public override void Init()
         {
-            Environment.AmbientLight.Color.Set(0.5f, 0.35f, 0.2f, 1.0f);
-            Environment.FogColor.Set(0.0f, 0.2f, 0.3f, 1.0f);
+            Environment.AmbientLight.Color.Set(0.2f, 0.25f, 0.3f, 1.0f);
+            Environment.FogColor.Set(0.2f, 0.25f, 0.3f, 1.0f);
             Environment.DirectionalLight.Direction.Set(1f, 1f, 1f).NormalizeStore();
             Environment.DirectionalLight.Color.Set(1.0f, 0.7f, 0.4f, 1.0f);
             ((PerspectiveCamera)Camera).FieldOfView = 60;
@@ -71,9 +71,8 @@ namespace ApexEngine.Demos
             
                         // Test an OBJ model, with normal mapping
                         GameObject loadedObj = AssetManager.LoadModel(AssetManager.GetAppPath() + "\\models\\house.obj");
-                        //  ((Node)loadedObj).GetChildGeom(0).Material.SetValue(Material.TEXTURE_HEIGHT, Texture.LoadTexture("C:\\Users\\User\\Pictures\\Brick_14_UV_H_CM_1_DISP.jpg"));
-                        rootNode.AddChild(loadedObj);
-                        PhysicsWorld.AddObject(loadedObj, 0.0f);
+                      //  rootNode.AddChild(loadedObj);
+                      //  PhysicsWorld.AddObject(loadedObj, 0.0f);
 
                         // rootNode.AddChild(new Geometry(Rendering.Util.MeshFactory.CreateCube(new Vector3f(-1,-1,-1), new Vector3f(1,1,1))));
                         //  loadedObj.SetLocalScale(new Math.Vector3f(2, 0.5f, 2f));
@@ -100,7 +99,7 @@ namespace ApexEngine.Demos
 
 
 
-           /* Node loadedApx = (Node)AssetManager.LoadModel(AssetManager.GetAppPath() + "\\models\\mitsuba.obj");
+                        Node loadedApx = (Node)AssetManager.LoadModel(AssetManager.GetAppPath() + "\\models\\sphere16.obj");//"\\models\\mitsuba.obj");
             loadedApx.SetLocalTranslation(new Math.Vector3f(0f, 0.0f, 0));
 
             Cubemap skybox = Cubemap.LoadCubemap(new string[] { AssetManager.GetAppPath() + "\\textures\\lostvalley\\lostvalley_right.jpg",
@@ -110,7 +109,7 @@ namespace ApexEngine.Demos
                                                                  AssetManager.GetAppPath() + "\\textures\\lostvalley\\lostvalley_front.jpg",
                                                                  AssetManager.GetAppPath() + "\\textures\\lostvalley\\lostvalley_back.jpg" });
             
-    
+    /*
             for (int x = 0; x < 5; x++)
             {
                 for (int z = 0; z < 5; z++)
@@ -133,7 +132,54 @@ namespace ApexEngine.Demos
                     rootNode.AddChild(thing);
                 }
             }*/
-            
+            for (int x = 0; x < 10; x++)
+            {
+                    Node thing = (Node)loadedApx.Clone();
+                    thing.SetLocalTranslation(new Vector3f(x * 3, 2, 0));
+                    thing.GetChildGeom(0).Material.SetValue(Material.COLOR_DIFFUSE, new Color4f(1.0f, 0.0f, 0.0f, 1.0f));
+                    thing.GetChildGeom(0).Material.SetValue(Material.TEXTURE_ENV, skybox);
+                    thing.GetChildGeom(0).Material.SetValue(Material.TEXTURE_NORMAL, null);
+                    thing.GetChildGeom(0).Material.SetValue(Material.SHININESS, (x + 1) / 10.0f);
+                    thing.GetChildGeom(0).Material.SetValue(Material.ROUGHNESS, (x + 1) / 10.0f);
+                    thing.GetChildGeom(0).UpdateShaderProperties();
+                    rootNode.AddChild(thing);
+            }
+            for (int x = 0; x < 10; x++)
+            {
+                Node thing = (Node)loadedApx.Clone();
+                thing.SetLocalTranslation(new Vector3f(x * 3, 2, 3));
+                thing.GetChildGeom(0).Material.SetValue(Material.COLOR_DIFFUSE, new Color4f(0.0f, 1.0f, 0.0f, 1.0f));
+                thing.GetChildGeom(0).Material.SetValue(Material.TEXTURE_ENV, skybox);
+                thing.GetChildGeom(0).Material.SetValue(Material.TEXTURE_NORMAL, null);
+                thing.GetChildGeom(0).Material.SetValue(Material.SHININESS, (x + 1) / 10.0f);
+                thing.GetChildGeom(0).Material.SetValue(Material.ROUGHNESS, (x + 1) / 10.0f);
+                thing.GetChildGeom(0).UpdateShaderProperties();
+                rootNode.AddChild(thing);
+            }
+            for (int x = 0; x < 10; x++)
+            {
+                Node thing = (Node)loadedApx.Clone();
+                thing.SetLocalTranslation(new Vector3f(x * 3, 2, 6));
+                thing.GetChildGeom(0).Material.SetValue(Material.COLOR_DIFFUSE, new Color4f(0.0f, 0.0f, 1.0f, 1.0f));
+                thing.GetChildGeom(0).Material.SetValue(Material.TEXTURE_ENV, skybox);
+                thing.GetChildGeom(0).Material.SetValue(Material.TEXTURE_NORMAL, null);
+                thing.GetChildGeom(0).Material.SetValue(Material.SHININESS, (x + 1) / 10.0f);
+                thing.GetChildGeom(0).Material.SetValue(Material.ROUGHNESS, (x + 1) / 10.0f);
+                thing.GetChildGeom(0).UpdateShaderProperties();
+                rootNode.AddChild(thing);
+            }
+            for (int x = 0; x < 10; x++)
+            {
+                Node thing = (Node)loadedApx.Clone();
+                thing.SetLocalTranslation(new Vector3f(x * 3, 2, 9));
+                thing.GetChildGeom(0).Material.SetValue(Material.COLOR_DIFFUSE, new Color4f(1.0f, 1.0f, 1.0f, 1.0f));
+                thing.GetChildGeom(0).Material.SetValue(Material.TEXTURE_ENV, skybox);
+                thing.GetChildGeom(0).Material.SetValue(Material.TEXTURE_NORMAL, null);
+                thing.GetChildGeom(0).Material.SetValue(Material.SHININESS, (x + 1) / 10.0f);
+                thing.GetChildGeom(0).Material.SetValue(Material.ROUGHNESS, (x + 1) / 10.0f);
+                thing.GetChildGeom(0).UpdateShaderProperties();
+                rootNode.AddChild(thing);
+            }
 
 
 
@@ -222,15 +268,15 @@ namespace ApexEngine.Demos
             serv.Connect(2222);*/
 
 
-            Geometry quadGeom = new Geometry(MeshFactory.CreateQuad());
-            quadGeom.AddController(new BillboardControl(cam));
-            quadGeom.SetLocalTranslation(new Vector3f(5, 5, 5));
-            rootNode.AddChild(quadGeom);
+          //  Geometry quadGeom = new Geometry(MeshFactory.CreateQuad());
+         //   quadGeom.AddController(new BillboardControl(cam));
+         //   quadGeom.SetLocalTranslation(new Vector3f(5, 5, 5));
+        //    rootNode.AddChild(quadGeom);
         }
 
         public void OnChunkAdd(Terrain.TerrainChunkNode chunk, EventArgs e)
         {
-            /*if (!chunk.HasController(typeof(GrassPopulator)))
+            if (!chunk.HasController(typeof(GrassPopulator)))
             {
                 GrassPopulator grass;
                 chunk.AddController(grass = new GrassPopulator(PhysicsWorld, cam));
@@ -246,8 +292,8 @@ namespace ApexEngine.Demos
             {
                 TreePopulator tree;
                 chunk.AddController(tree = new TreePopulator(PhysicsWorld, cam));
-                tree.GenPatches(chunk, 3, 3);
-            }*/
+                tree.GenPatches(chunk, 2, 2);
+            }
 
 
         /*    
