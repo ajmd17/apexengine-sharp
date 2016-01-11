@@ -15,7 +15,7 @@ namespace ApexEngine.Plugins.Skydome
 
         private const float PI = 3.141592654f;
 
-        private readonly Color4f sunColor = new Color4f(1f, 0.5f, 0.1f, 1.0f);
+        private readonly Color4f sunColor = new Color4f(1f, 0.7f, 0.3f, 1.0f);
         private int nSamples;           // Number of sample rays to use in integral equation
         private float fSamples;         // float version of the above
         private float Kr;               // Rayleigh scattering constant
@@ -103,6 +103,19 @@ namespace ApexEngine.Plugins.Skydome
 
             skyTransform.SetTranslation(cam.Translation);
             skyTransform.SetScale(skydomeScale);
+
+            if (currentMaterial != null)
+            {
+                Texture noiseMap;
+                if ((noiseMap = currentMaterial.GetTexture("noise_map")) != null)
+                {
+                    Texture.ActiveTextureSlot(0);
+                    noiseMap.Use();
+                    SetUniform("u_noiseMap", 0);
+                }
+            }
+
+            SetUniform("u_globalTime", environment.ElapsedTime);
             
             SetUniform("u_world", skyTransform.GetMatrix());
             SetUniform("u_view", cam.ViewMatrix);

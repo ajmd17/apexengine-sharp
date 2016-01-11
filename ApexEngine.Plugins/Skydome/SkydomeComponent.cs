@@ -14,10 +14,12 @@ namespace ApexEngine.Plugins.Skydome
         Geometry model;
         public override void Init()
         {
+            Texture noiseMap = AssetManager.LoadTexture(AssetManager.GetAppPath() + "\\textures\\perlin.jpg");
             model = ((Node)AssetManager.LoadModel(AssetManager.GetAppPath() + "\\models\\dome.obj")).GetChildGeom(0);
             model.Material.SetValue(Material.MATERIAL_FACETOCULL, 1);
             model.Material.SetValue(Material.MATERIAL_DEPTHMASK, false);
             model.Material.SetValue(Material.MATERIAL_DEPTHTEST, false);
+            model.Material.SetValue("noise_map", noiseMap);
             model.Material.Bucket = RenderManager.Bucket.Sky;
             model.SetShader(typeof(SkyShader));
             model.SetLocalScale(new Math.Vector3f(100f));

@@ -1,4 +1,11 @@
 #version 330
+attribute vec3 a_position;
+attribute vec2 a_texcoord0;
+attribute vec3 a_normal;
+
+varying vec2 v_texCoord0;
+varying vec3 v_normal;
+varying vec3 v_position;
 
 uniform mat4 u_view;
 uniform mat4 u_proj;
@@ -21,7 +28,6 @@ uniform float fScaleDepth;	// The scale depth (i.e. the altitude at which the at
 uniform float fScaleOverScaleDepth; // fScale / fScaleDepth
 uniform int nSamples;
 uniform float fSamples;
-attribute vec3 a_position;
 varying vec3 v3Direction;
 varying vec4 v4RayleighColor;
 varying vec4 v4MieColor;
@@ -34,6 +40,11 @@ float scale(float fCos)
 
 void main(void)
 {
+
+	v_texCoord0 = a_texcoord0;
+	v_position = a_position;
+	v_normal = a_normal;
+
         gl_Position = u_proj *  u_view * u_world *vec4(a_position, 1.0);
 
         // Get the ray from the camera to the vertex, and its length (which is the far point of the ray passing through the atmosphere)
@@ -71,7 +82,7 @@ void main(void)
     v4MieColor = vec4(fKmESun,fKmESun,fKmESun, 1.0);
     //v4RayleighColor = vec4((v3InvWavelength * fKrESun * sun), 1.0);
     
-    v4RayleighColor = vec4(mix(twilight.rgb, colorDay.rgb, a_position.y*2.0), 1.0);//*sun;
+    v4RayleighColor = vec4(mix(twilight.rgb, colorDay.rgb, clamp(a_position.y, 0.0, 1.0)), 1.0);//*sun;
     v4RayleighColor *= clamp(v3LightPos.y*2.0+0.5, 0.2, 0.8);
     
 	v3Direction = v3CameraPos - v3Pos;

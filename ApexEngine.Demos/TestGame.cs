@@ -29,9 +29,9 @@ namespace ApexEngine.Demos
 
         public override void Init()
         {
-            Environment.AmbientLight.Color.Set(0.2f, 0.25f, 0.3f, 1.0f);
-            Environment.FogColor.Set(0.2f, 0.25f, 0.3f, 1.0f);
-            Environment.DirectionalLight.Direction.Set(1f, 1f, 1f).NormalizeStore();
+            Environment.AmbientLight.Color.Set(0.1f, 0.2f, 0.3f, 1.0f);
+            Environment.FogColor.Set(0.1f, 0.2f, 0.3f, 1.0f);
+            Environment.DirectionalLight.Direction.Set(0.3f, 1f,0.3f).NormalizeStore();
             Environment.DirectionalLight.Color.Set(1.0f, 0.7f, 0.4f, 1.0f);
             ((PerspectiveCamera)Camera).FieldOfView = 60;
             Camera.Far = 330;
@@ -280,7 +280,7 @@ namespace ApexEngine.Demos
             {
                 GrassPopulator grass;
                 chunk.AddController(grass = new GrassPopulator(PhysicsWorld, cam));
-                grass.GenPatches(chunk, 6, 8);
+                grass.GenPatches(chunk, 5, 12);
             }
             if (!chunk.HasController(typeof(RockPopulator)))
             {
